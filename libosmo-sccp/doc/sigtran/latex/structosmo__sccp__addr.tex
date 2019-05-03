@@ -1,0 +1,91 @@
+\section{osmo\+\_\+sccp\+\_\+addr Struct Reference}
+\label{structosmo__sccp__addr}\index{osmo\+\_\+sccp\+\_\+addr@{osmo\+\_\+sccp\+\_\+addr}}
+
+
+{\ttfamily \#include $<$sccp\+\_\+sap.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t {\bf presence}
+\item 
+enum {\bf osmo\+\_\+sccp\+\_\+routing\+\_\+ind} {\bf ri}
+\item 
+struct {\bf osmo\+\_\+sccp\+\_\+gt} {\bf gt}
+\item 
+uint32\+\_\+t {\bf pc}
+\item 
+uint32\+\_\+t {\bf ssn}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>struct in\_addr {\bf v4}\\
+\>struct in6\_addr {\bf v6}\\
+\} {\bf ip}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{osmo\+\_\+sccp\+\_\+addr@{osmo\+\_\+sccp\+\_\+addr}!gt@{gt}}
+\index{gt@{gt}!osmo\+\_\+sccp\+\_\+addr@{osmo\+\_\+sccp\+\_\+addr}}
+\subsubsection[{gt}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+gt} osmo\+\_\+sccp\+\_\+addr\+::gt}\label{structosmo__sccp__addr_a9db5ad9cb9b30be37687ce5452dcdfe5}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+addr\+\_\+cmp(), osmo\+\_\+sccp\+\_\+addr\+\_\+dump(), osmo\+\_\+sccp\+\_\+addr\+\_\+encode(), osmo\+\_\+sccp\+\_\+addr\+\_\+name(), osmo\+\_\+sccp\+\_\+addr\+\_\+parse(), osmo\+\_\+sccp\+\_\+check\+\_\+addr(), sua\+\_\+addr\+\_\+parse\+\_\+part(), write\+\_\+sccp\+\_\+addressbook(), and xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr().
+
+\index{osmo\+\_\+sccp\+\_\+addr@{osmo\+\_\+sccp\+\_\+addr}!ip@{ip}}
+\index{ip@{ip}!osmo\+\_\+sccp\+\_\+addr@{osmo\+\_\+sccp\+\_\+addr}}
+\subsubsection[{ip}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   osmo\+\_\+sccp\+\_\+addr\+::ip}\label{structosmo__sccp__addr_a0d3d9e92848c7fd65c131d3d9f3386df}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+addr\+\_\+cmp(), osmo\+\_\+sccp\+\_\+addr\+\_\+dump(), osmo\+\_\+sccp\+\_\+addr\+\_\+name(), sua\+\_\+addr\+\_\+parse\+\_\+part(), and xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr().
+
+\index{osmo\+\_\+sccp\+\_\+addr@{osmo\+\_\+sccp\+\_\+addr}!pc@{pc}}
+\index{pc@{pc}!osmo\+\_\+sccp\+\_\+addr@{osmo\+\_\+sccp\+\_\+addr}}
+\subsubsection[{pc}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t osmo\+\_\+sccp\+\_\+addr\+::pc}\label{structosmo__sccp__addr_a06b7f9d5c79fc812b02523b23d6b85b9}
+
+
+Referenced by D\+E\+F\+U\+N(), gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua(), gen\+\_\+ret\+\_\+msg(), osmo\+\_\+sccp\+\_\+addr\+\_\+cmp(), osmo\+\_\+sccp\+\_\+addr\+\_\+dump(), osmo\+\_\+sccp\+\_\+addr\+\_\+encode(), osmo\+\_\+sccp\+\_\+addr\+\_\+name(), osmo\+\_\+sccp\+\_\+addr\+\_\+parse(), osmo\+\_\+sccp\+\_\+make\+\_\+addr\+\_\+pc\+\_\+ssn(), osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id(), patch\+\_\+sccp\+\_\+with\+\_\+pc(), sccp\+\_\+find\+\_\+user(), sclc\+\_\+rx\+\_\+cldr(), sclc\+\_\+rx\+\_\+cldt(), scoc\+\_\+fsm\+\_\+idle(), scrc\+\_\+local\+\_\+out\+\_\+common(), scrc\+\_\+node\+\_\+2(), scrc\+\_\+node\+\_\+6(), scrc\+\_\+translate\+\_\+node\+\_\+9(), sua\+\_\+addr\+\_\+parse\+\_\+part(), write\+\_\+sccp\+\_\+addressbook(), and xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr().
+
+\index{osmo\+\_\+sccp\+\_\+addr@{osmo\+\_\+sccp\+\_\+addr}!presence@{presence}}
+\index{presence@{presence}!osmo\+\_\+sccp\+\_\+addr@{osmo\+\_\+sccp\+\_\+addr}}
+\subsubsection[{presence}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t osmo\+\_\+sccp\+\_\+addr\+::presence}\label{structosmo__sccp__addr_acd24f97487b7e3beb2f7da2619919ac6}
+
+
+Referenced by D\+E\+F\+U\+N(), gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua(), gen\+\_\+ret\+\_\+msg(), osmo\+\_\+sccp\+\_\+addr\+\_\+cmp(), osmo\+\_\+sccp\+\_\+addr\+\_\+dump(), osmo\+\_\+sccp\+\_\+addr\+\_\+encode(), osmo\+\_\+sccp\+\_\+addr\+\_\+name(), osmo\+\_\+sccp\+\_\+addr\+\_\+parse(), osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp(), osmo\+\_\+sccp\+\_\+addr\+\_\+set\+\_\+ssn(), osmo\+\_\+sccp\+\_\+check\+\_\+addr(), osmo\+\_\+sccp\+\_\+make\+\_\+addr\+\_\+pc\+\_\+ssn(), patch\+\_\+sccp\+\_\+with\+\_\+pc(), sccp\+\_\+find\+\_\+user(), scoc\+\_\+fsm\+\_\+idle(), scrc\+\_\+local\+\_\+out\+\_\+common(), sua\+\_\+addr\+\_\+parse\+\_\+part(), write\+\_\+sccp\+\_\+addressbook(), xua\+\_\+gen\+\_\+msg\+\_\+co(), and xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr().
+
+\index{osmo\+\_\+sccp\+\_\+addr@{osmo\+\_\+sccp\+\_\+addr}!ri@{ri}}
+\index{ri@{ri}!osmo\+\_\+sccp\+\_\+addr@{osmo\+\_\+sccp\+\_\+addr}}
+\subsubsection[{ri}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf osmo\+\_\+sccp\+\_\+routing\+\_\+ind} osmo\+\_\+sccp\+\_\+addr\+::ri}\label{structosmo__sccp__addr_a8847f7f8d8318cfa70db65670edb6182}
+
+
+Referenced by D\+E\+F\+U\+N(), gen\+\_\+ret\+\_\+msg(), osmo\+\_\+sccp\+\_\+addr\+\_\+dump(), osmo\+\_\+sccp\+\_\+addr\+\_\+encode(), osmo\+\_\+sccp\+\_\+addr\+\_\+name(), osmo\+\_\+sccp\+\_\+addr\+\_\+parse(), osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp(), osmo\+\_\+sccp\+\_\+check\+\_\+addr(), sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg(), scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua(), scrc\+\_\+translate\+\_\+node\+\_\+9(), sua\+\_\+addr\+\_\+parse\+\_\+part(), write\+\_\+sccp\+\_\+addressbook(), and xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr().
+
+\index{osmo\+\_\+sccp\+\_\+addr@{osmo\+\_\+sccp\+\_\+addr}!ssn@{ssn}}
+\index{ssn@{ssn}!osmo\+\_\+sccp\+\_\+addr@{osmo\+\_\+sccp\+\_\+addr}}
+\subsubsection[{ssn}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t osmo\+\_\+sccp\+\_\+addr\+::ssn}\label{structosmo__sccp__addr_a7862f57faa882bb3e69cc88fdacb98a0}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+addr\+\_\+cmp(), osmo\+\_\+sccp\+\_\+addr\+\_\+dump(), osmo\+\_\+sccp\+\_\+addr\+\_\+encode(), osmo\+\_\+sccp\+\_\+addr\+\_\+name(), osmo\+\_\+sccp\+\_\+addr\+\_\+parse(), osmo\+\_\+sccp\+\_\+addr\+\_\+set\+\_\+ssn(), osmo\+\_\+sccp\+\_\+make\+\_\+addr\+\_\+pc\+\_\+ssn(), sccp\+\_\+find\+\_\+user(), sclc\+\_\+rx\+\_\+cldr(), sclc\+\_\+rx\+\_\+cldt(), scrc\+\_\+node\+\_\+6(), sua\+\_\+addr\+\_\+parse\+\_\+part(), vty\+\_\+show\+\_\+connection(), write\+\_\+sccp\+\_\+addressbook(), and xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr().
+
+\index{osmo\+\_\+sccp\+\_\+addr@{osmo\+\_\+sccp\+\_\+addr}!v4@{v4}}
+\index{v4@{v4}!osmo\+\_\+sccp\+\_\+addr@{osmo\+\_\+sccp\+\_\+addr}}
+\subsubsection[{v4}]{\setlength{\rightskip}{0pt plus 5cm}struct in\+\_\+addr osmo\+\_\+sccp\+\_\+addr\+::v4}\label{structosmo__sccp__addr_a0f8e855dab0a6d9f058fc54d7584086e}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+addr\+\_\+cmp(), osmo\+\_\+sccp\+\_\+addr\+\_\+dump(), osmo\+\_\+sccp\+\_\+addr\+\_\+name(), sua\+\_\+addr\+\_\+parse\+\_\+part(), and xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr().
+
+\index{osmo\+\_\+sccp\+\_\+addr@{osmo\+\_\+sccp\+\_\+addr}!v6@{v6}}
+\index{v6@{v6}!osmo\+\_\+sccp\+\_\+addr@{osmo\+\_\+sccp\+\_\+addr}}
+\subsubsection[{v6}]{\setlength{\rightskip}{0pt plus 5cm}struct in6\+\_\+addr osmo\+\_\+sccp\+\_\+addr\+::v6}\label{structosmo__sccp__addr_af7e421df8b698ac40887acc885bec730}
+
+
+Referenced by D\+E\+F\+U\+N(), and osmo\+\_\+sccp\+\_\+addr\+\_\+cmp().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/osmocom/sigtran/{\bf sccp\+\_\+sap.\+h}\end{DoxyCompactItemize}

@@ -1,0 +1,71 @@
+\section{xua\+\_\+common\+\_\+hdr Struct Reference}
+\label{structxua__common__hdr}\index{xua\+\_\+common\+\_\+hdr@{xua\+\_\+common\+\_\+hdr}}
+
+
+{\ttfamily \#include $<$xua\+\_\+types.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t {\bf version}
+\item 
+uint8\+\_\+t {\bf spare}
+\item 
+uint8\+\_\+t {\bf msg\+\_\+class}
+\item 
+uint8\+\_\+t {\bf msg\+\_\+type}
+\item 
+uint32\+\_\+t {\bf msg\+\_\+length}
+\item 
+uint8\+\_\+t {\bf data} [0]
+\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{xua\+\_\+common\+\_\+hdr@{xua\+\_\+common\+\_\+hdr}!data@{data}}
+\index{data@{data}!xua\+\_\+common\+\_\+hdr@{xua\+\_\+common\+\_\+hdr}}
+\subsubsection[{data}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t xua\+\_\+common\+\_\+hdr\+::data[0]}\label{structxua__common__hdr_a23382add9ec243b107ce804b9ddeb2d0}
+
+
+Referenced by m3ua\+\_\+rx\+\_\+msg(), and sua\+\_\+rx\+\_\+msg().
+
+\index{xua\+\_\+common\+\_\+hdr@{xua\+\_\+common\+\_\+hdr}!msg\+\_\+class@{msg\+\_\+class}}
+\index{msg\+\_\+class@{msg\+\_\+class}!xua\+\_\+common\+\_\+hdr@{xua\+\_\+common\+\_\+hdr}}
+\subsubsection[{msg\+\_\+class}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class}\label{structxua__common__hdr_ae96db82ef3dc823ea0ffa7b9c40b7c4c}
+
+
+Referenced by data\+\_\+hdr\+\_\+from\+\_\+m3ua(), hmdt\+\_\+message\+\_\+for\+\_\+distribution(), m3ua\+\_\+rx\+\_\+msg(), m3ua\+\_\+to\+\_\+msg(), msgb\+\_\+push\+\_\+m3ua\+\_\+hdr(), osmo\+\_\+sua\+\_\+to\+\_\+sccp(), sccp\+\_\+sclc\+\_\+rx\+\_\+from\+\_\+scrc(), sua\+\_\+is\+\_\+connectionless(), sua\+\_\+is\+\_\+cr(), sua\+\_\+rx\+\_\+cl(), sua\+\_\+rx\+\_\+co(), sua\+\_\+rx\+\_\+msg(), sua\+\_\+to\+\_\+msg(), xua\+\_\+dialect\+\_\+check\+\_\+all\+\_\+mand\+\_\+ies(), xua\+\_\+hdr\+\_\+dump(), xua\+\_\+msg\+\_\+dump(), and xua\+\_\+msg\+\_\+event\+\_\+map().
+
+\index{xua\+\_\+common\+\_\+hdr@{xua\+\_\+common\+\_\+hdr}!msg\+\_\+length@{msg\+\_\+length}}
+\index{msg\+\_\+length@{msg\+\_\+length}!xua\+\_\+common\+\_\+hdr@{xua\+\_\+common\+\_\+hdr}}
+\subsubsection[{msg\+\_\+length}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t xua\+\_\+common\+\_\+hdr\+::msg\+\_\+length}\label{structxua__common__hdr_a1f9f74caadef5ee7f18ef42b66c8046e}
+
+
+Referenced by msgb\+\_\+push\+\_\+m3ua\+\_\+hdr(), xua\+\_\+from\+\_\+msg(), xua\+\_\+msg\+\_\+dump(), and xua\+\_\+to\+\_\+msg().
+
+\index{xua\+\_\+common\+\_\+hdr@{xua\+\_\+common\+\_\+hdr}!msg\+\_\+type@{msg\+\_\+type}}
+\index{msg\+\_\+type@{msg\+\_\+type}!xua\+\_\+common\+\_\+hdr@{xua\+\_\+common\+\_\+hdr}}
+\subsubsection[{msg\+\_\+type}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type}\label{structxua__common__hdr_a9496383cf791c651c616c873014dd368}
+
+
+Referenced by data\+\_\+hdr\+\_\+from\+\_\+m3ua(), hmdt\+\_\+message\+\_\+for\+\_\+distribution(), m3ua\+\_\+rx\+\_\+mgmt(), m3ua\+\_\+rx\+\_\+rkm(), m3ua\+\_\+rx\+\_\+xfer(), msgb\+\_\+push\+\_\+m3ua\+\_\+hdr(), osmo\+\_\+sua\+\_\+to\+\_\+sccp(), sccp\+\_\+sclc\+\_\+rx\+\_\+from\+\_\+scrc(), sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), sccp\+\_\+scoc\+\_\+rx\+\_\+from\+\_\+scrc(), sccp\+\_\+scoc\+\_\+rx\+\_\+inval\+\_\+opc(), sccp\+\_\+scoc\+\_\+rx\+\_\+inval\+\_\+src\+\_\+ref(), sccp\+\_\+scoc\+\_\+rx\+\_\+unass\+\_\+local\+\_\+ref(), sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg(), sccp\+\_\+scrc\+\_\+rx\+\_\+scoc\+\_\+conn\+\_\+msg(), sua\+\_\+is\+\_\+cr(), sua\+\_\+rx\+\_\+cl(), sua\+\_\+rx\+\_\+co(), sua\+\_\+rx\+\_\+mgmt(), xua\+\_\+dialect\+\_\+check\+\_\+all\+\_\+mand\+\_\+ies(), xua\+\_\+hdr\+\_\+dump(), and xua\+\_\+msg\+\_\+event\+\_\+map().
+
+\index{xua\+\_\+common\+\_\+hdr@{xua\+\_\+common\+\_\+hdr}!spare@{spare}}
+\index{spare@{spare}!xua\+\_\+common\+\_\+hdr@{xua\+\_\+common\+\_\+hdr}}
+\subsubsection[{spare}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t xua\+\_\+common\+\_\+hdr\+::spare}\label{structxua__common__hdr_a97d65c9177a7fec19bb04ccb84503ad8}
+
+
+Referenced by msgb\+\_\+push\+\_\+m3ua\+\_\+hdr(), and xua\+\_\+to\+\_\+msg().
+
+\index{xua\+\_\+common\+\_\+hdr@{xua\+\_\+common\+\_\+hdr}!version@{version}}
+\index{version@{version}!xua\+\_\+common\+\_\+hdr@{xua\+\_\+common\+\_\+hdr}}
+\subsubsection[{version}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t xua\+\_\+common\+\_\+hdr\+::version}\label{structxua__common__hdr_ada0be834eb42fecb964b6383980b1d6d}
+
+
+Referenced by m3ua\+\_\+gen\+\_\+error(), m3ua\+\_\+rx\+\_\+msg(), msgb\+\_\+push\+\_\+m3ua\+\_\+hdr(), peer\+\_\+send\+\_\+error(), sua\+\_\+gen\+\_\+error(), sua\+\_\+rx\+\_\+msg(), xua\+\_\+from\+\_\+msg(), xua\+\_\+msg\+\_\+dump(), and xua\+\_\+to\+\_\+msg().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/osmocom/sigtran/{\bf xua\+\_\+types.\+h}\end{DoxyCompactItemize}

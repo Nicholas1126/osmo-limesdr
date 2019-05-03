@@ -1,0 +1,88 @@
+\section{src/xua\+\_\+as\+\_\+fsm.h File Reference}
+\label{xua__as__fsm_8h}\index{src/xua\+\_\+as\+\_\+fsm.\+h@{src/xua\+\_\+as\+\_\+fsm.\+h}}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf xua\+\_\+as\+\_\+event} \{ \\*
+{\bf X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND}, 
+{\bf X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+D\+O\+W\+N\+\_\+\+I\+ND}, 
+{\bf X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND}, 
+{\bf X\+U\+A\+\_\+\+A\+S\+\_\+\+E\+\_\+\+R\+E\+C\+O\+V\+E\+R\+Y\+\_\+\+E\+X\+PD}, 
+\\*
+{\bf X\+U\+A\+\_\+\+A\+S\+\_\+\+E\+\_\+\+T\+R\+A\+N\+S\+F\+E\+R\+\_\+\+R\+EQ}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct osmo\+\_\+fsm\+\_\+inst $\ast$ {\bf xua\+\_\+as\+\_\+fsm\+\_\+start} (struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$as, int log\+\_\+level)
+\begin{DoxyCompactList}\small\item\em Start an AS F\+SM for a given Application Server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct osmo\+\_\+fsm {\bf xua\+\_\+as\+\_\+fsm}
+\end{DoxyCompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\index{xua\+\_\+as\+\_\+fsm.\+h@{xua\+\_\+as\+\_\+fsm.\+h}!xua\+\_\+as\+\_\+event@{xua\+\_\+as\+\_\+event}}
+\index{xua\+\_\+as\+\_\+event@{xua\+\_\+as\+\_\+event}!xua\+\_\+as\+\_\+fsm.\+h@{xua\+\_\+as\+\_\+fsm.\+h}}
+\subsubsection[{xua\+\_\+as\+\_\+event}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf xua\+\_\+as\+\_\+event}}\label{xua__as__fsm_8h_a37b200aa56330cb91b6dd148e456fca8}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND@{X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND}!xua\+\_\+as\+\_\+fsm.\+h@{xua\+\_\+as\+\_\+fsm.\+h}}\index{xua\+\_\+as\+\_\+fsm.\+h@{xua\+\_\+as\+\_\+fsm.\+h}!X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND@{X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND}}\item[{\em 
+X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND\label{xua__as__fsm_8h_a37b200aa56330cb91b6dd148e456fca8a68d224fdfa6727361d434006fe028b55}
+}]\index{X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+D\+O\+W\+N\+\_\+\+I\+ND@{X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+D\+O\+W\+N\+\_\+\+I\+ND}!xua\+\_\+as\+\_\+fsm.\+h@{xua\+\_\+as\+\_\+fsm.\+h}}\index{xua\+\_\+as\+\_\+fsm.\+h@{xua\+\_\+as\+\_\+fsm.\+h}!X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+D\+O\+W\+N\+\_\+\+I\+ND@{X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+D\+O\+W\+N\+\_\+\+I\+ND}}\item[{\em 
+X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+D\+O\+W\+N\+\_\+\+I\+ND\label{xua__as__fsm_8h_a37b200aa56330cb91b6dd148e456fca8a1bb7b199a202737dd8ac6debac0c2963}
+}]\index{X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND@{X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND}!xua\+\_\+as\+\_\+fsm.\+h@{xua\+\_\+as\+\_\+fsm.\+h}}\index{xua\+\_\+as\+\_\+fsm.\+h@{xua\+\_\+as\+\_\+fsm.\+h}!X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND@{X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND}}\item[{\em 
+X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND\label{xua__as__fsm_8h_a37b200aa56330cb91b6dd148e456fca8a25451f0ebbc5a17fb84cca10e1a5c1ee}
+}]\index{X\+U\+A\+\_\+\+A\+S\+\_\+\+E\+\_\+\+R\+E\+C\+O\+V\+E\+R\+Y\+\_\+\+E\+X\+PD@{X\+U\+A\+\_\+\+A\+S\+\_\+\+E\+\_\+\+R\+E\+C\+O\+V\+E\+R\+Y\+\_\+\+E\+X\+PD}!xua\+\_\+as\+\_\+fsm.\+h@{xua\+\_\+as\+\_\+fsm.\+h}}\index{xua\+\_\+as\+\_\+fsm.\+h@{xua\+\_\+as\+\_\+fsm.\+h}!X\+U\+A\+\_\+\+A\+S\+\_\+\+E\+\_\+\+R\+E\+C\+O\+V\+E\+R\+Y\+\_\+\+E\+X\+PD@{X\+U\+A\+\_\+\+A\+S\+\_\+\+E\+\_\+\+R\+E\+C\+O\+V\+E\+R\+Y\+\_\+\+E\+X\+PD}}\item[{\em 
+X\+U\+A\+\_\+\+A\+S\+\_\+\+E\+\_\+\+R\+E\+C\+O\+V\+E\+R\+Y\+\_\+\+E\+X\+PD\label{xua__as__fsm_8h_a37b200aa56330cb91b6dd148e456fca8a8651e5c3d2f14a88b43c4fdbb9fd6769}
+}]\index{X\+U\+A\+\_\+\+A\+S\+\_\+\+E\+\_\+\+T\+R\+A\+N\+S\+F\+E\+R\+\_\+\+R\+EQ@{X\+U\+A\+\_\+\+A\+S\+\_\+\+E\+\_\+\+T\+R\+A\+N\+S\+F\+E\+R\+\_\+\+R\+EQ}!xua\+\_\+as\+\_\+fsm.\+h@{xua\+\_\+as\+\_\+fsm.\+h}}\index{xua\+\_\+as\+\_\+fsm.\+h@{xua\+\_\+as\+\_\+fsm.\+h}!X\+U\+A\+\_\+\+A\+S\+\_\+\+E\+\_\+\+T\+R\+A\+N\+S\+F\+E\+R\+\_\+\+R\+EQ@{X\+U\+A\+\_\+\+A\+S\+\_\+\+E\+\_\+\+T\+R\+A\+N\+S\+F\+E\+R\+\_\+\+R\+EQ}}\item[{\em 
+X\+U\+A\+\_\+\+A\+S\+\_\+\+E\+\_\+\+T\+R\+A\+N\+S\+F\+E\+R\+\_\+\+R\+EQ\label{xua__as__fsm_8h_a37b200aa56330cb91b6dd148e456fca8a4e1995184ecd7cab6a8e0fadab60573c}
+}]\end{description}
+\end{Desc}
+
+
+\subsection{Function Documentation}
+\index{xua\+\_\+as\+\_\+fsm.\+h@{xua\+\_\+as\+\_\+fsm.\+h}!xua\+\_\+as\+\_\+fsm\+\_\+start@{xua\+\_\+as\+\_\+fsm\+\_\+start}}
+\index{xua\+\_\+as\+\_\+fsm\+\_\+start@{xua\+\_\+as\+\_\+fsm\+\_\+start}!xua\+\_\+as\+\_\+fsm.\+h@{xua\+\_\+as\+\_\+fsm.\+h}}
+\subsubsection[{xua\+\_\+as\+\_\+fsm\+\_\+start(struct osmo\+\_\+ss7\+\_\+as $\ast$as, int log\+\_\+level)}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+fsm\+\_\+inst$\ast$ xua\+\_\+as\+\_\+fsm\+\_\+start (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$}]{as, }
+\item[{int}]{log\+\_\+level}
+\end{DoxyParamCaption}
+)}\label{xua__as__fsm_8h_a5331e952e5ace61c7a1c3e5d36b00c85}
+
+
+Start an AS F\+SM for a given Application Server. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em as} & Application Server for which to start the AS F\+SM \\
+\hline
+\mbox{\tt in}  & {\em log\+\_\+level} & Logging level for logging of this F\+SM \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+F\+SM instance in case of success; N\+U\+LL in case of error 
+\end{DoxyReturn}
+
+
+References xua\+\_\+as\+\_\+fsm\+\_\+priv\+::as, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+as\+::name, xua\+\_\+as\+\_\+fsm\+\_\+priv\+::queued\+\_\+msgs, xua\+\_\+as\+\_\+fsm\+\_\+priv\+::recovery, xua\+\_\+as\+\_\+fsm\+\_\+priv\+::t\+\_\+r, and t\+\_\+r\+\_\+callback().
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+or\+\_\+create().
+
+
+
+\subsection{Variable Documentation}
+\index{xua\+\_\+as\+\_\+fsm.\+h@{xua\+\_\+as\+\_\+fsm.\+h}!xua\+\_\+as\+\_\+fsm@{xua\+\_\+as\+\_\+fsm}}
+\index{xua\+\_\+as\+\_\+fsm@{xua\+\_\+as\+\_\+fsm}!xua\+\_\+as\+\_\+fsm.\+h@{xua\+\_\+as\+\_\+fsm.\+h}}
+\subsubsection[{xua\+\_\+as\+\_\+fsm}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+fsm xua\+\_\+as\+\_\+fsm}\label{xua__as__fsm_8h_a4dda03cd65066f53f8b4b31af8fb24b6}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+init().
+

@@ -1,0 +1,182 @@
+\section{include/osmocom/sigtran/sigtran\+\_\+sap.h File Reference}
+\label{sigtran__sap_8h}\index{include/osmocom/sigtran/sigtran\+\_\+sap.\+h@{include/osmocom/sigtran/sigtran\+\_\+sap.\+h}}
+{\ttfamily \#include $<$osmocom/core/prim.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/osmo\+\_\+ss7.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+notify}
+\item 
+struct {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+error}
+\item 
+struct {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+reg}
+\item 
+struct {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+dereg}
+\item 
+struct {\bf osmo\+\_\+xlm\+\_\+prim}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+A\+S\+P\+\_\+\+ID}~(1 $<$$<$ 0)
+\item 
+\#define {\bf N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX}~(1 $<$$<$ 1)
+\item 
+\#define {\bf msgb\+\_\+xlm\+\_\+prim}(msg)~((struct {\bf osmo\+\_\+xlm\+\_\+prim} $\ast$)(msg)-\/$>$l1h)
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf osmo\+\_\+sigtran\+\_\+sap} \{ {\bf S\+C\+C\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER} = \+\_\+\+S\+A\+P\+\_\+\+S\+S7\+\_\+\+B\+A\+SE, 
+{\bf X\+U\+A\+\_\+\+S\+A\+P\+\_\+\+LM}, 
+{\bf M\+T\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER}
+ \}
+\item 
+enum {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+type} \{ \\*
+{\bf O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+E\+S\+T\+A\+B\+L\+I\+SH}, 
+{\bf O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+R\+E\+L\+E\+A\+SE}, 
+{\bf O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+R\+E\+S\+T\+A\+RT}, 
+{\bf O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+S\+T\+A\+T\+US}, 
+\\*
+{\bf O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+S\+T\+A\+T\+US}, 
+{\bf O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+S\+T\+A\+T\+US}, 
+{\bf O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+N\+O\+T\+I\+FY}, 
+{\bf O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+E\+R\+R\+OR}, 
+\\*
+{\bf O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+UP}, 
+{\bf O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+D\+O\+WN}, 
+{\bf O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+A\+C\+T\+I\+VE}, 
+{\bf O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+I\+N\+A\+C\+T\+I\+VE}, 
+\\*
+{\bf O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+A\+C\+T\+I\+VE}, 
+{\bf O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+I\+N\+A\+C\+T\+I\+VE}, 
+{\bf O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+D\+O\+WN}, 
+{\bf O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+R\+EG}, 
+\\*
+{\bf O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+D\+E\+R\+EG}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+name} (struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)
+\item 
+int {\bf osmo\+\_\+xlm\+\_\+sap\+\_\+down} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!msgb\+\_\+xlm\+\_\+prim@{msgb\+\_\+xlm\+\_\+prim}}
+\index{msgb\+\_\+xlm\+\_\+prim@{msgb\+\_\+xlm\+\_\+prim}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}
+\subsubsection[{msgb\+\_\+xlm\+\_\+prim}]{\setlength{\rightskip}{0pt plus 5cm}\#define msgb\+\_\+xlm\+\_\+prim(
+\begin{DoxyParamCaption}
+\item[{}]{msg}
+\end{DoxyParamCaption}
+)~((struct {\bf osmo\+\_\+xlm\+\_\+prim} $\ast$)(msg)-\/$>$l1h)}\label{sigtran__sap_8h_abb1a306773996c107da40d66fd99d624}
+\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+A\+S\+P\+\_\+\+ID@{N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+A\+S\+P\+\_\+\+ID}}
+\index{N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+A\+S\+P\+\_\+\+ID@{N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+A\+S\+P\+\_\+\+ID}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}
+\subsubsection[{N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+A\+S\+P\+\_\+\+ID}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+A\+S\+P\+\_\+\+ID~(1 $<$$<$ 0)}\label{sigtran__sap_8h_a07305cbec6524c70533615f50d34ee5c}
+
+
+Referenced by asp\+\_\+notify\+\_\+all\+\_\+as(), m3ua\+\_\+decode\+\_\+notify(), and m3ua\+\_\+encode\+\_\+notify().
+
+\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX@{N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX}}
+\index{N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX@{N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}
+\subsubsection[{N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX~(1 $<$$<$ 1)}\label{sigtran__sap_8h_aefbb4c250fdafa183369b5d7d6847b78}
+
+
+Referenced by m3ua\+\_\+decode\+\_\+notify(), and m3ua\+\_\+encode\+\_\+notify().
+
+
+
+\subsection{Enumeration Type Documentation}
+\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!osmo\+\_\+sigtran\+\_\+sap@{osmo\+\_\+sigtran\+\_\+sap}}
+\index{osmo\+\_\+sigtran\+\_\+sap@{osmo\+\_\+sigtran\+\_\+sap}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sigtran\+\_\+sap}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf osmo\+\_\+sigtran\+\_\+sap}}\label{sigtran__sap_8h_a41fed69217835c6d1a4543b8dc7c096c}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{S\+C\+C\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER@{S\+C\+C\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!S\+C\+C\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER@{S\+C\+C\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER}}\item[{\em 
+S\+C\+C\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER\label{sigtran__sap_8h_a41fed69217835c6d1a4543b8dc7c096ca8b73acf32986a3c0d1a8ba6ebe6eca9a}
+}]\index{X\+U\+A\+\_\+\+S\+A\+P\+\_\+\+LM@{X\+U\+A\+\_\+\+S\+A\+P\+\_\+\+LM}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!X\+U\+A\+\_\+\+S\+A\+P\+\_\+\+LM@{X\+U\+A\+\_\+\+S\+A\+P\+\_\+\+LM}}\item[{\em 
+X\+U\+A\+\_\+\+S\+A\+P\+\_\+\+LM\label{sigtran__sap_8h_a41fed69217835c6d1a4543b8dc7c096ca12827474156da75f4cf05395f686c2e3}
+}]\index{M\+T\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER@{M\+T\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!M\+T\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER@{M\+T\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER}}\item[{\em 
+M\+T\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER\label{sigtran__sap_8h_a41fed69217835c6d1a4543b8dc7c096ca719c9863f466e55956c3ebb3d2fd2376}
+}]\end{description}
+\end{Desc}
+\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!osmo\+\_\+xlm\+\_\+prim\+\_\+type@{osmo\+\_\+xlm\+\_\+prim\+\_\+type}}
+\index{osmo\+\_\+xlm\+\_\+prim\+\_\+type@{osmo\+\_\+xlm\+\_\+prim\+\_\+type}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+xlm\+\_\+prim\+\_\+type}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+type}}\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+E\+S\+T\+A\+B\+L\+I\+SH@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+E\+S\+T\+A\+B\+L\+I\+SH}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+E\+S\+T\+A\+B\+L\+I\+SH@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+E\+S\+T\+A\+B\+L\+I\+SH}}\item[{\em 
+O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+E\+S\+T\+A\+B\+L\+I\+SH\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95aa37c61d9037c3daf4d7b6005d8133e81}
+}]\index{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+R\+E\+L\+E\+A\+SE@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+R\+E\+L\+E\+A\+SE}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+R\+E\+L\+E\+A\+SE@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+R\+E\+L\+E\+A\+SE}}\item[{\em 
+O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+R\+E\+L\+E\+A\+SE\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95a3731dc88df323dd7572c421cde5c5cb2}
+}]\index{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+R\+E\+S\+T\+A\+RT@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+R\+E\+S\+T\+A\+RT}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+R\+E\+S\+T\+A\+RT@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+R\+E\+S\+T\+A\+RT}}\item[{\em 
+O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+R\+E\+S\+T\+A\+RT\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95a90dbae153f4070a66cc38cafc243ecda}
+}]\index{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+S\+T\+A\+T\+US@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+S\+T\+A\+T\+US}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+S\+T\+A\+T\+US@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+S\+T\+A\+T\+US}}\item[{\em 
+O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+S\+T\+A\+T\+US\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95aacc8403a7bc2330249f4569731248589}
+}]\index{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+S\+T\+A\+T\+US@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+S\+T\+A\+T\+US}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+S\+T\+A\+T\+US@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+S\+T\+A\+T\+US}}\item[{\em 
+O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+S\+T\+A\+T\+US\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95a189e31991e2901568545da583b57c650}
+}]\index{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+S\+T\+A\+T\+US@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+S\+T\+A\+T\+US}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+S\+T\+A\+T\+US@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+S\+T\+A\+T\+US}}\item[{\em 
+O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+S\+T\+A\+T\+US\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95aec2d3e41e48b48bcb7b33a965188aa5a}
+}]\index{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+N\+O\+T\+I\+FY@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+N\+O\+T\+I\+FY}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+N\+O\+T\+I\+FY@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+N\+O\+T\+I\+FY}}\item[{\em 
+O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+N\+O\+T\+I\+FY\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95ae748c9d351d4e3aaf6c2848ce7bbe0a7}
+}]\index{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+E\+R\+R\+OR@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+E\+R\+R\+OR}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+E\+R\+R\+OR@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+E\+R\+R\+OR}}\item[{\em 
+O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+E\+R\+R\+OR\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95a91ef24ddca505462fe13cb3d6a2e7f99}
+}]\index{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+UP@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+UP}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+UP@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+UP}}\item[{\em 
+O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+UP\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95addf32bdf98e1e223a6dbacb9d97068f6}
+}]\index{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+D\+O\+WN@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+D\+O\+WN}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+D\+O\+WN@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+D\+O\+WN}}\item[{\em 
+O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+D\+O\+WN\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95a30119110e3a2354b3fedb20e7cea111c}
+}]\index{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+A\+C\+T\+I\+VE@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+A\+C\+T\+I\+VE}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+A\+C\+T\+I\+VE@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+A\+C\+T\+I\+VE}}\item[{\em 
+O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+A\+C\+T\+I\+VE\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95a3a22e916398a5f960e952a558fa25f52}
+}]\index{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+I\+N\+A\+C\+T\+I\+VE@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+I\+N\+A\+C\+T\+I\+VE}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+I\+N\+A\+C\+T\+I\+VE@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+I\+N\+A\+C\+T\+I\+VE}}\item[{\em 
+O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+I\+N\+A\+C\+T\+I\+VE\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95a5fba8e77c3d27fc70b6f9223541efdc0}
+}]\index{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+A\+C\+T\+I\+VE@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+A\+C\+T\+I\+VE}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+A\+C\+T\+I\+VE@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+A\+C\+T\+I\+VE}}\item[{\em 
+O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+A\+C\+T\+I\+VE\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95a28b73588223a616f0901ca6c5ee6bd51}
+}]\index{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+I\+N\+A\+C\+T\+I\+VE@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+I\+N\+A\+C\+T\+I\+VE}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+I\+N\+A\+C\+T\+I\+VE@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+I\+N\+A\+C\+T\+I\+VE}}\item[{\em 
+O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+I\+N\+A\+C\+T\+I\+VE\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95af0368834ed2ecf0dcf2c0e58282818f3}
+}]\index{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+D\+O\+WN@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+D\+O\+WN}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+D\+O\+WN@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+D\+O\+WN}}\item[{\em 
+O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+A\+S\+\_\+\+D\+O\+WN\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95ac3edffdc8f12da9d193b8b9e867a212b}
+}]\index{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+R\+EG@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+R\+EG}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+R\+EG@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+R\+EG}}\item[{\em 
+O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+R\+EG\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95ab37f6e37bfe1ef261e21b429ecea038c}
+}]\index{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+D\+E\+R\+EG@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+D\+E\+R\+EG}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+D\+E\+R\+EG@{O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+D\+E\+R\+EG}}\item[{\em 
+O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+D\+E\+R\+EG\label{sigtran__sap_8h_a1cdf7068e1cb4bf44c5fb67264c7fc95a569b8b96bdef5294f8b53f4f5dada2db}
+}]\end{description}
+\end{Desc}
+
+
+\subsection{Function Documentation}
+\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!osmo\+\_\+xlm\+\_\+prim\+\_\+name@{osmo\+\_\+xlm\+\_\+prim\+\_\+name}}
+\index{osmo\+\_\+xlm\+\_\+prim\+\_\+name@{osmo\+\_\+xlm\+\_\+prim\+\_\+name}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+xlm\+\_\+prim\+\_\+name(struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ osmo\+\_\+xlm\+\_\+prim\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+prim\+\_\+hdr $\ast$}]{oph}
+\end{DoxyParamCaption}
+)}\label{sigtran__sap_8h_a479348e41b8e2d98b6d4c6e3d61d5999}
+
+
+References osmo\+\_\+xlm\+\_\+prim\+\_\+names, and prim\+\_\+name\+\_\+buf.
+
+
+
+Referenced by default\+\_\+lm\+\_\+prim\+\_\+cb(), osmo\+\_\+xlm\+\_\+sap\+\_\+down(), and xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim().
+
+\index{sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}!osmo\+\_\+xlm\+\_\+sap\+\_\+down@{osmo\+\_\+xlm\+\_\+sap\+\_\+down}}
+\index{osmo\+\_\+xlm\+\_\+sap\+\_\+down@{osmo\+\_\+xlm\+\_\+sap\+\_\+down}!sigtran\+\_\+sap.\+h@{sigtran\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+xlm\+\_\+sap\+\_\+down(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+xlm\+\_\+sap\+\_\+down (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct osmo\+\_\+prim\+\_\+hdr $\ast$}]{oph}
+\end{DoxyParamCaption}
+)}\label{sigtran__sap_8h_a0ecffc58820e661cf3ca6d576ce78f82}
+
+
+References osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+reg\+::key, L\+O\+G\+P\+A\+SP, osmo\+\_\+xlm\+\_\+prim\+::oph, O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+D\+E\+R\+EG, O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+R\+EG, osmo\+\_\+xlm\+\_\+prim\+\_\+name(), osmo\+\_\+xlm\+\_\+prim\+::rk\+\_\+dereg, osmo\+\_\+xlm\+\_\+prim\+::rk\+\_\+reg, osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+dereg\+::route\+\_\+ctx, osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+reg\+::traf\+\_\+mode, osmo\+\_\+xlm\+\_\+prim\+::u, xua\+\_\+rkm\+\_\+send\+\_\+dereg\+\_\+req(), and xua\+\_\+rkm\+\_\+send\+\_\+reg\+\_\+req().
+
+
+
+Referenced by lm\+\_\+timer\+\_\+cb().
+

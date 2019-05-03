@@ -1,0 +1,1044 @@
+\section{Osmocom Stream Socket}
+\label{group__stream}\index{Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file {\bf stream.\+c}
+\begin{DoxyCompactList}\small\item\em Osmocom stream socket helpers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+stream\+\_\+cli}
+\item 
+struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link}
+\item 
+struct {\bf osmo\+\_\+stream\+\_\+srv}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf msgb\+\_\+sctp\+\_\+ppid}(msg)~(msg)-\/$>$cb[3]\label{group__stream_ga2693c0cc5c6222dd9ed42c8c4bf8aec8}
+
+\begin{DoxyCompactList}\small\item\em Access the S\+C\+TP P\+P\+ID from the msgb control buffer. \end{DoxyCompactList}\item 
+\#define {\bf msgb\+\_\+sctp\+\_\+stream}(msg)~(msg)-\/$>$cb[4]\label{group__stream_gac2c359892ad63309b59a4b402f6a3e81}
+
+\begin{DoxyCompactList}\small\item\em Access the S\+C\+TP Stream ID from the msgb control buffer. \end{DoxyCompactList}\item 
+\#define {\bfseries M\+S\+G\+\_\+\+N\+O\+S\+I\+G\+N\+AL}~0\label{group__stream_ga9f55d0e90dc8cc6b2287312435cdde48}
+
+\item 
+\#define {\bfseries O\+S\+M\+O\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+C\+L\+I\+\_\+\+F\+\_\+\+R\+E\+C\+O\+NF}~(1 $<$$<$ 0)\label{group__stream_gae24e1d7bb86fa7bd90b7f38e0c686119}
+
+\item 
+\#define {\bfseries O\+S\+M\+O\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+C\+L\+I\+\_\+\+F\+\_\+\+N\+O\+D\+E\+L\+AY}~(1 $<$$<$ 1)\label{group__stream_gaccd8b711532f890d484fb9099f555855}
+
+\item 
+\#define {\bfseries O\+S\+M\+O\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+S\+R\+V\+\_\+\+F\+\_\+\+R\+E\+C\+O\+NF}~(1 $<$$<$ 0)\label{group__stream_gaf1646f040c66d93634755e299dee3ec2}
+
+\item 
+\#define {\bfseries O\+S\+M\+O\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+S\+R\+V\+\_\+\+F\+\_\+\+N\+O\+D\+E\+L\+AY}~(1 $<$$<$ 1)\label{group__stream_gaeec66e7d4031dc9606558e6692a805ba}
+
+\item 
+\#define {\bfseries O\+S\+M\+O\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+S\+R\+V\+\_\+\+F\+\_\+\+F\+L\+U\+S\+H\+\_\+\+D\+E\+S\+T\+R\+OY}~(1 $<$$<$ 0)\label{group__stream_ga3ef7f446bbf20daa6188bdaade5b2e94}
+
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries osmo\+\_\+stream\+\_\+cli\+\_\+state} \{ {\bfseries S\+T\+R\+E\+A\+M\+\_\+\+C\+L\+I\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+NE} = 0, 
+{\bfseries S\+T\+R\+E\+A\+M\+\_\+\+C\+L\+I\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+NG} = 1, 
+{\bfseries S\+T\+R\+E\+A\+M\+\_\+\+C\+L\+I\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED} = 2, 
+{\bfseries S\+T\+R\+E\+A\+M\+\_\+\+C\+L\+I\+\_\+\+S\+T\+A\+T\+E\+\_\+\+M\+AX}
+ \}\label{group__stream_gaefb240abea020971d9a384b5e39826e5}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$ {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+create} (void $\ast$ctx)
+\begin{DoxyCompactList}\small\item\em Create an Osmocom Stream Server Link A Stream Server Link is the listen()+accept() \char`\"{}parent\char`\"{} to individual Stream Servers. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+destroy} (struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$link)
+\begin{DoxyCompactList}\small\item\em Destroy the stream server link. Closes + Releases Memory. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+nodelay} (struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$link, bool nodelay)
+\begin{DoxyCompactList}\small\item\em Set the N\+O\+D\+E\+L\+AY socket option to avoid Nagle-\/like behavior Setting this to nodelay=true will automatically set the N\+O\+D\+E\+L\+AY socket option on any socket established via this server link, before calling the accept\+\_\+cb() \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+addr} (struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$link, const char $\ast$addr)
+\begin{DoxyCompactList}\small\item\em Set the local address to which we bind. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+port} (struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$link, uint16\+\_\+t port)
+\begin{DoxyCompactList}\small\item\em Set the local port number to which we bind. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+proto} (struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$link, uint16\+\_\+t proto)
+\begin{DoxyCompactList}\small\item\em Set the protocol for the stream server link. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+accept\+\_\+cb} (struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$link, int($\ast$accept\+\_\+cb)(struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$link, int fd))
+\begin{DoxyCompactList}\small\item\em Set the accept() call-\/back of the stream server link. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+data} (struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$link, void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Set application private data of the stream server link. \end{DoxyCompactList}\item 
+void $\ast$ {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+data} (struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$link)
+\begin{DoxyCompactList}\small\item\em Get application private data of the stream server link. \end{DoxyCompactList}\item 
+char $\ast$ {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+sockname} (const struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$link)
+\begin{DoxyCompactList}\small\item\em Get description of the stream server link e. g. 127.\+0.\+0.\+1\+:1234. \end{DoxyCompactList}\item 
+struct osmo\+\_\+fd $\ast$ {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+ofd} (struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$link)
+\begin{DoxyCompactList}\small\item\em Get Osmocom File Descriptor of the stream server link. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+open} (struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$link)
+\begin{DoxyCompactList}\small\item\em Open the stream server link. This actually initializes the underlying socket and binds it to the configured ip/port. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+close} (struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$link)
+\begin{DoxyCompactList}\small\item\em Close the stream server link and unregister from select loop Does not destroy the server link, merely closes it! \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$ {\bf osmo\+\_\+stream\+\_\+srv\+\_\+create} (void $\ast$ctx, struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$link, int fd, int($\ast$cb)(struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$conn), int($\ast$closed\+\_\+cb)(struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$conn), void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Create a Stream Server inside the specified link. \end{DoxyCompactList}\item 
+void $\ast$ {\bf osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+data} (struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Get application private data of the stream server. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$ {\bf osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+master} (struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Get the master (Link) from a Stream Server. \end{DoxyCompactList}\item 
+struct osmo\+\_\+fd $\ast$ {\bf osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+ofd} (struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Get Osmocom File Descriptor of the stream server. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+srv\+\_\+destroy} (struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Destroy given Stream Server This function closes the Stream Server socket, unregisters from select loop, invokes the connection\textquotesingle{}s closed\+\_\+cb() callback to allow A\+PI users to clean up any associated state they have for this connection, and then de-\/allocates associated memory. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+srv\+\_\+set\+\_\+flush\+\_\+and\+\_\+destroy} (struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Prepare to send out all pending messages on the connection\textquotesingle{}s Tx queue and then automatically destroy the stream with \doxyref{osmo\+\_\+stream\+\_\+srv\+\_\+destroy()}{p.}{group__stream_ga47f18e063f64f22cb74d58d8b7243bed}. This function disables queuing of new messages on the connection and also disables reception of new messages on the connection. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+srv\+\_\+set\+\_\+data} (struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$conn, void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Set application private data of the stream server. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+srv\+\_\+send} (struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$conn, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Enqueue data to be sent via an Osmocom stream server. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+stream\+\_\+srv\+\_\+recv} (struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$conn, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Receive data via Osmocom stream server. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+nodelay} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli, bool nodelay)
+\begin{DoxyCompactList}\small\item\em Set the N\+O\+D\+E\+L\+AY socket option to avoid Nagle-\/like behavior Setting this to nodelay=true will automatically set the N\+O\+D\+E\+L\+AY socket option on any socket established via \doxyref{osmo\+\_\+stream\+\_\+cli\+\_\+open}{p.}{group__stream_ga86b4b9c8e563f8426d3cdae803e3ec38} or any re-\/connect. You have to set this {\itshape before} opening the socket. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+addr} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli, const char $\ast$addr)
+\begin{DoxyCompactList}\small\item\em Set the remote address to which we connect. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+port} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli, uint16\+\_\+t port)
+\begin{DoxyCompactList}\small\item\em Set the remote port number to which we connect. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+proto} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli, uint16\+\_\+t proto)
+\begin{DoxyCompactList}\small\item\em Set the protocol for the stream client socket. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+local\+\_\+addr} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli, const char $\ast$addr)
+\begin{DoxyCompactList}\small\item\em Set the local address for the socket (to be bound to) \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+local\+\_\+port} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli, uint16\+\_\+t port)
+\begin{DoxyCompactList}\small\item\em Set the local port number for the socket (to be bound to) \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+data} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli, void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Set application private data of the stream client socket. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+reconnect\+\_\+timeout} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli, int timeout)
+\begin{DoxyCompactList}\small\item\em Set the reconnect time of the stream client socket. \end{DoxyCompactList}\item 
+void $\ast$ {\bf osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+data} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli)
+\begin{DoxyCompactList}\small\item\em Get application private data of the stream client socket. \end{DoxyCompactList}\item 
+char $\ast$ {\bf osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+sockname} (const struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli)
+\begin{DoxyCompactList}\small\item\em Get the stream client socket description. \end{DoxyCompactList}\item 
+struct osmo\+\_\+fd $\ast$ {\bf osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+ofd} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli)
+\begin{DoxyCompactList}\small\item\em Get Osmocom File Descriptor of the stream client socket. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+connect\+\_\+cb} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli, int($\ast$connect\+\_\+cb)(struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli))
+\begin{DoxyCompactList}\small\item\em Set the call-\/back function called on connect of the stream client socket. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+disconnect\+\_\+cb} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli, int($\ast$disconnect\+\_\+cb)(struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli))
+\begin{DoxyCompactList}\small\item\em Set the call-\/back function called on disconnect of the stream client socket. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+read\+\_\+cb} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli, int($\ast$read\+\_\+cb)(struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli))
+\begin{DoxyCompactList}\small\item\em Set the call-\/back function called to read from the stream client socket. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+cli\+\_\+reconnect} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli)\label{group__stream_ga11d2615f6197f33073ba7245e5ba95ee}
+
+\begin{DoxyCompactList}\small\item\em Re-\/connect an Osmocom Stream Client If re-\/connection is enabled for this client (which is the case unless negative timeout was explicitly set via \doxyref{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+reconnect\+\_\+timeout()}{p.}{group__stream_gade74792afe35f31dd2584c888db3dd62} call), we close any existing connection (if any) and schedule a re-\/connect timer. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$ {\bf osmo\+\_\+stream\+\_\+cli\+\_\+create} (void $\ast$ctx)
+\begin{DoxyCompactList}\small\item\em Create an Osmocom stream client. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+cli\+\_\+destroy} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli)
+\begin{DoxyCompactList}\small\item\em Destroy a Osmocom stream client (includes close) \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+stream\+\_\+cli\+\_\+open} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli)
+\begin{DoxyCompactList}\small\item\em Open connection of an Osmocom stream client By default the client will automatically reconnect after default timeout. To disable this, use \doxyref{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+reconnect\+\_\+timeout()}{p.}{group__stream_gade74792afe35f31dd2584c888db3dd62} before calling this function. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+stream\+\_\+cli\+\_\+open2} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli, int reconnect)
+\begin{DoxyCompactList}\small\item\em D\+E\+P\+R\+E\+C\+A\+T\+ED\+: use \doxyref{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+reconnect\+\_\+timeout()}{p.}{group__stream_gade74792afe35f31dd2584c888db3dd62} or \doxyref{osmo\+\_\+stream\+\_\+cli\+\_\+reconnect()}{p.}{group__stream_ga11d2615f6197f33073ba7245e5ba95ee} instead! Open connection of an Osmocom stream client. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+cli\+\_\+close} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli)
+\begin{DoxyCompactList}\small\item\em Close an Osmocom Stream Client. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+stream\+\_\+cli\+\_\+send} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Enqueue data to be sent via an Osmocom stream client. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+stream\+\_\+cli\+\_\+recv} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Receive data via an Osmocom stream client. \end{DoxyCompactList}\item 
+static int {\bfseries sctp\+\_\+sock\+\_\+activate\+\_\+events} (int fd)\label{group__stream_ga050d8271074ad3dd37e8014fe287776f}
+
+\item 
+static int {\bfseries setsockopt\+\_\+nodelay} (int fd, int proto, int on)\label{group__stream_gaa2b1fa9b64847bc68c83fae9a92d737d}
+
+\item 
+static void {\bfseries osmo\+\_\+stream\+\_\+cli\+\_\+read} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli)\label{group__stream_gaf2461189e6614fd9a2b69a4821b36187}
+
+\item 
+static int {\bfseries osmo\+\_\+stream\+\_\+cli\+\_\+write} (struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli)\label{group__stream_ga7262b897e83232efbb7b73fff2d14519}
+
+\item 
+static int {\bfseries osmo\+\_\+stream\+\_\+cli\+\_\+fd\+\_\+cb} (struct osmo\+\_\+fd $\ast$ofd, unsigned int what)\label{group__stream_ga7080a18acf6e820aec2d8e33e178d2ae}
+
+\item 
+static void {\bfseries cli\+\_\+timer\+\_\+cb} (void $\ast$data)\label{group__stream_ga866e541e96ee1f64d2b550e4d502be2c}
+
+\item 
+static int {\bfseries osmo\+\_\+stream\+\_\+srv\+\_\+fd\+\_\+cb} (struct osmo\+\_\+fd $\ast$ofd, unsigned int what)\label{group__stream_gaa8d25448c4d0137b794e2b40efc26f81}
+
+\item 
+static int {\bfseries osmo\+\_\+stream\+\_\+srv\+\_\+read} (struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$conn)\label{group__stream_gaece198aea502c86c3c4447def631045a}
+
+\item 
+static void {\bfseries osmo\+\_\+stream\+\_\+srv\+\_\+write} (struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$conn)\label{group__stream_ga126a75cba64e9c2ea17dabf8c2126c9f}
+
+\item 
+static int {\bfseries osmo\+\_\+stream\+\_\+srv\+\_\+cb} (struct osmo\+\_\+fd $\ast$ofd, unsigned int what)\label{group__stream_ga66f9ef624e3f777e0ed6dd7d7d480330}
+
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const struct value\+\_\+string {\bfseries stream\+\_\+cli\+\_\+state\+\_\+names} [$\,$]
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This code is intended to abstract any use of stream-\/type sockets, such as T\+CP and S\+C\+TP. It offers both server and client side implementations, fully integrated with the libosmocore select loop abstraction. 
+
+\subsection{Function Documentation}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+close@{osmo\+\_\+stream\+\_\+cli\+\_\+close}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+close@{osmo\+\_\+stream\+\_\+cli\+\_\+close}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+close(struct osmo\+\_\+stream\+\_\+cli $\ast$cli)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+cli\+\_\+close (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli}
+\end{DoxyParamCaption}
+)}\label{group__stream_gad217c1c1b83ac852e090afd49146db19}
+
+
+Close an Osmocom Stream Client. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Osmocom Stream Client to be closed We unregister the socket fd from the osmocom select() loop abstraction and close the socket \\
+\hline
+\end{DoxyParams}
+
+
+References msgb\+\_\+sctp\+\_\+ppid, msgb\+\_\+sctp\+\_\+stream, and osmo\+\_\+stream\+\_\+cli\+\_\+reconnect().
+
+
+
+Referenced by osmo\+\_\+stream\+\_\+cli\+\_\+destroy(), osmo\+\_\+stream\+\_\+cli\+\_\+open(), osmo\+\_\+stream\+\_\+cli\+\_\+open2(), and osmo\+\_\+stream\+\_\+cli\+\_\+reconnect().
+
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+create@{osmo\+\_\+stream\+\_\+cli\+\_\+create}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+create@{osmo\+\_\+stream\+\_\+cli\+\_\+create}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+create(void $\ast$ctx)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$ osmo\+\_\+stream\+\_\+cli\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga1754a498abc27577a8e0b3b0f236c05b}
+
+
+Create an Osmocom stream client. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ctx} & talloc context from which to allocate memory This function allocates a new \doxyref{osmo\+\_\+stream\+\_\+cli}{p.}{structosmo__stream__cli} and initializes it with default values (5s reconnect timer, T\+CP protocol) \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+destroy@{osmo\+\_\+stream\+\_\+cli\+\_\+destroy}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+destroy@{osmo\+\_\+stream\+\_\+cli\+\_\+destroy}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+destroy(struct osmo\+\_\+stream\+\_\+cli $\ast$cli)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+cli\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga9d0dac2f390c660c85fa347765f4f45a}
+
+
+Destroy a Osmocom stream client (includes close) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client to destroy \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+stream\+\_\+cli\+\_\+close().
+
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+data@{osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+data}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+data@{osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+data}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+data(struct osmo\+\_\+stream\+\_\+cli $\ast$cli)}]{\setlength{\rightskip}{0pt plus 5cm}void $\ast$ osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga606a53840677f3f5200887dc92f5de4d}
+
+
+Get application private data of the stream client socket. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client to modify \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Application private data, as set by \doxyref{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+data()}{p.}{group__stream_ga5e94c511d537f63337912bb50fb2dc28} 
+\end{DoxyReturn}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+ofd@{osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+ofd}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+ofd@{osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+ofd}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+ofd(struct osmo\+\_\+stream\+\_\+cli $\ast$cli)}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+fd $\ast$ osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+ofd (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga0615daa4aac253a3d530f35fddbc68bd}
+
+
+Get Osmocom File Descriptor of the stream client socket. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client to modify \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to osmo\+\_\+fd 
+\end{DoxyReturn}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+sockname@{osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+sockname}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+sockname@{osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+sockname}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+sockname(const struct osmo\+\_\+stream\+\_\+cli $\ast$cli)}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ osmo\+\_\+stream\+\_\+cli\+\_\+get\+\_\+sockname (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli}
+\end{DoxyParamCaption}
+)}\label{group__stream_gaecd148ae11f2f619aa52dd2900a15827}
+
+
+Get the stream client socket description. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client to examine \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Socket description or N\+U\+LL in case of error 
+\end{DoxyReturn}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+open@{osmo\+\_\+stream\+\_\+cli\+\_\+open}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+open@{osmo\+\_\+stream\+\_\+cli\+\_\+open}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+open(struct osmo\+\_\+stream\+\_\+cli $\ast$cli)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+stream\+\_\+cli\+\_\+open (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga86b4b9c8e563f8426d3cdae803e3ec38}
+
+
+Open connection of an Osmocom stream client By default the client will automatically reconnect after default timeout. To disable this, use \doxyref{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+reconnect\+\_\+timeout()}{p.}{group__stream_gade74792afe35f31dd2584c888db3dd62} before calling this function. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client to connect \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+stream\+\_\+cli\+\_\+close(), and osmo\+\_\+stream\+\_\+cli\+\_\+reconnect().
+
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+open2@{osmo\+\_\+stream\+\_\+cli\+\_\+open2}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+open2@{osmo\+\_\+stream\+\_\+cli\+\_\+open2}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+open2(struct osmo\+\_\+stream\+\_\+cli $\ast$cli, int reconnect)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+stream\+\_\+cli\+\_\+open2 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli, }
+\item[{int}]{reconnect}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga127866794591d16a0eb7244f2fe666ef}
+
+
+D\+E\+P\+R\+E\+C\+A\+T\+ED\+: use \doxyref{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+reconnect\+\_\+timeout()}{p.}{group__stream_gade74792afe35f31dd2584c888db3dd62} or \doxyref{osmo\+\_\+stream\+\_\+cli\+\_\+reconnect()}{p.}{group__stream_ga11d2615f6197f33073ba7245e5ba95ee} instead! Open connection of an Osmocom stream client. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client to connect \\
+\hline
+\mbox{\tt in}  & {\em reconect} & 1 if we should not automatically reconnect \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+stream\+\_\+cli\+\_\+close(), and osmo\+\_\+stream\+\_\+cli\+\_\+reconnect().
+
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+recv@{osmo\+\_\+stream\+\_\+cli\+\_\+recv}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+recv@{osmo\+\_\+stream\+\_\+cli\+\_\+recv}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+recv(struct osmo\+\_\+stream\+\_\+cli $\ast$cli, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+stream\+\_\+cli\+\_\+recv (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga06f9743c19068bb720a4949ae8467243}
+
+
+Receive data via an Osmocom stream client. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client through which we want to send \\
+\hline
+ & {\em msg} & pre-\/allocate message buffer to which received data is appended \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of bytes read; $<$=0 in case of error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+stream\+\_\+cli\+\_\+reconnect().
+
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+send@{osmo\+\_\+stream\+\_\+cli\+\_\+send}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+send@{osmo\+\_\+stream\+\_\+cli\+\_\+send}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+send(struct osmo\+\_\+stream\+\_\+cli $\ast$cli, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+cli\+\_\+send (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{group__stream_gaacf415b97e1184baadeee5c60387422b}
+
+
+Enqueue data to be sent via an Osmocom stream client. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client through which we want to send \\
+\hline
+\mbox{\tt in}  & {\em msg} & Message buffer to enqueue in transmit queue \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+addr@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+addr}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+addr@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+addr}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+addr(struct osmo\+\_\+stream\+\_\+cli $\ast$cli, const char $\ast$addr)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli, }
+\item[{const char $\ast$}]{addr}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga0038e937cf0f36c59e0e3991523219a1}
+
+
+Set the remote address to which we connect. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client to modify \\
+\hline
+\mbox{\tt in}  & {\em addr} & Remote IP address \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+connect\+\_\+cb@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+connect\+\_\+cb}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+connect\+\_\+cb@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+connect\+\_\+cb}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+connect\+\_\+cb(struct osmo\+\_\+stream\+\_\+cli $\ast$cli, int($\ast$connect\+\_\+cb)(struct osmo\+\_\+stream\+\_\+cli $\ast$cli))}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+connect\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli, }
+\item[{int($\ast$)(struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli)}]{connect\+\_\+cb}
+\end{DoxyParamCaption}
+)}\label{group__stream_gab588bfd88a3cc775875981e2ee66e295}
+
+
+Set the call-\/back function called on connect of the stream client socket. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client to modify \\
+\hline
+\mbox{\tt in}  & {\em connect\+\_\+cb} & Call-\/back function to be called upon connect \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+data@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+data}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+data@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+data}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+data(struct osmo\+\_\+stream\+\_\+cli $\ast$cli, void $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga5e94c511d537f63337912bb50fb2dc28}
+
+
+Set application private data of the stream client socket. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client to modify \\
+\hline
+\mbox{\tt in}  & {\em data} & User-\/specific data (available in call-\/back functions) \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+disconnect\+\_\+cb@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+disconnect\+\_\+cb}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+disconnect\+\_\+cb@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+disconnect\+\_\+cb}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+disconnect\+\_\+cb(struct osmo\+\_\+stream\+\_\+cli $\ast$cli, int($\ast$disconnect\+\_\+cb)(struct osmo\+\_\+stream\+\_\+cli $\ast$cli))}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+disconnect\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli, }
+\item[{int($\ast$)(struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli)}]{disconnect\+\_\+cb}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga23e5c1799a8225607543de39a56ca449}
+
+
+Set the call-\/back function called on disconnect of the stream client socket. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client to modify \\
+\hline
+\mbox{\tt in}  & {\em disconnect\+\_\+cb} & Call-\/back function to be called upon disconnect \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+local\+\_\+addr@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+local\+\_\+addr}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+local\+\_\+addr@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+local\+\_\+addr}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+local\+\_\+addr(struct osmo\+\_\+stream\+\_\+cli $\ast$cli, const char $\ast$addr)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+local\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli, }
+\item[{const char $\ast$}]{addr}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga70420e7c664cc4c4e69ac4d3476e7f53}
+
+
+Set the local address for the socket (to be bound to) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client to modify \\
+\hline
+\mbox{\tt in}  & {\em port} & Local host name \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+local\+\_\+port@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+local\+\_\+port}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+local\+\_\+port@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+local\+\_\+port}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+local\+\_\+port(struct osmo\+\_\+stream\+\_\+cli $\ast$cli, uint16\+\_\+t port)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+local\+\_\+port (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli, }
+\item[{uint16\+\_\+t}]{port}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga4d83e3cf7fdf7eb354c2015ff9bed98a}
+
+
+Set the local port number for the socket (to be bound to) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client to modify \\
+\hline
+\mbox{\tt in}  & {\em port} & Local port number \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+nodelay@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+nodelay}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+nodelay@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+nodelay}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+nodelay(struct osmo\+\_\+stream\+\_\+cli $\ast$cli, bool nodelay)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+nodelay (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli, }
+\item[{bool}]{nodelay}
+\end{DoxyParamCaption}
+)}\label{group__stream_gaa196e78db6ca32abb1473566b4f1b04b}
+
+
+Set the N\+O\+D\+E\+L\+AY socket option to avoid Nagle-\/like behavior Setting this to nodelay=true will automatically set the N\+O\+D\+E\+L\+AY socket option on any socket established via \doxyref{osmo\+\_\+stream\+\_\+cli\+\_\+open}{p.}{group__stream_ga86b4b9c8e563f8426d3cdae803e3ec38} or any re-\/connect. You have to set this {\itshape before} opening the socket. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream client whose sockets are to be configured \\
+\hline
+\mbox{\tt in}  & {\em nodelay} & whether to set (true) N\+O\+D\+E\+L\+AY before connect() \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+port@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+port}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+port@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+port}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+port(struct osmo\+\_\+stream\+\_\+cli $\ast$cli, uint16\+\_\+t port)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+port (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli, }
+\item[{uint16\+\_\+t}]{port}
+\end{DoxyParamCaption}
+)}\label{group__stream_gab8b9f65bebfeb83c6e33d102e9439770}
+
+
+Set the remote port number to which we connect. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client to modify \\
+\hline
+\mbox{\tt in}  & {\em port} & Remote port number \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+proto@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+proto}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+proto@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+proto}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+proto(struct osmo\+\_\+stream\+\_\+cli $\ast$cli, uint16\+\_\+t proto)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+proto (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli, }
+\item[{uint16\+\_\+t}]{proto}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga91d57aa94a370520540d7272af66a23b}
+
+
+Set the protocol for the stream client socket. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client to modify \\
+\hline
+\mbox{\tt in}  & {\em proto} & Protocol (like I\+P\+P\+R\+O\+T\+O\+\_\+\+T\+CP (default), I\+P\+P\+R\+O\+T\+O\+\_\+\+S\+C\+TP, ...) \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+read\+\_\+cb@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+read\+\_\+cb}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+read\+\_\+cb@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+read\+\_\+cb}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+read\+\_\+cb(struct osmo\+\_\+stream\+\_\+cli $\ast$cli, int($\ast$read\+\_\+cb)(struct osmo\+\_\+stream\+\_\+cli $\ast$cli))}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+read\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli, }
+\item[{int($\ast$)(struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$cli)}]{read\+\_\+cb}
+\end{DoxyParamCaption}
+)}\label{group__stream_gad1d1817f25694ea126779262cddf4fbd}
+
+
+Set the call-\/back function called to read from the stream client socket. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client to modify \\
+\hline
+\mbox{\tt in}  & {\em read\+\_\+cb} & Call-\/back function to be called when we want to read \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+reconnect\+\_\+timeout@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+reconnect\+\_\+timeout}}
+\index{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+reconnect\+\_\+timeout@{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+reconnect\+\_\+timeout}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+reconnect\+\_\+timeout(struct osmo\+\_\+stream\+\_\+cli $\ast$cli, int timeout)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+reconnect\+\_\+timeout (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+cli} $\ast$}]{cli, }
+\item[{int}]{timeout}
+\end{DoxyParamCaption}
+)}\label{group__stream_gade74792afe35f31dd2584c888db3dd62}
+
+
+Set the reconnect time of the stream client socket. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cli} & Stream Client to modify \\
+\hline
+\mbox{\tt in}  & {\em timeout} & Re-\/connect timeout in seconds or negative value to disable auto-\/reconnection \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+create@{osmo\+\_\+stream\+\_\+srv\+\_\+create}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+create@{osmo\+\_\+stream\+\_\+srv\+\_\+create}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+create(void $\ast$ctx, struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$link, int fd, int($\ast$cb)(struct osmo\+\_\+stream\+\_\+srv $\ast$conn), int($\ast$closed\+\_\+cb)(struct osmo\+\_\+stream\+\_\+srv $\ast$conn), void $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$ osmo\+\_\+stream\+\_\+srv\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ctx, }
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$}]{link, }
+\item[{int}]{fd, }
+\item[{int($\ast$)(struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$conn)}]{cb, }
+\item[{int($\ast$)(struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$conn)}]{closed\+\_\+cb, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga36df4fc3b268efbe4b4f02e51542d543}
+
+
+Create a Stream Server inside the specified link. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ctx} & talloc allocation context from which to allocate \\
+\hline
+\mbox{\tt in}  & {\em link} & Stream Server Link to which we belong \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Stream Server in case of success; N\+U\+LL on error 
+\end{DoxyReturn}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+destroy@{osmo\+\_\+stream\+\_\+srv\+\_\+destroy}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+destroy@{osmo\+\_\+stream\+\_\+srv\+\_\+destroy}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+destroy(struct osmo\+\_\+stream\+\_\+srv $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+srv\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga47f18e063f64f22cb74d58d8b7243bed}
+
+
+Destroy given Stream Server This function closes the Stream Server socket, unregisters from select loop, invokes the connection\textquotesingle{}s closed\+\_\+cb() callback to allow A\+PI users to clean up any associated state they have for this connection, and then de-\/allocates associated memory. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Stream Server to be destroyed \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+data@{osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+data}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+data@{osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+data}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+data(struct osmo\+\_\+stream\+\_\+srv $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}void $\ast$ osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}\label{group__stream_gae2a0ef01097d964c71e38600b4c078d5}
+
+
+Get application private data of the stream server. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Stream Server \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Application private data, as set by \doxyref{osmo\+\_\+stream\+\_\+srv\+\_\+set\+\_\+data()}{p.}{group__stream_ga9891663b20714d72f992e44ad1e92eea} 
+\end{DoxyReturn}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+master@{osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+master}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+master@{osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+master}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+master(struct osmo\+\_\+stream\+\_\+srv $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$ osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+master (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga9cf689935bf6ffac4f86f56219d73c8e}
+
+
+Get the master (Link) from a Stream Server. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Stream Server of which we want to know the Link \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Link through which the given Stream Server is established 
+\end{DoxyReturn}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+ofd@{osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+ofd}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+ofd@{osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+ofd}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+ofd(struct osmo\+\_\+stream\+\_\+srv $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+fd $\ast$ osmo\+\_\+stream\+\_\+srv\+\_\+get\+\_\+ofd (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga47bbca4f12717db2e6158eefe6310b9b}
+
+
+Get Osmocom File Descriptor of the stream server. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Stream Server \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to osmo\+\_\+fd 
+\end{DoxyReturn}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+close@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+close}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+close@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+close}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+close(struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$link)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+close (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$}]{link}
+\end{DoxyParamCaption}
+)}\label{group__stream_gad325d97b09c724e830c98d76b890520d}
+
+
+Close the stream server link and unregister from select loop Does not destroy the server link, merely closes it! 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em link} & Stream Server Link to close \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+destroy(), and osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+open().
+
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+create@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+create}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+create@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+create}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+create(void $\ast$ctx)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$ osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)}\label{group__stream_gaad262988c7ac365566f03843c560f892}
+
+
+Create an Osmocom Stream Server Link A Stream Server Link is the listen()+accept() \char`\"{}parent\char`\"{} to individual Stream Servers. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ctx} & talloc allocation context \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Stream Server Link with default values (T\+CP) 
+\end{DoxyReturn}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+destroy@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+destroy}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+destroy@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+destroy}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+destroy(struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$link)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$}]{link}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga882acaaa5935422b0e09a2ce8c8019ec}
+
+
+Destroy the stream server link. Closes + Releases Memory. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em link} & Stream Server Link \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+close().
+
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+data@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+data}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+data@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+data}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+data(struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$link)}]{\setlength{\rightskip}{0pt plus 5cm}void $\ast$ osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$}]{link}
+\end{DoxyParamCaption}
+)}\label{group__stream_gacb5d68c2a6a9663f99266c70747bce04}
+
+
+Get application private data of the stream server link. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em link} & Stream Server Link to modify \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Application private data, as set by \doxyref{osmo\+\_\+stream\+\_\+cli\+\_\+set\+\_\+data()}{p.}{group__stream_ga5e94c511d537f63337912bb50fb2dc28} 
+\end{DoxyReturn}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+ofd@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+ofd}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+ofd@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+ofd}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+ofd(struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$link)}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+fd $\ast$ osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+ofd (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$}]{link}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga7b8981351a154c357fcefd39c31ad42a}
+
+
+Get Osmocom File Descriptor of the stream server link. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em link} & Stream Server Link \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to osmo\+\_\+fd 
+\end{DoxyReturn}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+sockname@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+sockname}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+sockname@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+sockname}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+sockname(const struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$link)}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+get\+\_\+sockname (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$}]{link}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga7d7b6af7df24e90dc758a088bae6316d}
+
+
+Get description of the stream server link e. g. 127.\+0.\+0.\+1\+:1234. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em link} & Stream Server Link to examine \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Link description or N\+U\+LL in case of error 
+\end{DoxyReturn}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+open@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+open}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+open@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+open}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+open(struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$link)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+open (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$}]{link}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga603b89074d3e8c0fb44144ab1864f0d4}
+
+
+Open the stream server link. This actually initializes the underlying socket and binds it to the configured ip/port. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em link} & Stream Server Link to open \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+close().
+
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+accept\+\_\+cb@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+accept\+\_\+cb}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+accept\+\_\+cb@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+accept\+\_\+cb}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+accept\+\_\+cb(struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$link, int($\ast$accept\+\_\+cb)(struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$link, int fd))}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+accept\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$}]{link, }
+\item[{int($\ast$)(struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$link, int fd)}]{accept\+\_\+cb}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga1eea525d4e1e7a24c9c08881994ceb7e}
+
+
+Set the accept() call-\/back of the stream server link. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em link} & Stream Server Link \\
+\hline
+\mbox{\tt in}  & {\em accept\+\_\+cb} & Call-\/back function executed upon accept() \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+addr@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+addr}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+addr@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+addr}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+addr(struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$link, const char $\ast$addr)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$}]{link, }
+\item[{const char $\ast$}]{addr}
+\end{DoxyParamCaption}
+)}\label{group__stream_gacece90116484e34540def69b05c66f57}
+
+
+Set the local address to which we bind. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em link} & Stream Server Link to modify \\
+\hline
+\mbox{\tt in}  & {\em addr} & Local IP address \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+data@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+data}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+data@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+data}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+data(struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$link, void $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$}]{link, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga5ef0f0c85a52c08e8c10d36a8f44e392}
+
+
+Set application private data of the stream server link. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em link} & Stream Server Link to modify \\
+\hline
+\mbox{\tt in}  & {\em data} & User-\/specific data (available in call-\/back functions) \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+nodelay@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+nodelay}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+nodelay@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+nodelay}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+nodelay(struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$link, bool nodelay)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+nodelay (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$}]{link, }
+\item[{bool}]{nodelay}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga41e8ad2c761aaa00313aa11d1f29a3ed}
+
+
+Set the N\+O\+D\+E\+L\+AY socket option to avoid Nagle-\/like behavior Setting this to nodelay=true will automatically set the N\+O\+D\+E\+L\+AY socket option on any socket established via this server link, before calling the accept\+\_\+cb() 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em link} & server link whose sockets are to be configured \\
+\hline
+\mbox{\tt in}  & {\em nodelay} & whether to set (true) N\+O\+D\+E\+L\+AY after accept \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+port@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+port}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+port@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+port}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+port(struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$link, uint16\+\_\+t port)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+port (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$}]{link, }
+\item[{uint16\+\_\+t}]{port}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga76bbbafd1d8dc9c9ebffd301503b6dd9}
+
+
+Set the local port number to which we bind. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em link} & Stream Server Link to modify \\
+\hline
+\mbox{\tt in}  & {\em port} & Local port number \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+proto@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+proto}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+proto@{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+proto}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+proto(struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$link, uint16\+\_\+t proto)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+srv\+\_\+link\+\_\+set\+\_\+proto (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv\+\_\+link} $\ast$}]{link, }
+\item[{uint16\+\_\+t}]{proto}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga2508987133a93863d2a50103004b0f36}
+
+
+Set the protocol for the stream server link. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em link} & Stream Server Link to modify \\
+\hline
+\mbox{\tt in}  & {\em proto} & Protocol (like I\+P\+P\+R\+O\+T\+O\+\_\+\+T\+CP (default), I\+P\+P\+R\+O\+T\+O\+\_\+\+S\+C\+TP, ...) \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+recv@{osmo\+\_\+stream\+\_\+srv\+\_\+recv}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+recv@{osmo\+\_\+stream\+\_\+srv\+\_\+recv}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+recv(struct osmo\+\_\+stream\+\_\+srv $\ast$conn, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+stream\+\_\+srv\+\_\+recv (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$}]{conn, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{group__stream_gac86242c41223c525c770ff7e7515d83e}
+
+
+Receive data via Osmocom stream server. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Stream Server from which to receive \\
+\hline
+ & {\em msg} & pre-\/allocate message buffer to which received data is appended \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of bytes read, negative on error. 
+\end{DoxyReturn}
+
+
+References msgb\+\_\+sctp\+\_\+ppid, and msgb\+\_\+sctp\+\_\+stream.
+
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+send@{osmo\+\_\+stream\+\_\+srv\+\_\+send}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+send@{osmo\+\_\+stream\+\_\+srv\+\_\+send}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+send(struct osmo\+\_\+stream\+\_\+srv $\ast$conn, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+srv\+\_\+send (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$}]{conn, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{group__stream_gaa1589994cf6eab27742cafee6b7fb491}
+
+
+Enqueue data to be sent via an Osmocom stream server. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Stream Server through which we want to send \\
+\hline
+\mbox{\tt in}  & {\em msg} & Message buffer to enqueue in transmit queue \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+set\+\_\+data@{osmo\+\_\+stream\+\_\+srv\+\_\+set\+\_\+data}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+set\+\_\+data@{osmo\+\_\+stream\+\_\+srv\+\_\+set\+\_\+data}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+set\+\_\+data(struct osmo\+\_\+stream\+\_\+srv $\ast$conn, void $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+srv\+\_\+set\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$}]{conn, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga9891663b20714d72f992e44ad1e92eea}
+
+
+Set application private data of the stream server. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Stream Server to modify \\
+\hline
+\mbox{\tt in}  & {\em data} & User-\/specific data (available in call-\/back functions) \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!osmo\+\_\+stream\+\_\+srv\+\_\+set\+\_\+flush\+\_\+and\+\_\+destroy@{osmo\+\_\+stream\+\_\+srv\+\_\+set\+\_\+flush\+\_\+and\+\_\+destroy}}
+\index{osmo\+\_\+stream\+\_\+srv\+\_\+set\+\_\+flush\+\_\+and\+\_\+destroy@{osmo\+\_\+stream\+\_\+srv\+\_\+set\+\_\+flush\+\_\+and\+\_\+destroy}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{osmo\+\_\+stream\+\_\+srv\+\_\+set\+\_\+flush\+\_\+and\+\_\+destroy(struct osmo\+\_\+stream\+\_\+srv $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+stream\+\_\+srv\+\_\+set\+\_\+flush\+\_\+and\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+stream\+\_\+srv} $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}\label{group__stream_ga8390ce6740e56eb22215e1c5805c95f1}
+
+
+Prepare to send out all pending messages on the connection\textquotesingle{}s Tx queue and then automatically destroy the stream with \doxyref{osmo\+\_\+stream\+\_\+srv\+\_\+destroy()}{p.}{group__stream_ga47f18e063f64f22cb74d58d8b7243bed}. This function disables queuing of new messages on the connection and also disables reception of new messages on the connection. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Stream Server to modify \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Variable Documentation}
+\index{Osmocom Stream Socket@{Osmocom Stream Socket}!stream\+\_\+cli\+\_\+state\+\_\+names@{stream\+\_\+cli\+\_\+state\+\_\+names}}
+\index{stream\+\_\+cli\+\_\+state\+\_\+names@{stream\+\_\+cli\+\_\+state\+\_\+names}!Osmocom Stream Socket@{Osmocom Stream Socket}}
+\subsubsection[{stream\+\_\+cli\+\_\+state\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string stream\+\_\+cli\+\_\+state\+\_\+names[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{group__stream_gabc297deef700516694f2eab8d4455113}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ STREAM\_CLI\_STATE\_NONE,       \textcolor{stringliteral}{"      NONE"} \},
+        \{ STREAM\_CLI\_STATE\_CONNECTING, \textcolor{stringliteral}{"CONNECTING"} \},
+        \{ STREAM\_CLI\_STATE\_CONNECTED,  \textcolor{stringliteral}{" CONNECTED"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}

@@ -1,0 +1,70 @@
+# OsmoGGSN - Gateway GPRS Support Node
+# Copyright (C) 2002, 2003, 2004 Mondru AB.
+#  
+# The contents of this file may be used under the terms of the GNU
+# General Public License Version 2, provided that the above copyright
+# notice and this permission notice is included in all copies or
+# substantial portions of the software.
+#  
+# Use
+# 	gengetopt --conf-parser < cmdline.ggo
+# 	linux-2.6/scripts/Lindent cmdline.c
+# 	linux-2.6/scripts/Lindent cmdline.h
+# 	sed -i -e 's/int qose1_arg;/unsigned long long int qose1_arg;/' cmdline.h
+# to generate cmdline.c and cmdline.h
+
+package "sgsnemu"
+
+defmode "createif"  modedesc="any option of this mode is related to tun interface, \
+all payload going in and out  via tunN interface"
+defmode "pinghost"  modedesc="generate ICMP payload inside G-PDU without setting up tun interface"
+
+option  "debug"        d "Run in debug mode"              flag   off
+
+option  "conf"         c "Read configuration file"        string no
+option  "pidfile"      - "Filename of process id file"    string default="./sgsnemu.pid" no
+option  "statedir"     - "Directory of nonvolatile data"  string default="./" no
+
+option  "dns"          - "DNS Server to use"              string no
+option  "listen"       l "Local host"                     string no
+option  "remote"       r "Remote host"                    string no
+
+option  "contexts"     - "Number of contexts"             int    default="1" no
+option  "timelimit"    - "Exit after timelimit seconds"   int default="0" no
+
+option  "gtpversion"   - "GTP version to use"             int    default="1" no
+option  "apn"          a "Access point name"              string default="internet" no
+option  "selmode"      - "Selection mode"                 int    default="0x01" no
+option  "rattype"      - "Radio Access Technology Type"   int    default="1" no typestr="1..5"
+option  "userloc"      - "User Location Information"      string    default="02509946241207" no typestr="type.MCC.MNC.LAC.CIorSACorRAC"
+option  "rai"          - "Routing Area Information"       string    default="02509946241207" no typestr="MCC.MNC.LAC.RAC"
+option  "mstz"         - "MS Time Zone"                   string    default="0" no typestr="sign.NbQuartersOfAnHour.DSTAdjustment"
+option  "imeisv"       - "IMEI(SV) International Mobile Equipment Identity (and Software Version)" string default="2143658709214365" no
+option  "norecovery"   - "Do not send recovery"           flag off
+option  "imsi"         i "IMSI"                           string default="240010123456789" no
+option  "nsapi"        - "NSAPI"                          int default="0" no
+option  "msisdn"       m "Mobile Station ISDN number"     string default="46702123456" no
+option  "qos"          q "Requested quality of service"   int    default="0x000b921f" no
+option  "qose1"        - "Requested quality of service Extension 1"   int    default="0x9396404074f9ffff" no
+option  "qose2"        - "Requested quality of service Extension 2"   int    default="0x11" no
+option  "qose3"        - "Requested quality of service Extension 3"   int    default="0x0101" no
+option  "qose4"        - "Requested quality of service Extension 4"   int    default="0x4040" no
+option  "charging"     - "Charging characteristics"       int    default="0x0800" no
+option  "uid"          u "Login user ID"                  string default="mig" no
+option  "pwd"          p "Login password"                 string default="hemmelig" no
+
+modeoption   "createif"     - "Create local network interface" flag   off                           mode="createif"
+modeoption   "net"          n "Network address for local interface" string dependon="createif" no   mode="createif"
+modeoption   "defaultroute" - "Create default route"           flag   dependon="createif" off       mode="createif"
+modeoption   "ipup"         - "Script to run after link-up"    string dependon="createif" no        mode="createif"
+modeoption   "ipdown"       - "Script to run after link-down"  string dependon="createif" no        mode="createif"
+modeoption   "tun-device"   - "Name of the local network interface" string dependon="createif" no   mode="createif"
+
+modeoption   "pinghost"     - "Ping remote host"               string no                                mode="pinghost"
+modeoption   "pingrate"     - "Number of ping req per second"  int default="1" dependon="pinghost" no   mode="pinghost"
+modeoption   "pingsize"     - "Number of ping data bytes"      int default="56" dependon="pinghost" no  mode="pinghost"
+modeoption   "pingcount"    - "Number of ping req to send"     int default="0" dependon="pinghost" no   mode="pinghost"
+modeoption   "pingquiet"    - "Do not print ping packet info"  flag dependon="pinghost" off             mode="pinghost"
+
+option  "no-tx-gpdu-seq" - "Don't transmit G-PDU sequence nums"   flag    off
+option  "pdp-type"     t "PDP Type"                       string default="v4" no typestr="(v4|v6)"

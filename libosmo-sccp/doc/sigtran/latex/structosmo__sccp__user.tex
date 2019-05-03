@@ -1,0 +1,106 @@
+\section{osmo\+\_\+sccp\+\_\+user Struct Reference}
+\label{structosmo__sccp__user}\index{osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}}
+
+
+{\ttfamily \#include $<$sccp\+\_\+internal.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct llist\+\_\+head {\bf list}
+\begin{DoxyCompactList}\small\item\em entry in list of sccp users of \doxyref{osmo\+\_\+sccp\+\_\+instance}{p.}{structosmo__sccp__instance} \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$ {\bf inst}
+\begin{DoxyCompactList}\small\item\em pointer back to S\+C\+CP instance \end{DoxyCompactList}\item 
+char $\ast$ {\bf name}
+\begin{DoxyCompactList}\small\item\em human-\/readable name of this user \end{DoxyCompactList}\item 
+uint16\+\_\+t {\bf ssn}
+\begin{DoxyCompactList}\small\item\em S\+SN and/or point code to which we are bound. \end{DoxyCompactList}\item 
+uint32\+\_\+t {\bf pc}
+\item 
+struct llist\+\_\+head {\bf links}
+\item 
+osmo\+\_\+prim\+\_\+cb {\bf prim\+\_\+cb}
+\item 
+void $\ast$ {\bf priv}
+\item 
+struct osmo\+\_\+fsm\+\_\+inst $\ast$ {\bf as\+\_\+fi}
+\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}!as\+\_\+fi@{as\+\_\+fi}}
+\index{as\+\_\+fi@{as\+\_\+fi}!osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}}
+\subsubsection[{as\+\_\+fi}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+fsm\+\_\+inst$\ast$ osmo\+\_\+sccp\+\_\+user\+::as\+\_\+fi}\label{structosmo__sccp__user_a28ad7b7289c898db019be6f3dad74ee6}
+\index{osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}!inst@{inst}}
+\index{inst@{inst}!osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}}
+\subsubsection[{inst}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+instance}$\ast$ osmo\+\_\+sccp\+\_\+user\+::inst}\label{structosmo__sccp__user_a37fdb1a4f629f2b028e38584c22216ba}
+
+
+pointer back to S\+C\+CP instance 
+
+
+
+Referenced by conn\+\_\+create(), conn\+\_\+create\+\_\+id(), osmo\+\_\+sccp\+\_\+get\+\_\+sccp(), osmo\+\_\+sccp\+\_\+user\+\_\+name(), osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree(), osmo\+\_\+sccp\+\_\+user\+\_\+unbind(), sccp\+\_\+user\+\_\+bind\+\_\+pc(), show\+\_\+user(), and xua\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send().
+
+\index{osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}!links@{links}}
+\index{links@{links}!osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}}
+\subsubsection[{links}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head osmo\+\_\+sccp\+\_\+user\+::links}\label{structosmo__sccp__user_a5cba22699c6057725380fe721b21eeb7}
+\index{osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}!list@{list}}
+\index{list@{list}!osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}}
+\subsubsection[{list}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head osmo\+\_\+sccp\+\_\+user\+::list}\label{structosmo__sccp__user_afce7749961ce5e8d6b083b7ee42d1e27}
+
+
+entry in list of sccp users of \doxyref{osmo\+\_\+sccp\+\_\+instance}{p.}{structosmo__sccp__instance} 
+
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+instance\+\_\+destroy(), osmo\+\_\+sccp\+\_\+user\+\_\+unbind(), sccp\+\_\+user\+\_\+bind\+\_\+pc(), and sccp\+\_\+user\+\_\+find().
+
+\index{osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}!name@{name}}
+\index{name@{name}!osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ osmo\+\_\+sccp\+\_\+user\+::name}\label{structosmo__sccp__user_a9b1d575ae24f502ec1334c05fc0f1c1c}
+
+
+human-\/readable name of this user 
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+user\+\_\+name(), osmo\+\_\+sccp\+\_\+user\+\_\+unbind(), sccp\+\_\+user\+\_\+bind\+\_\+pc(), sccp\+\_\+user\+\_\+prim\+\_\+up(), and show\+\_\+user().
+
+\index{osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}!pc@{pc}}
+\index{pc@{pc}!osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}}
+\subsubsection[{pc}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t osmo\+\_\+sccp\+\_\+user\+::pc}\label{structosmo__sccp__user_a53eed6648070b73d553f3020ba8e7b25}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+user\+\_\+name(), osmo\+\_\+sccp\+\_\+user\+\_\+unbind(), sccp\+\_\+user\+\_\+bind\+\_\+pc(), sccp\+\_\+user\+\_\+find(), show\+\_\+user(), and vty\+\_\+show\+\_\+connection().
+
+\index{osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}!prim\+\_\+cb@{prim\+\_\+cb}}
+\index{prim\+\_\+cb@{prim\+\_\+cb}!osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}}
+\subsubsection[{prim\+\_\+cb}]{\setlength{\rightskip}{0pt plus 5cm}osmo\+\_\+prim\+\_\+cb osmo\+\_\+sccp\+\_\+user\+::prim\+\_\+cb}\label{structosmo__sccp__user_af51492c8bd34bd61a06db2665a261bb9}
+
+
+Referenced by sccp\+\_\+user\+\_\+bind\+\_\+pc(), and sccp\+\_\+user\+\_\+prim\+\_\+up().
+
+\index{osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}!priv@{priv}}
+\index{priv@{priv}!osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}}
+\subsubsection[{priv}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ osmo\+\_\+sccp\+\_\+user\+::priv}\label{structosmo__sccp__user_a77e0cd1bb01ab1bd2bff5de9bfe5a333}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+user\+\_\+get\+\_\+priv(), and osmo\+\_\+sccp\+\_\+user\+\_\+set\+\_\+priv().
+
+\index{osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}!ssn@{ssn}}
+\index{ssn@{ssn}!osmo\+\_\+sccp\+\_\+user@{osmo\+\_\+sccp\+\_\+user}}
+\subsubsection[{ssn}]{\setlength{\rightskip}{0pt plus 5cm}uint16\+\_\+t osmo\+\_\+sccp\+\_\+user\+::ssn}\label{structosmo__sccp__user_a85356af5d3622a4f6ee912322cd8148d}
+
+
+S\+SN and/or point code to which we are bound. 
+
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+user\+\_\+name(), osmo\+\_\+sccp\+\_\+user\+\_\+unbind(), sccp\+\_\+user\+\_\+bind\+\_\+pc(), sccp\+\_\+user\+\_\+find(), show\+\_\+user(), and vty\+\_\+show\+\_\+connection().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/{\bf sccp\+\_\+internal.\+h}\end{DoxyCompactItemize}

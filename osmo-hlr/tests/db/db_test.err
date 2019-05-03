@@ -1,0 +1,1505 @@
+
+===== test_subscr_create_update_sel_delete
+
+--- Create with valid / invalid IMSI
+
+db_subscr_create(dbc, imsi0) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+}
+
+db_subscr_create(dbc, imsi1) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi1, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 2,
+  .imsi = '123456789000001',
+}
+
+db_subscr_create(dbc, imsi2) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi2, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 3,
+  .imsi = '123456789000002',
+}
+
+db_subscr_create(dbc, imsi0) --> -EIO
+DAUC IMSI='123456789000000': Cannot create subscriber: SQL error: (2067) UNIQUE constraint failed: subscriber.imsi
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+}
+
+db_subscr_create(dbc, imsi1) --> -EIO
+DAUC IMSI='123456789000001': Cannot create subscriber: SQL error: (2067) UNIQUE constraint failed: subscriber.imsi
+
+db_subscr_create(dbc, imsi1) --> -EIO
+DAUC IMSI='123456789000001': Cannot create subscriber: SQL error: (2067) UNIQUE constraint failed: subscriber.imsi
+
+db_subscr_get_by_imsi(dbc, imsi1, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 2,
+  .imsi = '123456789000001',
+}
+
+db_subscr_create(dbc, imsi2) --> -EIO
+DAUC IMSI='123456789000002': Cannot create subscriber: SQL error: (2067) UNIQUE constraint failed: subscriber.imsi
+
+db_subscr_create(dbc, imsi2) --> -EIO
+DAUC IMSI='123456789000002': Cannot create subscriber: SQL error: (2067) UNIQUE constraint failed: subscriber.imsi
+
+db_subscr_get_by_imsi(dbc, imsi2, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 3,
+  .imsi = '123456789000002',
+}
+
+db_subscr_create(dbc, "123456789 000003") --> -EINVAL
+DAUC Cannot create subscriber: invalid IMSI: '123456789 000003'
+
+db_subscr_get_by_imsi(dbc, "123456789000003", &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: IMSI='123456789000003': No such subscriber
+
+db_subscr_create(dbc, "123456789000002123456") --> -EINVAL
+DAUC Cannot create subscriber: invalid IMSI: '123456789000002123456'
+
+db_subscr_get_by_imsi(dbc, "123456789000002123456", &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: IMSI='123456789000002123456': No such subscriber
+
+db_subscr_create(dbc, "foobar123") --> -EINVAL
+DAUC Cannot create subscriber: invalid IMSI: 'foobar123'
+
+db_subscr_get_by_imsi(dbc, "foobar123", &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: IMSI='foobar123': No such subscriber
+
+db_subscr_create(dbc, "123") --> -EINVAL
+DAUC Cannot create subscriber: invalid IMSI: '123'
+
+db_subscr_get_by_imsi(dbc, "123", &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: IMSI='123': No such subscriber
+
+db_subscr_create(dbc, short_imsi) --> 0
+
+db_subscr_get_by_imsi(dbc, short_imsi, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 4,
+  .imsi = '123456',
+}
+
+
+--- Set valid / invalid MSISDN
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+}
+
+db_subscr_update_msisdn_by_imsi(dbc, imsi0, "54321") --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '54321',
+}
+
+db_subscr_get_by_msisdn(dbc, "54321", &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '54321',
+}
+
+db_subscr_update_msisdn_by_imsi(dbc, imsi0, "54321012345678912345678") --> -EINVAL
+DAUC IMSI='123456789000000': Cannot update subscriber: invalid MSISDN: '54321012345678912345678'
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '54321',
+}
+
+db_subscr_get_by_msisdn(dbc, "54321", &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '54321',
+}
+
+db_subscr_get_by_msisdn(dbc, "54321012345678912345678", &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: MSISDN='54321012345678912345678': No such subscriber
+
+db_subscr_update_msisdn_by_imsi(dbc, imsi0, "543 21") --> -EINVAL
+DAUC IMSI='123456789000000': Cannot update subscriber: invalid MSISDN: '543 21'
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '54321',
+}
+
+db_subscr_get_by_msisdn(dbc, "543 21", &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: MSISDN='543 21': No such subscriber
+
+db_subscr_update_msisdn_by_imsi(dbc, imsi0, "foobar123") --> -EINVAL
+DAUC IMSI='123456789000000': Cannot update subscriber: invalid MSISDN: 'foobar123'
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '54321',
+}
+
+db_subscr_get_by_msisdn(dbc, "foobar123", &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: MSISDN='foobar123': No such subscriber
+
+db_subscr_update_msisdn_by_imsi(dbc, imsi0, "5") --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '5',
+}
+
+db_subscr_get_by_msisdn(dbc, "5", &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '5',
+}
+
+db_subscr_get_by_msisdn(dbc, "54321", &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: MSISDN='54321': No such subscriber
+
+db_subscr_update_msisdn_by_imsi(dbc, imsi0, "543210123456789") --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+}
+
+db_subscr_get_by_msisdn(dbc, "543210123456789", &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+}
+
+db_subscr_update_msisdn_by_imsi(dbc, imsi0, "5432101234567891") --> -EINVAL
+DAUC IMSI='123456789000000': Cannot update subscriber: invalid MSISDN: '5432101234567891'
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+}
+
+db_subscr_get_by_msisdn(dbc, "5432101234567891", &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: MSISDN='5432101234567891': No such subscriber
+
+
+--- Set MSISDN on non-existent / invalid IMSI
+
+db_subscr_update_msisdn_by_imsi(dbc, unknown_imsi, "99") --> -ENOENT
+DAUC Cannot update MSISDN: no such subscriber: IMSI='999999999'
+
+db_subscr_get_by_msisdn(dbc, "99", &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: MSISDN='99': No such subscriber
+
+db_subscr_update_msisdn_by_imsi(dbc, "foobar", "99") --> -ENOENT
+DAUC Cannot update MSISDN: no such subscriber: IMSI='foobar'
+
+db_subscr_get_by_msisdn(dbc, "99", &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: MSISDN='99': No such subscriber
+
+
+--- Set valid / invalid IMEI
+
+db_subscr_update_imei_by_imsi(dbc, imsi0, "12345678901234") --> 0
+
+db_subscr_get_by_imei(dbc, "12345678901234", &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .imei = '12345678901234',
+}
+
+db_subscr_update_imei_by_imsi(dbc, imsi0, "123456789012345") --> -EINVAL
+DAUC Cannot update subscriber IMSI='123456789000000': invalid IMEI: '123456789012345'
+
+db_subscr_get_by_imei(dbc, "12345678901234", &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .imei = '12345678901234',
+}
+
+db_subscr_get_by_imei(dbc, "123456789012345", &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: IMEI=123456789012345: No such subscriber
+
+
+--- Set the same IMEI again
+
+db_subscr_update_imei_by_imsi(dbc, imsi0, "12345678901234") --> 0
+
+db_subscr_get_by_imei(dbc, "12345678901234", &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .imei = '12345678901234',
+}
+
+
+--- Remove IMEI
+
+db_subscr_update_imei_by_imsi(dbc, imsi0, NULL) --> 0
+
+db_subscr_get_by_imei(dbc, "12345678901234", &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: IMEI=12345678901234: No such subscriber
+
+
+--- Set / unset nam_cs and nam_ps
+
+db_subscr_nam(dbc, imsi0, false, true) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .nam_ps = false,
+}
+
+db_subscr_nam(dbc, imsi0, false, false) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .nam_cs = false,
+  .nam_ps = false,
+}
+
+db_subscr_nam(dbc, imsi0, true, false) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .nam_ps = false,
+}
+
+db_subscr_nam(dbc, imsi0, true, true) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+}
+
+
+--- Set / unset nam_cs and nam_ps *again*
+
+db_subscr_nam(dbc, imsi0, false, true) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .nam_ps = false,
+}
+
+db_subscr_nam(dbc, imsi0, false, true) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .nam_ps = false,
+}
+
+db_subscr_nam(dbc, imsi0, false, false) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .nam_cs = false,
+  .nam_ps = false,
+}
+
+db_subscr_nam(dbc, imsi0, false, false) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .nam_cs = false,
+  .nam_ps = false,
+}
+
+db_subscr_nam(dbc, imsi0, true, true) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .nam_cs = false,
+}
+
+db_subscr_nam(dbc, imsi0, true, true) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .nam_cs = false,
+}
+
+db_subscr_nam(dbc, imsi0, true, false) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+}
+
+db_subscr_nam(dbc, imsi0, true, false) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+}
+
+
+--- Set nam_cs and nam_ps on non-existent / invalid IMSI
+
+db_subscr_nam(dbc, unknown_imsi, false, true) --> -ENOENT
+DAUC Cannot disable PS: no such subscriber: IMSI='999999999'
+
+db_subscr_nam(dbc, unknown_imsi, false, false) --> -ENOENT
+DAUC Cannot disable CS: no such subscriber: IMSI='999999999'
+
+db_subscr_get_by_imsi(dbc, unknown_imsi, &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: IMSI='999999999': No such subscriber
+
+db_subscr_nam(dbc, "foobar", false, true) --> -ENOENT
+DAUC Cannot disable PS: no such subscriber: IMSI='foobar'
+
+db_subscr_nam(dbc, "foobar", false, false) --> -ENOENT
+DAUC Cannot disable CS: no such subscriber: IMSI='foobar'
+
+
+--- Record LU for PS and CS (SGSN and VLR names)
+
+db_subscr_lu(dbc, id0, "5952", true) --> 0
+
+db_subscr_get_by_id(dbc, id0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .sgsn_number = '5952',
+}
+
+db_subscr_lu(dbc, id0, "712", false) --> 0
+
+db_subscr_get_by_id(dbc, id0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .vlr_number = '712',
+  .sgsn_number = '5952',
+}
+
+
+--- Record LU for PS and CS (SGSN and VLR names) *again*
+
+db_subscr_lu(dbc, id0, "111", true) --> 0
+
+db_subscr_get_by_id(dbc, id0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .vlr_number = '712',
+  .sgsn_number = '111',
+}
+
+db_subscr_lu(dbc, id0, "111", true) --> 0
+
+db_subscr_get_by_id(dbc, id0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .vlr_number = '712',
+  .sgsn_number = '111',
+}
+
+db_subscr_lu(dbc, id0, "222", false) --> 0
+
+db_subscr_get_by_id(dbc, id0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .vlr_number = '222',
+  .sgsn_number = '111',
+}
+
+db_subscr_lu(dbc, id0, "222", false) --> 0
+
+db_subscr_get_by_id(dbc, id0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .vlr_number = '222',
+  .sgsn_number = '111',
+}
+
+
+--- Unset LU info for PS and CS (SGSN and VLR names)
+
+db_subscr_lu(dbc, id0, "", true) --> 0
+
+db_subscr_get_by_id(dbc, id0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .vlr_number = '222',
+}
+
+db_subscr_lu(dbc, id0, "", false) --> 0
+
+db_subscr_get_by_id(dbc, id0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+}
+
+db_subscr_lu(dbc, id0, "111", true) --> 0
+
+db_subscr_lu(dbc, id0, "222", false) --> 0
+
+db_subscr_get_by_id(dbc, id0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .vlr_number = '222',
+  .sgsn_number = '111',
+}
+
+db_subscr_lu(dbc, id0, NULL, true) --> 0
+
+db_subscr_get_by_id(dbc, id0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .vlr_number = '222',
+}
+
+db_subscr_lu(dbc, id0, NULL, false) --> 0
+
+db_subscr_get_by_id(dbc, id0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+}
+
+
+--- Record LU for non-existent ID
+
+db_subscr_lu(dbc, 99999, "5952", true) --> -ENOENT
+DAUC Cannot update SGSN number for subscriber ID=99999: no such subscriber
+
+db_subscr_lu(dbc, 99999, "712", false) --> -ENOENT
+DAUC Cannot update VLR number for subscriber ID=99999: no such subscriber
+
+db_subscr_get_by_id(dbc, 99999, &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: ID=99999: No such subscriber
+
+
+--- Purge and un-purge PS and CS
+
+db_subscr_purge(dbc, imsi0, true, true) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .ms_purged_ps = true,
+}
+
+db_subscr_purge(dbc, imsi0, true, false) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .ms_purged_cs = true,
+  .ms_purged_ps = true,
+}
+
+db_subscr_purge(dbc, imsi0, false, false) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .ms_purged_ps = true,
+}
+
+db_subscr_purge(dbc, imsi0, false, true) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+}
+
+
+--- Purge PS and CS *again*
+
+db_subscr_purge(dbc, imsi0, true, true) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .ms_purged_ps = true,
+}
+
+db_subscr_purge(dbc, imsi0, true, true) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .ms_purged_ps = true,
+}
+
+db_subscr_purge(dbc, imsi0, false, true) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+}
+
+db_subscr_purge(dbc, imsi0, false, true) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+}
+
+db_subscr_purge(dbc, imsi0, true, false) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .ms_purged_cs = true,
+}
+
+db_subscr_purge(dbc, imsi0, true, false) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+  .ms_purged_cs = true,
+}
+
+db_subscr_purge(dbc, imsi0, false, false) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+}
+
+db_subscr_purge(dbc, imsi0, false, false) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+}
+
+
+--- Purge on non-existent / invalid IMSI
+
+db_subscr_purge(dbc, unknown_imsi, true, true) --> -ENOENT
+DAUC Cannot purge PS: no such subscriber: IMSI='999999999'
+
+db_subscr_get_by_imsi(dbc, unknown_imsi, &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: IMSI='999999999': No such subscriber
+
+db_subscr_purge(dbc, unknown_imsi, true, false) --> -ENOENT
+DAUC Cannot purge CS: no such subscriber: IMSI='999999999'
+
+db_subscr_get_by_imsi(dbc, unknown_imsi, &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: IMSI='999999999': No such subscriber
+
+
+--- Delete non-existent / invalid IDs
+
+db_subscr_delete_by_id(dbc, 999) --> -ENOENT
+DAUC Cannot delete: no such subscriber: ID=999
+
+db_subscr_delete_by_id(dbc, -10) --> -ENOENT
+DAUC Cannot delete: no such subscriber: ID=-10
+
+
+--- Delete subscribers
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+  .msisdn = '543210123456789',
+}
+
+db_subscr_delete_by_id(dbc, id0) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: IMSI='123456789000000': No such subscriber
+
+db_subscr_delete_by_id(dbc, id0) --> -ENOENT
+DAUC Cannot delete: no such subscriber: ID=1
+
+db_subscr_get_by_imsi(dbc, imsi1, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 2,
+  .imsi = '123456789000001',
+}
+
+db_subscr_delete_by_id(dbc, id1) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi1, &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: IMSI='123456789000001': No such subscriber
+
+db_subscr_get_by_imsi(dbc, imsi2, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 3,
+  .imsi = '123456789000002',
+}
+
+db_subscr_delete_by_id(dbc, id2) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi2, &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: IMSI='123456789000002': No such subscriber
+
+db_subscr_get_by_imsi(dbc, short_imsi, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 4,
+  .imsi = '123456',
+}
+
+db_subscr_delete_by_id(dbc, id_short) --> 0
+
+db_subscr_get_by_imsi(dbc, short_imsi, &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: IMSI='123456': No such subscriber
+
+===== test_subscr_create_update_sel_delete: SUCCESS
+
+
+===== test_subscr_aud
+
+--- Get auth data for non-existent subscriber
+
+db_get_auth_data(dbc, unknown_imsi, &g_aud2g, &g_aud3g, &g_id) --> -2
+DAUC IMSI='999999999': No such subscriber
+
+
+db_get_auc(dbc, imsi0, 3, vec, N_VECTORS, NULL, NULL) --> -2
+DAUC IMSI='123456789000000': No such subscriber
+
+
+--- Create subscriber
+
+db_subscr_create(dbc, imsi0) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+}
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> -126
+DAUC IMSI='123456789000000': No 2G Auth Data
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+
+db_get_auc(dbc, imsi0, 3, vec, N_VECTORS, NULL, NULL) --> -126
+DAUC IMSI='123456789000000': No 2G Auth Data
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+
+--- Set auth data, 2G only
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_2g(OSMO_AUTH_ALG_COMP128v1, "0123456789abcdef0123456789abcdef")) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+2G: struct osmo_sub_auth_data {
+  .type = GSM,
+  .algo = COMP128v1,
+  .u.gsm.ki = '0123456789abcdef0123456789abcdef',
+}
+3G: none
+
+db_get_auc(dbc, imsi0, 3, vec, N_VECTORS, NULL, NULL) --> 3
+DAUC IMSI='123456789000000': No 3G Auth Data
+DAUC IMSI='123456789000000': Calling to generate 3 vectors
+DAUC IMSI='123456789000000': Generated 3 vectors
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_2g(OSMO_AUTH_ALG_COMP128v1, "0123456789abcdef0123456789abcdef")) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+2G: struct osmo_sub_auth_data {
+  .type = GSM,
+  .algo = COMP128v1,
+  .u.gsm.ki = '0123456789abcdef0123456789abcdef',
+}
+3G: none
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_2g(OSMO_AUTH_ALG_COMP128v2, "BeadedBeeAced1EbbedDefacedFacade")) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+2G: struct osmo_sub_auth_data {
+  .type = GSM,
+  .algo = COMP128v2,
+  .u.gsm.ki = 'beadedbeeaced1ebbeddefacedfacade',
+}
+3G: none
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_2g(OSMO_AUTH_ALG_COMP128v3, "DeafBeddedBabeAcceededFadedDecaf")) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+2G: struct osmo_sub_auth_data {
+  .type = GSM,
+  .algo = COMP128v3,
+  .u.gsm.ki = 'deafbeddedbabeacceededfadeddecaf',
+}
+3G: none
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_2g(OSMO_AUTH_ALG_XOR, "CededEffacedAceFacedBadFadedBeef")) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+2G: struct osmo_sub_auth_data {
+  .type = GSM,
+  .algo = XOR,
+  .u.gsm.ki = 'cededeffacedacefacedbadfadedbeef',
+}
+3G: none
+
+
+--- Remove 2G auth data
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_2g(OSMO_AUTH_ALG_NONE, NULL)) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> -126
+DAUC IMSI='123456789000000': No 2G Auth Data
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+
+db_get_auc(dbc, imsi0, 3, vec, N_VECTORS, NULL, NULL) --> -126
+DAUC IMSI='123456789000000': No 2G Auth Data
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_2g(OSMO_AUTH_ALG_NONE, NULL)) --> -ENOENT
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_2g(OSMO_AUTH_ALG_XOR, "CededEffacedAceFacedBadFadedBeef")) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+2G: struct osmo_sub_auth_data {
+  .type = GSM,
+  .algo = XOR,
+  .u.gsm.ki = 'cededeffacedacefacedbadfadedbeef',
+}
+3G: none
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_2g(OSMO_AUTH_ALG_NONE, "f000000000000f00000000000f000000")) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> -126
+DAUC IMSI='123456789000000': No 2G Auth Data
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+
+db_get_auc(dbc, imsi0, 3, vec, N_VECTORS, NULL, NULL) --> -126
+DAUC IMSI='123456789000000': No 2G Auth Data
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+
+--- Set auth data, 3G only
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_3g(OSMO_AUTH_ALG_MILENAGE, "BeefedCafeFaceAcedAddedDecadeFee", true, "C01ffedC1cadaeAc1d1f1edAcac1aB0a", 5)) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 2G Auth Data
+
+2G: none
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 1,
+  .u.umts.k = 'c01ffedc1cadaeac1d1f1edacac1ab0a',
+  .u.umts.amf = '0000',
+  .u.umts.ind_bitlen = 5,
+}
+
+db_get_auc(dbc, imsi0, 3, vec, N_VECTORS, NULL, NULL) --> 3
+DAUC IMSI='123456789000000': No 2G Auth Data
+DAUC IMSI='123456789000000': Calling to generate 3 vectors
+DAUC IMSI='123456789000000': Generated 3 vectors
+DAUC IMSI='123456789000000': Updating SQN=0 in DB
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_3g(OSMO_AUTH_ALG_MILENAGE, "BeefedCafeFaceAcedAddedDecadeFee", true, "C01ffedC1cadaeAc1d1f1edAcac1aB0a", 5)) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 2G Auth Data
+
+2G: none
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 1,
+  .u.umts.k = 'c01ffedc1cadaeac1d1f1edacac1ab0a',
+  .u.umts.amf = '0000',
+  .u.umts.ind_bitlen = 5,
+}
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_3g(OSMO_AUTH_ALG_MILENAGE, "Deaf0ff1ceD0d0DabbedD1ced1ceF00d", true, "F1bbed0afD0eF0bD0ffed0ddF1fe0b0e", 0)) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 2G Auth Data
+
+2G: none
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'deaf0ff1ced0d0dabbedd1ced1cef00d',
+  .u.umts.opc_is_op = 1,
+  .u.umts.k = 'f1bbed0afd0ef0bd0ffed0ddf1fe0b0e',
+  .u.umts.amf = '0000',
+}
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_3g(OSMO_AUTH_ALG_MILENAGE, "BeefedCafeFaceAcedAddedDecadeFee", false, "DeafBeddedBabeAcceededFadedDecaf", OSMO_MILENAGE_IND_BITLEN_MAX)) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 2G Auth Data
+
+2G: none
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 0,
+  .u.umts.k = 'deafbeddedbabeacceededfadeddecaf',
+  .u.umts.amf = '0000',
+  .u.umts.ind_bitlen = 28,
+}
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_3g(OSMO_AUTH_ALG_MILENAGE, "CededEffacedAceFacedBadFadedBeef", false, "BeefedCafeFaceAcedAddedDecadeFee", 5)) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 2G Auth Data
+
+2G: none
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'cededeffacedacefacedbadfadedbeef',
+  .u.umts.opc_is_op = 0,
+  .u.umts.k = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.amf = '0000',
+  .u.umts.ind_bitlen = 5,
+}
+
+
+--- Remove 3G auth data
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_3g(OSMO_AUTH_ALG_NONE, NULL, false, NULL, 0)) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> -126
+DAUC IMSI='123456789000000': No 2G Auth Data
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+
+db_get_auc(dbc, imsi0, 3, vec, N_VECTORS, NULL, NULL) --> -126
+DAUC IMSI='123456789000000': No 2G Auth Data
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_3g(OSMO_AUTH_ALG_NONE, NULL, false, NULL, 0)) --> -ENOENT
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_3g(OSMO_AUTH_ALG_MILENAGE, "CededEffacedAceFacedBadFadedBeef", false, "BeefedCafeFaceAcedAddedDecadeFee", 5)) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 2G Auth Data
+
+2G: none
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'cededeffacedacefacedbadfadedbeef',
+  .u.umts.opc_is_op = 0,
+  .u.umts.k = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.amf = '0000',
+  .u.umts.ind_bitlen = 5,
+}
+
+db_get_auc(dbc, imsi0, 3, vec, N_VECTORS, NULL, NULL) --> 3
+DAUC IMSI='123456789000000': No 2G Auth Data
+DAUC IMSI='123456789000000': Calling to generate 3 vectors
+DAUC IMSI='123456789000000': Generated 3 vectors
+DAUC IMSI='123456789000000': Updating SQN=0 in DB
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_3g(OSMO_AUTH_ALG_NONE, "asdfasdfasd", false, "asdfasdfasdf", 99999)) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> -126
+DAUC IMSI='123456789000000': No 2G Auth Data
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+
+db_get_auc(dbc, imsi0, 3, vec, N_VECTORS, NULL, NULL) --> -126
+DAUC IMSI='123456789000000': No 2G Auth Data
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+
+--- Set auth data, 2G and 3G
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_2g(OSMO_AUTH_ALG_COMP128v3, "CededEffacedAceFacedBadFadedBeef")) --> 0
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_3g(OSMO_AUTH_ALG_MILENAGE, "BeefedCafeFaceAcedAddedDecadeFee", false, "DeafBeddedBabeAcceededFadedDecaf", 5)) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+
+2G: struct osmo_sub_auth_data {
+  .type = GSM,
+  .algo = COMP128v3,
+  .u.gsm.ki = 'cededeffacedacefacedbadfadedbeef',
+}
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 0,
+  .u.umts.k = 'deafbeddedbabeacceededfadeddecaf',
+  .u.umts.amf = '0000',
+  .u.umts.ind_bitlen = 5,
+}
+
+db_get_auc(dbc, imsi0, 3, vec, N_VECTORS, NULL, NULL) --> 3
+DAUC IMSI='123456789000000': Calling to generate 3 vectors
+DAUC IMSI='123456789000000': Generated 3 vectors
+DAUC IMSI='123456789000000': Updating SQN=0 in DB
+
+
+--- Set invalid auth data
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_2g(99999, "f000000000000f00000000000f000000")) --> -EINVAL
+DAUC Cannot update auth tokens: Unknown auth algo: 99999
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+
+2G: struct osmo_sub_auth_data {
+  .type = GSM,
+  .algo = COMP128v3,
+  .u.gsm.ki = 'cededeffacedacefacedbadfadedbeef',
+}
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 0,
+  .u.umts.k = 'deafbeddedbabeacceededfadeddecaf',
+  .u.umts.amf = '0000',
+  .u.umts.ind_bitlen = 5,
+}
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_2g(OSMO_AUTH_ALG_XOR, "f000000000000f00000000000f000000f00000000")) --> -EINVAL
+DAUC Cannot update auth tokens: Invalid KI: 'f000000000000f00000000000f000000f00000000'
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+
+2G: struct osmo_sub_auth_data {
+  .type = GSM,
+  .algo = COMP128v3,
+  .u.gsm.ki = 'cededeffacedacefacedbadfadedbeef',
+}
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 0,
+  .u.umts.k = 'deafbeddedbabeacceededfadeddecaf',
+  .u.umts.amf = '0000',
+  .u.umts.ind_bitlen = 5,
+}
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_2g(OSMO_AUTH_ALG_XOR, "f00")) --> -EINVAL
+DAUC Cannot update auth tokens: Invalid KI: 'f00'
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+
+2G: struct osmo_sub_auth_data {
+  .type = GSM,
+  .algo = COMP128v3,
+  .u.gsm.ki = 'cededeffacedacefacedbadfadedbeef',
+}
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 0,
+  .u.umts.k = 'deafbeddedbabeacceededfadeddecaf',
+  .u.umts.amf = '0000',
+  .u.umts.ind_bitlen = 5,
+}
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_2g(OSMO_AUTH_ALG_MILENAGE, "0123456789abcdef0123456789abcdef")) --> -EINVAL
+DAUC Cannot update auth tokens: auth algo not suited for 2G: MILENAGE
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+
+2G: struct osmo_sub_auth_data {
+  .type = GSM,
+  .algo = COMP128v3,
+  .u.gsm.ki = 'cededeffacedacefacedbadfadedbeef',
+}
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 0,
+  .u.umts.k = 'deafbeddedbabeacceededfadeddecaf',
+  .u.umts.amf = '0000',
+  .u.umts.ind_bitlen = 5,
+}
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_3g(OSMO_AUTH_ALG_MILENAGE, "0f000000000000f00000000000f000000", false, "f000000000000f00000000000f000000", 5)) --> -EINVAL
+DAUC Cannot update auth tokens: Invalid OP/OPC: '0f000000000000f00000000000f000000'
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+
+2G: struct osmo_sub_auth_data {
+  .type = GSM,
+  .algo = COMP128v3,
+  .u.gsm.ki = 'cededeffacedacefacedbadfadedbeef',
+}
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 0,
+  .u.umts.k = 'deafbeddedbabeacceededfadeddecaf',
+  .u.umts.amf = '0000',
+  .u.umts.ind_bitlen = 5,
+}
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_3g(OSMO_AUTH_ALG_MILENAGE, "f000000000000f00000000000f000000", false, "000000000000f00000000000f000000", 5)) --> -EINVAL
+DAUC Cannot update auth tokens: Invalid K: '000000000000f00000000000f000000'
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+
+2G: struct osmo_sub_auth_data {
+  .type = GSM,
+  .algo = COMP128v3,
+  .u.gsm.ki = 'cededeffacedacefacedbadfadedbeef',
+}
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 0,
+  .u.umts.k = 'deafbeddedbabeacceededfadeddecaf',
+  .u.umts.amf = '0000',
+  .u.umts.ind_bitlen = 5,
+}
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_3g(OSMO_AUTH_ALG_MILENAGE, "f000000000000f00000000000f000000", false, "f000000000000f00000000000f000000", OSMO_MILENAGE_IND_BITLEN_MAX + 1)) --> -EINVAL
+DAUC Cannot update auth tokens: Invalid ind_bitlen: 29
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+
+2G: struct osmo_sub_auth_data {
+  .type = GSM,
+  .algo = COMP128v3,
+  .u.gsm.ki = 'cededeffacedacefacedbadfadedbeef',
+}
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 0,
+  .u.umts.k = 'deafbeddedbabeacceededfadeddecaf',
+  .u.umts.amf = '0000',
+  .u.umts.ind_bitlen = 5,
+}
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_3g(OSMO_AUTH_ALG_MILENAGE, "X000000000000f00000000000f000000", false, "f000000000000f00000000000f000000", 5)) --> -EINVAL
+DAUC Cannot update auth tokens: Invalid OP/OPC: 'X000000000000f00000000000f000000'
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+
+2G: struct osmo_sub_auth_data {
+  .type = GSM,
+  .algo = COMP128v3,
+  .u.gsm.ki = 'cededeffacedacefacedbadfadedbeef',
+}
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 0,
+  .u.umts.k = 'deafbeddedbabeacceededfadeddecaf',
+  .u.umts.amf = '0000',
+  .u.umts.ind_bitlen = 5,
+}
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_3g(OSMO_AUTH_ALG_MILENAGE, "f000000000000f00000000000f000000", false, "f000000000000 f00000000000 f000000", 5)) --> -EINVAL
+DAUC Cannot update auth tokens: Invalid K: 'f000000000000 f00000000000 f000000'
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+
+2G: struct osmo_sub_auth_data {
+  .type = GSM,
+  .algo = COMP128v3,
+  .u.gsm.ki = 'cededeffacedacefacedbadfadedbeef',
+}
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 0,
+  .u.umts.k = 'deafbeddedbabeacceededfadeddecaf',
+  .u.umts.amf = '0000',
+  .u.umts.ind_bitlen = 5,
+}
+
+
+--- Delete subscriber
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+}
+
+db_subscr_delete_by_id(dbc, id) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: IMSI='123456789000000': No such subscriber
+
+
+--- Re-add subscriber and verify auth data didn't come back
+
+db_subscr_create(dbc, imsi0) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+}
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> -126
+DAUC IMSI='123456789000000': No 2G Auth Data
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+
+db_get_auc(dbc, imsi0, 3, vec, N_VECTORS, NULL, NULL) --> -126
+DAUC IMSI='123456789000000': No 2G Auth Data
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+db_subscr_delete_by_id(dbc, id) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: IMSI='123456789000000': No such subscriber
+
+db_get_auc(dbc, imsi0, 3, vec, N_VECTORS, NULL, NULL) --> -2
+DAUC IMSI='123456789000000': No such subscriber
+
+===== test_subscr_aud: SUCCESS
+
+
+===== test_subscr_sqn
+
+--- Set SQN for unknown subscriber
+
+db_update_sqn(dbc, 99, 999) --> -ENOENT
+DAUC Cannot update SQN for subscriber ID=99: no auc_3g entry for such subscriber
+
+db_subscr_get_by_id(dbc, 99, &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: ID=99: No such subscriber
+
+db_update_sqn(dbc, 9999, 99) --> -ENOENT
+DAUC Cannot update SQN for subscriber ID=9999: no auc_3g entry for such subscriber
+
+db_subscr_get_by_id(dbc, 9999, &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: ID=9999: No such subscriber
+
+
+--- Create subscriber
+
+db_subscr_create(dbc, imsi0) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+}
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> -126
+DAUC IMSI='123456789000000': No 2G Auth Data
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+
+
+--- Set SQN, but no 3G auth data present
+
+db_update_sqn(dbc, id, 123) --> -ENOENT
+DAUC Cannot update SQN for subscriber ID=1: no auc_3g entry for such subscriber
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> -126
+DAUC IMSI='123456789000000': No 2G Auth Data
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+
+db_update_sqn(dbc, id, 543) --> -ENOENT
+DAUC Cannot update SQN for subscriber ID=1: no auc_3g entry for such subscriber
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> -126
+DAUC IMSI='123456789000000': No 2G Auth Data
+DAUC IMSI='123456789000000': No 3G Auth Data
+
+
+
+--- Set auth 3G data
+
+db_subscr_update_aud_by_id(dbc, id, mk_aud_3g(OSMO_AUTH_ALG_MILENAGE, "BeefedCafeFaceAcedAddedDecadeFee", true, "C01ffedC1cadaeAc1d1f1edAcac1aB0a", 5)) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 2G Auth Data
+
+2G: none
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 1,
+  .u.umts.k = 'c01ffedc1cadaeac1d1f1edacac1ab0a',
+  .u.umts.amf = '0000',
+  .u.umts.ind_bitlen = 5,
+}
+
+
+--- Set SQN
+
+db_update_sqn(dbc, id, 23315) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 2G Auth Data
+
+2G: none
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 1,
+  .u.umts.k = 'c01ffedc1cadaeac1d1f1edacac1ab0a',
+  .u.umts.amf = '0000',
+  .u.umts.sqn = 23315,
+  .u.umts.sqn = 0x5b13,
+  .u.umts.ind_bitlen = 5,
+}
+
+db_update_sqn(dbc, id, 23315) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 2G Auth Data
+
+2G: none
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 1,
+  .u.umts.k = 'c01ffedc1cadaeac1d1f1edacac1ab0a',
+  .u.umts.amf = '0000',
+  .u.umts.sqn = 23315,
+  .u.umts.sqn = 0x5b13,
+  .u.umts.ind_bitlen = 5,
+}
+
+db_update_sqn(dbc, id, 423) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 2G Auth Data
+
+2G: none
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 1,
+  .u.umts.k = 'c01ffedc1cadaeac1d1f1edacac1ab0a',
+  .u.umts.amf = '0000',
+  .u.umts.sqn = 423,
+  .u.umts.sqn = 0x1a7,
+  .u.umts.ind_bitlen = 5,
+}
+
+
+--- Set SQN: thru uint64_t range, using the int64_t SQLite bind
+
+db_update_sqn(dbc, id, 0) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 2G Auth Data
+
+2G: none
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 1,
+  .u.umts.k = 'c01ffedc1cadaeac1d1f1edacac1ab0a',
+  .u.umts.amf = '0000',
+  .u.umts.ind_bitlen = 5,
+}
+
+db_update_sqn(dbc, id, INT64_MAX) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 2G Auth Data
+
+2G: none
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 1,
+  .u.umts.k = 'c01ffedc1cadaeac1d1f1edacac1ab0a',
+  .u.umts.amf = '0000',
+  .u.umts.sqn = 9223372036854775807,
+  .u.umts.sqn = 0x7fffffffffffffff,
+  .u.umts.ind_bitlen = 5,
+}
+
+db_update_sqn(dbc, id, INT64_MIN) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 2G Auth Data
+
+2G: none
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 1,
+  .u.umts.k = 'c01ffedc1cadaeac1d1f1edacac1ab0a',
+  .u.umts.amf = '0000',
+  .u.umts.sqn = 9223372036854775808,
+  .u.umts.sqn = 0x8000000000000000,
+  .u.umts.ind_bitlen = 5,
+}
+
+db_update_sqn(dbc, id, UINT64_MAX) --> 0
+
+db_get_auth_data(dbc, imsi0, &g_aud2g, &g_aud3g, &g_id) --> 0
+DAUC IMSI='123456789000000': No 2G Auth Data
+
+2G: none
+3G: struct osmo_sub_auth_data {
+  .type = UMTS,
+  .algo = MILENAGE,
+  .u.umts.opc = 'beefedcafefaceacedaddeddecadefee',
+  .u.umts.opc_is_op = 1,
+  .u.umts.k = 'c01ffedc1cadaeac1d1f1edacac1ab0a',
+  .u.umts.amf = '0000',
+  .u.umts.sqn = 18446744073709551615,
+  .u.umts.sqn = 0xffffffffffffffff,
+  .u.umts.ind_bitlen = 5,
+}
+
+
+--- Delete subscriber
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> 0
+struct hlr_subscriber {
+  .id = 1,
+  .imsi = '123456789000000',
+}
+
+db_subscr_delete_by_id(dbc, id) --> 0
+
+db_subscr_get_by_imsi(dbc, imsi0, &g_subscr) --> -ENOENT
+DAUC Cannot read subscriber from db: IMSI='123456789000000': No such subscriber
+
+===== test_subscr_sqn: SUCCESS
+

@@ -1,0 +1,203 @@
+\section{src/sccp\+\_\+sap.c File Reference}
+\label{sccp__sap_8c}\index{src/sccp\+\_\+sap.\+c@{src/sccp\+\_\+sap.\+c}}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/utils.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/prim.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/sccp\+\_\+sap.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/sigtran\+\_\+sap.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ {\bf osmo\+\_\+scu\+\_\+prim\+\_\+name} (struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)
+\item 
+char $\ast$ {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+name} (struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const struct value\+\_\+string {\bf osmo\+\_\+scu\+\_\+prim\+\_\+names} [$\,$]
+\item 
+static char {\bf prim\+\_\+name\+\_\+buf} [128]
+\item 
+const struct value\+\_\+string {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+names} [$\,$]
+\item 
+const struct value\+\_\+string {\bf osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+names} [$\,$]
+\item 
+const struct value\+\_\+string {\bf osmo\+\_\+sccp\+\_\+gti\+\_\+names} [$\,$]
+\item 
+const struct value\+\_\+string {\bf osmo\+\_\+sccp\+\_\+ssn\+\_\+names} [$\,$]
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{sccp\+\_\+sap.\+c@{sccp\+\_\+sap.\+c}!osmo\+\_\+scu\+\_\+prim\+\_\+name@{osmo\+\_\+scu\+\_\+prim\+\_\+name}}
+\index{osmo\+\_\+scu\+\_\+prim\+\_\+name@{osmo\+\_\+scu\+\_\+prim\+\_\+name}!sccp\+\_\+sap.\+c@{sccp\+\_\+sap.\+c}}
+\subsubsection[{osmo\+\_\+scu\+\_\+prim\+\_\+name(struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ osmo\+\_\+scu\+\_\+prim\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+prim\+\_\+hdr $\ast$}]{oph}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8c_afa8efaa947b2b61cb99b50b41c834904}
+
+
+References osmo\+\_\+scu\+\_\+prim\+\_\+names, and prim\+\_\+name\+\_\+buf.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree(), sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree(), and sccp\+\_\+user\+\_\+prim\+\_\+up().
+
+\index{sccp\+\_\+sap.\+c@{sccp\+\_\+sap.\+c}!osmo\+\_\+xlm\+\_\+prim\+\_\+name@{osmo\+\_\+xlm\+\_\+prim\+\_\+name}}
+\index{osmo\+\_\+xlm\+\_\+prim\+\_\+name@{osmo\+\_\+xlm\+\_\+prim\+\_\+name}!sccp\+\_\+sap.\+c@{sccp\+\_\+sap.\+c}}
+\subsubsection[{osmo\+\_\+xlm\+\_\+prim\+\_\+name(struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ osmo\+\_\+xlm\+\_\+prim\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+prim\+\_\+hdr $\ast$}]{oph}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8c_a479348e41b8e2d98b6d4c6e3d61d5999}
+
+
+References osmo\+\_\+xlm\+\_\+prim\+\_\+names, and prim\+\_\+name\+\_\+buf.
+
+
+
+Referenced by default\+\_\+lm\+\_\+prim\+\_\+cb(), osmo\+\_\+xlm\+\_\+sap\+\_\+down(), and xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim().
+
+
+
+\subsection{Variable Documentation}
+\index{sccp\+\_\+sap.\+c@{sccp\+\_\+sap.\+c}!osmo\+\_\+sccp\+\_\+gti\+\_\+names@{osmo\+\_\+sccp\+\_\+gti\+\_\+names}}
+\index{osmo\+\_\+sccp\+\_\+gti\+\_\+names@{osmo\+\_\+sccp\+\_\+gti\+\_\+names}!sccp\+\_\+sap.\+c@{sccp\+\_\+sap.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+gti\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string osmo\+\_\+sccp\+\_\+gti\+\_\+names[$\,$]}\label{sccp__sap_8c_ae1bde590c466d405e70b9b804527c1ad}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ OSMO_SCCP_GTI_NO_GT,          \textcolor{stringliteral}{"NO\_GT"} \},
+        \{ OSMO_SCCP_GTI_NAI_ONLY,       \textcolor{stringliteral}{"NAI\_ONLY"} \},
+        \{ OSMO_SCCP_GTI_TT_ONLY,        \textcolor{stringliteral}{"TT\_ONLY"} \},
+        \{ OSMO_SCCP_GTI_TT_NPL_ENC,     \textcolor{stringliteral}{"TT\_NPL\_ENC"} \},
+        \{ OSMO_SCCP_GTI_TT_NPL_ENC_NAI, \textcolor{stringliteral}{"TT\_NPL\_ENC\_NAI"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+gti\+\_\+name().
+
+\index{sccp\+\_\+sap.\+c@{sccp\+\_\+sap.\+c}!osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+names@{osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+names}}
+\index{osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+names@{osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+names}!sccp\+\_\+sap.\+c@{sccp\+\_\+sap.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+names[$\,$]}\label{sccp__sap_8c_a7d2dbcc6dbd2e8f75fb6e75ba2bfe28b}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ OSMO_SCCP_RI_NONE,    \textcolor{stringliteral}{"NONE"} \},
+        \{ OSMO_SCCP_RI_GT,      \textcolor{stringliteral}{"GT"} \},
+        \{ OSMO_SCCP_RI_SSN_PC,  \textcolor{stringliteral}{"SSN\_PC"} \},
+        \{ OSMO_SCCP_RI_SSN_IP,  \textcolor{stringliteral}{"SSN\_IP"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+name().
+
+\index{sccp\+\_\+sap.\+c@{sccp\+\_\+sap.\+c}!osmo\+\_\+sccp\+\_\+ssn\+\_\+names@{osmo\+\_\+sccp\+\_\+ssn\+\_\+names}}
+\index{osmo\+\_\+sccp\+\_\+ssn\+\_\+names@{osmo\+\_\+sccp\+\_\+ssn\+\_\+names}!sccp\+\_\+sap.\+c@{sccp\+\_\+sap.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+ssn\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string osmo\+\_\+sccp\+\_\+ssn\+\_\+names[$\,$]}\label{sccp__sap_8c_a5fed5e157ab1a93095318b73beb22813}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ OSMO_SCCP_SSN_MGMT,           \textcolor{stringliteral}{"MGMT"} \},
+        \{ OSMO_SCCP_SSN_ISUP,           \textcolor{stringliteral}{"ISUP"} \},
+        \{ OSMO_SCCP_SSN_OMAP,           \textcolor{stringliteral}{"OMAP"} \},
+        \{ OSMO_SCCP_SSN_MAP,            \textcolor{stringliteral}{"MAP"} \},
+        \{ OSMO_SCCP_SSN_HLR,            \textcolor{stringliteral}{"HLR"} \},
+        \{ OSMO_SCCP_SSN_VLR,            \textcolor{stringliteral}{"VLR"} \},
+        \{ OSMO_SCCP_SSN_MSC,            \textcolor{stringliteral}{"MSC"} \},
+        \{ OSMO_SCCP_SSN_EIR,            \textcolor{stringliteral}{"EIR"} \},
+        \{ OSMO_SCCP_SSN_AUC,            \textcolor{stringliteral}{"AUC"} \},
+        \{ OSMO_SCCP_SSN_ISDN_SS,        \textcolor{stringliteral}{"ISDN\_SS"} \},
+        \{ OSMO_SCCP_SSN_RES_INTL,       \textcolor{stringliteral}{"RES\_INTL"} \},
+        \{ OSMO_SCCP_SSN_BISDN,          \textcolor{stringliteral}{"BISDN"} \},
+        \{ OSMO_SCCP_SSN_TC_TEST,        \textcolor{stringliteral}{"TC\_TEST"} \},
+        \{ OSMO_SCCP_SSN_RANAP,          \textcolor{stringliteral}{"RANAP"} \},
+        \{ OSMO_SCCP_SSN_RNSAP,          \textcolor{stringliteral}{"RNSAP"} \},
+        \{ OSMO_SCCP_SSN_GMLC_MAP,       \textcolor{stringliteral}{"GMLC\_MAP"} \},
+        \{ OSMO_SCCP_SSN_CAP,            \textcolor{stringliteral}{"CAP"} \},
+        \{ OSMO_SCCP_SSN_gsmSCF_MAP,     \textcolor{stringliteral}{"gsmSCF\_MAP"} \},
+        \{ OSMO_SCCP_SSN_SIWF_MAP,       \textcolor{stringliteral}{"SIWF\_MAP"} \},
+        \{ OSMO_SCCP_SSN_SGSN_MAP,       \textcolor{stringliteral}{"SGSN\_MAP"} \},
+        \{ OSMO_SCCP_SSN_GGSN_MAP,       \textcolor{stringliteral}{"GGSN\_MAP"} \},
+        \{ OSMO_SCCP_SSN_PCAP,           \textcolor{stringliteral}{"PCAP"} \},
+        \{ OSMO_SCCP_SSN_BSC_BSSAP_LE,   \textcolor{stringliteral}{"BSC\_BSSAP\_LE"} \},
+        \{ OSMO_SCCP_SSN_MSC_BSSAP_LE,   \textcolor{stringliteral}{"MSC\_BSSAP\_LE"} \},
+        \{ OSMO_SCCP_SSN_SMLC_BSSAP,     \textcolor{stringliteral}{"SMLC\_BSSAP"} \},
+        \{ OSMO_SCCP_SSN_BSS_OAM,        \textcolor{stringliteral}{"BSS\_OAM"} \},
+        \{ OSMO_SCCP_SSN_BSSAP,          \textcolor{stringliteral}{"BSSAP"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+ssn\+\_\+name().
+
+\index{sccp\+\_\+sap.\+c@{sccp\+\_\+sap.\+c}!osmo\+\_\+scu\+\_\+prim\+\_\+names@{osmo\+\_\+scu\+\_\+prim\+\_\+names}}
+\index{osmo\+\_\+scu\+\_\+prim\+\_\+names@{osmo\+\_\+scu\+\_\+prim\+\_\+names}!sccp\+\_\+sap.\+c@{sccp\+\_\+sap.\+c}}
+\subsubsection[{osmo\+\_\+scu\+\_\+prim\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string osmo\+\_\+scu\+\_\+prim\+\_\+names[$\,$]}\label{sccp__sap_8c_a3b8d62f238da526659a1a22d50db91f9}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ OSMO_SCU_PRIM_N_CONNECT,              \textcolor{stringliteral}{"N-CONNECT"} \},
+        \{ OSMO_SCU_PRIM_N_DATA,                 \textcolor{stringliteral}{"N-DATA"} \},
+        \{ OSMO_SCU_PRIM_N_EXPEDITED_DATA,       \textcolor{stringliteral}{"N-EXPEDITED-DATA"} \},
+        \{ OSMO_SCU_PRIM_N_DISCONNECT,           \textcolor{stringliteral}{"N-DISCONNECT"} \},
+        \{ OSMO_SCU_PRIM_N_RESET,                \textcolor{stringliteral}{"N-RESET"} \},
+        \{ OSMO_SCU_PRIM_N_INFORM,               \textcolor{stringliteral}{"N-INFORM"} \},
+        \{ OSMO_SCU_PRIM_N_UNITDATA,             \textcolor{stringliteral}{"N-UNITDATA"} \},
+        \{ OSMO_SCU_PRIM_N_NOTICE,               \textcolor{stringliteral}{"N-NOTICE"} \},
+        
+        \{ OSMO_SCU_PRIM_N_COORD,                \textcolor{stringliteral}{"N-COORD"} \},
+        \{ OSMO_SCU_PRIM_N_STATE,                \textcolor{stringliteral}{"N-STATE"} \},
+        \{ OSMO_SCU_PRIM_N_PCSTATE,              \textcolor{stringliteral}{"N-PCSATE"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+
+
+Referenced by osmo\+\_\+scu\+\_\+prim\+\_\+name().
+
+\index{sccp\+\_\+sap.\+c@{sccp\+\_\+sap.\+c}!osmo\+\_\+xlm\+\_\+prim\+\_\+names@{osmo\+\_\+xlm\+\_\+prim\+\_\+names}}
+\index{osmo\+\_\+xlm\+\_\+prim\+\_\+names@{osmo\+\_\+xlm\+\_\+prim\+\_\+names}!sccp\+\_\+sap.\+c@{sccp\+\_\+sap.\+c}}
+\subsubsection[{osmo\+\_\+xlm\+\_\+prim\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string osmo\+\_\+xlm\+\_\+prim\+\_\+names[$\,$]}\label{sccp__sap_8c_a15c567cc2103dd74ca32374590b7574f}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ OSMO_XLM_PRIM_M_SCTP_ESTABLISH,       \textcolor{stringliteral}{"M-SCTP\_ESTABLISH"} \},
+        \{ OSMO_XLM_PRIM_M_SCTP_RELEASE,         \textcolor{stringliteral}{"M-SCTP\_RELEASE"} \},
+        \{ OSMO_XLM_PRIM_M_SCTP_RESTART,         \textcolor{stringliteral}{"M-SCTP\_RESTART"} \},
+        \{ OSMO_XLM_PRIM_M_SCTP_STATUS,          \textcolor{stringliteral}{"M-SCTP\_STATUS"} \},
+        \{ OSMO_XLM_PRIM_M_ASP_STATUS,           \textcolor{stringliteral}{"M-ASP\_STATUS"} \},
+        \{ OSMO_XLM_PRIM_M_AS_STATUS,            \textcolor{stringliteral}{"M-AS\_STATUS"} \},
+        \{ OSMO_XLM_PRIM_M_NOTIFY,               \textcolor{stringliteral}{"M-NOTIFY"} \},
+        \{ OSMO_XLM_PRIM_M_ERROR,                \textcolor{stringliteral}{"M-ERROR"} \},
+        \{ OSMO_XLM_PRIM_M_ASP_UP,               \textcolor{stringliteral}{"M-ASP\_UP"} \},
+        \{ OSMO_XLM_PRIM_M_ASP_DOWN,             \textcolor{stringliteral}{"M-ASP\_DOWN"} \},
+        \{ OSMO_XLM_PRIM_M_ASP_ACTIVE,           \textcolor{stringliteral}{"M-ASP\_ACTIVE"} \},
+        \{ OSMO_XLM_PRIM_M_ASP_INACTIVE,         \textcolor{stringliteral}{"M-ASP\_INACTIVE"} \},
+        \{ OSMO_XLM_PRIM_M_AS_ACTIVE,            \textcolor{stringliteral}{"M-AS\_ACTIVE"} \},
+        \{ OSMO_XLM_PRIM_M_AS_INACTIVE,          \textcolor{stringliteral}{"M-AS\_INACTIVE"} \},
+        \{ OSMO_XLM_PRIM_M_AS_DOWN,              \textcolor{stringliteral}{"M-AS\_DOWN"} \},
+        
+        \{ OSMO_XLM_PRIM_M_RK_REG,               \textcolor{stringliteral}{"M-RK\_REG"} \},
+        \{ OSMO_XLM_PRIM_M_RK_DEREG,             \textcolor{stringliteral}{"M-RK\_DEREG"} \},
+        \{ 0, NULL \},
+\}
+\end{DoxyCode}
+
+
+Referenced by osmo\+\_\+xlm\+\_\+prim\+\_\+name().
+
+\index{sccp\+\_\+sap.\+c@{sccp\+\_\+sap.\+c}!prim\+\_\+name\+\_\+buf@{prim\+\_\+name\+\_\+buf}}
+\index{prim\+\_\+name\+\_\+buf@{prim\+\_\+name\+\_\+buf}!sccp\+\_\+sap.\+c@{sccp\+\_\+sap.\+c}}
+\subsubsection[{prim\+\_\+name\+\_\+buf}]{\setlength{\rightskip}{0pt plus 5cm}char prim\+\_\+name\+\_\+buf[128]\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__sap_8c_ade03488aec056a43cb6713c56c331c04}
+
+
+Referenced by osmo\+\_\+scu\+\_\+prim\+\_\+name(), and osmo\+\_\+xlm\+\_\+prim\+\_\+name().
+

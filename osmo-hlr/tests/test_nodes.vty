@@ -1,0 +1,131 @@
+OsmoHLR> list
+  show version
+  show online-help
+  list
+  exit
+  help
+  enable
+  terminal length <0-512>
+  terminal no length
+  who
+  show history
+  logging enable
+...
+  show logging vty
+  show alarms
+  show talloc-context (application|all) (full|brief|DEPTH)
+  show talloc-context (application|all) (full|brief|DEPTH) tree ADDRESS
+  show talloc-context (application|all) (full|brief|DEPTH) filter REGEXP
+  show stats
+  show stats level (global|peer|subscriber)
+  show asciidoc counters
+  show rate-counters
+  show gsup-connections
+  subscriber (imsi|msisdn|id|imei) IDENT show
+  show subscriber (imsi|msisdn|id|imei) IDENT
+
+OsmoHLR> enable
+OsmoHLR# list
+  help
+  list
+  write terminal
+  write file
+  write memory
+  write
+  show running-config
+  exit
+  disable
+  configure terminal
+  copy running-config startup-config
+  show startup-config
+  show version
+  show online-help
+  terminal length <0-512>
+  terminal no length
+  who
+  show history
+  terminal monitor
+  terminal no monitor
+  logging enable
+...
+
+OsmoHLR# configure terminal
+OsmoHLR(config)# list
+  help
+  list
+  write terminal
+  write file
+  write memory
+  write
+  show running-config
+  exit
+  end
+...
+  hlr
+
+OsmoHLR(config)# hlr
+OsmoHLR(config-hlr)# list
+  help
+  list
+  write terminal
+  write file
+  write memory
+  write
+  show running-config
+  exit
+  end
+  gsup
+  euse NAME
+  no euse NAME
+  ussd route prefix PREFIX internal (own-msisdn|own-imsi)
+  ussd route prefix PREFIX external EUSE
+  no ussd route prefix PREFIX
+  ussd default-route external EUSE
+  no ussd default-route
+  ncss-guard-timeout <0-255>
+  store-imei
+  no store-imei
+
+OsmoHLR(config-hlr)# gsup
+OsmoHLR(config-hlr-gsup)# list
+  help
+  list
+  write terminal
+  write file
+  write memory
+  write
+  show running-config
+  exit
+  end
+  bind ip A.B.C.D
+
+OsmoHLR(config-hlr-gsup)# exit
+OsmoHLR(config-hlr)# exit
+OsmoHLR(config)# exit
+OsmoHLR# configure terminal
+OsmoHLR(config)# hlr
+OsmoHLR(config-hlr)# store-imei
+OsmoHLR(config-hlr)# gsup
+OsmoHLR(config-hlr-gsup)# end
+OsmoHLR# disable
+OsmoHLR> enable
+
+OsmoHLR# show running-config
+
+Current configuration:
+!
+!
+log stderr
+...
+ logging level main notice
+ logging level db notice
+ logging level auc notice
+ logging level ss info
+...
+hlr
+ store-imei
+ gsup
+  bind ip 127.0.0.1
+ ussd route prefix *#100# internal own-msisdn
+ ussd route prefix *#101# internal own-imsi
+end

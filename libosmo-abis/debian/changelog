@@ -1,0 +1,152 @@
+libosmo-abis (0.6.0) unstable; urgency=medium
+
+  [ Neels Hofmeyr ]
+  * fix strncpy bugs in ipaccess.c, ipa_proxy.c
+  * ipa: don't crash on missing IPA ID GET message
+
+  [ Harald Welte ]
+  * Migrate from ipa_ccm_idtag_parse to ipa_ccm_id_resp_parse()
+  * debian/rules: Don't overwrite .tarball-version
+
+  [ Pau Espin Pedrol ]
+  * ipaccess: Use osmo_fd_setup to set up callbacks
+  * ipaccess_rcvmsg: Fix bug introduced in previous commit
+  * ipa: Simplify code in ipa_client_read
+  * ipa: Simplify code in ipa_server_conn_read
+  * ipa: Allow signalling fd destroyed in ipa_client_read
+  * ipa: Allow signalling fd destroyed in ipa_server_conn_read
+  * ipaccess: Return -EBADF when closing socket in ipaccess_bts_read_cb
+  * ipaccess: Allow passing return code in e1inp_line_ops->sign_link()
+  * debian: Fix libosmoabis soname package version
+  * debian: Conflict libosmoabis6 with libosmoabis5
+  * ipacces: Log correct trx_nr during IPA GET
+  * ipaccess: Simplify handling of ipaccess e1line ts
+  * e1_input.h: Set correct type for input_signal_data->link_type
+  * osmo_ortp: Log domain and fix strings without endl char
+
+  [ Stefan Sperling ]
+  * Properly deal with sockaddr_un socket path length limitations.
+  * ensure unix socket paths are NUL-terminated for bind/connect
+
+ -- Harald Welte <laforge@gnumonks.org>  Sat, 19 Jan 2019 22:20:46 +0100
+
+libosmo-abis (0.5.1) unstable; urgency=medium
+
+  [ Pau Espin Pedrol ]
+  * ipaccess: ipaccess_rcvmsg: Drop unneeded memcpy
+  * ipaccess: Avoid using released line and bfd in ipaccess_fd_cb
+  * e1_input.c: Replace '.' in counter names with ':'
+
+  [ Stefan Sperling ]
+  * fix double-free/use-after-free of pointers in struct e1inp_line
+
+  [ Philipp Maier ]
+  * ortp: make sure the ortp scheduler is started
+  * ortp: reset rtp session on SSRC changes
+  * ortp: detect ssrc changes immediately
+  * ortp: enable scheduled mode on rtp socket creation
+  * Revert "ortp: make sure the ortp scheduler is started"
+  * Revert "ortp: enable scheduled mode on rtp socket creation"
+
+ -- Pau Espin Pedrol <pespin@sysmocom.de>  Fri, 27 Jul 2018 18:15:18 +0200
+
+libosmo-abis (0.5.0) unstable; urgency=medium
+
+  [ Max ]
+  * Use value string check from osmo-ci
+  * cosmetic: update ipaccess_bts_handle_ccm()
+  * IPA: log remote address
+
+  [ Neels Hofmeyr ]
+  * cosmetic: ipa.c: use msgb_dequeue(), drop local var
+  * jenkins: use osmo-clean-workspace.sh before and after build
+  * vty: skip installing cmds now always installed by default
+  * add --enable-sanitize config option
+  * configure: add --enable-werror
+  * jenkins.sh: use --enable-werror configure flag, not CFLAGS
+
+  [ Alexander Couzens ]
+  * debian/rules: show testsuite.log when tests are failing
+  * unixsocket: fix a potential string overflow
+
+  [ Harald Welte ]
+  * debian/copyright: fix upstream-name
+  * Add SPDX-License-Identifier to all source files
+  * Add a new osmo_rtp_set_source_desc() function to set the RTCP SDES items
+  * debian/control: Fix Vcs-Browser
+
+  [ Pau Espin Pedrol ]
+  * contrib: jenkins.sh: Disable doxygen in libosmocore build
+  * e1_input.h: Remove dead declaration of unexistent API ipaccess_setup
+  * configure.ac: Fix condition check for RTP_SIGNAL_PTR_CAST define
+  * use osmo_init_logging2
+  * git-version-gen: Check first for new tag format
+
+  [ Stefan Sperling ]
+  * preserve 'when' flags of new osmo_fd in ipaccess_rcvmsg()
+
+ -- Pau Espin Pedrol <pespin@sysmocom.de>  Thu, 03 May 2018 16:12:04 +0200
+
+libosmo-abis (0.4.0) unstable; urgency=medium
+
+  * Move forward towards a new release.
+  * libosmo-abis   API change      major: add parameter to struct
+    input_signal_data
+  * libosmo-trau   API change      major: add parameters to rx_cb()
+    callack in osmo_ortp.h
+
+ -- Holger Hans Peter Freyther <holger@moiji-mobile.com>  Fri, 25 Aug 2017 16:09:46 +0200
+
+libosmo-abis (0.3.2) unstable; urgency=medium
+
+  * Bump so version to re-link libosmovty
+
+ -- Holger Hans Peter Freyther <holger@moiji-mobile.com>  Tue, 03 Nov 2015 09:42:01 +0100
+
+libosmo-abis (0.3.1) unstable; urgency=medium
+
+  * New upstream release of libosmo-abis
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Sun, 18 Jan 2015 19:26:40 +0100
+
+libosmo-abis (0.3.0) unstable; urgency=medium
+
+  * New upstream release of libosmo-abis
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Mon, 08 Sep 2014 07:29:39 +0200
+
+libosmo-abis (0.2.0) unstable; urgency=medium
+
+  * New upstream release of libosmo-abis
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Mon, 08 Sep 2014 07:29:19 +0200
+
+libosmo-abis (0.1.6) unstable; urgency=medium
+
+  * New upstream release of libosmo-abis
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Mon, 20 Jan 2014 10:33:36 +0100
+
+libosmo-abis (0.1.5+git1) unstable; urgency=low
+
+  * Rebuild 0.1.5 with the right libosmocore depedency
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Thu, 12 Dec 2013 11:47:01 +0100
+
+libosmo-abis (0.1.4) unstable; urgency=low
+
+  * New upstream release
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Tue, 06 Nov 2012 13:33:45 +0100
+
+libosmo-abis (0.1.3+git3-1) precise; urgency=low
+
+  * Fix version issue.
+
+ -- Eric Butler <eric@codebutler.com>  Tue, 14 Aug 2012 20:50:50 -0700
+
+libosmo-abis (0.1.3+git3) precise; urgency=low
+
+  Created new Ubuntu package.
+
+ -- Eric Butler <eric@codebutler.com>  Tue, 14 Aug 2012 13:00:18 -0700

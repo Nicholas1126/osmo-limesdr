@@ -1,0 +1,486 @@
+\section{include/osmocom/sigtran/xua\+\_\+msg.h File Reference}
+\label{xua__msg_8h}\index{include/osmocom/sigtran/xua\+\_\+msg.\+h@{include/osmocom/sigtran/xua\+\_\+msg.\+h}}
+{\ttfamily \#include \char`\"{}xua\+\_\+types.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$osmocom/core/linuxlist.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/mtp\+\_\+sap.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf xua\+\_\+msg}
+\item 
+struct {\bf xua\+\_\+msg\+\_\+part}
+\item 
+struct {\bf xua\+\_\+msg\+\_\+class}
+\item 
+struct {\bf xua\+\_\+dialect}
+\item 
+struct {\bf xua\+\_\+msg\+\_\+event\+\_\+map}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf X\+U\+A\+\_\+\+H\+DR}(class,  type)~((struct {\bf xua\+\_\+common\+\_\+hdr}) \{ .{\bf spare} = 0, .{\bf msg\+\_\+class} = (class), .{\bf msg\+\_\+type} = (type) \})
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf osmo\+\_\+xua\+\_\+msg\+\_\+tall\+\_\+ctx\+\_\+init} (void $\ast$ctx)
+\item 
+struct {\bf xua\+\_\+msg} $\ast$ {\bf xua\+\_\+msg\+\_\+alloc} (void)
+\item 
+void {\bf xua\+\_\+msg\+\_\+free} (struct {\bf xua\+\_\+msg} $\ast$msg)
+\item 
+int {\bf xua\+\_\+msg\+\_\+add\+\_\+data} (struct {\bf xua\+\_\+msg} $\ast$msg, uint16\+\_\+t {\bf tag}, uint16\+\_\+t {\bf len}, uint8\+\_\+t $\ast$dat)
+\item 
+struct {\bf xua\+\_\+msg\+\_\+part} $\ast$ {\bf xua\+\_\+msg\+\_\+find\+\_\+tag} (const struct {\bf xua\+\_\+msg} $\ast$msg, uint16\+\_\+t {\bf tag})
+\item 
+int {\bf xua\+\_\+msg\+\_\+free\+\_\+tag} (struct {\bf xua\+\_\+msg} $\ast$xua, uint16\+\_\+t {\bf tag})
+\item 
+int {\bf xua\+\_\+msg\+\_\+copy\+\_\+part} (struct {\bf xua\+\_\+msg} $\ast$xua\+\_\+out, uint16\+\_\+t tag\+\_\+out, const struct {\bf xua\+\_\+msg} $\ast$xua\+\_\+in, uint16\+\_\+t tag\+\_\+in)
+\item 
+struct {\bf xua\+\_\+msg} $\ast$ {\bf xua\+\_\+from\+\_\+msg} (const int {\bf version}, uint16\+\_\+t {\bf len}, uint8\+\_\+t $\ast${\bf data})
+\item 
+struct msgb $\ast$ {\bf xua\+\_\+to\+\_\+msg} (const int {\bf version}, struct {\bf xua\+\_\+msg} $\ast$msg)
+\item 
+struct {\bf xua\+\_\+msg} $\ast$ {\bf xua\+\_\+from\+\_\+nested} (struct {\bf xua\+\_\+msg\+\_\+part} $\ast$outer)
+\item 
+int {\bf msgb\+\_\+t16l16vp\+\_\+put} (struct msgb $\ast$msg, uint16\+\_\+t {\bf tag}, uint16\+\_\+t {\bf len}, const uint8\+\_\+t $\ast${\bf data})
+\item 
+int {\bf msgb\+\_\+t16l16vp\+\_\+put\+\_\+u32} (struct msgb $\ast$msg, uint16\+\_\+t {\bf tag}, uint32\+\_\+t val)
+\item 
+int {\bf xua\+\_\+msg\+\_\+add\+\_\+u32} (struct {\bf xua\+\_\+msg} $\ast$xua, uint16\+\_\+t iei, uint32\+\_\+t val)
+\item 
+uint32\+\_\+t {\bf xua\+\_\+msg\+\_\+part\+\_\+get\+\_\+u32} (struct {\bf xua\+\_\+msg\+\_\+part} $\ast$part)
+\item 
+uint32\+\_\+t {\bf xua\+\_\+msg\+\_\+get\+\_\+u32} (struct {\bf xua\+\_\+msg} $\ast$xua, uint16\+\_\+t iei)
+\item 
+void {\bf xua\+\_\+part\+\_\+add\+\_\+gt} (struct msgb $\ast$msg, const struct {\bf osmo\+\_\+sccp\+\_\+gt} $\ast$gt)
+\item 
+int {\bf xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr} (struct {\bf xua\+\_\+msg} $\ast$xua, uint16\+\_\+t iei, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$addr)
+\item 
+const char $\ast$ {\bf xua\+\_\+class\+\_\+msg\+\_\+name} (const struct {\bf xua\+\_\+msg\+\_\+class} $\ast$xmc, uint16\+\_\+t {\bf msg\+\_\+type})
+\item 
+const char $\ast$ {\bf xua\+\_\+class\+\_\+iei\+\_\+name} (const struct {\bf xua\+\_\+msg\+\_\+class} $\ast$xmc, uint16\+\_\+t iei)
+\item 
+char $\ast$ {\bf xua\+\_\+hdr\+\_\+dump} (struct {\bf xua\+\_\+msg} $\ast$xua, const struct {\bf xua\+\_\+dialect} $\ast$dialect)
+\item 
+char $\ast$ {\bf xua\+\_\+msg\+\_\+dump} (struct {\bf xua\+\_\+msg} $\ast$xua, const struct {\bf xua\+\_\+dialect} $\ast$dialect)
+\item 
+int {\bf xua\+\_\+dialect\+\_\+check\+\_\+all\+\_\+mand\+\_\+ies} (const struct {\bf xua\+\_\+dialect} $\ast$dialect, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+int {\bf xua\+\_\+msg\+\_\+event\+\_\+map} (const struct {\bf xua\+\_\+msg} $\ast$xua, const struct {\bf xua\+\_\+msg\+\_\+event\+\_\+map} $\ast$maps, unsigned int num\+\_\+maps)
+\begin{DoxyCompactList}\small\item\em Map from a \doxyref{xua\+\_\+msg}{p.}{structxua__msg} (class+type) to an event. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const struct {\bf xua\+\_\+dialect} {\bf xua\+\_\+dialect\+\_\+sua}
+\item 
+const struct {\bf xua\+\_\+dialect} {\bf xua\+\_\+dialect\+\_\+m3ua}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!X\+U\+A\+\_\+\+H\+DR@{X\+U\+A\+\_\+\+H\+DR}}
+\index{X\+U\+A\+\_\+\+H\+DR@{X\+U\+A\+\_\+\+H\+DR}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{X\+U\+A\+\_\+\+H\+DR}]{\setlength{\rightskip}{0pt plus 5cm}\#define X\+U\+A\+\_\+\+H\+DR(
+\begin{DoxyParamCaption}
+\item[{}]{class, }
+\item[{}]{type}
+\end{DoxyParamCaption}
+)~((struct {\bf xua\+\_\+common\+\_\+hdr}) \{ .{\bf spare} = 0, .{\bf msg\+\_\+class} = (class), .{\bf msg\+\_\+type} = (type) \})}\label{xua__msg_8h_a54c3f19b8755a268a33ba6b02b455b45}
+
+
+Referenced by gen\+\_\+coerr(), gen\+\_\+coref\+\_\+without\+\_\+conn(), gen\+\_\+relco(), gen\+\_\+ret\+\_\+msg(), gen\+\_\+rlsd(), m3ua\+\_\+encode\+\_\+notify(), m3ua\+\_\+gen\+\_\+error(), m3ua\+\_\+xfer\+\_\+from\+\_\+data(), osmo\+\_\+sccp\+\_\+to\+\_\+xua(), peer\+\_\+send(), peer\+\_\+send\+\_\+error(), sua\+\_\+gen\+\_\+error(), xua\+\_\+gen\+\_\+msg\+\_\+cl(), xua\+\_\+gen\+\_\+msg\+\_\+co(), and xua\+\_\+gen\+\_\+relre().
+
+
+
+\subsection{Function Documentation}
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!msgb\+\_\+t16l16vp\+\_\+put@{msgb\+\_\+t16l16vp\+\_\+put}}
+\index{msgb\+\_\+t16l16vp\+\_\+put@{msgb\+\_\+t16l16vp\+\_\+put}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{msgb\+\_\+t16l16vp\+\_\+put(struct msgb $\ast$msg, uint16\+\_\+t tag, uint16\+\_\+t len, const uint8\+\_\+t $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}int msgb\+\_\+t16l16vp\+\_\+put (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{uint16\+\_\+t}]{tag, }
+\item[{uint16\+\_\+t}]{len, }
+\item[{const uint8\+\_\+t $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_a57bc23234174c710ba00aada6a4f9a3e}
+
+
+Referenced by msgb\+\_\+t16l16vp\+\_\+put\+\_\+u32().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!msgb\+\_\+t16l16vp\+\_\+put\+\_\+u32@{msgb\+\_\+t16l16vp\+\_\+put\+\_\+u32}}
+\index{msgb\+\_\+t16l16vp\+\_\+put\+\_\+u32@{msgb\+\_\+t16l16vp\+\_\+put\+\_\+u32}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{msgb\+\_\+t16l16vp\+\_\+put\+\_\+u32(struct msgb $\ast$msg, uint16\+\_\+t tag, uint32\+\_\+t val)}]{\setlength{\rightskip}{0pt plus 5cm}int msgb\+\_\+t16l16vp\+\_\+put\+\_\+u32 (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{uint16\+\_\+t}]{tag, }
+\item[{uint32\+\_\+t}]{val}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_a6a68a942e39b6b95e1631c26ece536f9}
+
+
+References msgb\+\_\+t16l16vp\+\_\+put().
+
+
+
+Referenced by msgb\+\_\+append\+\_\+dereg\+\_\+res(), msgb\+\_\+append\+\_\+reg\+\_\+res(), xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr(), xua\+\_\+rkm\+\_\+send\+\_\+dereg\+\_\+req(), and xua\+\_\+rkm\+\_\+send\+\_\+reg\+\_\+req().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!osmo\+\_\+xua\+\_\+msg\+\_\+tall\+\_\+ctx\+\_\+init@{osmo\+\_\+xua\+\_\+msg\+\_\+tall\+\_\+ctx\+\_\+init}}
+\index{osmo\+\_\+xua\+\_\+msg\+\_\+tall\+\_\+ctx\+\_\+init@{osmo\+\_\+xua\+\_\+msg\+\_\+tall\+\_\+ctx\+\_\+init}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{osmo\+\_\+xua\+\_\+msg\+\_\+tall\+\_\+ctx\+\_\+init(void $\ast$ctx)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+xua\+\_\+msg\+\_\+tall\+\_\+ctx\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_a50ffc7dc3d0ef2fb98fd562cedee968c}
+
+
+References tall\+\_\+xua.
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+class\+\_\+iei\+\_\+name@{xua\+\_\+class\+\_\+iei\+\_\+name}}
+\index{xua\+\_\+class\+\_\+iei\+\_\+name@{xua\+\_\+class\+\_\+iei\+\_\+name}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+class\+\_\+iei\+\_\+name(const struct xua\+\_\+msg\+\_\+class $\ast$xmc, uint16\+\_\+t iei)}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ xua\+\_\+class\+\_\+iei\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf xua\+\_\+msg\+\_\+class} $\ast$}]{xmc, }
+\item[{uint16\+\_\+t}]{iei}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_aecfade23ae77895a3fdcf986a7b0758b}
+
+
+References xua\+\_\+msg\+\_\+class\+::iei\+\_\+names.
+
+
+
+Referenced by xua\+\_\+dialect\+\_\+check\+\_\+all\+\_\+mand\+\_\+ies(), and xua\+\_\+msg\+\_\+dump().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+class\+\_\+msg\+\_\+name@{xua\+\_\+class\+\_\+msg\+\_\+name}}
+\index{xua\+\_\+class\+\_\+msg\+\_\+name@{xua\+\_\+class\+\_\+msg\+\_\+name}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+class\+\_\+msg\+\_\+name(const struct xua\+\_\+msg\+\_\+class $\ast$xmc, uint16\+\_\+t msg\+\_\+type)}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ xua\+\_\+class\+\_\+msg\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf xua\+\_\+msg\+\_\+class} $\ast$}]{xmc, }
+\item[{uint16\+\_\+t}]{msg\+\_\+type}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_ac582ebee144dd1fe54182ec3cce0d547}
+
+
+References xua\+\_\+msg\+\_\+class\+::msgt\+\_\+names.
+
+
+
+Referenced by xua\+\_\+dialect\+\_\+check\+\_\+all\+\_\+mand\+\_\+ies(), and xua\+\_\+hdr\+\_\+dump().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+dialect\+\_\+check\+\_\+all\+\_\+mand\+\_\+ies@{xua\+\_\+dialect\+\_\+check\+\_\+all\+\_\+mand\+\_\+ies}}
+\index{xua\+\_\+dialect\+\_\+check\+\_\+all\+\_\+mand\+\_\+ies@{xua\+\_\+dialect\+\_\+check\+\_\+all\+\_\+mand\+\_\+ies}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+dialect\+\_\+check\+\_\+all\+\_\+mand\+\_\+ies(const struct xua\+\_\+dialect $\ast$dialect, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}int xua\+\_\+dialect\+\_\+check\+\_\+all\+\_\+mand\+\_\+ies (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf xua\+\_\+dialect} $\ast$}]{dialect, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_af3551c1ea17591d3f0c85ffda35f5c15}
+
+
+References xua\+\_\+dialect\+::class, xua\+\_\+msg\+::hdr, xua\+\_\+dialect\+::log\+\_\+subsys, xua\+\_\+msg\+\_\+class\+::mand\+\_\+ies, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class, msg\+\_\+class, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type, msg\+\_\+type, xua\+\_\+msg\+\_\+class\+::name, xua\+\_\+dialect\+::name, xua\+\_\+class\+\_\+iei\+\_\+name(), xua\+\_\+class\+\_\+msg\+\_\+name(), and xua\+\_\+msg\+\_\+find\+\_\+tag().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+msg(), and sua\+\_\+rx\+\_\+msg().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+from\+\_\+msg@{xua\+\_\+from\+\_\+msg}}
+\index{xua\+\_\+from\+\_\+msg@{xua\+\_\+from\+\_\+msg}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+from\+\_\+msg(const int version, uint16\+\_\+t len, uint8\+\_\+t $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf xua\+\_\+msg}$\ast$ xua\+\_\+from\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{const int}]{version, }
+\item[{uint16\+\_\+t}]{len, }
+\item[{uint8\+\_\+t $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_a96a04072a9c8b1692b581ed3d62c6013}
+
+
+References xua\+\_\+msg\+::hdr, len, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+length, xua\+\_\+common\+\_\+hdr\+::version, xua\+\_\+from\+\_\+msg\+\_\+common(), xua\+\_\+msg\+\_\+alloc(), and xua\+\_\+msg\+\_\+free().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+msg(), and sua\+\_\+rx\+\_\+msg().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+from\+\_\+nested@{xua\+\_\+from\+\_\+nested}}
+\index{xua\+\_\+from\+\_\+nested@{xua\+\_\+from\+\_\+nested}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+from\+\_\+nested(struct xua\+\_\+msg\+\_\+part $\ast$outer)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf xua\+\_\+msg}$\ast$ xua\+\_\+from\+\_\+nested (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg\+\_\+part} $\ast$}]{outer}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_ab89882080911a98edfe2ec79ca230dac}
+
+
+References xua\+\_\+msg\+\_\+part\+::dat, xua\+\_\+msg\+\_\+part\+::len, xua\+\_\+from\+\_\+msg\+\_\+common(), xua\+\_\+msg\+\_\+alloc(), and xua\+\_\+msg\+\_\+free().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+rsp(), m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req(), and m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+rsp().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+hdr\+\_\+dump@{xua\+\_\+hdr\+\_\+dump}}
+\index{xua\+\_\+hdr\+\_\+dump@{xua\+\_\+hdr\+\_\+dump}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+hdr\+\_\+dump(struct xua\+\_\+msg $\ast$xua, const struct xua\+\_\+dialect $\ast$dialect)}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ xua\+\_\+hdr\+\_\+dump (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{const struct {\bf xua\+\_\+dialect} $\ast$}]{dialect}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_a57533a1a952b2649b20e89696db4715c}
+
+
+References xua\+\_\+dialect\+::class, xua\+\_\+msg\+::hdr, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type, xua\+\_\+msg\+\_\+class\+::name, and xua\+\_\+class\+\_\+msg\+\_\+name().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+msg(), osmo\+\_\+sua\+\_\+to\+\_\+sccp(), sccp\+\_\+find\+\_\+user(), sccp\+\_\+sclc\+\_\+rx\+\_\+from\+\_\+scrc(), sccp\+\_\+scoc\+\_\+rx\+\_\+from\+\_\+scrc(), sccp\+\_\+scoc\+\_\+rx\+\_\+inval\+\_\+opc(), sccp\+\_\+scoc\+\_\+rx\+\_\+inval\+\_\+src\+\_\+ref(), sccp\+\_\+scoc\+\_\+rx\+\_\+unass\+\_\+local\+\_\+ref(), sua\+\_\+rx\+\_\+msg(), and xua\+\_\+msg\+\_\+dump().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+msg\+\_\+add\+\_\+data@{xua\+\_\+msg\+\_\+add\+\_\+data}}
+\index{xua\+\_\+msg\+\_\+add\+\_\+data@{xua\+\_\+msg\+\_\+add\+\_\+data}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+msg\+\_\+add\+\_\+data(struct xua\+\_\+msg $\ast$msg, uint16\+\_\+t tag, uint16\+\_\+t len, uint8\+\_\+t $\ast$dat)}]{\setlength{\rightskip}{0pt plus 5cm}int xua\+\_\+msg\+\_\+add\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{msg, }
+\item[{uint16\+\_\+t}]{tag, }
+\item[{uint16\+\_\+t}]{len, }
+\item[{uint8\+\_\+t $\ast$}]{dat}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_afced2d7d0ef436111f3559204b89c999}
+
+
+References xua\+\_\+msg\+\_\+part\+::dat, xua\+\_\+msg\+\_\+part\+::entry, xua\+\_\+msg\+::headers, xua\+\_\+msg\+\_\+part\+::len, len, xua\+\_\+msg\+\_\+part\+::tag, and tag.
+
+
+
+Referenced by m3ua\+\_\+encode\+\_\+notify(), m3ua\+\_\+gen\+\_\+error\+\_\+msg(), sccp\+\_\+data\+\_\+to\+\_\+sua\+\_\+ptr(), sua\+\_\+gen\+\_\+error\+\_\+msg(), xua\+\_\+from\+\_\+msg\+\_\+common(), xua\+\_\+gen\+\_\+msg\+\_\+cl(), xua\+\_\+gen\+\_\+msg\+\_\+co(), xua\+\_\+gen\+\_\+relre(), xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr(), xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+opt(), xua\+\_\+msg\+\_\+add\+\_\+u32(), and xua\+\_\+msg\+\_\+copy\+\_\+part().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr@{xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr}}
+\index{xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr@{xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr(struct xua\+\_\+msg $\ast$xua, uint16\+\_\+t iei, const struct osmo\+\_\+sccp\+\_\+addr $\ast$addr)}]{\setlength{\rightskip}{0pt plus 5cm}int xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{uint16\+\_\+t}]{iei, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{addr}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_a9e3e22223c4529f0eb0e6cfdd558e5bd}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+::gt, osmo\+\_\+sccp\+\_\+addr\+::ip, msgb\+\_\+t16l16vp\+\_\+put\+\_\+u32(), O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, osmo\+\_\+sccp\+\_\+addr\+::ri, osmo\+\_\+sccp\+\_\+addr\+::ssn, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+I\+Pv4, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+PC, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+SN, S\+U\+A\+\_\+\+R\+I\+\_\+\+GT, S\+U\+A\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP, S\+U\+A\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, osmo\+\_\+sccp\+\_\+addr\+::v4, xua\+\_\+msg\+\_\+add\+\_\+data(), and xua\+\_\+part\+\_\+add\+\_\+gt().
+
+
+
+Referenced by gen\+\_\+ret\+\_\+msg(), patch\+\_\+sccp\+\_\+with\+\_\+pc(), sccp\+\_\+addr\+\_\+to\+\_\+sua(), xua\+\_\+gen\+\_\+msg\+\_\+cl(), and xua\+\_\+gen\+\_\+msg\+\_\+co().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+msg\+\_\+add\+\_\+u32@{xua\+\_\+msg\+\_\+add\+\_\+u32}}
+\index{xua\+\_\+msg\+\_\+add\+\_\+u32@{xua\+\_\+msg\+\_\+add\+\_\+u32}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+msg\+\_\+add\+\_\+u32(struct xua\+\_\+msg $\ast$xua, uint16\+\_\+t iei, uint32\+\_\+t val)}]{\setlength{\rightskip}{0pt plus 5cm}int xua\+\_\+msg\+\_\+add\+\_\+u32 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{uint16\+\_\+t}]{iei, }
+\item[{uint32\+\_\+t}]{val}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_a7aa9bef616536b5e139c633ebbf06e74}
+
+
+References xua\+\_\+msg\+\_\+add\+\_\+data().
+
+
+
+Referenced by gen\+\_\+coerr(), gen\+\_\+coref\+\_\+without\+\_\+conn(), gen\+\_\+relco(), gen\+\_\+ret\+\_\+msg(), gen\+\_\+rlsd(), m3ua\+\_\+encode\+\_\+notify(), m3ua\+\_\+gen\+\_\+error(), m3ua\+\_\+tx\+\_\+xua\+\_\+as(), peer\+\_\+send(), peer\+\_\+send\+\_\+error(), sccp\+\_\+to\+\_\+xua\+\_\+cc(), sccp\+\_\+to\+\_\+xua\+\_\+cr(), sccp\+\_\+to\+\_\+xua\+\_\+cref(), sccp\+\_\+to\+\_\+xua\+\_\+dt1(), sccp\+\_\+to\+\_\+xua\+\_\+err(), sccp\+\_\+to\+\_\+xua\+\_\+it(), sccp\+\_\+to\+\_\+xua\+\_\+rlc(), sccp\+\_\+to\+\_\+xua\+\_\+rlsd(), sccp\+\_\+to\+\_\+xua\+\_\+udt(), sccp\+\_\+to\+\_\+xua\+\_\+udts(), sua\+\_\+gen\+\_\+error(), sua\+\_\+tx\+\_\+xua\+\_\+as(), xua\+\_\+gen\+\_\+msg\+\_\+cl(), xua\+\_\+gen\+\_\+msg\+\_\+co(), xua\+\_\+gen\+\_\+relre(), and xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+opt().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+msg\+\_\+alloc@{xua\+\_\+msg\+\_\+alloc}}
+\index{xua\+\_\+msg\+\_\+alloc@{xua\+\_\+msg\+\_\+alloc}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+msg\+\_\+alloc(void)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf xua\+\_\+msg}$\ast$ xua\+\_\+msg\+\_\+alloc (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_a51eeb072307a55a456cc0633b4221cc5}
+
+
+References xua\+\_\+msg\+::headers, and tall\+\_\+xua.
+
+
+
+Referenced by gen\+\_\+coerr(), gen\+\_\+coref\+\_\+without\+\_\+conn(), gen\+\_\+relco(), gen\+\_\+ret\+\_\+msg(), gen\+\_\+rlsd(), m3ua\+\_\+encode\+\_\+notify(), m3ua\+\_\+gen\+\_\+error(), m3ua\+\_\+xfer\+\_\+from\+\_\+data(), osmo\+\_\+sccp\+\_\+to\+\_\+xua(), peer\+\_\+send(), peer\+\_\+send\+\_\+error(), sua\+\_\+gen\+\_\+error(), xua\+\_\+from\+\_\+msg(), xua\+\_\+from\+\_\+nested(), xua\+\_\+gen\+\_\+msg\+\_\+cl(), xua\+\_\+gen\+\_\+msg\+\_\+co(), and xua\+\_\+gen\+\_\+relre().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+msg\+\_\+copy\+\_\+part@{xua\+\_\+msg\+\_\+copy\+\_\+part}}
+\index{xua\+\_\+msg\+\_\+copy\+\_\+part@{xua\+\_\+msg\+\_\+copy\+\_\+part}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+msg\+\_\+copy\+\_\+part(struct xua\+\_\+msg $\ast$xua\+\_\+out, uint16\+\_\+t tag\+\_\+out, const struct xua\+\_\+msg $\ast$xua\+\_\+in, uint16\+\_\+t tag\+\_\+in)}]{\setlength{\rightskip}{0pt plus 5cm}int xua\+\_\+msg\+\_\+copy\+\_\+part (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua\+\_\+out, }
+\item[{uint16\+\_\+t}]{tag\+\_\+out, }
+\item[{const struct {\bf xua\+\_\+msg} $\ast$}]{xua\+\_\+in, }
+\item[{uint16\+\_\+t}]{tag\+\_\+in}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_a94a4a741ff48e3ebaf39f4b33f0777a4}
+
+
+References xua\+\_\+msg\+\_\+part\+::dat, xua\+\_\+msg\+\_\+part\+::len, xua\+\_\+msg\+\_\+add\+\_\+data(), and xua\+\_\+msg\+\_\+find\+\_\+tag().
+
+
+
+Referenced by gen\+\_\+coref\+\_\+without\+\_\+conn(), gen\+\_\+ret\+\_\+msg(), and peer\+\_\+send().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+msg\+\_\+dump@{xua\+\_\+msg\+\_\+dump}}
+\index{xua\+\_\+msg\+\_\+dump@{xua\+\_\+msg\+\_\+dump}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+msg\+\_\+dump(struct xua\+\_\+msg $\ast$xua, const struct xua\+\_\+dialect $\ast$dialect)}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ xua\+\_\+msg\+\_\+dump (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{const struct {\bf xua\+\_\+dialect} $\ast$}]{dialect}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_a601be8f22aee7bd488e69dc60c911733}
+
+
+References append\+\_\+to\+\_\+buf(), xua\+\_\+dialect\+::class, xua\+\_\+msg\+\_\+part\+::dat, xua\+\_\+msg\+::hdr, xua\+\_\+msg\+::headers, xua\+\_\+msg\+\_\+part\+::len, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+length, xua\+\_\+msg\+\_\+part\+::tag, xua\+\_\+common\+\_\+hdr\+::version, xua\+\_\+class\+\_\+iei\+\_\+name(), and xua\+\_\+hdr\+\_\+dump().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+mgmt\+\_\+err(), sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg(), sccp\+\_\+scrc\+\_\+rx\+\_\+scoc\+\_\+conn\+\_\+msg(), scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua(), and sua\+\_\+rx\+\_\+mgmt\+\_\+err().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+msg\+\_\+event\+\_\+map@{xua\+\_\+msg\+\_\+event\+\_\+map}}
+\index{xua\+\_\+msg\+\_\+event\+\_\+map@{xua\+\_\+msg\+\_\+event\+\_\+map}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+msg\+\_\+event\+\_\+map(const struct xua\+\_\+msg $\ast$xua, const struct xua\+\_\+msg\+\_\+event\+\_\+map $\ast$maps, unsigned int num\+\_\+maps)}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf xua\+\_\+msg\+\_\+event\+\_\+map} (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{const struct {\bf xua\+\_\+msg\+\_\+event\+\_\+map} $\ast$}]{maps, }
+\item[{unsigned int}]{num\+\_\+maps}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_ac5e639d8b60940908a9e67cc354238b2}
+
+
+Map from a \doxyref{xua\+\_\+msg}{p.}{structxua__msg} (class+type) to an event. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em xua} & x\+UA message which is to be mapped \\
+\hline
+\mbox{\tt in}  & {\em maps} & Table containing msg type+class -\/$>$ event maps [aram[in] num\+\_\+maps number of entries in maps \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+event $>$= 0; negative on error (no map found) 
+\end{DoxyReturn}
+
+
+References xua\+\_\+msg\+\_\+event\+\_\+map\+::event, xua\+\_\+msg\+::hdr, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class, xua\+\_\+msg\+\_\+event\+\_\+map\+::msg\+\_\+class, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type, and xua\+\_\+msg\+\_\+event\+\_\+map\+::msg\+\_\+type.
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+asp(), sccp\+\_\+scoc\+\_\+rx\+\_\+from\+\_\+scrc(), and sua\+\_\+rx\+\_\+asp().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+msg\+\_\+find\+\_\+tag@{xua\+\_\+msg\+\_\+find\+\_\+tag}}
+\index{xua\+\_\+msg\+\_\+find\+\_\+tag@{xua\+\_\+msg\+\_\+find\+\_\+tag}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+msg\+\_\+find\+\_\+tag(const struct xua\+\_\+msg $\ast$msg, uint16\+\_\+t tag)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf xua\+\_\+msg\+\_\+part}$\ast$ xua\+\_\+msg\+\_\+find\+\_\+tag (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf xua\+\_\+msg} $\ast$}]{msg, }
+\item[{uint16\+\_\+t}]{tag}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_a09b76fa4d831af575e8a56871132299e}
+
+
+References xua\+\_\+msg\+\_\+part\+::entry, xua\+\_\+msg\+::headers, and xua\+\_\+msg\+\_\+part\+::tag.
+
+
+
+Referenced by data\+\_\+hdr\+\_\+from\+\_\+m3ua(), handle\+\_\+rkey\+\_\+dereg\+\_\+resp(), handle\+\_\+rkey\+\_\+reg(), handle\+\_\+rkey\+\_\+reg\+\_\+resp(), ipa\+\_\+tx\+\_\+xua\+\_\+as(), m3ua\+\_\+decode\+\_\+notify(), m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+req(), m3ua\+\_\+to\+\_\+xfer\+\_\+ind(), sccp\+\_\+add\+\_\+var\+\_\+addr(), sccp\+\_\+add\+\_\+variable\+\_\+part(), sccp\+\_\+scoc\+\_\+rx\+\_\+from\+\_\+scrc(), sclc\+\_\+rx\+\_\+cldr(), sclc\+\_\+rx\+\_\+cldt(), scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua(), scu\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), sua\+\_\+addr\+\_\+parse(), xua\+\_\+asp\+\_\+fsm\+\_\+down(), xua\+\_\+asp\+\_\+fsm\+\_\+inactive(), xua\+\_\+dialect\+\_\+check\+\_\+all\+\_\+mand\+\_\+ies(), xua\+\_\+msg\+\_\+copy\+\_\+part(), and xua\+\_\+msg\+\_\+get\+\_\+u32().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+msg\+\_\+free@{xua\+\_\+msg\+\_\+free}}
+\index{xua\+\_\+msg\+\_\+free@{xua\+\_\+msg\+\_\+free}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+msg\+\_\+free(struct xua\+\_\+msg $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}void xua\+\_\+msg\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_a0d8afb21bd36674bfe5667a99a5fe4fe}
+
+
+Referenced by encode\+\_\+notify(), ipa\+\_\+rx\+\_\+msg\+\_\+sccp(), m3ua\+\_\+rx\+\_\+msg(), m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+rsp(), m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req(), m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+rsp(), osmo\+\_\+sccp\+\_\+to\+\_\+xua(), osmo\+\_\+ss7\+\_\+user\+\_\+mtp\+\_\+xfer\+\_\+req(), patch\+\_\+sccp\+\_\+with\+\_\+pc(), peer\+\_\+send(), peer\+\_\+send\+\_\+error(), sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), sccp\+\_\+scoc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua(), sua\+\_\+rx\+\_\+msg(), tx\+\_\+coerr\+\_\+from\+\_\+xua(), tx\+\_\+relco\+\_\+from\+\_\+xua(), tx\+\_\+rlsd\+\_\+from\+\_\+xua\+\_\+twoway(), xua\+\_\+from\+\_\+msg(), xua\+\_\+from\+\_\+nested(), xua\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), xua\+\_\+gen\+\_\+msg\+\_\+cl(), xua\+\_\+gen\+\_\+msg\+\_\+co(), and xua\+\_\+gen\+\_\+relre\+\_\+and\+\_\+send().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+msg\+\_\+free\+\_\+tag@{xua\+\_\+msg\+\_\+free\+\_\+tag}}
+\index{xua\+\_\+msg\+\_\+free\+\_\+tag@{xua\+\_\+msg\+\_\+free\+\_\+tag}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+msg\+\_\+free\+\_\+tag(struct xua\+\_\+msg $\ast$xua, uint16\+\_\+t tag)}]{\setlength{\rightskip}{0pt plus 5cm}int xua\+\_\+msg\+\_\+free\+\_\+tag (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{uint16\+\_\+t}]{tag}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_a1752bcc3fc7877ffa316f2b119cf5ad7}
+
+
+References xua\+\_\+msg\+\_\+part\+::entry, xua\+\_\+msg\+::headers, and xua\+\_\+msg\+\_\+part\+::tag.
+
+
+
+Referenced by gen\+\_\+ret\+\_\+msg(), m3ua\+\_\+rx\+\_\+xfer(), and patch\+\_\+sccp\+\_\+with\+\_\+pc().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+msg\+\_\+get\+\_\+u32@{xua\+\_\+msg\+\_\+get\+\_\+u32}}
+\index{xua\+\_\+msg\+\_\+get\+\_\+u32@{xua\+\_\+msg\+\_\+get\+\_\+u32}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+msg\+\_\+get\+\_\+u32(struct xua\+\_\+msg $\ast$xua, uint16\+\_\+t iei)}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t xua\+\_\+msg\+\_\+get\+\_\+u32 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{uint16\+\_\+t}]{iei}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_a867cc853cae7f7ee0aaf9179f06ff175}
+
+
+References xua\+\_\+msg\+\_\+find\+\_\+tag(), and xua\+\_\+msg\+\_\+part\+\_\+get\+\_\+u32().
+
+
+
+Referenced by handle\+\_\+rkey\+\_\+dereg\+\_\+resp(), handle\+\_\+rkey\+\_\+reg(), handle\+\_\+rkey\+\_\+reg\+\_\+resp(), m3ua\+\_\+rx\+\_\+mgmt\+\_\+err(), m3ua\+\_\+rx\+\_\+xfer(), sccp\+\_\+scoc\+\_\+rx\+\_\+from\+\_\+scrc(), sccp\+\_\+scoc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), sclc\+\_\+rx\+\_\+cldr(), sclc\+\_\+rx\+\_\+cldt(), scoc\+\_\+fsm\+\_\+active(), scoc\+\_\+fsm\+\_\+conn\+\_\+pend\+\_\+out(), scoc\+\_\+fsm\+\_\+idle(), scoc\+\_\+fsm\+\_\+wait\+\_\+conn\+\_\+conf(), scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua(), scu\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), store\+\_\+local\+\_\+ref(), sua\+\_\+rx\+\_\+mgmt\+\_\+err(), sua\+\_\+to\+\_\+sccp\+\_\+cc(), sua\+\_\+to\+\_\+sccp\+\_\+cr(), sua\+\_\+to\+\_\+sccp\+\_\+cref(), sua\+\_\+to\+\_\+sccp\+\_\+dt1(), sua\+\_\+to\+\_\+sccp\+\_\+err(), sua\+\_\+to\+\_\+sccp\+\_\+it(), sua\+\_\+to\+\_\+sccp\+\_\+rlsd(), sua\+\_\+to\+\_\+sccp\+\_\+udt(), sua\+\_\+to\+\_\+sccp\+\_\+udts(), tx\+\_\+coerr\+\_\+from\+\_\+xua(), tx\+\_\+relco\+\_\+from\+\_\+xua(), tx\+\_\+rlsd\+\_\+from\+\_\+xua\+\_\+twoway(), and xua\+\_\+asp\+\_\+fsm\+\_\+inactive().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+msg\+\_\+part\+\_\+get\+\_\+u32@{xua\+\_\+msg\+\_\+part\+\_\+get\+\_\+u32}}
+\index{xua\+\_\+msg\+\_\+part\+\_\+get\+\_\+u32@{xua\+\_\+msg\+\_\+part\+\_\+get\+\_\+u32}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+msg\+\_\+part\+\_\+get\+\_\+u32(struct xua\+\_\+msg\+\_\+part $\ast$part)}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t xua\+\_\+msg\+\_\+part\+\_\+get\+\_\+u32 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg\+\_\+part} $\ast$}]{part}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_aa82c9d2d583931628e17c3c4b9d6b129}
+
+
+References xua\+\_\+msg\+\_\+part\+::dat, and xua\+\_\+msg\+\_\+part\+::len.
+
+
+
+Referenced by m3ua\+\_\+decode\+\_\+notify(), sccp\+\_\+msg\+\_\+add\+\_\+sua\+\_\+opt(), scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua(), xua\+\_\+asp\+\_\+fsm\+\_\+down(), and xua\+\_\+msg\+\_\+get\+\_\+u32().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+part\+\_\+add\+\_\+gt@{xua\+\_\+part\+\_\+add\+\_\+gt}}
+\index{xua\+\_\+part\+\_\+add\+\_\+gt@{xua\+\_\+part\+\_\+add\+\_\+gt}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+part\+\_\+add\+\_\+gt(struct msgb $\ast$msg, const struct osmo\+\_\+sccp\+\_\+gt $\ast$gt)}]{\setlength{\rightskip}{0pt plus 5cm}void xua\+\_\+part\+\_\+add\+\_\+gt (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+gt} $\ast$}]{gt}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_a55609b987a5b336d0bf230c212e1494f}
+
+
+References osmo\+\_\+sccp\+\_\+gt\+::digits, osmo\+\_\+sccp\+\_\+gt\+::gti, osmo\+\_\+sccp\+\_\+gt\+::nai, osmo\+\_\+sccp\+\_\+gt\+::npi, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+GT, and osmo\+\_\+sccp\+\_\+gt\+::tt.
+
+
+
+Referenced by xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr().
+
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+to\+\_\+msg@{xua\+\_\+to\+\_\+msg}}
+\index{xua\+\_\+to\+\_\+msg@{xua\+\_\+to\+\_\+msg}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+to\+\_\+msg(const int version, struct xua\+\_\+msg $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}struct msgb$\ast$ xua\+\_\+to\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{const int}]{version, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{xua__msg_8h_abc0b5c26e2ad89927a909061e007b4e8}
+
+
+References xua\+\_\+msg\+\_\+part\+::dat, xua\+\_\+msg\+::hdr, xua\+\_\+msg\+::headers, xua\+\_\+msg\+\_\+part\+::len, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+length, xua\+\_\+common\+\_\+hdr\+::spare, xua\+\_\+msg\+\_\+part\+::tag, xua\+\_\+common\+\_\+hdr\+::version, and version.
+
+
+
+Referenced by encode\+\_\+notify(), m3ua\+\_\+to\+\_\+msg(), peer\+\_\+send(), peer\+\_\+send\+\_\+error(), and sua\+\_\+to\+\_\+msg().
+
+
+
+\subsection{Variable Documentation}
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+dialect\+\_\+m3ua@{xua\+\_\+dialect\+\_\+m3ua}}
+\index{xua\+\_\+dialect\+\_\+m3ua@{xua\+\_\+dialect\+\_\+m3ua}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+dialect\+\_\+m3ua}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf xua\+\_\+dialect} xua\+\_\+dialect\+\_\+m3ua}\label{xua__msg_8h_a14e3c740216dbf27160e15377d4dbd43}
+\index{xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}!xua\+\_\+dialect\+\_\+sua@{xua\+\_\+dialect\+\_\+sua}}
+\index{xua\+\_\+dialect\+\_\+sua@{xua\+\_\+dialect\+\_\+sua}!xua\+\_\+msg.\+h@{xua\+\_\+msg.\+h}}
+\subsubsection[{xua\+\_\+dialect\+\_\+sua}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf xua\+\_\+dialect} xua\+\_\+dialect\+\_\+sua}\label{xua__msg_8h_aa9dfe79ab4a2b83e4d478b10c973c0b0}
+
+
+Referenced by osmo\+\_\+sua\+\_\+to\+\_\+sccp(), sccp\+\_\+find\+\_\+user(), sccp\+\_\+sclc\+\_\+rx\+\_\+from\+\_\+scrc(), sccp\+\_\+scoc\+\_\+rx\+\_\+from\+\_\+scrc(), sccp\+\_\+scoc\+\_\+rx\+\_\+inval\+\_\+opc(), sccp\+\_\+scoc\+\_\+rx\+\_\+inval\+\_\+src\+\_\+ref(), sccp\+\_\+scoc\+\_\+rx\+\_\+unass\+\_\+local\+\_\+ref(), sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg(), sccp\+\_\+scrc\+\_\+rx\+\_\+scoc\+\_\+conn\+\_\+msg(), and scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua().
+

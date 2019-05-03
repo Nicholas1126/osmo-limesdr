@@ -1,0 +1,346 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: osmo-sgsn
+Source: git://git.osmocom.org/osmo-sgsn
+
+Files:     .gitignore
+           .gitreview
+           .mailmap
+           AUTHORS
+           Makefile.am
+           README
+           README.vty-tests
+           configure.ac
+           contrib/Makefile.am
+           contrib/gprs/gb-proxy-unblock-bug.py
+           contrib/gprs/gprs-bssgp-histogram.lua
+           contrib/gprs/gprs-buffer-count.lua
+           contrib/gprs/gprs-split-trace-by-tlli.lua
+           contrib/gprs/gprs-verify-nu.lua
+           contrib/ipa.py
+           contrib/jenkins.sh
+           contrib/soap.py
+           contrib/systemd/osmo-gbproxy.service
+           contrib/systemd/osmo-sgsn.service
+           contrib/twisted_ipa.py
+           doc/Makefile.am
+           doc/examples/Makefile.am
+           doc/examples/osmo-gbproxy/osmo-gbproxy-legacy.cfg
+           doc/examples/osmo-gbproxy/osmo-gbproxy.cfg
+           doc/examples/osmo-gtphub/gtphub-example.txt
+           doc/examples/osmo-gtphub/osmo-gtphub-1iface.cfg
+           doc/examples/osmo-gtphub/osmo-gtphub.cfg
+           doc/examples/osmo-sgsn/osmo-sgsn.cfg
+           include/Makefile.am
+           include/osmocom/sgsn/Makefile.am
+           include/osmocom/sgsn/common.h
+           include/osmocom/sgsn/crc24.h
+           include/osmocom/sgsn/debug.h
+           include/osmocom/sgsn/gb_proxy.h
+           include/osmocom/sgsn/gprs_gb_parse.h
+           include/osmocom/sgsn/gprs_gmm.h
+           include/osmocom/sgsn/gprs_llc.h
+           include/osmocom/sgsn/gprs_sgsn.h
+           include/osmocom/sgsn/gprs_sndcp.h
+           include/osmocom/sgsn/gprs_subscriber.h
+           include/osmocom/sgsn/sgsn.h
+           include/osmocom/sgsn/vty.h
+           m4/README
+           src/Makefile.am
+           src/gprs/.gitignore
+           src/gprs/Makefile.am
+           src/gprs/osmo_sgsn.cfg
+           tests/Makefile.am
+           tests/atlocal.in
+           tests/gbproxy/Makefile.am
+           tests/gbproxy/gbproxy_test.ok
+           tests/gprs/Makefile.am
+           tests/gprs/gprs_test.c
+           tests/gprs/gprs_test.ok
+           tests/gtphub/Makefile.am
+           tests/gtphub/gtphub_test.ok
+           tests/sgsn/Makefile.am
+           tests/sgsn/sgsn_test.ok
+           tests/slhc/Makefile.am
+           tests/slhc/slhc_test.ok
+           tests/sndcp_xid/Makefile.am
+           tests/sndcp_xid/sndcp_xid_test.ok
+           tests/testsuite.at
+           tests/v42bis/Makefile.am
+           tests/v42bis/v42bis_test.ok
+           tests/xid/Makefile.am
+           tests/xid/xid_test.ok
+Copyright: __NO_COPYRIGHT_NOR_LICENSE__
+License:   __NO_COPYRIGHT_NOR_LICENSE__
+
+Files:     include/osmocom/sgsn/a_reset.h
+           include/osmocom/sgsn/gprs_llc_xid.h
+           include/osmocom/sgsn/gprs_sndcp_comp.h
+           include/osmocom/sgsn/gprs_sndcp_dcomp.h
+           include/osmocom/sgsn/gprs_sndcp_pcomp.h
+           include/osmocom/sgsn/gprs_sndcp_xid.h
+           include/osmocom/sgsn/gprs_utils.h
+           include/osmocom/sgsn/gtphub.h
+           include/osmocom/sgsn/signal.h
+           src/gprs/crc24.c
+           src/gprs/gb_proxy.c
+           src/gprs/gb_proxy_main.c
+           src/gprs/gb_proxy_patch.c
+           src/gprs/gb_proxy_peer.c
+           src/gprs/gb_proxy_tlli.c
+           src/gprs/gb_proxy_vty.c
+           src/gprs/gprs_gb_parse.c
+           src/gprs/gprs_gmm.c
+           src/gprs/gprs_llc.c
+           src/gprs/gprs_llc_parse.c
+           src/gprs/gprs_llc_vty.c
+           src/gprs/gprs_llc_xid.c
+           src/gprs/gprs_sgsn.c
+           src/gprs/gprs_sndcp.c
+           src/gprs/gprs_sndcp_comp.c
+           src/gprs/gprs_sndcp_dcomp.c
+           src/gprs/gprs_sndcp_pcomp.c
+           src/gprs/gprs_sndcp_vty.c
+           src/gprs/gprs_sndcp_xid.c
+           src/gprs/gprs_subscriber.c
+           src/gprs/gprs_utils.c
+           src/gprs/gtphub.c
+           src/gprs/gtphub_main.c
+           src/gprs/gtphub_vty.c
+           src/gprs/sgsn_ares.c
+           src/gprs/sgsn_auth.c
+           src/gprs/sgsn_cdr.c
+           src/gprs/sgsn_ctrl.c
+           src/gprs/sgsn_libgtp.c
+           src/gprs/sgsn_main.c
+           src/gprs/sgsn_vty.c
+           tests/gtphub/gtphub_test.c
+           tests/sgsn/sgsn_test.c
+           tests/slhc/slhc_test.c
+           tests/sndcp_xid/sndcp_xid_test.c
+           tests/v42bis/v42bis_test.c
+           tests/xid/xid_test.c
+Copyright: 2008-2015 Holger Hans Peter Freyther <zecke@selfish.org>
+           2008-2016 Harald Welte <laforge@gnumonks.org>
+           2009-2015 Holger Hans Peter Freyther
+           2010-2014 On-Waves
+           2011-2016 sysmocom s.f.m.c. GmbH <info@sysmocom.de>
+           2014-2016 Sysmocom s.f.m.c. GmbH
+           2014-2017 sysmocom s.f.m.c. GmbH
+License:   AGPL-3.0+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as published by
+ the Free Software Foundation; either version 3 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
+ .
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+Files:     src/gprs/gtphub_ares.c
+           src/gprs/gtphub_sock.c
+           tests/gbproxy/gbproxy_test.c
+Copyright: 2013 Jacob Erlbeck <jerlbeck@sysmocom.de>
+           2013 sysmocom s.f.m.c. GmbH
+           2014 Holger Hans Peter Freyther
+           2015 sysmocom s.f.m.c. GmbH <info@sysmocom.de>
+License:   __NO_LICENSE__
+
+Files:     include/osmocom/sgsn/v42bis.h
+           include/osmocom/sgsn/v42bis_private.h
+Copyright: 2005-2011 Steve Underwood
+License:   LGPL-2.1
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License version 2.1,
+ as published by the Free Software Foundation.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+ .
+ You should have received a copy of the GNU Lesser General Public
+ License along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ .
+ The FSF address in the above text is the old one.
+ .
+ On Debian systems, the complete text of the GNU Lesser General Public License
+ Version 2.1 can be found in `/usr/share/common-licenses/LGPL-2.1'.
+
+Files: osmoappdesc.py
+       tests/ctrl_test_runner.py
+       tests/vty_test_runner.py
+Copyright: 2013         Katerina Barone-Adesi <kat.obsc@gmail.com>
+           2013         Jacob Erlbeck <jerlbeck@sysmocom.de>
+           2013-2014    Holger Hans Peter Freyther <zecke@selfish.org>
+License: GPL-3+
+
+Files:     git-version-gen
+Copyright: 2007-2010 Free Software Foundation, Inc.
+License:   GPL-3.0+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 3 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ .
+ This script is derived from GIT-VERSION-GEN from GIT: http://git.or.cz/.
+ It may be run two ways:
+ - from a git repository in which the "git describe" command below
+ produces useful output (thus requiring at least one signed tag)
+ - from a non-git-repo directory containing a .tarball-version file, which
+ presumes this script is invoked like "./git-version-gen .tarball-version".
+ .
+ In order to use intra-version strings in your project, you will need two
+ separate generated version string files:
+ .
+ .tarball-version - present only in a distribution tarball, and not in
+ a checked-out repository.  Created with contents that were learned at
+ the last time autoconf was run, and used by git-version-gen.  Must not
+ be present in either $(srcdir) or $(builddir) for git-version-gen to
+ give accurate answers during normal development with a checked out tree,
+ but must be present in a tarball when there is no version control system.
+ Therefore, it cannot be used in any dependencies.  GNUmakefile has
+ hooks to force a reconfigure at distribution time to get the value
+ correct, without penalizing normal development with extra reconfigures.
+ .
+ .version - present in a checked-out repository and in a distribution
+ tarball.  Usable in dependencies, particularly for files that don't
+ want to depend on config.h but do want to track version changes.
+ Delete this file prior to any autoconf run where you want to rebuild
+ files to pick up a version string change; and leave it stale to
+ minimize rebuild time after unrelated changes to configure sources.
+ .
+ It is probably wise to add these two files to .gitignore, so that you
+ don't accidentally commit either generated file.
+ .
+ Use the following line in your configure.ac, so that $(VERSION) will
+ automatically be up-to-date each time configure is run (and note that
+ since configure.ac no longer includes a version string, Makefile rules
+ should not depend on configure.ac for version updates).
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ Version 3 can be found in `/usr/share/common-licenses/GPL-3'.
+
+Files:     src/gprs/v42bis.c
+Copyright: 2005-2011 Steve Underwood
+License:   LGPL-2.1
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License version 2.1,
+ as published by the Free Software Foundation.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+ .
+ You should have received a copy of the GNU Lesser General Public
+ License along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ .
+ THIS IS A WORK IN PROGRESS. IT IS NOT FINISHED.
+ Currently it performs the core compression and decompression functions OK.
+ However, a number of the bells and whistles in V.42bis are incomplete.
+ .
+ ! \file
+ .
+ The FSF address in the above text is the old one.
+ .
+ On Debian systems, the complete text of the GNU Lesser General Public License
+ Version 2.1 can be found in `/usr/share/common-licenses/LGPL-2.1'.
+
+Files:     include/osmocom/sgsn/slhc.h
+Copyright: 1989 Regents of the University of California.
+License:   __UNKNOWN__
+ Redistribution and use in source and binary forms are permitted
+ provided that the above copyright notice and this paragraph are
+ duplicated in all such forms and that any documentation,
+ advertising materials, and other materials related to such
+ distribution and use acknowledge that the software was developed
+ by the University of California, Berkeley.  The name of the
+ University may not be used to endorse or promote products derived
+ from this software without specific prior written permission.
+ THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR
+ IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ .
+ Van Jacobson (van@helios.ee.lbl.gov), Dec 31, 1989:
+ - Initial distribution.
+ .
+ modified for KA9Q Internet Software Package by
+ Katie Stevens (dkstevens@ucdavis.edu)
+ University of California, Davis
+ Computing Services
+ - 01-31-90	initial adaptation
+
+Files:     src/gprs/slhc.c
+Copyright: 1989 Regents of the University of California.
+License:   __UNKNOWN__
+ Redistribution and use in source and binary forms are permitted
+ provided that the above copyright notice and this paragraph are
+ duplicated in all such forms and that any documentation,
+ advertising materials, and other materials related to such
+ distribution and use acknowledge that the software was developed
+ by the University of California, Berkeley.  The name of the
+ University may not be used to endorse or promote products derived
+ from this software without specific prior written permission.
+ THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR
+ IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ .
+ Van Jacobson (van@helios.ee.lbl.gov), Dec 31, 1989:
+ - Initial distribution.
+ .
+ modified for KA9Q Internet Software Package by
+ Katie Stevens (dkstevens@ucdavis.edu)
+ University of California, Davis
+ Computing Services
+ - 01-31-90	initial adaptation (from 1.19)
+ PPP.05	02-15-90 [ks]
+ PPP.08	05-02-90 [ks]	use PPP protocol field to signal compression
+ PPP.15	09-90	 [ks]	improve mbuf handling
+ PPP.16	11-02	 [karn]	substantially rewritten to use NOS facilities
+
+Files:     m4/ax_check_compile_flag.m4
+Copyright: 2008 Guido U. Draheim <guidod@gmx.de>
+           2011 Maarten Bosmans <mkbosmans@gmail.com>
+License:   GNU-All-Permissive-License
+ This program is free software: you can redistribute it and/or modify it
+ under the terms of the GNU General Public License as published by the
+ Free Software Foundation, either version 3 of the License, or (at your
+ option) any later version.
+ .
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License along
+ with this program. If not, see <http://www.gnu.org/licenses/>.
+ .
+ As a special exception, the respective Autoconf Macro's copyright owner
+ gives unlimited permission to copy, distribute and modify the configure
+ scripts that are the output of Autoconf when processing the Macro. You
+ need not follow the terms of the GNU General Public License when using
+ or distributing such scripts, even though portions of the text of the
+ Macro appear in them. The GNU General Public License (GPL) does govern
+ all other use of the material that constitutes the Autoconf Macro.
+ .
+ This special exception to the GPL applies to versions of the Autoconf
+ Macro released by the Autoconf Archive. When you make and distribute a
+ modified version of the Autoconf Macro, you may extend this special
+ exception to the GPL to apply to your modified version as well.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ Version 3 can be found in `/usr/share/common-licenses/GPL-3'.

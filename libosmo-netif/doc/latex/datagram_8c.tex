@@ -1,0 +1,128 @@
+\section{src/datagram.c File Reference}
+\label{datagram_8c}\index{src/datagram.\+c@{src/datagram.\+c}}
+
+
+Osmocom datagram socket helpers.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$time.\+h$>$}\\*
+{\ttfamily \#include $<$sys/fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include $<$netinet/in.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/linuxlist.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/select.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/utils.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/gsm/tlv.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/msgb.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/logging.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/talloc.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/socket.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/netif/datagram.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+dgram\+\_\+tx}
+\item 
+struct {\bf osmo\+\_\+dgram\+\_\+rx}
+\item 
+struct {\bf osmo\+\_\+dgram}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries O\+S\+M\+O\+\_\+\+D\+G\+R\+A\+M\+\_\+\+C\+L\+I\+\_\+\+F\+\_\+\+R\+E\+C\+O\+NF}~(1 $<$$<$ 0)
+\item 
+\#define {\bfseries O\+S\+M\+O\+\_\+\+D\+G\+R\+A\+M\+\_\+\+R\+X\+\_\+\+F\+\_\+\+R\+E\+C\+O\+NF}~(1 $<$$<$ 0)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+close} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Close an Osmocom Datagram Transmitter. \end{DoxyCompactList}\item 
+static int {\bfseries osmo\+\_\+dgram\+\_\+tx\+\_\+write} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn)
+\item 
+static int {\bfseries osmo\+\_\+dgram\+\_\+tx\+\_\+fd\+\_\+cb} (struct osmo\+\_\+fd $\ast$ofd, unsigned int what)
+\item 
+struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$ {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+create} (void $\ast$ctx)
+\begin{DoxyCompactList}\small\item\em Create an Osmocom datagram transmitter. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+addr} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn, const char $\ast$addr)
+\begin{DoxyCompactList}\small\item\em Set the remote address to which we transmit. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+port} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn, uint16\+\_\+t port)
+\begin{DoxyCompactList}\small\item\em Set the remote port to which we transmit. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+local\+\_\+addr} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn, const char $\ast$addr)
+\begin{DoxyCompactList}\small\item\em Set the local address from which we transmit. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+local\+\_\+port} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn, uint16\+\_\+t port)
+\begin{DoxyCompactList}\small\item\em Set the local port from which we transmit. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+data} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn, void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Set application private data of the datagram transmitter. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+destroy} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Destroy a Osmocom datagram transmitter. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+open} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Open connection of an Osmocom datagram transmitter. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+send} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Enqueue data to be sent via an Osmocom datagram transmitter. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+dgram\+\_\+rx\+\_\+recv} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Receive data via Osmocom datagram receiver. \end{DoxyCompactList}\item 
+static void {\bfseries osmo\+\_\+dgram\+\_\+rx\+\_\+read} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn)
+\item 
+static int {\bfseries osmo\+\_\+dgram\+\_\+rx\+\_\+cb} (struct osmo\+\_\+fd $\ast$ofd, unsigned int what)
+\item 
+struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$ {\bf osmo\+\_\+dgram\+\_\+rx\+\_\+create} (void $\ast$ctx)
+\begin{DoxyCompactList}\small\item\em Create an Osmocom datagram receiver. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+addr} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn, const char $\ast$addr)
+\begin{DoxyCompactList}\small\item\em Set the local address to which we bind. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+port} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn, uint16\+\_\+t port)
+\begin{DoxyCompactList}\small\item\em Set the local port to which we bind. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+read\+\_\+cb} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn, int($\ast$read\+\_\+cb)(struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn))
+\begin{DoxyCompactList}\small\item\em Set the read() call-\/back of the datagram receiver. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+rx\+\_\+destroy} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Destroy the datagram receiver. Releases Memory. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+dgram\+\_\+rx\+\_\+open} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Open the datagram receiver. This actually initializes the underlying socket and binds it to the configured ip/port. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+rx\+\_\+close} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Close the datagram receiver and unregister from select loop Does not destroy the datagram receiver, merely closes it! \end{DoxyCompactList}\item 
+static int {\bfseries dgram\+\_\+rx\+\_\+cb} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$rx)
+\item 
+struct {\bf osmo\+\_\+dgram} $\ast$ {\bf osmo\+\_\+dgram\+\_\+create} (void $\ast$ctx)
+\begin{DoxyCompactList}\small\item\em Create an Osmocom datagram transceiver (bidirectional) \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+destroy} (struct {\bf osmo\+\_\+dgram} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Destroy a Osmocom datagram transceiver. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+addr} (struct {\bf osmo\+\_\+dgram} $\ast$conn, const char $\ast$addr)
+\begin{DoxyCompactList}\small\item\em Set the local address to which we bind. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+addr} (struct {\bf osmo\+\_\+dgram} $\ast$conn, const char $\ast$addr)
+\begin{DoxyCompactList}\small\item\em Set the remote address to which we transmit/connect. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+port} (struct {\bf osmo\+\_\+dgram} $\ast$conn, uint16\+\_\+t port)
+\begin{DoxyCompactList}\small\item\em Set the local port to which we bind. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+port} (struct {\bf osmo\+\_\+dgram} $\ast$conn, uint16\+\_\+t port)
+\begin{DoxyCompactList}\small\item\em Set the remote port to which we transmit. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+set\+\_\+read\+\_\+cb} (struct {\bf osmo\+\_\+dgram} $\ast$conn, int($\ast$read\+\_\+cb)(struct {\bf osmo\+\_\+dgram} $\ast$conn))
+\begin{DoxyCompactList}\small\item\em Set the read() call-\/back of the datagram receiver. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+set\+\_\+data} (struct {\bf osmo\+\_\+dgram} $\ast$conn, void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Set application private data of the datagram transmitter. \end{DoxyCompactList}\item 
+void $\ast$ {\bf osmo\+\_\+dgram\+\_\+get\+\_\+data} (struct {\bf osmo\+\_\+dgram} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Get application private data of the datagram transceiver. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+dgram\+\_\+open} (struct {\bf osmo\+\_\+dgram} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Open the datagram transceiver. This actually initializes the underlying sockets and binds/connects them to the configured ips/ports. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+close} (struct {\bf osmo\+\_\+dgram} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Close an Osmocom Datagram Transceiver. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+send} (struct {\bf osmo\+\_\+dgram} $\ast$conn, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Enqueue data to be sent via an Osmocom datagram transceiver. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+dgram\+\_\+recv} (struct {\bf osmo\+\_\+dgram} $\ast$conn, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Receive data via Osmocom datagram transceiver. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+dgram\+\_\+tx} {\bfseries \+\_\+\+\_\+attribute\+\_\+\+\_\+}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Osmocom datagram socket helpers. 
+

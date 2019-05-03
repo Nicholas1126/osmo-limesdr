@@ -1,0 +1,44 @@
+\section{xua\+\_\+msg Struct Reference}
+\label{structxua__msg}\index{xua\+\_\+msg@{xua\+\_\+msg}}
+
+
+{\ttfamily \#include $<$xua\+\_\+msg.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf xua\+\_\+common\+\_\+hdr} {\bf hdr}
+\item 
+struct {\bf osmo\+\_\+mtp\+\_\+transfer\+\_\+param} {\bf mtp}
+\item 
+struct llist\+\_\+head {\bf headers}
+\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{xua\+\_\+msg@{xua\+\_\+msg}!hdr@{hdr}}
+\index{hdr@{hdr}!xua\+\_\+msg@{xua\+\_\+msg}}
+\subsubsection[{hdr}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf xua\+\_\+common\+\_\+hdr} xua\+\_\+msg\+::hdr}\label{structxua__msg_ab7a0fbf5fecd1c4fa64606460192a42d}
+
+
+Referenced by data\+\_\+hdr\+\_\+from\+\_\+m3ua(), gen\+\_\+coerr(), gen\+\_\+coref\+\_\+without\+\_\+conn(), gen\+\_\+relco(), gen\+\_\+ret\+\_\+msg(), gen\+\_\+rlsd(), hmdt\+\_\+message\+\_\+for\+\_\+distribution(), m3ua\+\_\+encode\+\_\+notify(), m3ua\+\_\+gen\+\_\+error(), m3ua\+\_\+rx\+\_\+mgmt(), m3ua\+\_\+rx\+\_\+msg(), m3ua\+\_\+rx\+\_\+rkm(), m3ua\+\_\+rx\+\_\+xfer(), m3ua\+\_\+to\+\_\+msg(), m3ua\+\_\+xfer\+\_\+from\+\_\+data(), osmo\+\_\+sccp\+\_\+to\+\_\+xua(), osmo\+\_\+sua\+\_\+to\+\_\+sccp(), peer\+\_\+send(), peer\+\_\+send\+\_\+error(), sccp\+\_\+sclc\+\_\+rx\+\_\+from\+\_\+scrc(), sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), sccp\+\_\+scoc\+\_\+rx\+\_\+from\+\_\+scrc(), sccp\+\_\+scoc\+\_\+rx\+\_\+inval\+\_\+opc(), sccp\+\_\+scoc\+\_\+rx\+\_\+inval\+\_\+src\+\_\+ref(), sccp\+\_\+scoc\+\_\+rx\+\_\+unass\+\_\+local\+\_\+ref(), sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg(), sccp\+\_\+scrc\+\_\+rx\+\_\+scoc\+\_\+conn\+\_\+msg(), sua\+\_\+gen\+\_\+error(), sua\+\_\+is\+\_\+connectionless(), sua\+\_\+is\+\_\+cr(), sua\+\_\+rx\+\_\+cl(), sua\+\_\+rx\+\_\+co(), sua\+\_\+rx\+\_\+mgmt(), sua\+\_\+rx\+\_\+msg(), sua\+\_\+to\+\_\+msg(), xua\+\_\+dialect\+\_\+check\+\_\+all\+\_\+mand\+\_\+ies(), xua\+\_\+from\+\_\+msg(), xua\+\_\+gen\+\_\+msg\+\_\+cl(), xua\+\_\+gen\+\_\+msg\+\_\+co(), xua\+\_\+gen\+\_\+relre(), xua\+\_\+hdr\+\_\+dump(), xua\+\_\+msg\+\_\+dump(), xua\+\_\+msg\+\_\+event\+\_\+map(), and xua\+\_\+to\+\_\+msg().
+
+\index{xua\+\_\+msg@{xua\+\_\+msg}!headers@{headers}}
+\index{headers@{headers}!xua\+\_\+msg@{xua\+\_\+msg}}
+\subsubsection[{headers}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head xua\+\_\+msg\+::headers}\label{structxua__msg_ac3fa690aa3dbafa71c41f25c17b6dd30}
+
+
+Referenced by m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+rsp(), m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req(), m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+rsp(), m3ua\+\_\+xfer\+\_\+from\+\_\+data(), xua\+\_\+ies\+\_\+to\+\_\+sccp\+\_\+opts(), xua\+\_\+msg\+\_\+add\+\_\+data(), xua\+\_\+msg\+\_\+alloc(), xua\+\_\+msg\+\_\+dump(), xua\+\_\+msg\+\_\+find\+\_\+tag(), xua\+\_\+msg\+\_\+free\+\_\+tag(), and xua\+\_\+to\+\_\+msg().
+
+\index{xua\+\_\+msg@{xua\+\_\+msg}!mtp@{mtp}}
+\index{mtp@{mtp}!xua\+\_\+msg@{xua\+\_\+msg}}
+\subsubsection[{mtp}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+mtp\+\_\+transfer\+\_\+param} xua\+\_\+msg\+::mtp}\label{structxua__msg_a2c486e653d546de369103ad727a4e292}
+
+
+Referenced by deliver\+\_\+to\+\_\+mtp\+\_\+user(), gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua(), hmrt\+\_\+message\+\_\+for\+\_\+routing(), ipa\+\_\+rx\+\_\+msg\+\_\+sccp(), m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2(), m3ua\+\_\+rx\+\_\+xfer(), mtp\+\_\+user\+\_\+prim\+\_\+cb(), osmo\+\_\+ss7\+\_\+user\+\_\+mtp\+\_\+xfer\+\_\+req(), sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), sccp\+\_\+scoc\+\_\+rx\+\_\+from\+\_\+scrc(), sccp\+\_\+scoc\+\_\+rx\+\_\+inval\+\_\+opc(), scoc\+\_\+fsm\+\_\+conn\+\_\+pend\+\_\+out(), scoc\+\_\+fsm\+\_\+idle(), sua2sccp\+\_\+tx\+\_\+m3ua(), sua\+\_\+rx\+\_\+msg(), tx\+\_\+coerr\+\_\+from\+\_\+xua(), tx\+\_\+relco\+\_\+from\+\_\+xua(), tx\+\_\+rlsd\+\_\+from\+\_\+xua\+\_\+twoway(), xua\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), and xua\+\_\+gen\+\_\+relre\+\_\+and\+\_\+send().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/osmocom/sigtran/{\bf xua\+\_\+msg.\+h}\end{DoxyCompactItemize}

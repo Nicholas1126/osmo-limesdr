@@ -1,0 +1,384 @@
+\section{src/xua\+\_\+rkm.c File Reference}
+\label{xua__rkm_8c}\index{src/xua\+\_\+rkm.\+c@{src/xua\+\_\+rkm.\+c}}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/logging.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/linuxlist.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/xua\+\_\+msg.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/osmo\+\_\+ss7.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/m3ua.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+internal.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+as\+\_\+fsm.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf M\+A\+X\+\_\+\+N\+E\+W\+\_\+\+AS}~16
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bf msgb\+\_\+push\+\_\+m3ua\+\_\+hdr} (struct msgb $\ast$msg, uint8\+\_\+t {\bf msg\+\_\+class}, uint8\+\_\+t {\bf msg\+\_\+type})
+\item 
+static int {\bf msgb\+\_\+append\+\_\+reg\+\_\+res} (struct msgb $\ast$msg, uint32\+\_\+t local\+\_\+rk\+\_\+id, uint32\+\_\+t status, uint32\+\_\+t rctx)
+\item 
+static int {\bf msgb\+\_\+append\+\_\+dereg\+\_\+res} (struct msgb $\ast$msg, uint32\+\_\+t status, uint32\+\_\+t rctx)
+\item 
+static void {\bf xua\+\_\+rkm\+\_\+send\+\_\+reg\+\_\+req} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, const struct {\bf osmo\+\_\+ss7\+\_\+routing\+\_\+key} $\ast$rkey, enum {\bf osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode} traf\+\_\+mode)
+\item 
+static void {\bf xua\+\_\+rkm\+\_\+send\+\_\+dereg\+\_\+req} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, uint32\+\_\+t route\+\_\+ctx)
+\item 
+static int {\bf handle\+\_\+rkey\+\_\+reg} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct {\bf xua\+\_\+msg} $\ast$inner, struct msgb $\ast$resp, struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$$\ast$newly\+\_\+assigned\+\_\+as, unsigned int max\+\_\+nas\+\_\+idx, unsigned int $\ast$nas\+\_\+idx)
+\item 
+static int {\bf m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf handle\+\_\+rkey\+\_\+dereg} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, uint32\+\_\+t rctx, struct msgb $\ast$resp)
+\item 
+static int {\bf m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+req} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf handle\+\_\+rkey\+\_\+reg\+\_\+resp} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct {\bf xua\+\_\+msg} $\ast$inner)
+\item 
+static int {\bf m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+rsp} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf handle\+\_\+rkey\+\_\+dereg\+\_\+resp} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct {\bf xua\+\_\+msg} $\ast$inner)
+\item 
+static int {\bf m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+rsp} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+int {\bf m3ua\+\_\+rx\+\_\+rkm} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+int {\bf osmo\+\_\+xlm\+\_\+sap\+\_\+down} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)
+\item 
+void {\bf xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const struct value\+\_\+string {\bf m3ua\+\_\+rkm\+\_\+reg\+\_\+status\+\_\+vals} [$\,$]
+\item 
+const struct value\+\_\+string {\bf m3ua\+\_\+rkm\+\_\+dereg\+\_\+status\+\_\+vals} [$\,$]
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!M\+A\+X\+\_\+\+N\+E\+W\+\_\+\+AS@{M\+A\+X\+\_\+\+N\+E\+W\+\_\+\+AS}}
+\index{M\+A\+X\+\_\+\+N\+E\+W\+\_\+\+AS@{M\+A\+X\+\_\+\+N\+E\+W\+\_\+\+AS}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{M\+A\+X\+\_\+\+N\+E\+W\+\_\+\+AS}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+N\+E\+W\+\_\+\+AS~16}\label{xua__rkm_8c_ab4e77d336b433bc7e18cef5fa10033ff}
+
+
+Referenced by m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req().
+
+
+
+\subsection{Function Documentation}
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!handle\+\_\+rkey\+\_\+dereg@{handle\+\_\+rkey\+\_\+dereg}}
+\index{handle\+\_\+rkey\+\_\+dereg@{handle\+\_\+rkey\+\_\+dereg}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{handle\+\_\+rkey\+\_\+dereg(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, uint32\+\_\+t rctx, struct msgb $\ast$resp)}]{\setlength{\rightskip}{0pt plus 5cm}static int handle\+\_\+rkey\+\_\+dereg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{uint32\+\_\+t}]{rctx, }
+\item[{struct msgb $\ast$}]{resp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__rkm_8c_a44af2d2697beebe91a62a76211c14157}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+as\+::fi, osmo\+\_\+ss7\+\_\+asp\+::inst, L\+O\+G\+P\+A\+SP, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+D\+E\+R\+E\+G\+\_\+\+E\+R\+R\+\_\+\+I\+N\+V\+A\+L\+\_\+\+R\+C\+TX, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+D\+E\+R\+E\+G\+\_\+\+E\+R\+R\+\_\+\+U\+N\+K\+N\+O\+WN, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+D\+E\+R\+E\+G\+\_\+\+S\+U\+C\+C\+E\+SS, msgb\+\_\+append\+\_\+dereg\+\_\+res(), osmo\+\_\+ss7\+\_\+asp\+::name, osmo\+\_\+ss7\+\_\+as\+\_\+del\+\_\+asp(), osmo\+\_\+ss7\+\_\+as\+\_\+destroy(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+rctx(), osmo\+\_\+ss7\+\_\+as\+\_\+has\+\_\+asp(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+ss7\+\_\+route\+\_\+destroy(), osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc(), osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::pc, osmo\+\_\+ss7\+\_\+as\+::rkm\+\_\+dyn\+\_\+allocated, osmo\+\_\+ss7\+\_\+as\+::routing\+\_\+key, osmo\+\_\+ss7\+\_\+instance\+::rtable\+\_\+system, and X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+D\+O\+W\+N\+\_\+\+I\+ND.
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+req().
+
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!handle\+\_\+rkey\+\_\+dereg\+\_\+resp@{handle\+\_\+rkey\+\_\+dereg\+\_\+resp}}
+\index{handle\+\_\+rkey\+\_\+dereg\+\_\+resp@{handle\+\_\+rkey\+\_\+dereg\+\_\+resp}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{handle\+\_\+rkey\+\_\+dereg\+\_\+resp(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct xua\+\_\+msg $\ast$inner)}]{\setlength{\rightskip}{0pt plus 5cm}static int handle\+\_\+rkey\+\_\+dereg\+\_\+resp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{inner}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__rkm_8c_aa51a247c1d47f592fb948d053292fa0a}
+
+
+References osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::context, osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+reg\+::key, L\+O\+G\+P\+A\+SP, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+R\+E\+G\+\_\+\+S\+T\+A\+T\+US, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, m3ua\+\_\+rkm\+\_\+dereg\+\_\+status\+\_\+vals, O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+D\+E\+R\+EG, osmo\+\_\+xlm\+\_\+prim\+::rk\+\_\+dereg, osmo\+\_\+xlm\+\_\+prim\+::rk\+\_\+reg, osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+dereg\+::route\+\_\+ctx, osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+dereg\+::status, osmo\+\_\+xlm\+\_\+prim\+::u, xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim(), xua\+\_\+msg\+\_\+find\+\_\+tag(), xua\+\_\+msg\+\_\+get\+\_\+u32(), and xua\+\_\+xlm\+\_\+prim\+\_\+alloc().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+rsp().
+
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!handle\+\_\+rkey\+\_\+reg@{handle\+\_\+rkey\+\_\+reg}}
+\index{handle\+\_\+rkey\+\_\+reg@{handle\+\_\+rkey\+\_\+reg}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{handle\+\_\+rkey\+\_\+reg(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct xua\+\_\+msg $\ast$inner, struct msgb $\ast$resp, struct osmo\+\_\+ss7\+\_\+as $\ast$$\ast$newly\+\_\+assigned\+\_\+as, unsigned int max\+\_\+nas\+\_\+idx, unsigned int $\ast$nas\+\_\+idx)}]{\setlength{\rightskip}{0pt plus 5cm}static int handle\+\_\+rkey\+\_\+reg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{inner, }
+\item[{struct msgb $\ast$}]{resp, }
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$$\ast$}]{newly\+\_\+assigned\+\_\+as, }
+\item[{unsigned int}]{max\+\_\+nas\+\_\+idx, }
+\item[{unsigned int $\ast$}]{nas\+\_\+idx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__rkm_8c_a58819010e3b1aa68a744022649829c3c}
+
+
+References osmo\+\_\+ss7\+\_\+route\+::as, osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::context, osmo\+\_\+ss7\+\_\+as\+::description, dpc, osmo\+\_\+ss7\+\_\+as\+::inst, osmo\+\_\+ss7\+\_\+asp\+::inst, L\+O\+G\+P\+A\+SP, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+PC, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+L\+O\+C\+\_\+\+R\+K\+E\+Y\+\_\+\+ID, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+N\+E\+T\+\_\+\+A\+P\+P\+E\+AR, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+O\+R\+I\+G\+\_\+\+PC, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+V\+C\+\_\+\+I\+ND, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+T\+R\+A\+F\+\_\+\+M\+O\+D\+E\+\_\+\+T\+YP, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+E\+R\+R\+\_\+\+C\+A\+N\+T\+\_\+\+S\+U\+P\+P\+\_\+\+U\+N\+Q\+\_\+\+RT, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+E\+R\+R\+\_\+\+I\+N\+S\+U\+F\+F\+\_\+\+R\+E\+S\+RC, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+E\+R\+R\+\_\+\+I\+N\+V\+A\+L\+\_\+\+R\+K\+EY, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+E\+R\+R\+\_\+\+P\+E\+R\+M\+\_\+\+D\+E\+N\+I\+ED, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+E\+R\+R\+\_\+\+U\+N\+S\+U\+P\+P\+\_\+\+R\+K\+\_\+\+P\+A\+R\+AM, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+E\+R\+R\+\_\+\+U\+N\+S\+U\+P\+P\+\_\+\+T\+R\+A\+F\+\_\+\+M\+O\+DE, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+S\+U\+C\+C\+E\+SS, M3\+U\+A\+\_\+\+T\+M\+O\+D\+\_\+\+B\+C\+A\+ST, M3\+U\+A\+\_\+\+T\+M\+O\+D\+\_\+\+L\+O\+A\+D\+S\+H\+A\+RE, M3\+U\+A\+\_\+\+T\+M\+O\+D\+\_\+\+O\+V\+E\+R\+R\+I\+DE, osmo\+\_\+ss7\+\_\+as\+::mode, msgb\+\_\+append\+\_\+reg\+\_\+res(), osmo\+\_\+ss7\+\_\+asp\+::name, osmo\+\_\+ss7\+\_\+as\+\_\+add\+\_\+asp(), osmo\+\_\+ss7\+\_\+as\+\_\+destroy(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+rctx(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+or\+\_\+create(), O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+M3\+UA, osmo\+\_\+ss7\+\_\+find\+\_\+free\+\_\+rctx(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+ss7\+\_\+route\+\_\+create(), osmo\+\_\+ss7\+\_\+route\+\_\+destroy(), osmo\+\_\+ss7\+\_\+tmode\+\_\+from\+\_\+xua(), osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::pc, osmo\+\_\+ss7\+\_\+instance\+::permit\+\_\+dyn\+\_\+rkm\+\_\+alloc, osmo\+\_\+ss7\+\_\+as\+::rkm\+\_\+dyn\+\_\+allocated, osmo\+\_\+ss7\+\_\+as\+::routing\+\_\+key, osmo\+\_\+ss7\+\_\+instance\+::rtable\+\_\+system, xua\+\_\+msg\+\_\+find\+\_\+tag(), and xua\+\_\+msg\+\_\+get\+\_\+u32().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req().
+
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!handle\+\_\+rkey\+\_\+reg\+\_\+resp@{handle\+\_\+rkey\+\_\+reg\+\_\+resp}}
+\index{handle\+\_\+rkey\+\_\+reg\+\_\+resp@{handle\+\_\+rkey\+\_\+reg\+\_\+resp}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{handle\+\_\+rkey\+\_\+reg\+\_\+resp(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct xua\+\_\+msg $\ast$inner)}]{\setlength{\rightskip}{0pt plus 5cm}static int handle\+\_\+rkey\+\_\+reg\+\_\+resp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{inner}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__rkm_8c_a5d226db905ca8bc16d1e38f64da72e3f}
+
+
+References osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::context, osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+reg\+::key, osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::l\+\_\+rk\+\_\+id, L\+O\+G\+P\+A\+SP, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+L\+O\+C\+\_\+\+R\+K\+E\+Y\+\_\+\+ID, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+E\+G\+\_\+\+S\+T\+A\+T\+US, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, m3ua\+\_\+rkm\+\_\+reg\+\_\+status\+\_\+vals, O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+R\+EG, osmo\+\_\+xlm\+\_\+prim\+::rk\+\_\+reg, osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+reg\+::status, osmo\+\_\+xlm\+\_\+prim\+::u, xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim(), xua\+\_\+msg\+\_\+find\+\_\+tag(), xua\+\_\+msg\+\_\+get\+\_\+u32(), and xua\+\_\+xlm\+\_\+prim\+\_\+alloc().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+rsp().
+
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!m3ua\+\_\+rx\+\_\+rkm@{m3ua\+\_\+rx\+\_\+rkm}}
+\index{m3ua\+\_\+rx\+\_\+rkm@{m3ua\+\_\+rx\+\_\+rkm}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{m3ua\+\_\+rx\+\_\+rkm(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}int m3ua\+\_\+rx\+\_\+rkm (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{xua__rkm_8c_ab1e4c28a5dd577eb9d4ce2d32edf76d2}
+
+
+References xua\+\_\+msg\+::hdr, L\+O\+G\+P\+A\+SP, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+D\+E\+R\+E\+G\+\_\+\+R\+EQ, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+D\+E\+R\+E\+G\+\_\+\+R\+SP, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+R\+EQ, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+R\+SP, m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+req(), m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+rsp(), m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req(), m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+rsp(), and xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type.
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+msg().
+
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+req@{m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+req}}
+\index{m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+req@{m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+req}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+req(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+req (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__rkm_8c_acbac8d8d08e17b863f19b7b0d35d705b}
+
+
+References xua\+\_\+msg\+\_\+part\+::dat, handle\+\_\+rkey\+\_\+dereg(), xua\+\_\+msg\+\_\+part\+::len, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, m3ua\+\_\+msgb\+\_\+alloc(), M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+R\+KM, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+D\+E\+R\+E\+G\+\_\+\+R\+SP, msgb\+\_\+push\+\_\+m3ua\+\_\+hdr(), osmo\+\_\+ss7\+\_\+asp\+\_\+send(), and xua\+\_\+msg\+\_\+find\+\_\+tag().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+rkm().
+
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+rsp@{m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+rsp}}
+\index{m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+rsp@{m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+rsp}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+rsp(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+rsp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__rkm_8c_ac0fbb7577bc96356589fea77dfd1c47b}
+
+
+References handle\+\_\+rkey\+\_\+dereg\+\_\+resp(), xua\+\_\+msg\+::headers, xua\+\_\+msg\+\_\+part\+::len, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+R\+E\+G\+\_\+\+R\+E\+S\+U\+LT, xua\+\_\+msg\+\_\+part\+::tag, xua\+\_\+from\+\_\+nested(), and xua\+\_\+msg\+\_\+free().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+rkm().
+
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req@{m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req}}
+\index{m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req@{m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__rkm_8c_a85d8dfc2cdb5c3c6b7525d8dad5aea35}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::fi, handle\+\_\+rkey\+\_\+reg(), xua\+\_\+msg\+::headers, L\+O\+G\+P\+A\+SP, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+\_\+\+K\+EY, m3ua\+\_\+msgb\+\_\+alloc(), M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+R\+KM, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+R\+SP, M\+A\+X\+\_\+\+N\+E\+W\+\_\+\+AS, msgb\+\_\+push\+\_\+m3ua\+\_\+hdr(), osmo\+\_\+ss7\+\_\+asp\+\_\+send(), xua\+\_\+msg\+\_\+part\+::tag, X\+U\+A\+\_\+\+A\+S\+P\+A\+S\+\_\+\+A\+S\+P\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND, xua\+\_\+from\+\_\+nested(), and xua\+\_\+msg\+\_\+free().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+rkm().
+
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+rsp@{m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+rsp}}
+\index{m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+rsp@{m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+rsp}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+rsp(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+rsp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__rkm_8c_a3fc9861a3804a8e10c4d5ced39f7197e}
+
+
+References handle\+\_\+rkey\+\_\+reg\+\_\+resp(), xua\+\_\+msg\+::headers, xua\+\_\+msg\+\_\+part\+::len, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+E\+G\+\_\+\+R\+E\+S\+U\+LT, xua\+\_\+msg\+\_\+part\+::tag, xua\+\_\+from\+\_\+nested(), and xua\+\_\+msg\+\_\+free().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+rkm().
+
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!msgb\+\_\+append\+\_\+dereg\+\_\+res@{msgb\+\_\+append\+\_\+dereg\+\_\+res}}
+\index{msgb\+\_\+append\+\_\+dereg\+\_\+res@{msgb\+\_\+append\+\_\+dereg\+\_\+res}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{msgb\+\_\+append\+\_\+dereg\+\_\+res(struct msgb $\ast$msg, uint32\+\_\+t status, uint32\+\_\+t rctx)}]{\setlength{\rightskip}{0pt plus 5cm}static int msgb\+\_\+append\+\_\+dereg\+\_\+res (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{uint32\+\_\+t}]{status, }
+\item[{uint32\+\_\+t}]{rctx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__rkm_8c_a8e02aca7b225a7222a56a676dbdc3802}
+
+
+References M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+R\+E\+G\+\_\+\+R\+E\+S\+U\+LT, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+R\+E\+G\+\_\+\+S\+T\+A\+T\+US, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, and msgb\+\_\+t16l16vp\+\_\+put\+\_\+u32().
+
+
+
+Referenced by handle\+\_\+rkey\+\_\+dereg().
+
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!msgb\+\_\+append\+\_\+reg\+\_\+res@{msgb\+\_\+append\+\_\+reg\+\_\+res}}
+\index{msgb\+\_\+append\+\_\+reg\+\_\+res@{msgb\+\_\+append\+\_\+reg\+\_\+res}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{msgb\+\_\+append\+\_\+reg\+\_\+res(struct msgb $\ast$msg, uint32\+\_\+t local\+\_\+rk\+\_\+id, uint32\+\_\+t status, uint32\+\_\+t rctx)}]{\setlength{\rightskip}{0pt plus 5cm}static int msgb\+\_\+append\+\_\+reg\+\_\+res (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{uint32\+\_\+t}]{local\+\_\+rk\+\_\+id, }
+\item[{uint32\+\_\+t}]{status, }
+\item[{uint32\+\_\+t}]{rctx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__rkm_8c_abe93b96993afc4a4f6860dae90eaa038}
+
+
+References M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+L\+O\+C\+\_\+\+R\+K\+E\+Y\+\_\+\+ID, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+E\+G\+\_\+\+R\+E\+S\+U\+LT, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+E\+G\+\_\+\+S\+T\+A\+T\+US, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, and msgb\+\_\+t16l16vp\+\_\+put\+\_\+u32().
+
+
+
+Referenced by handle\+\_\+rkey\+\_\+reg().
+
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!msgb\+\_\+push\+\_\+m3ua\+\_\+hdr@{msgb\+\_\+push\+\_\+m3ua\+\_\+hdr}}
+\index{msgb\+\_\+push\+\_\+m3ua\+\_\+hdr@{msgb\+\_\+push\+\_\+m3ua\+\_\+hdr}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{msgb\+\_\+push\+\_\+m3ua\+\_\+hdr(struct msgb $\ast$msg, uint8\+\_\+t msg\+\_\+class, uint8\+\_\+t msg\+\_\+type)}]{\setlength{\rightskip}{0pt plus 5cm}static void msgb\+\_\+push\+\_\+m3ua\+\_\+hdr (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{uint8\+\_\+t}]{msg\+\_\+class, }
+\item[{uint8\+\_\+t}]{msg\+\_\+type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__rkm_8c_aa98e4dea8b7e1a2cabaca5f23de892f9}
+
+
+References M3\+U\+A\+\_\+\+V\+E\+R\+S\+I\+ON, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+length, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type, xua\+\_\+common\+\_\+hdr\+::spare, and xua\+\_\+common\+\_\+hdr\+::version.
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+req(), m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req(), xua\+\_\+rkm\+\_\+send\+\_\+dereg\+\_\+req(), and xua\+\_\+rkm\+\_\+send\+\_\+reg\+\_\+req().
+
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!osmo\+\_\+xlm\+\_\+sap\+\_\+down@{osmo\+\_\+xlm\+\_\+sap\+\_\+down}}
+\index{osmo\+\_\+xlm\+\_\+sap\+\_\+down@{osmo\+\_\+xlm\+\_\+sap\+\_\+down}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{osmo\+\_\+xlm\+\_\+sap\+\_\+down(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+xlm\+\_\+sap\+\_\+down (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct osmo\+\_\+prim\+\_\+hdr $\ast$}]{oph}
+\end{DoxyParamCaption}
+)}\label{xua__rkm_8c_a0ecffc58820e661cf3ca6d576ce78f82}
+
+
+References osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+reg\+::key, L\+O\+G\+P\+A\+SP, osmo\+\_\+xlm\+\_\+prim\+::oph, O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+D\+E\+R\+EG, O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+R\+EG, osmo\+\_\+xlm\+\_\+prim\+\_\+name(), osmo\+\_\+xlm\+\_\+prim\+::rk\+\_\+dereg, osmo\+\_\+xlm\+\_\+prim\+::rk\+\_\+reg, osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+dereg\+::route\+\_\+ctx, osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+reg\+::traf\+\_\+mode, osmo\+\_\+xlm\+\_\+prim\+::u, xua\+\_\+rkm\+\_\+send\+\_\+dereg\+\_\+req(), and xua\+\_\+rkm\+\_\+send\+\_\+reg\+\_\+req().
+
+
+
+Referenced by lm\+\_\+timer\+\_\+cb().
+
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp@{xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp}}
+\index{xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp@{xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp)}]{\setlength{\rightskip}{0pt plus 5cm}void xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp}
+\end{DoxyParamCaption}
+)}\label{xua__rkm_8c_a4f931cf9215d8295d2f7fdc86328ceb9}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::as\+\_\+list, osmo\+\_\+ss7\+\_\+asp\+::inst, osmo\+\_\+ss7\+\_\+as\+::list, osmo\+\_\+ss7\+\_\+as\+\_\+destroy(), osmo\+\_\+ss7\+\_\+as\+\_\+has\+\_\+asp(), and osmo\+\_\+ss7\+\_\+as\+::rkm\+\_\+dyn\+\_\+allocated.
+
+
+
+Referenced by xua\+\_\+srv\+\_\+conn\+\_\+closed\+\_\+cb().
+
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!xua\+\_\+rkm\+\_\+send\+\_\+dereg\+\_\+req@{xua\+\_\+rkm\+\_\+send\+\_\+dereg\+\_\+req}}
+\index{xua\+\_\+rkm\+\_\+send\+\_\+dereg\+\_\+req@{xua\+\_\+rkm\+\_\+send\+\_\+dereg\+\_\+req}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{xua\+\_\+rkm\+\_\+send\+\_\+dereg\+\_\+req(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, uint32\+\_\+t route\+\_\+ctx)}]{\setlength{\rightskip}{0pt plus 5cm}static void xua\+\_\+rkm\+\_\+send\+\_\+dereg\+\_\+req (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{uint32\+\_\+t}]{route\+\_\+ctx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__rkm_8c_a8979fccae9be7fb67e3d555b512763b8}
+
+
+References M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, m3ua\+\_\+msgb\+\_\+alloc(), M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+R\+KM, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+D\+E\+R\+E\+G\+\_\+\+R\+EQ, msgb\+\_\+push\+\_\+m3ua\+\_\+hdr(), msgb\+\_\+t16l16vp\+\_\+put\+\_\+u32(), and osmo\+\_\+ss7\+\_\+asp\+\_\+send().
+
+
+
+Referenced by osmo\+\_\+xlm\+\_\+sap\+\_\+down().
+
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!xua\+\_\+rkm\+\_\+send\+\_\+reg\+\_\+req@{xua\+\_\+rkm\+\_\+send\+\_\+reg\+\_\+req}}
+\index{xua\+\_\+rkm\+\_\+send\+\_\+reg\+\_\+req@{xua\+\_\+rkm\+\_\+send\+\_\+reg\+\_\+req}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{xua\+\_\+rkm\+\_\+send\+\_\+reg\+\_\+req(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, const struct osmo\+\_\+ss7\+\_\+routing\+\_\+key $\ast$rkey, enum osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode traf\+\_\+mode)}]{\setlength{\rightskip}{0pt plus 5cm}static void xua\+\_\+rkm\+\_\+send\+\_\+reg\+\_\+req (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{const struct {\bf osmo\+\_\+ss7\+\_\+routing\+\_\+key} $\ast$}]{rkey, }
+\item[{enum {\bf osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode}}]{traf\+\_\+mode}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__rkm_8c_a6d05db96b2a1faabbbdc51e7e1e39f52}
+
+
+References osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::context, osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::l\+\_\+rk\+\_\+id, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+PC, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+L\+O\+C\+\_\+\+R\+K\+E\+Y\+\_\+\+ID, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+\_\+\+K\+EY, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+T\+R\+A\+F\+\_\+\+M\+O\+D\+E\+\_\+\+T\+YP, m3ua\+\_\+msgb\+\_\+alloc(), M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+R\+KM, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+R\+EQ, msgb\+\_\+push\+\_\+m3ua\+\_\+hdr(), msgb\+\_\+t16l16vp\+\_\+put\+\_\+u32(), osmo\+\_\+ss7\+\_\+asp\+\_\+send(), osmo\+\_\+ss7\+\_\+tmode\+\_\+to\+\_\+xua(), and osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::pc.
+
+
+
+Referenced by osmo\+\_\+xlm\+\_\+sap\+\_\+down().
+
+
+
+\subsection{Variable Documentation}
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!m3ua\+\_\+rkm\+\_\+dereg\+\_\+status\+\_\+vals@{m3ua\+\_\+rkm\+\_\+dereg\+\_\+status\+\_\+vals}}
+\index{m3ua\+\_\+rkm\+\_\+dereg\+\_\+status\+\_\+vals@{m3ua\+\_\+rkm\+\_\+dereg\+\_\+status\+\_\+vals}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{m3ua\+\_\+rkm\+\_\+dereg\+\_\+status\+\_\+vals}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+rkm\+\_\+dereg\+\_\+status\+\_\+vals[$\,$]}\label{xua__rkm_8c_a517b691866d2bf1ab9a24ac08ee120fc}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ M3UA_RKM_DEREG_SUCCESS,               \textcolor{stringliteral}{"SUCCSS"} \},
+        \{ M3UA_RKM_DEREG_ERR_UNKNOWN,           \textcolor{stringliteral}{"Unknown Error"} \},
+        \{ M3UA_RKM_DEREG_ERR_INVAL_RCTX,        \textcolor{stringliteral}{"Invalid Routing Context"} \},
+        \{ M3UA_RKM_DEREG_ERR_PERM_DENIED,       \textcolor{stringliteral}{"Permission Denied"} \},
+        \{ M3UA_RKM_DEREG_ERR_NOT_REGD,          \textcolor{stringliteral}{"Error: Not Registered"} \},
+        \{ M3UA_RKM_DEREG_ERR_ASP_ACTIVE,        \textcolor{stringliteral}{"Error: ASP Active"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+
+
+Referenced by handle\+\_\+rkey\+\_\+dereg\+\_\+resp().
+
+\index{xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}!m3ua\+\_\+rkm\+\_\+reg\+\_\+status\+\_\+vals@{m3ua\+\_\+rkm\+\_\+reg\+\_\+status\+\_\+vals}}
+\index{m3ua\+\_\+rkm\+\_\+reg\+\_\+status\+\_\+vals@{m3ua\+\_\+rkm\+\_\+reg\+\_\+status\+\_\+vals}!xua\+\_\+rkm.\+c@{xua\+\_\+rkm.\+c}}
+\subsubsection[{m3ua\+\_\+rkm\+\_\+reg\+\_\+status\+\_\+vals}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+rkm\+\_\+reg\+\_\+status\+\_\+vals[$\,$]}\label{xua__rkm_8c_a0992bf5538b7f033f634174b1f01dfdd}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ M3UA_RKM_REG_SUCCESS,                 \textcolor{stringliteral}{"SUCCESS"} \},
+        \{ M3UA_RKM_REG_ERR_UNKNOWN,             \textcolor{stringliteral}{"Unknown Error"} \},
+        \{ M3UA_RKM_REG_ERR_INVAL_DPC,           \textcolor{stringliteral}{"Invalid Destination Pointcode"} \},
+        \{ M3UA_RKM_REG_ERR_INVAL_NET_APPEAR,    \textcolor{stringliteral}{"Invalid Network Appearance"} \},
+        \{ M3UA_RKM_REG_ERR_INVAL_RKEY,          \textcolor{stringliteral}{"Invalid Routing Key"} \},
+        \{ M3UA_RKM_REG_ERR_PERM_DENIED,         \textcolor{stringliteral}{"Permission Denied"} \},
+        \{ M3UA_RKM_REG_ERR_CANT_SUPP_UNQ_RT,    \textcolor{stringliteral}{"Cannot Support Unique Routing"} \},
+        \{ M3UA_RKM_REG_ERR_RKEY_NOT_PROVD,      \textcolor{stringliteral}{"Routing Key Not Provided"} \},
+        \{ M3UA_RKM_REG_ERR_INSUFF_RESRC,        \textcolor{stringliteral}{"Insufficient Resources"} \},
+        \{ M3UA_RKM_REG_ERR_UNSUPP_RK_PARAM,     \textcolor{stringliteral}{"Unsupported Routing Key Parameter"} \},
+        \{ M3UA_RKM_REG_ERR_UNSUPP_TRAF_MODE,    \textcolor{stringliteral}{"Unsupported Traffic Mode Type"} \},
+        \{ M3UA_RKM_REG_ERR_RKEY_CHG_REFUSED,    \textcolor{stringliteral}{"Routing Key Change Refused"} \},
+        \{ M3UA_RKM_REG_ERR_RKEY_ALRDY_REGD,     \textcolor{stringliteral}{"Routing Key Already Registered"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+
+
+Referenced by handle\+\_\+rkey\+\_\+reg\+\_\+resp().
+

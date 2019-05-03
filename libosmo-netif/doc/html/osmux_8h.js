@@ -1,0 +1,28 @@
+var osmux_8h =
+[
+    [ "OSMUX_BATCH_DEFAULT_MAX", "group__osmux.html#gafcc9ef25a29d641a31523dfeb627d20b", null ],
+    [ "OSMUX_CID_MAX", "osmux_8h.html#aa2b0cfe6dad6635ea3313fd5009332cd", null ],
+    [ "OSMUX_FT_DUMMY", "group__osmux.html#ga08d783f0644a0f44c9e39bb851a0d2a9", null ],
+    [ "OSMUX_FT_SIGNAL", "group__osmux.html#ga56541848fbbf5c529d7983685cbe1222", null ],
+    [ "OSMUX_FT_VOICE_AMR", "group__osmux.html#gae48ff00bdb503143c58d74c08e3ea4c6", null ],
+    [ "OSMUX_MAX_CONCURRENT_CALLS", "group__osmux.html#ga97865ddcdfb9cf8d39653cf704e154c4", null ],
+    [ "__attribute__", "group__osmux.html#gab731e55b448e102a7f0937d575442929", null ],
+    [ "osmux_get_payload", "group__osmux.html#ga6d16616cb76c2eb9db17a4cee638f80c", null ],
+    [ "osmux_snprintf", "group__osmux.html#gaf654e092ca97dd764f59905a2ed21650", null ],
+    [ "osmux_tx_sched", "group__osmux.html#ga8f69252f3c59628d2defa68cb95ed3b5", null ],
+    [ "osmux_xfrm_input", "group__osmux.html#ga9c7d30c0d7d9bc0caf744799d629d4cc", null ],
+    [ "osmux_xfrm_input_close_circuit", "group__osmux.html#ga2c12c883c9dd7abd80b47802ef991b32", null ],
+    [ "osmux_xfrm_input_deliver", "group__osmux.html#gafad3a85e58f396db7544ac0138df7974", null ],
+    [ "osmux_xfrm_input_fini", "group__osmux.html#gafade2203059a2eaad659b15b5245a075", null ],
+    [ "osmux_xfrm_input_init", "group__osmux.html#ga2a993ac6099e6ffc086c61b6ac81e43f", null ],
+    [ "osmux_xfrm_input_open_circuit", "group__osmux.html#ga8976891414ad18103efb8829b4b2844a", null ],
+    [ "osmux_xfrm_output", "group__osmux.html#ga6f81282beee813c320ac2a31663c8fa6", null ],
+    [ "osmux_xfrm_output_flush", "group__osmux.html#gaaac410425f6470396ae9db53ebb8dc44", null ],
+    [ "osmux_xfrm_output_init", "group__osmux.html#gaad1ddab26314d7c91867f203b13c9563", null ],
+    [ "osmux_xfrm_output_pull", "group__osmux.html#ga613c43d4166a4985718f8e4f7216efcc", null ],
+    [ "osmux_xfrm_output_sched", "group__osmux.html#gafee78ee4522a9caa238301d7b913dfd6", null ],
+    [ "osmux_xfrm_output_set_tx_cb", "group__osmux.html#ga3936e43e881d0992648937417969ead1", null ],
+    [ "__attribute__", "group__osmux.html#ga9dd31e4f6a9ad599afbb4600bec665f2", null ],
+    [ "circuit_id", "osmux_8h.html#a1bb0153eecb7f155fd9a8052df877a60", null ],
+    [ "seq", "osmux_8h.html#a3f47451edd2274525a52e40f4e26c399", null ]
+];

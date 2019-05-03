@@ -1,0 +1,71 @@
+\section{osmo\+\_\+xlm\+\_\+prim Struct Reference}
+\label{structosmo__xlm__prim}\index{osmo\+\_\+xlm\+\_\+prim@{osmo\+\_\+xlm\+\_\+prim}}
+
+
+{\ttfamily \#include $<$sigtran\+\_\+sap.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct osmo\+\_\+prim\+\_\+hdr {\bf oph}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>struct {\bf osmo\_xlm\_prim\_notify} {\bf notify}\\
+\>struct {\bf osmo\_xlm\_prim\_error} {\bf error}\\
+\>struct {\bf osmo\_xlm\_prim\_rk\_reg} {\bf rk\_reg}\\
+\>struct {\bf osmo\_xlm\_prim\_rk\_dereg} {\bf rk\_dereg}\\
+\} {\bf u}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{osmo\+\_\+xlm\+\_\+prim@{osmo\+\_\+xlm\+\_\+prim}!error@{error}}
+\index{error@{error}!osmo\+\_\+xlm\+\_\+prim@{osmo\+\_\+xlm\+\_\+prim}}
+\subsubsection[{error}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+error} osmo\+\_\+xlm\+\_\+prim\+::error}\label{structosmo__xlm__prim_adf974fee059ef47afd8fddb4a1628306}
+
+
+Referenced by m3ua\+\_\+rx\+\_\+mgmt\+\_\+err().
+
+\index{osmo\+\_\+xlm\+\_\+prim@{osmo\+\_\+xlm\+\_\+prim}!notify@{notify}}
+\index{notify@{notify}!osmo\+\_\+xlm\+\_\+prim@{osmo\+\_\+xlm\+\_\+prim}}
+\subsubsection[{notify}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+notify} osmo\+\_\+xlm\+\_\+prim\+::notify}\label{structosmo__xlm__prim_a6ef1bf624c248f1b972ac12bd1850467}
+
+
+Referenced by lm\+\_\+active(), lm\+\_\+wait\+\_\+notify(), and m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy().
+
+\index{osmo\+\_\+xlm\+\_\+prim@{osmo\+\_\+xlm\+\_\+prim}!oph@{oph}}
+\index{oph@{oph}!osmo\+\_\+xlm\+\_\+prim@{osmo\+\_\+xlm\+\_\+prim}}
+\subsubsection[{oph}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+prim\+\_\+hdr osmo\+\_\+xlm\+\_\+prim\+::oph}\label{structosmo__xlm__prim_a8ac40b9653c8b8c3feb1c72113932f4c}
+
+
+Referenced by lm\+\_\+active(), lm\+\_\+timer\+\_\+cb(), lm\+\_\+wait\+\_\+notify(), osmo\+\_\+xlm\+\_\+sap\+\_\+down(), xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim(), and xua\+\_\+xlm\+\_\+prim\+\_\+alloc().
+
+\index{osmo\+\_\+xlm\+\_\+prim@{osmo\+\_\+xlm\+\_\+prim}!rk\+\_\+dereg@{rk\+\_\+dereg}}
+\index{rk\+\_\+dereg@{rk\+\_\+dereg}!osmo\+\_\+xlm\+\_\+prim@{osmo\+\_\+xlm\+\_\+prim}}
+\subsubsection[{rk\+\_\+dereg}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+dereg} osmo\+\_\+xlm\+\_\+prim\+::rk\+\_\+dereg}\label{structosmo__xlm__prim_a7a1f5039d36e215d60adc624548e60cd}
+
+
+Referenced by handle\+\_\+rkey\+\_\+dereg\+\_\+resp(), and osmo\+\_\+xlm\+\_\+sap\+\_\+down().
+
+\index{osmo\+\_\+xlm\+\_\+prim@{osmo\+\_\+xlm\+\_\+prim}!rk\+\_\+reg@{rk\+\_\+reg}}
+\index{rk\+\_\+reg@{rk\+\_\+reg}!osmo\+\_\+xlm\+\_\+prim@{osmo\+\_\+xlm\+\_\+prim}}
+\subsubsection[{rk\+\_\+reg}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+reg} osmo\+\_\+xlm\+\_\+prim\+::rk\+\_\+reg}\label{structosmo__xlm__prim_aa0cbd398953e690bfd6491814707e606}
+
+
+Referenced by handle\+\_\+rkey\+\_\+dereg\+\_\+resp(), handle\+\_\+rkey\+\_\+reg\+\_\+resp(), lm\+\_\+rkm\+\_\+reg(), lm\+\_\+timer\+\_\+cb(), and osmo\+\_\+xlm\+\_\+sap\+\_\+down().
+
+\index{osmo\+\_\+xlm\+\_\+prim@{osmo\+\_\+xlm\+\_\+prim}!u@{u}}
+\index{u@{u}!osmo\+\_\+xlm\+\_\+prim@{osmo\+\_\+xlm\+\_\+prim}}
+\subsubsection[{u}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   osmo\+\_\+xlm\+\_\+prim\+::u}\label{structosmo__xlm__prim_ade4c1428612a2e7c1013fb729cc612a2}
+
+
+Referenced by handle\+\_\+rkey\+\_\+dereg\+\_\+resp(), handle\+\_\+rkey\+\_\+reg\+\_\+resp(), lm\+\_\+active(), lm\+\_\+rkm\+\_\+reg(), lm\+\_\+timer\+\_\+cb(), lm\+\_\+wait\+\_\+notify(), m3ua\+\_\+rx\+\_\+mgmt\+\_\+err(), m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy(), and osmo\+\_\+xlm\+\_\+sap\+\_\+down().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/osmocom/sigtran/{\bf sigtran\+\_\+sap.\+h}\end{DoxyCompactItemize}

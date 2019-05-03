@@ -1,0 +1,3 @@
+enable_sgsn_test='@found_libgtp_and_libcares@'
+enable_oap_test='@found_libgtp_and_libcares@'
+enable_gtphub_test='@found_libgtp_and_libcares@'

@@ -1,0 +1,89 @@
+\section{osmo\+\_\+ss7\+\_\+linkset Struct Reference}
+\label{structosmo__ss7__linkset}\index{osmo\+\_\+ss7\+\_\+linkset@{osmo\+\_\+ss7\+\_\+linkset}}
+
+
+{\ttfamily \#include $<$osmo\+\_\+ss7.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct llist\+\_\+head {\bf list}
+\item 
+struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$ {\bf inst}
+\begin{DoxyCompactList}\small\item\em \doxyref{osmo\+\_\+ss7\+\_\+instance}{p.}{structosmo__ss7__instance} to which we belong \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+ss7\+\_\+link} $\ast$ {\bf links} [16]
+\begin{DoxyCompactList}\small\item\em array of \doxyref{osmo\+\_\+ss7\+\_\+link}{p.}{structosmo__ss7__link} \end{DoxyCompactList}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>char $\ast$ {\bf name}\\
+\>char $\ast$ {\bf description}\\
+\>uint32\_t {\bf adjacent\_pc}\\
+\>uint32\_t {\bf local\_pc}\\
+\} {\bf cfg}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{osmo\+\_\+ss7\+\_\+linkset@{osmo\+\_\+ss7\+\_\+linkset}!adjacent\+\_\+pc@{adjacent\+\_\+pc}}
+\index{adjacent\+\_\+pc@{adjacent\+\_\+pc}!osmo\+\_\+ss7\+\_\+linkset@{osmo\+\_\+ss7\+\_\+linkset}}
+\subsubsection[{adjacent\+\_\+pc}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t osmo\+\_\+ss7\+\_\+linkset\+::adjacent\+\_\+pc}\label{structosmo__ss7__linkset_a32a273f40073e46e52c43859a84bfea6}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+or\+\_\+create().
+
+\index{osmo\+\_\+ss7\+\_\+linkset@{osmo\+\_\+ss7\+\_\+linkset}!cfg@{cfg}}
+\index{cfg@{cfg}!osmo\+\_\+ss7\+\_\+linkset@{osmo\+\_\+ss7\+\_\+linkset}}
+\subsubsection[{cfg}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   osmo\+\_\+ss7\+\_\+linkset\+::cfg}\label{structosmo__ss7__linkset_a038c44e5ac0a55e6a6aeddad88e36ab5}
+
+
+Referenced by gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua(), osmo\+\_\+ss7\+\_\+link\+\_\+destroy(), osmo\+\_\+ss7\+\_\+link\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy(), osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+by\+\_\+name(), osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+route\+\_\+create(), and osmo\+\_\+ss7\+\_\+route\+\_\+name().
+
+\index{osmo\+\_\+ss7\+\_\+linkset@{osmo\+\_\+ss7\+\_\+linkset}!description@{description}}
+\index{description@{description}!osmo\+\_\+ss7\+\_\+linkset@{osmo\+\_\+ss7\+\_\+linkset}}
+\subsubsection[{description}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ osmo\+\_\+ss7\+\_\+linkset\+::description}\label{structosmo__ss7__linkset_ab05358a9c0ee79d4bc467ec4eb5c475f}
+\index{osmo\+\_\+ss7\+\_\+linkset@{osmo\+\_\+ss7\+\_\+linkset}!inst@{inst}}
+\index{inst@{inst}!osmo\+\_\+ss7\+\_\+linkset@{osmo\+\_\+ss7\+\_\+linkset}}
+\subsubsection[{inst}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+instance}$\ast$ osmo\+\_\+ss7\+\_\+linkset\+::inst}\label{structosmo__ss7__linkset_a2b192694184a73f6fbfb631c17662e28}
+
+
+\doxyref{osmo\+\_\+ss7\+\_\+instance}{p.}{structosmo__ss7__instance} to which we belong 
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+link\+\_\+destroy(), osmo\+\_\+ss7\+\_\+link\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy(), and osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+or\+\_\+create().
+
+\index{osmo\+\_\+ss7\+\_\+linkset@{osmo\+\_\+ss7\+\_\+linkset}!links@{links}}
+\index{links@{links}!osmo\+\_\+ss7\+\_\+linkset@{osmo\+\_\+ss7\+\_\+linkset}}
+\subsubsection[{links}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+link}$\ast$ osmo\+\_\+ss7\+\_\+linkset\+::links[16]}\label{structosmo__ss7__linkset_a0127c69a262f51df8e18abb773f09f81}
+
+
+array of \doxyref{osmo\+\_\+ss7\+\_\+link}{p.}{structosmo__ss7__link} 
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+link\+\_\+destroy(), osmo\+\_\+ss7\+\_\+link\+\_\+find\+\_\+or\+\_\+create(), and osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy().
+
+\index{osmo\+\_\+ss7\+\_\+linkset@{osmo\+\_\+ss7\+\_\+linkset}!list@{list}}
+\index{list@{list}!osmo\+\_\+ss7\+\_\+linkset@{osmo\+\_\+ss7\+\_\+linkset}}
+\subsubsection[{list}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head osmo\+\_\+ss7\+\_\+linkset\+::list}\label{structosmo__ss7__linkset_aa87a2d12f5d68339b521159061b84864}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy(), osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+by\+\_\+name(), and osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+or\+\_\+create().
+
+\index{osmo\+\_\+ss7\+\_\+linkset@{osmo\+\_\+ss7\+\_\+linkset}!local\+\_\+pc@{local\+\_\+pc}}
+\index{local\+\_\+pc@{local\+\_\+pc}!osmo\+\_\+ss7\+\_\+linkset@{osmo\+\_\+ss7\+\_\+linkset}}
+\subsubsection[{local\+\_\+pc}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t osmo\+\_\+ss7\+\_\+linkset\+::local\+\_\+pc}\label{structosmo__ss7__linkset_a3568fcd6caabf7060ff59a7d02731823}
+\index{osmo\+\_\+ss7\+\_\+linkset@{osmo\+\_\+ss7\+\_\+linkset}!name@{name}}
+\index{name@{name}!osmo\+\_\+ss7\+\_\+linkset@{osmo\+\_\+ss7\+\_\+linkset}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ osmo\+\_\+ss7\+\_\+linkset\+::name}\label{structosmo__ss7__linkset_a88d644a8a11a032c07eb688fd6446d81}
+
+
+Referenced by gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua(), osmo\+\_\+ss7\+\_\+link\+\_\+destroy(), osmo\+\_\+ss7\+\_\+link\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy(), osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+by\+\_\+name(), osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+route\+\_\+create(), and osmo\+\_\+ss7\+\_\+route\+\_\+name().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/osmocom/sigtran/{\bf osmo\+\_\+ss7.\+h}\end{DoxyCompactItemize}

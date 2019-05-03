@@ -1,0 +1,207 @@
+\section{src/sccp\+\_\+vty.c File Reference}
+\label{sccp__vty_8c}\index{src/sccp\+\_\+vty.\+c@{src/sccp\+\_\+vty.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/vty/vty.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/vty/command.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/vty/logging.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/vty/telnet\+\_\+interface.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/vty/misc.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/osmo\+\_\+ss7.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/mtp.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+internal.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}sccp\+\_\+internal.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bf show\+\_\+user} (struct vty $\ast$vty, struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$user)
+\item 
+{\bf D\+E\+F\+UN} (show\+\_\+sccp\+\_\+users, show\+\_\+sccp\+\_\+users\+\_\+cmd,\char`\"{}show cs7 instance $<$0-\/15$>$ sccp users\char`\"{}, S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf S\+C\+C\+P\+\_\+\+S\+TR}\char`\"{}Show List of S\+C\+CP Users registered\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (show\+\_\+sccp\+\_\+user\+\_\+ssn, show\+\_\+sccp\+\_\+user\+\_\+ssn\+\_\+cmd,\char`\"{}show cs7 instance $<$0-\/15$>$ sccp ssn $<$0-\/65535$>$\char`\"{}, S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf S\+C\+C\+P\+\_\+\+S\+TR}\char`\"{}Find an S\+C\+CP User registered for the given S\+S\+N\textbackslash{}n\char`\"{}\char`\"{}Subsystem Number (S\+SN)\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (show\+\_\+sccp\+\_\+connections, show\+\_\+sccp\+\_\+connections\+\_\+cmd,\char`\"{}show cs7 instance $<$0-\/15$>$ sccp connections\char`\"{}, S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf S\+C\+C\+P\+\_\+\+S\+TR}\char`\"{}Show List of active S\+C\+CP connections\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (sccp\+\_\+timer, sccp\+\_\+timer\+\_\+cmd, N\+U\+LL, N\+U\+LL)
+\item 
+static const char $\ast$ {\bf osmo\+\_\+sccp\+\_\+timer\+\_\+val\+\_\+name} (const struct {\bf osmo\+\_\+sccp\+\_\+timer\+\_\+val} $\ast$val)
+\item 
+static void {\bf gen\+\_\+sccp\+\_\+timer\+\_\+cmd\+\_\+strs} (struct cmd\+\_\+element $\ast$cmd)
+\item 
+static void {\bf write\+\_\+sccp\+\_\+timers} (struct vty $\ast$vty, const char $\ast$indent, struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, bool default\+\_\+if\+\_\+unset)
+\item 
+void {\bf osmo\+\_\+sccp\+\_\+vty\+\_\+write\+\_\+cs7\+\_\+node} (struct vty $\ast$vty, const char $\ast$indent, struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst)
+\item 
+{\bf D\+E\+F\+UN} (show\+\_\+sccp\+\_\+timers, show\+\_\+sccp\+\_\+timers\+\_\+cmd,\char`\"{}show cs7 instance $<$0-\/15$>$ sccp timers\char`\"{}, S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR}\char`\"{}Signaling Connection Control Part\textbackslash{}n\char`\"{}\char`\"{}Show List of S\+C\+CP timers\textbackslash{}n\char`\"{})
+\item 
+void {\bf osmo\+\_\+sccp\+\_\+vty\+\_\+init} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(show\+\_\+sccp\+\_\+users, show\+\_\+sccp\+\_\+users\+\_\+cmd,""show cs7 instance $<$0-\/15$>$ sccp users"", S\+H\+O\+W\+\_\+\+S\+T\+R C\+S7\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+T\+R S\+C\+C\+P\+\_\+\+S\+TR""Show List of S\+C\+C\+P Users registered\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{show\+\_\+sccp\+\_\+users}]{, }
+\item[{show\+\_\+sccp\+\_\+users\+\_\+cmd}]{, }
+\item[{\char`\"{}show cs7 instance $<$0-\/15$>$ sccp users\char`\"{}}]{, }
+\item[{S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf S\+C\+C\+P\+\_\+\+S\+TR}\char`\"{}Show List of S\+C\+CP Users registered\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{sccp__vty_8c_a8b271bb2ac2803c29801e1607f9140b9}
+
+
+References osmo\+\_\+sccp\+\_\+user\+::list, osmo\+\_\+ss7\+\_\+instance\+\_\+find(), osmo\+\_\+ss7\+\_\+instance\+::sccp, show\+\_\+user(), and osmo\+\_\+sccp\+\_\+instance\+::users.
+
+\index{sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(show\+\_\+sccp\+\_\+user\+\_\+ssn, show\+\_\+sccp\+\_\+user\+\_\+ssn\+\_\+cmd,""show cs7 instance $<$0-\/15$>$ sccp ssn $<$0-\/65535$>$"", S\+H\+O\+W\+\_\+\+S\+T\+R C\+S7\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+T\+R S\+C\+C\+P\+\_\+\+S\+TR""Find an S\+C\+C\+P User registered for the given S\+S\+N\textbackslash{}n""""Subsystem Number (\+S\+S\+N)\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{show\+\_\+sccp\+\_\+user\+\_\+ssn}]{, }
+\item[{show\+\_\+sccp\+\_\+user\+\_\+ssn\+\_\+cmd}]{, }
+\item[{\char`\"{}show cs7 instance $<$0-\/15$>$ sccp ssn $<$0-\/65535$>$\char`\"{}}]{, }
+\item[{S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf S\+C\+C\+P\+\_\+\+S\+TR}\char`\"{}Find an S\+C\+CP User registered for the given S\+S\+N\textbackslash{}n\char`\"{}\char`\"{}Subsystem Number (S\+SN)\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{sccp__vty_8c_aa7ebbb2d7b955e2f307d0affa45d94f7}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+\_\+find(), osmo\+\_\+ss7\+\_\+instance\+::sccp, sccp\+\_\+user\+\_\+find(), show\+\_\+user(), and osmo\+\_\+sccp\+\_\+user\+::ssn.
+
+\index{sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(show\+\_\+sccp\+\_\+connections, show\+\_\+sccp\+\_\+connections\+\_\+cmd,""show cs7 instance $<$0-\/15$>$ sccp connections"", S\+H\+O\+W\+\_\+\+S\+T\+R C\+S7\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+T\+R S\+C\+C\+P\+\_\+\+S\+TR""Show List of active S\+C\+C\+P connections\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{show\+\_\+sccp\+\_\+connections}]{, }
+\item[{show\+\_\+sccp\+\_\+connections\+\_\+cmd}]{, }
+\item[{\char`\"{}show cs7 instance $<$0-\/15$>$ sccp connections\char`\"{}}]{, }
+\item[{S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf S\+C\+C\+P\+\_\+\+S\+TR}\char`\"{}Show List of active S\+C\+CP connections\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{sccp__vty_8c_af47926b959192d217cd25198ffc76f62}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+\_\+find(), osmo\+\_\+ss7\+\_\+instance\+::sccp, and sccp\+\_\+scoc\+\_\+show\+\_\+connections().
+
+\index{sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(sccp\+\_\+timer, sccp\+\_\+timer\+\_\+cmd, N\+U\+L\+L, N\+U\+L\+L)}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{sccp\+\_\+timer}]{, }
+\item[{sccp\+\_\+timer\+\_\+cmd}]{, }
+\item[{N\+U\+LL}]{, }
+\item[{N\+U\+LL}]{}
+\end{DoxyParamCaption}
+)}\label{sccp__vty_8c_a6f51ba8653409ea6d2ed0fb62464b73e}
+
+
+References osmo\+\_\+sccp\+\_\+timer\+\_\+names, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+T\+I\+M\+E\+R\+S\+\_\+\+C\+O\+U\+NT, osmo\+\_\+ss7\+\_\+ensure\+\_\+sccp(), osmo\+\_\+sccp\+\_\+timer\+\_\+val\+::s, osmo\+\_\+ss7\+\_\+instance\+::sccp, and osmo\+\_\+sccp\+\_\+instance\+::timers.
+
+\index{sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(show\+\_\+sccp\+\_\+timers, show\+\_\+sccp\+\_\+timers\+\_\+cmd,""show cs7 instance $<$0-\/15$>$ sccp timers"", S\+H\+O\+W\+\_\+\+S\+T\+R C\+S7\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+TR""Signaling Connection Control Part\textbackslash{}n""""Show List of S\+C\+C\+P timers\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{show\+\_\+sccp\+\_\+timers}]{, }
+\item[{show\+\_\+sccp\+\_\+timers\+\_\+cmd}]{, }
+\item[{\char`\"{}show cs7 instance $<$0-\/15$>$ sccp timers\char`\"{}}]{, }
+\item[{S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR}\char`\"{}Signaling Connection Control Part\textbackslash{}n\char`\"{}\char`\"{}Show List of S\+C\+CP timers\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{sccp__vty_8c_a87376301de04daadb8b22378f9c3e5fa}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+\_\+find(), osmo\+\_\+ss7\+\_\+instance\+::sccp, and write\+\_\+sccp\+\_\+timers().
+
+\index{sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}!gen\+\_\+sccp\+\_\+timer\+\_\+cmd\+\_\+strs@{gen\+\_\+sccp\+\_\+timer\+\_\+cmd\+\_\+strs}}
+\index{gen\+\_\+sccp\+\_\+timer\+\_\+cmd\+\_\+strs@{gen\+\_\+sccp\+\_\+timer\+\_\+cmd\+\_\+strs}!sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}}
+\subsubsection[{gen\+\_\+sccp\+\_\+timer\+\_\+cmd\+\_\+strs(struct cmd\+\_\+element $\ast$cmd)}]{\setlength{\rightskip}{0pt plus 5cm}static void gen\+\_\+sccp\+\_\+timer\+\_\+cmd\+\_\+strs (
+\begin{DoxyParamCaption}
+\item[{struct cmd\+\_\+element $\ast$}]{cmd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__vty_8c_af01dd1c42be7e714ed61c2fc1f1102ca}
+
+
+References osmo\+\_\+sccp\+\_\+timer\+\_\+defaults, osmo\+\_\+sccp\+\_\+timer\+\_\+description(), osmo\+\_\+sccp\+\_\+timer\+\_\+name(), osmo\+\_\+sccp\+\_\+timer\+\_\+names, osmo\+\_\+sccp\+\_\+timer\+\_\+val\+\_\+name(), and O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+T\+I\+M\+E\+R\+S\+\_\+\+C\+O\+U\+NT.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+vty\+\_\+init().
+
+\index{sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}!osmo\+\_\+sccp\+\_\+timer\+\_\+val\+\_\+name@{osmo\+\_\+sccp\+\_\+timer\+\_\+val\+\_\+name}}
+\index{osmo\+\_\+sccp\+\_\+timer\+\_\+val\+\_\+name@{osmo\+\_\+sccp\+\_\+timer\+\_\+val\+\_\+name}!sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+timer\+\_\+val\+\_\+name(const struct osmo\+\_\+sccp\+\_\+timer\+\_\+val $\ast$val)}]{\setlength{\rightskip}{0pt plus 5cm}static const char$\ast$ osmo\+\_\+sccp\+\_\+timer\+\_\+val\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+timer\+\_\+val} $\ast$}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__vty_8c_a14082f88a05a1562e7cc9df62e5ab82e}
+
+
+References osmo\+\_\+sccp\+\_\+timer\+\_\+val\+::s.
+
+
+
+Referenced by gen\+\_\+sccp\+\_\+timer\+\_\+cmd\+\_\+strs(), and write\+\_\+sccp\+\_\+timers().
+
+\index{sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}!osmo\+\_\+sccp\+\_\+vty\+\_\+init@{osmo\+\_\+sccp\+\_\+vty\+\_\+init}}
+\index{osmo\+\_\+sccp\+\_\+vty\+\_\+init@{osmo\+\_\+sccp\+\_\+vty\+\_\+init}!sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+vty\+\_\+init(void)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+sccp\+\_\+vty\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{sccp__vty_8c_a6d4d5f16593e9d3f087228dd064dc3ef}
+
+
+References gen\+\_\+sccp\+\_\+timer\+\_\+cmd\+\_\+strs().
+
+\index{sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}!osmo\+\_\+sccp\+\_\+vty\+\_\+write\+\_\+cs7\+\_\+node@{osmo\+\_\+sccp\+\_\+vty\+\_\+write\+\_\+cs7\+\_\+node}}
+\index{osmo\+\_\+sccp\+\_\+vty\+\_\+write\+\_\+cs7\+\_\+node@{osmo\+\_\+sccp\+\_\+vty\+\_\+write\+\_\+cs7\+\_\+node}!sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+vty\+\_\+write\+\_\+cs7\+\_\+node(struct vty $\ast$vty, const char $\ast$indent, struct osmo\+\_\+sccp\+\_\+instance $\ast$inst)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+sccp\+\_\+vty\+\_\+write\+\_\+cs7\+\_\+node (
+\begin{DoxyParamCaption}
+\item[{struct vty $\ast$}]{vty, }
+\item[{const char $\ast$}]{indent, }
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst}
+\end{DoxyParamCaption}
+)}\label{sccp__vty_8c_a03d33d5b19ae71529da0ac0984de2794}
+
+
+References write\+\_\+sccp\+\_\+timers().
+
+
+
+Referenced by write\+\_\+one\+\_\+cs7().
+
+\index{sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}!show\+\_\+user@{show\+\_\+user}}
+\index{show\+\_\+user@{show\+\_\+user}!sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}}
+\subsubsection[{show\+\_\+user(struct vty $\ast$vty, struct osmo\+\_\+sccp\+\_\+user $\ast$user)}]{\setlength{\rightskip}{0pt plus 5cm}static void show\+\_\+user (
+\begin{DoxyParamCaption}
+\item[{struct vty $\ast$}]{vty, }
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{user}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__vty_8c_a021ce75d068f12ebf0856fab8df4380c}
+
+
+References osmo\+\_\+sccp\+\_\+user\+::inst, osmo\+\_\+sccp\+\_\+user\+::name, osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+valid(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+sccp\+\_\+user\+::pc, osmo\+\_\+sccp\+\_\+instance\+::ss7, and osmo\+\_\+sccp\+\_\+user\+::ssn.
+
+
+
+Referenced by D\+E\+F\+U\+N().
+
+\index{sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}!write\+\_\+sccp\+\_\+timers@{write\+\_\+sccp\+\_\+timers}}
+\index{write\+\_\+sccp\+\_\+timers@{write\+\_\+sccp\+\_\+timers}!sccp\+\_\+vty.\+c@{sccp\+\_\+vty.\+c}}
+\subsubsection[{write\+\_\+sccp\+\_\+timers(struct vty $\ast$vty, const char $\ast$indent, struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, bool default\+\_\+if\+\_\+unset)}]{\setlength{\rightskip}{0pt plus 5cm}static void write\+\_\+sccp\+\_\+timers (
+\begin{DoxyParamCaption}
+\item[{struct vty $\ast$}]{vty, }
+\item[{const char $\ast$}]{indent, }
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{bool}]{default\+\_\+if\+\_\+unset}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__vty_8c_ad2accb3b7294d5a38b243f08bd3cfa97}
+
+
+References osmo\+\_\+sccp\+\_\+timer\+\_\+get(), osmo\+\_\+sccp\+\_\+timer\+\_\+name(), osmo\+\_\+sccp\+\_\+timer\+\_\+val\+\_\+name(), and osmo\+\_\+sccp\+\_\+instance\+::timers.
+
+
+
+Referenced by D\+E\+F\+U\+N(), and osmo\+\_\+sccp\+\_\+vty\+\_\+write\+\_\+cs7\+\_\+node().
+

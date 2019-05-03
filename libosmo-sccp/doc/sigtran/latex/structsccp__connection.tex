@@ -1,0 +1,184 @@
+\section{sccp\+\_\+connection Struct Reference}
+\label{structsccp__connection}\index{sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct llist\+\_\+head {\bf list}
+\item 
+struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$ {\bf inst}
+\item 
+struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$ {\bf user}
+\item 
+uint32\+\_\+t {\bf remote\+\_\+pc}
+\item 
+struct {\bf osmo\+\_\+sccp\+\_\+addr} {\bf calling\+\_\+addr}
+\item 
+struct {\bf osmo\+\_\+sccp\+\_\+addr} {\bf called\+\_\+addr}
+\item 
+uint32\+\_\+t {\bf conn\+\_\+id}
+\item 
+uint32\+\_\+t {\bf remote\+\_\+ref}
+\item 
+uint32\+\_\+t {\bf importance}
+\item 
+uint32\+\_\+t {\bf sccp\+\_\+class}
+\item 
+uint32\+\_\+t {\bf release\+\_\+cause}
+\item 
+bool {\bf incoming}
+\item 
+struct osmo\+\_\+fsm\+\_\+inst $\ast$ {\bf fi}
+\item 
+struct osmo\+\_\+timer\+\_\+list {\bf t\+\_\+conn}
+\item 
+struct osmo\+\_\+timer\+\_\+list {\bf t\+\_\+ias}
+\item 
+struct osmo\+\_\+timer\+\_\+list {\bf t\+\_\+iar}
+\item 
+struct osmo\+\_\+timer\+\_\+list {\bf t\+\_\+rel}
+\item 
+struct osmo\+\_\+timer\+\_\+list {\bf t\+\_\+int}
+\item 
+struct osmo\+\_\+timer\+\_\+list {\bf t\+\_\+rep\+\_\+rel}
+\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!called\+\_\+addr@{called\+\_\+addr}}
+\index{called\+\_\+addr@{called\+\_\+addr}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{called\+\_\+addr}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+addr} sccp\+\_\+connection\+::called\+\_\+addr}\label{structsccp__connection_aa1181557a1fe1326215cd39636c749fd}
+
+
+Referenced by scoc\+\_\+fsm\+\_\+idle(), scu\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), vty\+\_\+show\+\_\+connection(), and xua\+\_\+gen\+\_\+msg\+\_\+co().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!calling\+\_\+addr@{calling\+\_\+addr}}
+\index{calling\+\_\+addr@{calling\+\_\+addr}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{calling\+\_\+addr}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+addr} sccp\+\_\+connection\+::calling\+\_\+addr}\label{structsccp__connection_a0969a790ec8b2703cd829dc55c98bc7e}
+
+
+Referenced by scoc\+\_\+fsm\+\_\+idle(), scu\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), vty\+\_\+show\+\_\+connection(), and xua\+\_\+gen\+\_\+msg\+\_\+co().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!conn\+\_\+id@{conn\+\_\+id}}
+\index{conn\+\_\+id@{conn\+\_\+id}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{conn\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t sccp\+\_\+connection\+::conn\+\_\+id}\label{structsccp__connection_a10c6196b8e56c80eb4032dd5dd440304}
+
+
+Referenced by conn\+\_\+create(), conn\+\_\+create\+\_\+id(), conn\+\_\+find\+\_\+by\+\_\+id(), sccp\+\_\+scoc\+\_\+rx\+\_\+from\+\_\+scrc(), sccp\+\_\+scoc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), scu\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), tx\+\_\+rlsd\+\_\+from\+\_\+xua\+\_\+twoway(), vty\+\_\+show\+\_\+connection(), xua\+\_\+gen\+\_\+msg\+\_\+co(), and xua\+\_\+gen\+\_\+relre().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!fi@{fi}}
+\index{fi@{fi}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{fi}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+fsm\+\_\+inst$\ast$ sccp\+\_\+connection\+::fi}\label{structsccp__connection_ad025b54594946a73287551ebeb462d9e}
+
+
+Referenced by conn\+\_\+create\+\_\+id(), conn\+\_\+destroy(), conn\+\_\+tmr\+\_\+cb(), int\+\_\+tmr\+\_\+cb(), osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree(), rel\+\_\+tmr\+\_\+cb(), rep\+\_\+rel\+\_\+tmr\+\_\+cb(), rx\+\_\+inact\+\_\+tmr\+\_\+cb(), sccp\+\_\+scoc\+\_\+rx\+\_\+from\+\_\+scrc(), sccp\+\_\+scoc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), scu\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), tx\+\_\+inact\+\_\+tmr\+\_\+cb(), tx\+\_\+rlsd\+\_\+from\+\_\+xua\+\_\+twoway(), and vty\+\_\+show\+\_\+connection().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!importance@{importance}}
+\index{importance@{importance}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{importance}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t sccp\+\_\+connection\+::importance}\label{structsccp__connection_ab06f24ed18d75be8f122c7535e7fb422}
+
+
+Referenced by scoc\+\_\+fsm\+\_\+idle(), and scu\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!incoming@{incoming}}
+\index{incoming@{incoming}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{incoming}]{\setlength{\rightskip}{0pt plus 5cm}bool sccp\+\_\+connection\+::incoming}\label{structsccp__connection_acbbea16064b8753a190a0066c8a8fba8}
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+confirm(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+refused(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request(), sccp\+\_\+scoc\+\_\+rx\+\_\+from\+\_\+scrc(), and vty\+\_\+show\+\_\+connection().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!inst@{inst}}
+\index{inst@{inst}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{inst}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+instance}$\ast$ sccp\+\_\+connection\+::inst}\label{structsccp__connection_a81e1347c3cab7f78e23f3d8f15b17997}
+
+
+Referenced by conn\+\_\+create\+\_\+id(), osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree(), sccp\+\_\+scoc\+\_\+rx\+\_\+inval\+\_\+opc(), sccp\+\_\+scoc\+\_\+rx\+\_\+inval\+\_\+src\+\_\+ref(), sccp\+\_\+timer\+\_\+schedule(), tx\+\_\+rlsd\+\_\+from\+\_\+xua\+\_\+twoway(), vty\+\_\+show\+\_\+connection(), xua\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), xua\+\_\+gen\+\_\+msg\+\_\+co(), xua\+\_\+gen\+\_\+relre(), and xua\+\_\+gen\+\_\+relre\+\_\+and\+\_\+send().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!list@{list}}
+\index{list@{list}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{list}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head sccp\+\_\+connection\+::list}\label{structsccp__connection_acf16c888b097c26679f6adc9cb8a7e81}
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+confirm(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+dt1(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+refused(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+release\+\_\+complete(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+released(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request(), \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+release\+\_\+complete(), \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+request(), conn\+\_\+create\+\_\+id(), conn\+\_\+destroy(), conn\+\_\+find\+\_\+by\+\_\+id(), destination\+\_\+local\+\_\+reference\+\_\+is\+\_\+free(), sccp\+\_\+connection\+\_\+force\+\_\+free(), sccp\+\_\+scoc\+\_\+flush\+\_\+connections(), sccp\+\_\+scoc\+\_\+show\+\_\+connections(), and source\+\_\+local\+\_\+reference\+\_\+is\+\_\+free().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!release\+\_\+cause@{release\+\_\+cause}}
+\index{release\+\_\+cause@{release\+\_\+cause}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{release\+\_\+cause}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t sccp\+\_\+connection\+::release\+\_\+cause}\label{structsccp__connection_a842ccccb6d3c9bbfc9f4f986830c2ee7}
+
+
+Referenced by scoc\+\_\+fsm\+\_\+conn\+\_\+pend\+\_\+out(), and scoc\+\_\+fsm\+\_\+wait\+\_\+conn\+\_\+conf().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!remote\+\_\+pc@{remote\+\_\+pc}}
+\index{remote\+\_\+pc@{remote\+\_\+pc}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{remote\+\_\+pc}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t sccp\+\_\+connection\+::remote\+\_\+pc}\label{structsccp__connection_ae1bdc4cfbc68d1cd36dbf1bf5aa3ecad}
+
+
+Referenced by sccp\+\_\+scoc\+\_\+rx\+\_\+from\+\_\+scrc(), sccp\+\_\+scoc\+\_\+rx\+\_\+inval\+\_\+opc(), scoc\+\_\+fsm\+\_\+conn\+\_\+pend\+\_\+out(), scoc\+\_\+fsm\+\_\+idle(), tx\+\_\+rlsd\+\_\+from\+\_\+xua\+\_\+twoway(), vty\+\_\+show\+\_\+connection(), xua\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), and xua\+\_\+gen\+\_\+relre\+\_\+and\+\_\+send().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!remote\+\_\+ref@{remote\+\_\+ref}}
+\index{remote\+\_\+ref@{remote\+\_\+ref}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{remote\+\_\+ref}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t sccp\+\_\+connection\+::remote\+\_\+ref}\label{structsccp__connection_abf42a5100a877072f0ea0e2f7aedccd7}
+
+
+Referenced by sccp\+\_\+scoc\+\_\+rx\+\_\+from\+\_\+scrc(), sccp\+\_\+scoc\+\_\+rx\+\_\+inval\+\_\+src\+\_\+ref(), scoc\+\_\+fsm\+\_\+active(), scoc\+\_\+fsm\+\_\+conn\+\_\+pend\+\_\+out(), scoc\+\_\+fsm\+\_\+idle(), scoc\+\_\+fsm\+\_\+wait\+\_\+conn\+\_\+conf(), tx\+\_\+rlsd\+\_\+from\+\_\+xua\+\_\+twoway(), vty\+\_\+show\+\_\+connection(), xua\+\_\+gen\+\_\+msg\+\_\+co(), and xua\+\_\+gen\+\_\+relre().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!sccp\+\_\+class@{sccp\+\_\+class}}
+\index{sccp\+\_\+class@{sccp\+\_\+class}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{sccp\+\_\+class}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t sccp\+\_\+connection\+::sccp\+\_\+class}\label{structsccp__connection_ae81a569e9b665b724d4aae804f279272}
+
+
+Referenced by scoc\+\_\+fsm\+\_\+active(), scoc\+\_\+fsm\+\_\+idle(), scu\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), and xua\+\_\+gen\+\_\+msg\+\_\+co().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!t\+\_\+conn@{t\+\_\+conn}}
+\index{t\+\_\+conn@{t\+\_\+conn}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{t\+\_\+conn}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+timer\+\_\+list sccp\+\_\+connection\+::t\+\_\+conn}\label{structsccp__connection_a0c519a633b9f3a84fbfe68c5ce776dfe}
+
+
+Referenced by conn\+\_\+create\+\_\+id(), conn\+\_\+start\+\_\+connect\+\_\+timer(), and conn\+\_\+stop\+\_\+connect\+\_\+timer().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!t\+\_\+iar@{t\+\_\+iar}}
+\index{t\+\_\+iar@{t\+\_\+iar}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{t\+\_\+iar}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+timer\+\_\+list sccp\+\_\+connection\+::t\+\_\+iar}\label{structsccp__connection_a6df1fd3995de5fa901d4837f70890ebb}
+
+
+Referenced by conn\+\_\+create\+\_\+id(), conn\+\_\+restart\+\_\+rx\+\_\+inact\+\_\+timer(), and conn\+\_\+stop\+\_\+inact\+\_\+timers().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!t\+\_\+ias@{t\+\_\+ias}}
+\index{t\+\_\+ias@{t\+\_\+ias}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{t\+\_\+ias}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+timer\+\_\+list sccp\+\_\+connection\+::t\+\_\+ias}\label{structsccp__connection_a591e4af0e45ad5f3547dc04d5dbf7e18}
+
+
+Referenced by conn\+\_\+create\+\_\+id(), conn\+\_\+restart\+\_\+tx\+\_\+inact\+\_\+timer(), and conn\+\_\+stop\+\_\+inact\+\_\+timers().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!t\+\_\+int@{t\+\_\+int}}
+\index{t\+\_\+int@{t\+\_\+int}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{t\+\_\+int}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+timer\+\_\+list sccp\+\_\+connection\+::t\+\_\+int}\label{structsccp__connection_af0f26767fc86caca06ec49ba99e2f893}
+
+
+Referenced by conn\+\_\+create\+\_\+id(), conn\+\_\+start\+\_\+int\+\_\+timer(), and conn\+\_\+stop\+\_\+release\+\_\+timers().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!t\+\_\+rel@{t\+\_\+rel}}
+\index{t\+\_\+rel@{t\+\_\+rel}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{t\+\_\+rel}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+timer\+\_\+list sccp\+\_\+connection\+::t\+\_\+rel}\label{structsccp__connection_a605c58a351207fe05303d34b5d041275}
+
+
+Referenced by conn\+\_\+create\+\_\+id(), conn\+\_\+start\+\_\+rel\+\_\+timer(), and conn\+\_\+stop\+\_\+release\+\_\+timers().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!t\+\_\+rep\+\_\+rel@{t\+\_\+rep\+\_\+rel}}
+\index{t\+\_\+rep\+\_\+rel@{t\+\_\+rep\+\_\+rel}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{t\+\_\+rep\+\_\+rel}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+timer\+\_\+list sccp\+\_\+connection\+::t\+\_\+rep\+\_\+rel}\label{structsccp__connection_a95d41a0f9d38d64c5309eb2507d82ed5}
+
+
+Referenced by conn\+\_\+create\+\_\+id(), conn\+\_\+start\+\_\+rep\+\_\+rel\+\_\+timer(), and conn\+\_\+stop\+\_\+release\+\_\+timers().
+
+\index{sccp\+\_\+connection@{sccp\+\_\+connection}!user@{user}}
+\index{user@{user}!sccp\+\_\+connection@{sccp\+\_\+connection}}
+\subsubsection[{user}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+user}$\ast$ sccp\+\_\+connection\+::user}\label{structsccp__connection_a067a391c7bd5c77ebf9f79cee339a928}
+
+
+Referenced by conn\+\_\+create\+\_\+id(), scu\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), and vty\+\_\+show\+\_\+connection().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/{\bf sccp\+\_\+scoc.\+c}\end{DoxyCompactItemize}

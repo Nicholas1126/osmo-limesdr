@@ -1,0 +1,124 @@
+\section{src/osmux.c File Reference}
+\label{osmux_8c}\index{src/osmux.\+c@{src/osmux.\+c}}
+
+
+Osmocom multiplex protocol helpers.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/msgb.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/timer.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/timer\+\_\+compat.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/select.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/talloc.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/logging.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/netif/amr.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/netif/rtp.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/netif/osmux.\+h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmux\+\_\+batch}
+\item 
+struct {\bf osmux\+\_\+circuit}
+\item 
+struct {\bf osmux\+\_\+input\+\_\+state}
+\item 
+struct {\bf osmux\+\_\+tx\+\_\+handle}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries D\+E\+L\+T\+A\+\_\+\+R\+T\+P\+\_\+\+M\+SG}~20000
+\item 
+\#define {\bfseries D\+E\+L\+T\+A\+\_\+\+R\+T\+P\+\_\+\+T\+I\+M\+E\+S\+T\+A\+MP}~160
+\item 
+\#define {\bfseries S\+N\+P\+R\+I\+N\+T\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}(ret,  remain,  offset)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static uint32\+\_\+t {\bfseries osmux\+\_\+get\+\_\+payload\+\_\+len} (struct {\bf osmux\+\_\+hdr} $\ast$osmuxh)
+\item 
+static uint32\+\_\+t {\bfseries osmux\+\_\+ft\+\_\+dummy\+\_\+size} (uint8\+\_\+t amr\+\_\+ft, uint8\+\_\+t batch\+\_\+factor)
+\item 
+struct {\bf osmux\+\_\+hdr} $\ast$ {\bfseries osmux\+\_\+xfrm\+\_\+output\+\_\+pull} (struct msgb $\ast$msg)
+\item 
+static struct msgb $\ast$ {\bfseries osmux\+\_\+rebuild\+\_\+rtp} (struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$h, struct {\bf osmux\+\_\+hdr} $\ast$osmuxh, void $\ast$payload, int payload\+\_\+len, bool first\+\_\+pkt)
+\item 
+int {\bfseries osmux\+\_\+xfrm\+\_\+output} (struct {\bf osmux\+\_\+hdr} $\ast$osmuxh, struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$h, struct llist\+\_\+head $\ast$list) O\+S\+M\+O\+\_\+\+D\+E\+P\+R\+E\+C\+A\+T\+ED(\char`\"{}Use {\bf osmux\+\_\+xfrm\+\_\+output\+\_\+sched}() instead\char`\"{})
+\item 
+static void {\bfseries osmux\+\_\+xfrm\+\_\+output\+\_\+trigger} (void $\ast$data)
+\item 
+int {\bf osmux\+\_\+xfrm\+\_\+output\+\_\+sched} (struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$h, struct {\bf osmux\+\_\+hdr} $\ast$osmuxh)
+\begin{DoxyCompactList}\small\item\em Generate R\+TP packets from osmux frame A\+MR payload set and schedule them for transmission at appropiate time. \end{DoxyCompactList}\item 
+void {\bf osmux\+\_\+xfrm\+\_\+output\+\_\+flush} (struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$h)
+\begin{DoxyCompactList}\small\item\em Flush all scheduled R\+TP packets still pending to be transmitted. \end{DoxyCompactList}\item 
+static int {\bfseries osmux\+\_\+batch\+\_\+enqueue} (struct msgb $\ast$msg, struct {\bf osmux\+\_\+circuit} $\ast$circuit, uint8\+\_\+t batch\+\_\+factor)
+\item 
+static void {\bfseries osmux\+\_\+batch\+\_\+dequeue} (struct msgb $\ast$msg, struct {\bf osmux\+\_\+circuit} $\ast$circuit)
+\item 
+static void {\bfseries osmux\+\_\+circuit\+\_\+del\+\_\+msgs} (struct {\bf osmux\+\_\+batch} $\ast$batch, struct {\bf osmux\+\_\+circuit} $\ast$circuit)
+\item 
+static int {\bfseries osmux\+\_\+batch\+\_\+put} (struct {\bf osmux\+\_\+batch} $\ast$batch, struct {\bf osmux\+\_\+input\+\_\+state} $\ast$state)
+\item 
+static int {\bfseries osmux\+\_\+xfrm\+\_\+encode\+\_\+amr} (struct {\bf osmux\+\_\+batch} $\ast$batch, struct {\bf osmux\+\_\+input\+\_\+state} $\ast$state)
+\item 
+static void {\bfseries osmux\+\_\+encode\+\_\+dummy} (struct {\bf osmux\+\_\+batch} $\ast$batch, uint8\+\_\+t batch\+\_\+factor, struct {\bf osmux\+\_\+input\+\_\+state} $\ast$state)
+\item 
+static struct msgb $\ast$ {\bfseries osmux\+\_\+build\+\_\+batch} (struct {\bf osmux\+\_\+batch} $\ast$batch, uint32\+\_\+t batch\+\_\+size, uint8\+\_\+t batch\+\_\+factor)
+\item 
+void {\bfseries osmux\+\_\+xfrm\+\_\+input\+\_\+deliver} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h)
+\item 
+static void {\bfseries osmux\+\_\+batch\+\_\+timer\+\_\+expired} (void $\ast$data)
+\item 
+static int {\bfseries osmux\+\_\+rtp\+\_\+amr\+\_\+payload\+\_\+len} (struct msgb $\ast$msg, struct {\bf rtp\+\_\+hdr} $\ast$rtph)
+\item 
+static void {\bfseries osmux\+\_\+replay\+\_\+lost\+\_\+packets} (struct {\bf osmux\+\_\+circuit} $\ast$circuit, struct {\bf rtp\+\_\+hdr} $\ast$cur\+\_\+rtph, int batch\+\_\+factor)
+\item 
+static struct {\bf osmux\+\_\+circuit} $\ast$ {\bfseries osmux\+\_\+batch\+\_\+find\+\_\+circuit} (struct {\bf osmux\+\_\+batch} $\ast$batch, int ccid)
+\item 
+static struct {\bf osmux\+\_\+circuit} $\ast$ {\bfseries osmux\+\_\+batch\+\_\+add\+\_\+circuit} (struct {\bf osmux\+\_\+batch} $\ast$batch, int ccid, int dummy, uint8\+\_\+t batch\+\_\+factor)
+\item 
+static void {\bfseries osmux\+\_\+batch\+\_\+del\+\_\+circuit} (struct {\bf osmux\+\_\+batch} $\ast$batch, struct {\bf osmux\+\_\+circuit} $\ast$circuit)
+\item 
+static int {\bfseries osmux\+\_\+batch\+\_\+add} (struct {\bf osmux\+\_\+batch} $\ast$batch, uint32\+\_\+t batch\+\_\+factor, struct msgb $\ast$msg, struct {\bf rtp\+\_\+hdr} $\ast$rtph, int ccid)
+\item 
+int {\bf osmux\+\_\+xfrm\+\_\+input} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h, struct msgb $\ast$msg, int ccid)
+\item 
+void {\bfseries osmux\+\_\+xfrm\+\_\+input\+\_\+init} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h)
+\item 
+void {\bf osmux\+\_\+xfrm\+\_\+output\+\_\+set\+\_\+tx\+\_\+cb} (struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$h, void($\ast$tx\+\_\+cb)(struct msgb $\ast$msg, void $\ast$data), void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Set transmission callback to call when a generated R\+TP packet is to be transmitted. \end{DoxyCompactList}\item 
+int {\bfseries osmux\+\_\+xfrm\+\_\+input\+\_\+open\+\_\+circuit} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h, int ccid, int dummy)
+\item 
+void {\bfseries osmux\+\_\+xfrm\+\_\+input\+\_\+close\+\_\+circuit} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h, int ccid)
+\item 
+void {\bfseries osmux\+\_\+xfrm\+\_\+input\+\_\+fini} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h)
+\item 
+static void {\bfseries osmux\+\_\+tx\+\_\+cb} (void $\ast$data)
+\item 
+static void {\bfseries osmux\+\_\+tx} (struct msgb $\ast$msg, struct timeval $\ast$when, void($\ast$tx\+\_\+cb)(struct msgb $\ast$msg, void $\ast$data), void $\ast$data)
+\item 
+void {\bfseries osmux\+\_\+tx\+\_\+sched} (struct llist\+\_\+head $\ast$list, void($\ast$tx\+\_\+cb)(struct msgb $\ast$msg, void $\ast$data), void $\ast$data) O\+S\+M\+O\+\_\+\+D\+E\+P\+R\+E\+C\+A\+T\+ED(\char`\"{}Use {\bf osmux\+\_\+xfrm\+\_\+output\+\_\+set\+\_\+tx\+\_\+cb}() instead\char`\"{})
+\item 
+void {\bfseries osmux\+\_\+xfrm\+\_\+output\+\_\+init} (struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$h, uint32\+\_\+t rtp\+\_\+ssrc)
+\item 
+static int {\bfseries osmux\+\_\+snprintf\+\_\+header} (char $\ast$buf, size\+\_\+t size, struct {\bf osmux\+\_\+hdr} $\ast$osmuxh)
+\item 
+static int {\bfseries osmux\+\_\+snprintf\+\_\+payload} (char $\ast$buf, size\+\_\+t size, const uint8\+\_\+t $\ast$payload, int payload\+\_\+len)
+\item 
+int {\bf osmux\+\_\+snprintf} (char $\ast$buf, size\+\_\+t size, struct msgb $\ast$msg)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static void $\ast$ {\bfseries osmux\+\_\+ctx}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Osmocom multiplex protocol helpers. 
+

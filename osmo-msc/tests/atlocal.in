@@ -1,0 +1,1 @@
+enable_smpp_test='@osmo_ac_build_smpp@'

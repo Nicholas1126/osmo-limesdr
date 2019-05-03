@@ -1,0 +1,348 @@
+Test `CSD 9600/V.110/transparent' passed
+Test `Speech, all codecs' passed
+Simple TMSI encoding test....passed
+Simple IMSI encoding test....passed: [10] 17 08 99 10 07 00 00 00 64 02 
+
+Testing Mobile Identity conversions
+- IMSI 123456789012345
+  -> MI-TLV-hex='17081932547698103254'
+  -> MI-str="123456789012345" rc=16
+  -> MI-name="IMSI-123456789012345"
+- IMSI 12345678901234
+  -> MI-TLV-hex='170811325476981032f4'
+  -> MI-str="12345678901234" rc=15
+  -> MI-name="IMSI-12345678901234"
+- IMSI 423423
+  -> MI-TLV-hex='1704413224f3'
+  -> MI-str="423423" rc=7
+  -> MI-name="IMSI-423423"
+- unknown 0x9 423423
+  -> MI-TLV-hex='1704413224f3'
+  -> MI-str="423423" rc=7
+  -> MI-name="IMSI-423423"
+- IMSI 4234235
+  -> MI-TLV-hex='170449322453'
+  -> MI-str="4234235" rc=8
+  -> MI-name="IMSI-4234235"
+- IMSI 4234235
+  -> MI-TLV-hex='170449322453'
+  -> MI-str="423" rc=4
+  -> MI-name="IMSI-4234235"
+- IMEI 123456789012345
+  -> MI-TLV-hex='17081a32547698103254'
+  -> MI-str="123456789012345" rc=16
+  -> MI-name="IMEI-123456789012345"
+- IMEI 98765432109876
+  -> MI-TLV-hex='170892785634129078f6'
+  -> MI-str="98765432109876" rc=15
+  -> MI-name="IMEI-98765432109876"
+- IMEI 987654321098765
+  -> MI-TLV-hex='17089a78563412907856'
+  -> MI-str="987654321098765" rc=16
+  -> MI-name="IMEI-987654321098765"
+- IMEI-SV 9876543210987654
+  -> MI-TLV-hex='17099378563412907856f4'
+  -> MI-str="9876543210987654" rc=17
+  -> MI-name="IMEI-SV-9876543210987654"
+- IMEI-SV 9876543210987654
+  -> MI-TLV-hex='17099378563412907856f4'
+  -> MI-str="9876543210987654" rc=17
+  -> MI-name="IMEI-SV-9876543210987654"
+- TMSI 305419896
+  -> MI-TLV-hex='1705f412345678'
+  -> MI-str="305419896" rc=9
+  -> MI-name="TMSI-0x12345678"
+- TMSI 12648430
+  -> MI-TLV-hex='1705f400c0ffee'
+  -> MI-str="12648430" rc=8
+  -> MI-name="TMSI-0x00C0FFEE"
+- TMSI 0
+  -> MI-TLV-hex='1705f400000000'
+  -> MI-str="0" rc=1
+  -> MI-name="TMSI-0x00000000"
+- TMSI 305419896
+  -> MI-TLV-hex='1705f412345678'
+  -> MI-str="3054" rc=9
+  -> MI-name="TMSI-0x12345678"
+- NONE 123
+  -> MI-TLV-hex='17021832'
+  -> MI-str="" rc=1
+  -> MI-name="unknown"
+- NONE 1234
+  -> MI-TLV-hex='17031032f4'
+  -> MI-str="" rc=1
+  -> MI-name="unknown"
+- unknown 0x8 1234
+  -> MI-TLV-hex='17031032f4'
+  -> MI-str="" rc=1
+  -> MI-name="unknown"
+
+Decoding zero length Mobile Identities
+- MI type: IMSI
+  - writing to zero-length string:
+    rc=0
+    nothing written
+  - writing to 1-byte-length string:
+    rc=1
+    returned empty string
+  - decode zero-length mi:
+    rc=1
+    returned empty string
+- MI type: TMSI
+  - writing to zero-length string:
+    rc=0
+    nothing written
+  - writing to 1-byte-length string:
+    rc=1
+    returned empty string
+  - decode zero-length mi:
+    rc=1
+    returned empty string
+- MI type: NONE
+  - writing to zero-length string:
+    rc=0
+    nothing written
+  - writing to 1-byte-length string:
+    rc=1
+    returned empty string
+  - decode zero-length mi:
+    rc=1
+    returned empty string
+- MI type: IMSI | GSM_MI_ODD
+  - writing to zero-length string:
+    rc=0
+    nothing written
+  - writing to 1-byte-length string:
+    rc=1
+    returned empty string
+  - decode zero-length mi:
+    rc=1
+    returned empty string
+- MI type: TMSI | GSM_MI_ODD
+  - writing to zero-length string:
+    rc=0
+    nothing written
+  - writing to 1-byte-length string:
+    rc=1
+    returned empty string
+  - decode zero-length mi:
+    rc=1
+    returned empty string
+- MI type: NONE | GSM_MI_ODD
+  - writing to zero-length string:
+    rc=0
+    nothing written
+  - writing to 1-byte-length string:
+    rc=1
+    returned empty string
+  - decode zero-length mi:
+    rc=1
+    returned empty string
+
+Constructed RA:
+077-121-666-5
+MCC+MNC in BCD: 70 17 21 
+077-121-666-5 (3-digit MNC)
+RA test...passed
+Constructed RA:
+084-98-11-89
+MCC+MNC in BCD: 80 f4 89 
+084-98-11-89
+RA test...passed
+Constructed RA:
+000-00-0-0
+MCC+MNC in BCD: 00 f0 00 
+000-00-0-0
+RA test...passed
+Constructed RA:
+000-000-0-0 (3-digit MNC)
+MCC+MNC in BCD: 00 00 00 
+000-000-0-0 (3-digit MNC)
+RA test...passed
+Constructed RA:
+999-999-65535-255
+MCC+MNC in BCD: 99 99 99 
+999-999-65535-255 (3-digit MNC)
+RA test...passed
+Constructed RA:
+001-02-23-42
+MCC+MNC in BCD: 00 f1 20 
+001-02-23-42
+RA test...passed
+Constructed RA:
+001-002-23-42 (3-digit MNC)
+MCC+MNC in BCD: 00 21 00 
+001-002-23-42 (3-digit MNC)
+RA test...passed
+Constructed RA:
+012-34-56-78
+MCC+MNC in BCD: 10 f2 43 
+012-34-56-78
+RA test...passed
+Constructed RA:
+012-034-23-42 (3-digit MNC)
+MCC+MNC in BCD: 10 42 30 
+012-034-23-42 (3-digit MNC)
+RA test...passed
+Constructed RA:
+123-456-23-42
+MCC+MNC in BCD: 21 63 54 
+123-456-23-42 (3-digit MNC)
+RA test...passed
+Constructed RA:
+123-456-23-42 (3-digit MNC)
+MCC+MNC in BCD: 21 63 54 
+123-456-23-42 (3-digit MNC)
+RA test...passed
+- gsm48_generate_lai() from 077-121-666-0
+  Encoded 70 17 21 02 9a 
+  gsm48_decode_lai() gives  077-121-666-0
+  passed
+- gsm48_generate_lai2() from 077-121-666
+  Encoded 70 17 21 02 9a 
+  gsm48_decode_lai2() gives  077-121-666 (3-digit MNC)
+  passed
+- gsm48_generate_lai() from 084-98-11-0
+  Encoded 80 f4 89 00 0b 
+  gsm48_decode_lai() gives  084-98-11-0
+  passed
+- gsm48_generate_lai2() from 084-98-11
+  Encoded 80 f4 89 00 0b 
+  gsm48_decode_lai2() gives  084-98-11
+  passed
+- gsm48_generate_lai() from 000-00-0-0
+  Encoded 00 f0 00 00 00 
+  gsm48_decode_lai() gives  000-00-0-0
+  passed
+- gsm48_generate_lai2() from 000-00-0
+  Encoded 00 f0 00 00 00 
+  gsm48_decode_lai2() gives  000-00-0
+  passed
+- gsm48_generate_lai() from 000-000-0-0 (3-digit MNC)
+  Encoded 00 f0 00 00 00 
+  gsm48_decode_lai() gives  000-00-0-0
+  passed
+- gsm48_generate_lai2() from 000-000-0 (3-digit MNC)
+  Encoded 00 00 00 00 00 
+  gsm48_decode_lai2() gives  000-000-0 (3-digit MNC)
+  passed
+- gsm48_generate_lai() from 999-999-65535-0
+  Encoded 99 99 99 ff ff 
+  gsm48_decode_lai() gives  999-999-65535-0
+  passed
+- gsm48_generate_lai2() from 999-999-65535
+  Encoded 99 99 99 ff ff 
+  gsm48_decode_lai2() gives  999-999-65535 (3-digit MNC)
+  passed
+- gsm48_generate_lai() from 001-02-23-0
+  Encoded 00 f1 20 00 17 
+  gsm48_decode_lai() gives  001-02-23-0
+  passed
+- gsm48_generate_lai2() from 001-02-23
+  Encoded 00 f1 20 00 17 
+  gsm48_decode_lai2() gives  001-02-23
+  passed
+- gsm48_generate_lai() from 001-002-23-0 (3-digit MNC)
+  Encoded 00 f1 20 00 17 
+  gsm48_decode_lai() gives  001-02-23-0
+  passed
+- gsm48_generate_lai2() from 001-002-23 (3-digit MNC)
+  Encoded 00 21 00 00 17 
+  gsm48_decode_lai2() gives  001-002-23 (3-digit MNC)
+  passed
+- gsm48_generate_lai() from 012-34-56-0
+  Encoded 10 f2 43 00 38 
+  gsm48_decode_lai() gives  012-34-56-0
+  passed
+- gsm48_generate_lai2() from 012-34-56
+  Encoded 10 f2 43 00 38 
+  gsm48_decode_lai2() gives  012-34-56
+  passed
+- gsm48_generate_lai() from 012-034-23-0 (3-digit MNC)
+  Encoded 10 f2 43 00 17 
+  gsm48_decode_lai() gives  012-34-23-0
+  passed
+- gsm48_generate_lai2() from 012-034-23 (3-digit MNC)
+  Encoded 10 42 30 00 17 
+  gsm48_decode_lai2() gives  012-034-23 (3-digit MNC)
+  passed
+- gsm48_generate_lai() from 123-456-23-0
+  Encoded 21 63 54 00 17 
+  gsm48_decode_lai() gives  123-456-23-0
+  passed
+- gsm48_generate_lai2() from 123-456-23
+  Encoded 21 63 54 00 17 
+  gsm48_decode_lai2() gives  123-456-23 (3-digit MNC)
+  passed
+- gsm48_generate_lai() from 123-456-23-0 (3-digit MNC)
+  Encoded 21 63 54 00 17 
+  gsm48_decode_lai() gives  123-456-23-0
+  passed
+- gsm48_generate_lai2() from 123-456-23 (3-digit MNC)
+  Encoded 21 63 54 00 17 
+  gsm48_decode_lai2() gives  123-456-23 (3-digit MNC)
+  passed
+Element is: 2 => freqs[i] = 121
+Element is: 2 => freqs[i] = 1
+Element is: 0 => freqs[i] = 68
+w[0]=122
+w[1]=2
+w[2]=69
+w[3]=204
+w[4]=75
+w[5]=66
+w[6]=60
+w[7]=70
+w[8]=83
+w[9]=3
+w[10]=24
+w[11]=67
+w[12]=54
+w[13]=64
+w[14]=70
+w[15]=9
+Range512: 89 4b 2a 95 65 95 55 2c a9 55 aa 55 6a 95 59 55 
+Range test 0: range 511, num ARFCNs 12
+range=511, arfcns_used=11, f0=1, f0_included=1
+chan_list = 88 00 98 34 85 36 7c 50 22 dc 5e ec 00 00 00 00 
+Decoded freqs 12 (expected 12)
+Decoded: 1 12 31 51 57 91 97 98 113 117 120 125 
+Range test 1: range 511, num ARFCNs 17
+range=511, arfcns_used=16, f0=1, f0_included=1
+chan_list = 88 00 82 7f 01 3f 7e 04 0b ff ff fc 10 41 07 e0 
+Decoded freqs 17 (expected 17)
+Decoded: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 
+Range test 2: range 511, num ARFCNs 18
+range=511, arfcns_used=17, f0=1, f0_included=1
+chan_list = 88 00 82 7f 01 7f 7e 04 0b ff ff fc 10 41 07 ff 
+Decoded freqs 18 (expected 18)
+Decoded: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 
+Range test 3: range 511, num ARFCNs 18
+range=511, arfcns_used=17, f0=1, f0_included=1
+chan_list = 88 00 94 3a 44 32 d7 2a 43 2a 13 94 e5 38 39 f6 
+Decoded freqs 18 (expected 18)
+Decoded: 1 17 31 45 58 79 81 97 113 127 213 277 287 311 331 391 417 511 
+Range test 4: range 511, num ARFCNs 6
+range=511, arfcns_used=5, f0=1, f0_included=1
+chan_list = 88 00 8b 3c 88 b9 6b 00 00 00 00 00 00 00 00 00 
+Decoded freqs 6 (expected 6)
+Decoded: 1 17 31 45 58 79 
+Range test 5: range 511, num ARFCNs 6
+range=511, arfcns_used=5, f0=10, f0_included=1
+chan_list = 88 05 08 fc 88 b9 6b 00 00 00 00 00 00 00 00 00 
+Decoded freqs 6 (expected 6)
+Decoded: 10 17 31 45 58 79 
+Range test 6: range 1023, num ARFCNs 17
+range=1023, arfcns_used=16, f0=0, f0_included=1
+chan_list = 84 71 e4 ab b9 58 05 cb 39 17 fd b0 75 62 0f 2f 
+Decoded freqs 17 (expected 17)
+Decoded: 0 17 31 45 58 79 81 97 113 127 213 277 287 311 331 391 1023 
+Range test 7: range 1023, num ARFCNs 16
+range=1023, arfcns_used=16, f0=0, f0_included=0
+chan_list = 80 71 e4 ab b9 58 05 cb 39 17 fd b0 75 62 0f 2f 
+Decoded freqs 16 (expected 16)
+Decoded: 17 31 45 58 79 81 97 113 127 213 277 287 311 331 391 1023 
+Random range test: range 127, max num ARFCNs 29
+Random range test: range 255, max num ARFCNs 22
+Random range test: range 511, max num ARFCNs 18
+Random range test: range 1023, max num ARFCNs 16

@@ -1,0 +1,992 @@
+\section{include/osmocom/sigtran/sccp\+\_\+sap.h File Reference}
+\label{sccp__sap_8h}\index{include/osmocom/sigtran/sccp\+\_\+sap.\+h@{include/osmocom/sigtran/sccp\+\_\+sap.\+h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/prim.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/sigtran\+\_\+sap.\+h$>$}\\*
+{\ttfamily \#include $<$netinet/in.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+sccp\+\_\+gt}
+\item 
+struct {\bf osmo\+\_\+sccp\+\_\+addr}
+\item 
+struct {\bf osmo\+\_\+scu\+\_\+connect\+\_\+param}
+\item 
+struct {\bf osmo\+\_\+scu\+\_\+data\+\_\+param}
+\item 
+struct {\bf osmo\+\_\+scu\+\_\+disconn\+\_\+param}
+\item 
+struct {\bf osmo\+\_\+scu\+\_\+reset\+\_\+param}
+\item 
+struct {\bf osmo\+\_\+scu\+\_\+unitdata\+\_\+param}
+\item 
+struct {\bf osmo\+\_\+scu\+\_\+notice\+\_\+param}
+\item 
+struct {\bf osmo\+\_\+scu\+\_\+prim}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT}~0x0001 /$\ast$ global title $\ast$/
+\item 
+\#define {\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC}~0x0002 /$\ast$ signalling point code $\ast$/
+\item 
+\#define {\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN}~0x0004 /$\ast$ subsystem number $\ast$/
+\item 
+\#define {\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4}~0x0008
+\item 
+\#define {\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6}~0x0010
+\item 
+\#define {\bf msgb\+\_\+scu\+\_\+prim}(msg)~((struct {\bf osmo\+\_\+scu\+\_\+prim} $\ast$)(msg)-\/$>$l1h)
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf osmo\+\_\+scu\+\_\+prim\+\_\+type} \{ \\*
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+C\+O\+N\+N\+E\+CT}, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+D\+A\+TA}, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+E\+X\+P\+E\+D\+I\+T\+E\+D\+\_\+\+D\+A\+TA}, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT}, 
+\\*
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+R\+E\+S\+ET}, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+I\+N\+F\+O\+RM}, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+U\+N\+I\+T\+D\+A\+TA}, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+N\+O\+T\+I\+CE}, 
+\\*
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+C\+O\+O\+RD}, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+S\+T\+A\+TE}, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+P\+C\+S\+T\+A\+TE}
+ \}\begin{DoxyCompactList}\small\item\em S\+C\+C\+P-\/\+User primitives as per Q.\+711. \end{DoxyCompactList}
+\item 
+enum {\bf osmo\+\_\+sccp\+\_\+routing\+\_\+ind} \{ {\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+N\+O\+NE}, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT}, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC}, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP}
+ \}
+\item 
+enum {\bf osmo\+\_\+sccp\+\_\+gti} \{ \\*
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+O\+\_\+\+GT}, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+A\+I\+\_\+\+O\+N\+LY}, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+O\+N\+LY}, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+NC}, 
+\\*
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+N\+C\+\_\+\+N\+AI}
+ \}
+\item 
+enum {\bf osmo\+\_\+sccp\+\_\+npi} \{ \\*
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+U\+N\+K\+N\+O\+WN} = 0, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E164\+\_\+\+I\+S\+DN} = 1, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+G\+E\+E\+R\+IC} = 2, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+X121\+\_\+\+D\+A\+TA} = 3, 
+\\*
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+F69\+\_\+\+T\+E\+L\+EX} = 4, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E210\+\_\+\+M\+A\+R\+I\+T\+I\+ME} = 5, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E212\+\_\+\+L\+A\+ND} = 6, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E214\+\_\+\+I\+S\+D\+N\+\_\+\+M\+O\+B\+I\+LE} = 7, 
+\\*
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+P\+R\+I\+V\+A\+TE} = 14
+ \}
+\item 
+enum {\bf osmo\+\_\+sccp\+\_\+nai} \{ \\*
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+U\+N\+K\+N\+O\+WN} = 0, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+S\+U\+B\+S\+CR} = 1, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+R\+E\+S\+\_\+\+N\+A\+T\+\_\+\+U\+SE} = 2, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+N\+A\+TL} = 3, 
+\\*
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+I\+N\+TL} = 4
+ \}
+\item 
+enum {\bf osmo\+\_\+sccp\+\_\+ssn} \{ \\*
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+G\+MT} = 1, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+I\+S\+UP} = 3, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+O\+M\+AP} = 4, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+AP} = 5, 
+\\*
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+H\+LR} = 6, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+V\+LR} = 7, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+SC} = 8, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+E\+IR} = 9, 
+\\*
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+A\+UC} = 0x0a, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+I\+S\+D\+N\+\_\+\+SS} = 0x0b, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+E\+S\+\_\+\+I\+N\+TL} = 0x0c, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+I\+S\+DN} = 0x0d, 
+\\*
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+T\+C\+\_\+\+T\+E\+ST} = 0x0e, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+A\+N\+AP} = 142, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+N\+S\+AP} = 143, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+G\+M\+L\+C\+\_\+\+M\+AP} = 145, 
+\\*
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+C\+AP} = 146, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+gsm\+S\+C\+F\+\_\+\+M\+AP} = 147, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+I\+W\+F\+\_\+\+M\+AP} = 148, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+G\+S\+N\+\_\+\+M\+AP} = 149, 
+\\*
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+G\+G\+S\+N\+\_\+\+M\+AP} = 150, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+P\+C\+AP} = 249, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+C\+\_\+\+B\+S\+S\+A\+P\+\_\+\+LE} = 250, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+S\+C\+\_\+\+B\+S\+S\+A\+P\+\_\+\+LE} = 251, 
+\\*
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+M\+L\+C\+\_\+\+B\+S\+S\+AP} = 252, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+S\+\_\+\+O\+AM} = 253, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+S\+AP} = 254
+ \}
+\item 
+enum {\bf osmo\+\_\+sccp\+\_\+originator} \{ {\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+N\+S\+\_\+\+P\+R\+O\+V\+I\+D\+ER}, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+N\+S\+\_\+\+U\+S\+ER}, 
+{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+U\+N\+D\+E\+F\+I\+N\+ED}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ {\bf osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+name} (enum {\bf osmo\+\_\+sccp\+\_\+routing\+\_\+ind} val)
+\item 
+static const char $\ast$ {\bf osmo\+\_\+sccp\+\_\+gti\+\_\+name} (enum {\bf osmo\+\_\+sccp\+\_\+gti} val)
+\item 
+static const char $\ast$ {\bf osmo\+\_\+sccp\+\_\+ssn\+\_\+name} (enum {\bf osmo\+\_\+sccp\+\_\+ssn} val)
+\item 
+char $\ast$ {\bf osmo\+\_\+scu\+\_\+prim\+\_\+name} (struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)
+\item 
+void {\bf osmo\+\_\+sccp\+\_\+vty\+\_\+init} (void)
+\item 
+struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$ {\bf osmo\+\_\+sccp\+\_\+instance\+\_\+create} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$ss7, void $\ast$priv)
+\begin{DoxyCompactList}\small\item\em create a S\+C\+CP Instance and register it as user with S\+S7 inst \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+sccp\+\_\+instance\+\_\+destroy} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst)
+\item 
+struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$ {\bf osmo\+\_\+sccp\+\_\+get\+\_\+ss7} (const struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$sccp)
+\begin{DoxyCompactList}\small\item\em get the S\+S7 instance that is related to the given S\+C\+CP instance \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$ {\bf osmo\+\_\+sccp\+\_\+get\+\_\+sccp} (const struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu)
+\begin{DoxyCompactList}\small\item\em get the S\+C\+CP instance that is related to the given sccp user \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+sccp\+\_\+user\+\_\+unbind} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu)
+\begin{DoxyCompactList}\small\item\em Unbind a given S\+C\+CP user. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+sccp\+\_\+user\+\_\+set\+\_\+priv} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, void $\ast$priv)
+\item 
+void $\ast$ {\bf osmo\+\_\+sccp\+\_\+user\+\_\+get\+\_\+priv} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu)
+\item 
+struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$ {\bf osmo\+\_\+sccp\+\_\+user\+\_\+bind\+\_\+pc} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, const char $\ast$name, osmo\+\_\+prim\+\_\+cb prim\+\_\+cb, uint16\+\_\+t ssn, uint32\+\_\+t pc)
+\begin{DoxyCompactList}\small\item\em Bind a given S\+C\+CP User to a given S\+S\+N+\+PC. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$ {\bf osmo\+\_\+sccp\+\_\+user\+\_\+bind} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, const char $\ast$name, osmo\+\_\+prim\+\_\+cb prim\+\_\+cb, uint16\+\_\+t ssn)
+\begin{DoxyCompactList}\small\item\em Bind a given S\+C\+CP User to a given S\+SN (at any PC) \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)
+\begin{DoxyCompactList}\small\item\em Main entrance function for primitives from S\+C\+CP User. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)
+\begin{DoxyCompactList}\small\item\em Main entrance function for primitives from S\+C\+CP User. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$ {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+by\+\_\+name} (struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$dest\+\_\+addr, const char $\ast$name)
+\begin{DoxyCompactList}\small\item\em Lookup an S\+C\+CP address from the addressbook by its name. \end{DoxyCompactList}\item 
+const char $\ast$ {\bf osmo\+\_\+sccp\+\_\+name\+\_\+by\+\_\+addr} (const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$addr)
+\begin{DoxyCompactList}\small\item\em Reverse lookup the lookup-\/name of a specified S\+C\+CP address. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance} (struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$dest\+\_\+addr, const struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, uint32\+\_\+t ssn)
+\begin{DoxyCompactList}\small\item\em derive a basic local S\+C\+C\+P-\/\+Address from a given S\+C\+CP instance. \end{DoxyCompactList}\item 
+bool {\bf osmo\+\_\+sccp\+\_\+check\+\_\+addr} (struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$addr, uint32\+\_\+t presence)
+\begin{DoxyCompactList}\small\item\em check whether a given S\+C\+C\+P-\/\+Address is consistent. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+cmp} (const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$a, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$b, uint32\+\_\+t presence\+\_\+criteria)
+\begin{DoxyCompactList}\small\item\em Compare two S\+C\+CP addresses by given presence criteria. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp} (const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$a, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$b)
+\begin{DoxyCompactList}\small\item\em Compare the routing information of two S\+C\+CP addresses. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+sccp\+\_\+gt\+\_\+cmp} (const struct {\bf osmo\+\_\+sccp\+\_\+gt} $\ast$a, const struct {\bf osmo\+\_\+sccp\+\_\+gt} $\ast$b)
+\begin{DoxyCompactList}\small\item\em Compare two S\+C\+CP Global Titles. \end{DoxyCompactList}\item 
+const char $\ast$ {\bf osmo\+\_\+sccp\+\_\+user\+\_\+name} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu)
+\begin{DoxyCompactList}\small\item\em Compose a human readable string to describe the S\+C\+CP user\textquotesingle{}s connection. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const struct value\+\_\+string {\bf osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+names} [$\,$]
+\item 
+const struct value\+\_\+string {\bf osmo\+\_\+sccp\+\_\+gti\+\_\+names} [$\,$]
+\item 
+const struct value\+\_\+string {\bf osmo\+\_\+sccp\+\_\+ssn\+\_\+names} [$\,$]
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!msgb\+\_\+scu\+\_\+prim@{msgb\+\_\+scu\+\_\+prim}}
+\index{msgb\+\_\+scu\+\_\+prim@{msgb\+\_\+scu\+\_\+prim}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{msgb\+\_\+scu\+\_\+prim}]{\setlength{\rightskip}{0pt plus 5cm}\#define msgb\+\_\+scu\+\_\+prim(
+\begin{DoxyParamCaption}
+\item[{}]{msg}
+\end{DoxyParamCaption}
+)~((struct {\bf osmo\+\_\+scu\+\_\+prim} $\ast$)(msg)-\/$>$l1h)}\label{sccp__sap_8h_a51b5e3bcdfaaa908ebf7a15846fd9506}
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT}}
+\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT~0x0001 /$\ast$ global title $\ast$/}\label{sccp__sap_8h_a027faacb50966d4e92e0503029826c04}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+addr\+\_\+cmp(), osmo\+\_\+sccp\+\_\+addr\+\_\+dump(), osmo\+\_\+sccp\+\_\+addr\+\_\+encode(), osmo\+\_\+sccp\+\_\+addr\+\_\+name(), osmo\+\_\+sccp\+\_\+addr\+\_\+parse(), osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp(), osmo\+\_\+sccp\+\_\+check\+\_\+addr(), scrc\+\_\+local\+\_\+out\+\_\+common(), sua\+\_\+addr\+\_\+parse\+\_\+part(), write\+\_\+sccp\+\_\+addressbook(), and xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4}}
+\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4~0x0008}\label{sccp__sap_8h_a613b20d0d87c4ae6818191f52528d81c}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+addr\+\_\+cmp(), osmo\+\_\+sccp\+\_\+addr\+\_\+dump(), osmo\+\_\+sccp\+\_\+addr\+\_\+name(), osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp(), osmo\+\_\+sccp\+\_\+check\+\_\+addr(), sua\+\_\+addr\+\_\+parse\+\_\+part(), and xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6}}
+\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6~0x0010}\label{sccp__sap_8h_ac2c76564697e55f4e79e30b55a2208a2}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+addr\+\_\+cmp(), osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp(), osmo\+\_\+sccp\+\_\+check\+\_\+addr(), and xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC}}
+\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC~0x0002 /$\ast$ signalling point code $\ast$/}\label{sccp__sap_8h_a94365eaf81e21fc6de2bc883a389fea8}
+
+
+Referenced by D\+E\+F\+U\+N(), gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua(), gen\+\_\+ret\+\_\+msg(), osmo\+\_\+sccp\+\_\+addr\+\_\+cmp(), osmo\+\_\+sccp\+\_\+addr\+\_\+dump(), osmo\+\_\+sccp\+\_\+addr\+\_\+encode(), osmo\+\_\+sccp\+\_\+addr\+\_\+name(), osmo\+\_\+sccp\+\_\+addr\+\_\+parse(), osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp(), osmo\+\_\+sccp\+\_\+check\+\_\+addr(), osmo\+\_\+sccp\+\_\+make\+\_\+addr\+\_\+pc\+\_\+ssn(), patch\+\_\+sccp\+\_\+with\+\_\+pc(), scoc\+\_\+fsm\+\_\+idle(), scrc\+\_\+local\+\_\+out\+\_\+common(), sua\+\_\+addr\+\_\+parse\+\_\+part(), write\+\_\+sccp\+\_\+addressbook(), and xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN}}
+\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN~0x0004 /$\ast$ subsystem number $\ast$/}\label{sccp__sap_8h_a976574212c259139669d5647752e286e}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+addr\+\_\+cmp(), osmo\+\_\+sccp\+\_\+addr\+\_\+dump(), osmo\+\_\+sccp\+\_\+addr\+\_\+encode(), osmo\+\_\+sccp\+\_\+addr\+\_\+name(), osmo\+\_\+sccp\+\_\+addr\+\_\+parse(), osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp(), osmo\+\_\+sccp\+\_\+addr\+\_\+set\+\_\+ssn(), osmo\+\_\+sccp\+\_\+check\+\_\+addr(), osmo\+\_\+sccp\+\_\+make\+\_\+addr\+\_\+pc\+\_\+ssn(), sccp\+\_\+find\+\_\+user(), scrc\+\_\+local\+\_\+out\+\_\+common(), sua\+\_\+addr\+\_\+parse\+\_\+part(), write\+\_\+sccp\+\_\+addressbook(), and xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr().
+
+
+
+\subsection{Enumeration Type Documentation}
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+gti@{osmo\+\_\+sccp\+\_\+gti}}
+\index{osmo\+\_\+sccp\+\_\+gti@{osmo\+\_\+sccp\+\_\+gti}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+gti}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf osmo\+\_\+sccp\+\_\+gti}}\label{sccp__sap_8h_a49e6fdb7b5e0de1886d06a45f9cba18e}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+O\+\_\+\+GT@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+O\+\_\+\+GT}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+O\+\_\+\+GT@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+O\+\_\+\+GT}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+O\+\_\+\+GT\label{sccp__sap_8h_a49e6fdb7b5e0de1886d06a45f9cba18eaf068c2c9887cc960213128dcca3f3482}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+A\+I\+\_\+\+O\+N\+LY@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+A\+I\+\_\+\+O\+N\+LY}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+A\+I\+\_\+\+O\+N\+LY@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+A\+I\+\_\+\+O\+N\+LY}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+A\+I\+\_\+\+O\+N\+LY\label{sccp__sap_8h_a49e6fdb7b5e0de1886d06a45f9cba18ea0e183b3d35d6fca2330dec196836d684}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+O\+N\+LY@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+O\+N\+LY}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+O\+N\+LY@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+O\+N\+LY}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+O\+N\+LY\label{sccp__sap_8h_a49e6fdb7b5e0de1886d06a45f9cba18ea469e1f170d5b09b6b2b1211b67e2bc9c}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+NC@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+NC}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+NC@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+NC}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+NC\label{sccp__sap_8h_a49e6fdb7b5e0de1886d06a45f9cba18ea521a558053686ed99fcc5b180e0624db}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+N\+C\+\_\+\+N\+AI@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+N\+C\+\_\+\+N\+AI}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+N\+C\+\_\+\+N\+AI@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+N\+C\+\_\+\+N\+AI}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+N\+C\+\_\+\+N\+AI\label{sccp__sap_8h_a49e6fdb7b5e0de1886d06a45f9cba18ea085829d7feedf9819301cca8cc730f7e}
+}]\end{description}
+\end{Desc}
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+nai@{osmo\+\_\+sccp\+\_\+nai}}
+\index{osmo\+\_\+sccp\+\_\+nai@{osmo\+\_\+sccp\+\_\+nai}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+nai}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf osmo\+\_\+sccp\+\_\+nai}}\label{sccp__sap_8h_abd8a385427f71c48da2345b5b020883f}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+U\+N\+K\+N\+O\+WN@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+U\+N\+K\+N\+O\+WN}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+U\+N\+K\+N\+O\+WN@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+U\+N\+K\+N\+O\+WN}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+U\+N\+K\+N\+O\+WN\label{sccp__sap_8h_abd8a385427f71c48da2345b5b020883fa93a8c91be85d9aa68738893272647269}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+S\+U\+B\+S\+CR@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+S\+U\+B\+S\+CR}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+S\+U\+B\+S\+CR@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+S\+U\+B\+S\+CR}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+S\+U\+B\+S\+CR\label{sccp__sap_8h_abd8a385427f71c48da2345b5b020883fa086642dd980f4318bde88d35d158d305}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+R\+E\+S\+\_\+\+N\+A\+T\+\_\+\+U\+SE@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+R\+E\+S\+\_\+\+N\+A\+T\+\_\+\+U\+SE}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+R\+E\+S\+\_\+\+N\+A\+T\+\_\+\+U\+SE@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+R\+E\+S\+\_\+\+N\+A\+T\+\_\+\+U\+SE}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+R\+E\+S\+\_\+\+N\+A\+T\+\_\+\+U\+SE\label{sccp__sap_8h_abd8a385427f71c48da2345b5b020883faf4daad0b9d8bab32e46ecbf236cd0b87}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+N\+A\+TL@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+N\+A\+TL}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+N\+A\+TL@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+N\+A\+TL}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+N\+A\+TL\label{sccp__sap_8h_abd8a385427f71c48da2345b5b020883fafae57f4a40f3ffcb95c0c336aef0830f}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+I\+N\+TL@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+I\+N\+TL}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+I\+N\+TL@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+I\+N\+TL}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+A\+I\+\_\+\+I\+N\+TL\label{sccp__sap_8h_abd8a385427f71c48da2345b5b020883fa453535dcf2ea807cc852ab3008ad5bdb}
+}]\end{description}
+\end{Desc}
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+npi@{osmo\+\_\+sccp\+\_\+npi}}
+\index{osmo\+\_\+sccp\+\_\+npi@{osmo\+\_\+sccp\+\_\+npi}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+npi}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf osmo\+\_\+sccp\+\_\+npi}}\label{sccp__sap_8h_a17f6f83b4a88824312b58ef93881d1aa}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+U\+N\+K\+N\+O\+WN@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+U\+N\+K\+N\+O\+WN}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+U\+N\+K\+N\+O\+WN@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+U\+N\+K\+N\+O\+WN}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+U\+N\+K\+N\+O\+WN\label{sccp__sap_8h_a17f6f83b4a88824312b58ef93881d1aaab6488c13fbfacd605f0ec26d96d4a04f}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E164\+\_\+\+I\+S\+DN@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E164\+\_\+\+I\+S\+DN}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E164\+\_\+\+I\+S\+DN@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E164\+\_\+\+I\+S\+DN}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E164\+\_\+\+I\+S\+DN\label{sccp__sap_8h_a17f6f83b4a88824312b58ef93881d1aaa966ab558ef86f44a2c3f5fdda7523343}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+G\+E\+E\+R\+IC@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+G\+E\+E\+R\+IC}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+G\+E\+E\+R\+IC@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+G\+E\+E\+R\+IC}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+G\+E\+E\+R\+IC\label{sccp__sap_8h_a17f6f83b4a88824312b58ef93881d1aaa2edfcac0ff805e07fc53b013fad9cbbf}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+X121\+\_\+\+D\+A\+TA@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+X121\+\_\+\+D\+A\+TA}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+X121\+\_\+\+D\+A\+TA@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+X121\+\_\+\+D\+A\+TA}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+X121\+\_\+\+D\+A\+TA\label{sccp__sap_8h_a17f6f83b4a88824312b58ef93881d1aaa68c30ca57ef40444fe9d43370d9df182}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+F69\+\_\+\+T\+E\+L\+EX@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+F69\+\_\+\+T\+E\+L\+EX}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+F69\+\_\+\+T\+E\+L\+EX@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+F69\+\_\+\+T\+E\+L\+EX}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+F69\+\_\+\+T\+E\+L\+EX\label{sccp__sap_8h_a17f6f83b4a88824312b58ef93881d1aaa10b76f9ded165fc1a253591ba915b2df}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E210\+\_\+\+M\+A\+R\+I\+T\+I\+ME@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E210\+\_\+\+M\+A\+R\+I\+T\+I\+ME}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E210\+\_\+\+M\+A\+R\+I\+T\+I\+ME@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E210\+\_\+\+M\+A\+R\+I\+T\+I\+ME}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E210\+\_\+\+M\+A\+R\+I\+T\+I\+ME\label{sccp__sap_8h_a17f6f83b4a88824312b58ef93881d1aaa3de3bae494fb5f3f99e9d75c44ef86b6}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E212\+\_\+\+L\+A\+ND@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E212\+\_\+\+L\+A\+ND}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E212\+\_\+\+L\+A\+ND@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E212\+\_\+\+L\+A\+ND}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E212\+\_\+\+L\+A\+ND\label{sccp__sap_8h_a17f6f83b4a88824312b58ef93881d1aaa908d5887a58bc33a8d919090da02ce43}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E214\+\_\+\+I\+S\+D\+N\+\_\+\+M\+O\+B\+I\+LE@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E214\+\_\+\+I\+S\+D\+N\+\_\+\+M\+O\+B\+I\+LE}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E214\+\_\+\+I\+S\+D\+N\+\_\+\+M\+O\+B\+I\+LE@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E214\+\_\+\+I\+S\+D\+N\+\_\+\+M\+O\+B\+I\+LE}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+E214\+\_\+\+I\+S\+D\+N\+\_\+\+M\+O\+B\+I\+LE\label{sccp__sap_8h_a17f6f83b4a88824312b58ef93881d1aaa20d146e5dac90433b005a66a09e12705}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+P\+R\+I\+V\+A\+TE@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+P\+R\+I\+V\+A\+TE}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+P\+R\+I\+V\+A\+TE@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+P\+R\+I\+V\+A\+TE}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+N\+P\+I\+\_\+\+P\+R\+I\+V\+A\+TE\label{sccp__sap_8h_a17f6f83b4a88824312b58ef93881d1aaad6286652b0b4e7e247d86963b639d212}
+}]\end{description}
+\end{Desc}
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+originator@{osmo\+\_\+sccp\+\_\+originator}}
+\index{osmo\+\_\+sccp\+\_\+originator@{osmo\+\_\+sccp\+\_\+originator}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+originator}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf osmo\+\_\+sccp\+\_\+originator}}\label{sccp__sap_8h_a2efdc51f0625e9b6c4e4a8f9f0cf8bd3}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+N\+S\+\_\+\+P\+R\+O\+V\+I\+D\+ER@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+N\+S\+\_\+\+P\+R\+O\+V\+I\+D\+ER}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+N\+S\+\_\+\+P\+R\+O\+V\+I\+D\+ER@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+N\+S\+\_\+\+P\+R\+O\+V\+I\+D\+ER}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+N\+S\+\_\+\+P\+R\+O\+V\+I\+D\+ER\label{sccp__sap_8h_a2efdc51f0625e9b6c4e4a8f9f0cf8bd3a4b6c209efad850969c38e94d440bcac7}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+N\+S\+\_\+\+U\+S\+ER@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+N\+S\+\_\+\+U\+S\+ER}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+N\+S\+\_\+\+U\+S\+ER@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+N\+S\+\_\+\+U\+S\+ER}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+N\+S\+\_\+\+U\+S\+ER\label{sccp__sap_8h_a2efdc51f0625e9b6c4e4a8f9f0cf8bd3a2666804cc746e11ac1fae1e9ae7bac28}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+U\+N\+D\+E\+F\+I\+N\+ED@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+U\+N\+D\+E\+F\+I\+N\+ED}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+U\+N\+D\+E\+F\+I\+N\+ED@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+U\+N\+D\+E\+F\+I\+N\+ED}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+U\+N\+D\+E\+F\+I\+N\+ED\label{sccp__sap_8h_a2efdc51f0625e9b6c4e4a8f9f0cf8bd3ae4342469a039fc93342494100ac90735}
+}]\end{description}
+\end{Desc}
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+routing\+\_\+ind@{osmo\+\_\+sccp\+\_\+routing\+\_\+ind}}
+\index{osmo\+\_\+sccp\+\_\+routing\+\_\+ind@{osmo\+\_\+sccp\+\_\+routing\+\_\+ind}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+routing\+\_\+ind}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf osmo\+\_\+sccp\+\_\+routing\+\_\+ind}}\label{sccp__sap_8h_a4e8e86883f33973c4bf8432a31d1ac4f}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+N\+O\+NE@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+N\+O\+NE}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+N\+O\+NE@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+N\+O\+NE}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+N\+O\+NE\label{sccp__sap_8h_a4e8e86883f33973c4bf8432a31d1ac4fab6ad632048cc163f216bffb89370f27a}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT\label{sccp__sap_8h_a4e8e86883f33973c4bf8432a31d1ac4fa7b7c645ad65242b4e4446d1a6c7e2001}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC\label{sccp__sap_8h_a4e8e86883f33973c4bf8432a31d1ac4fae84b506f74ab108b5f43f51593090267}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP\label{sccp__sap_8h_a4e8e86883f33973c4bf8432a31d1ac4fafa3c559fc747dfc0549380c069802c4d}
+}]\end{description}
+\end{Desc}
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+ssn@{osmo\+\_\+sccp\+\_\+ssn}}
+\index{osmo\+\_\+sccp\+\_\+ssn@{osmo\+\_\+sccp\+\_\+ssn}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+ssn}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf osmo\+\_\+sccp\+\_\+ssn}}\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+G\+MT@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+G\+MT}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+G\+MT@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+G\+MT}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+G\+MT\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3af8c5729f11b1da35b71df01737f3f4b1}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+I\+S\+UP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+I\+S\+UP}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+I\+S\+UP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+I\+S\+UP}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+I\+S\+UP\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3a2050cf36d2f7ca60c9a083056df1fd35}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+O\+M\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+O\+M\+AP}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+O\+M\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+O\+M\+AP}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+O\+M\+AP\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3ad3c568331b2374e7d9fa6b89f33e8b77}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+AP}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+AP}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+AP\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3aa68a459da3fba2bb7bdf78bfd4338093}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+H\+LR@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+H\+LR}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+H\+LR@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+H\+LR}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+H\+LR\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3a41ab9595f3a97885e28b1e5c0eea2619}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+V\+LR@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+V\+LR}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+V\+LR@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+V\+LR}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+V\+LR\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3a5a06fdc45ed0cf06bde60d5cee22c913}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+SC@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+SC}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+SC@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+SC}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+SC\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3a6d448853fdf6c10c7260a30f234904ac}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+E\+IR@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+E\+IR}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+E\+IR@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+E\+IR}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+E\+IR\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3aacdd2fd201f06a66c32a677d3c202b8f}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+A\+UC@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+A\+UC}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+A\+UC@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+A\+UC}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+A\+UC\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3acf0b9933911bf797d25918a0b41f8931}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+I\+S\+D\+N\+\_\+\+SS@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+I\+S\+D\+N\+\_\+\+SS}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+I\+S\+D\+N\+\_\+\+SS@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+I\+S\+D\+N\+\_\+\+SS}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+I\+S\+D\+N\+\_\+\+SS\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3a970a2a59db902406cc99bbb3b20c35df}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+E\+S\+\_\+\+I\+N\+TL@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+E\+S\+\_\+\+I\+N\+TL}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+E\+S\+\_\+\+I\+N\+TL@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+E\+S\+\_\+\+I\+N\+TL}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+E\+S\+\_\+\+I\+N\+TL\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3a2495fb9eb3ace50817cd5c953c9d5c3c}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+I\+S\+DN@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+I\+S\+DN}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+I\+S\+DN@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+I\+S\+DN}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+I\+S\+DN\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3ad3e5787c6ec01db6f0ff6f9b165cbfd8}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+T\+C\+\_\+\+T\+E\+ST@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+T\+C\+\_\+\+T\+E\+ST}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+T\+C\+\_\+\+T\+E\+ST@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+T\+C\+\_\+\+T\+E\+ST}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+T\+C\+\_\+\+T\+E\+ST\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3ab216724ff8bc67eb2af54cf439fac247}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+A\+N\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+A\+N\+AP}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+A\+N\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+A\+N\+AP}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+A\+N\+AP\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3a653cd29319701933467d859627079900}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+N\+S\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+N\+S\+AP}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+N\+S\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+N\+S\+AP}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+N\+S\+AP\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3ab69022f8d522270a437ea1d5d5de2130}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+G\+M\+L\+C\+\_\+\+M\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+G\+M\+L\+C\+\_\+\+M\+AP}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+G\+M\+L\+C\+\_\+\+M\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+G\+M\+L\+C\+\_\+\+M\+AP}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+G\+M\+L\+C\+\_\+\+M\+AP\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3a84a1ab96fe19618519a1d8f5ae373ded}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+C\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+C\+AP}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+C\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+C\+AP}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+C\+AP\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3aaf167d10738ade0b8587dfdc0a1dc141}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+gsm\+S\+C\+F\+\_\+\+M\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+gsm\+S\+C\+F\+\_\+\+M\+AP}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+gsm\+S\+C\+F\+\_\+\+M\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+gsm\+S\+C\+F\+\_\+\+M\+AP}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+gsm\+S\+C\+F\+\_\+\+M\+AP\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3a6cabf48c5090cb195580c068401855c9}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+I\+W\+F\+\_\+\+M\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+I\+W\+F\+\_\+\+M\+AP}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+I\+W\+F\+\_\+\+M\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+I\+W\+F\+\_\+\+M\+AP}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+I\+W\+F\+\_\+\+M\+AP\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3ae2e2dd84d4e1faeaee704cf3785adf3e}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+G\+S\+N\+\_\+\+M\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+G\+S\+N\+\_\+\+M\+AP}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+G\+S\+N\+\_\+\+M\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+G\+S\+N\+\_\+\+M\+AP}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+G\+S\+N\+\_\+\+M\+AP\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3a4b9c11776c409fb54f113ef13037f869}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+G\+G\+S\+N\+\_\+\+M\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+G\+G\+S\+N\+\_\+\+M\+AP}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+G\+G\+S\+N\+\_\+\+M\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+G\+G\+S\+N\+\_\+\+M\+AP}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+G\+G\+S\+N\+\_\+\+M\+AP\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3aa7737038fcd8938bdac09884e28cf699}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+P\+C\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+P\+C\+AP}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+P\+C\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+P\+C\+AP}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+P\+C\+AP\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3ab6eadaaba332d67cb70ffff39025757a}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+C\+\_\+\+B\+S\+S\+A\+P\+\_\+\+LE@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+C\+\_\+\+B\+S\+S\+A\+P\+\_\+\+LE}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+C\+\_\+\+B\+S\+S\+A\+P\+\_\+\+LE@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+C\+\_\+\+B\+S\+S\+A\+P\+\_\+\+LE}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+C\+\_\+\+B\+S\+S\+A\+P\+\_\+\+LE\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3a00dc66b0b37e31bf4c32f91984574721}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+S\+C\+\_\+\+B\+S\+S\+A\+P\+\_\+\+LE@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+S\+C\+\_\+\+B\+S\+S\+A\+P\+\_\+\+LE}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+S\+C\+\_\+\+B\+S\+S\+A\+P\+\_\+\+LE@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+S\+C\+\_\+\+B\+S\+S\+A\+P\+\_\+\+LE}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+M\+S\+C\+\_\+\+B\+S\+S\+A\+P\+\_\+\+LE\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3a2b531c083085fad5e7e4f0c3fc7f4db6}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+M\+L\+C\+\_\+\+B\+S\+S\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+M\+L\+C\+\_\+\+B\+S\+S\+AP}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+M\+L\+C\+\_\+\+B\+S\+S\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+M\+L\+C\+\_\+\+B\+S\+S\+AP}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+S\+M\+L\+C\+\_\+\+B\+S\+S\+AP\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3a70c1318b4aa1452e851b6564927c7914}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+S\+\_\+\+O\+AM@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+S\+\_\+\+O\+AM}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+S\+\_\+\+O\+AM@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+S\+\_\+\+O\+AM}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+S\+\_\+\+O\+AM\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3ada6e95c9772888a811642dece8804c15}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+S\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+S\+AP}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+S\+AP@{O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+S\+AP}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+B\+S\+S\+AP\label{sccp__sap_8h_abcafee7a0ecfc15e79eadd6fedd7b1f3a874a940496999089ccd459ea7c200dce}
+}]\end{description}
+\end{Desc}
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+scu\+\_\+prim\+\_\+type@{osmo\+\_\+scu\+\_\+prim\+\_\+type}}
+\index{osmo\+\_\+scu\+\_\+prim\+\_\+type@{osmo\+\_\+scu\+\_\+prim\+\_\+type}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+scu\+\_\+prim\+\_\+type}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf osmo\+\_\+scu\+\_\+prim\+\_\+type}}\label{sccp__sap_8h_a10a7e6f0a0082df4e420d5f0ba6b51fd}
+
+
+S\+C\+C\+P-\/\+User primitives as per Q.\+711. 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+C\+O\+N\+N\+E\+CT@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+C\+O\+N\+N\+E\+CT}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+C\+O\+N\+N\+E\+CT@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+C\+O\+N\+N\+E\+CT}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+C\+O\+N\+N\+E\+CT\label{sccp__sap_8h_a10a7e6f0a0082df4e420d5f0ba6b51fda163b8169eb623a0232f855af0a7aaf76}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+D\+A\+TA@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+D\+A\+TA}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+D\+A\+TA@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+D\+A\+TA}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+D\+A\+TA\label{sccp__sap_8h_a10a7e6f0a0082df4e420d5f0ba6b51fdafa53f07a1cb6e62afee8cd52bc78b613}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+E\+X\+P\+E\+D\+I\+T\+E\+D\+\_\+\+D\+A\+TA@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+E\+X\+P\+E\+D\+I\+T\+E\+D\+\_\+\+D\+A\+TA}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+E\+X\+P\+E\+D\+I\+T\+E\+D\+\_\+\+D\+A\+TA@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+E\+X\+P\+E\+D\+I\+T\+E\+D\+\_\+\+D\+A\+TA}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+E\+X\+P\+E\+D\+I\+T\+E\+D\+\_\+\+D\+A\+TA\label{sccp__sap_8h_a10a7e6f0a0082df4e420d5f0ba6b51fdab579f44105757d3aabfa8cd4d7db5636}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT\label{sccp__sap_8h_a10a7e6f0a0082df4e420d5f0ba6b51fdae4befb8d6ead24366c55501a1c90740a}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+R\+E\+S\+ET@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+R\+E\+S\+ET}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+R\+E\+S\+ET@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+R\+E\+S\+ET}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+R\+E\+S\+ET\label{sccp__sap_8h_a10a7e6f0a0082df4e420d5f0ba6b51fda8b076665012c27692bd2a534d5b77185}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+I\+N\+F\+O\+RM@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+I\+N\+F\+O\+RM}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+I\+N\+F\+O\+RM@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+I\+N\+F\+O\+RM}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+I\+N\+F\+O\+RM\label{sccp__sap_8h_a10a7e6f0a0082df4e420d5f0ba6b51fda63d256fca7b1277105480d356f789acf}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+U\+N\+I\+T\+D\+A\+TA@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+U\+N\+I\+T\+D\+A\+TA}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+U\+N\+I\+T\+D\+A\+TA@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+U\+N\+I\+T\+D\+A\+TA}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+U\+N\+I\+T\+D\+A\+TA\label{sccp__sap_8h_a10a7e6f0a0082df4e420d5f0ba6b51fda8c12b554e04e5cc55c0a5025b11fa82f}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+N\+O\+T\+I\+CE@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+N\+O\+T\+I\+CE}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+N\+O\+T\+I\+CE@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+N\+O\+T\+I\+CE}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+N\+O\+T\+I\+CE\label{sccp__sap_8h_a10a7e6f0a0082df4e420d5f0ba6b51fda449b72eabe407228f84c819ed12b9548}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+C\+O\+O\+RD@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+C\+O\+O\+RD}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+C\+O\+O\+RD@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+C\+O\+O\+RD}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+C\+O\+O\+RD\label{sccp__sap_8h_a10a7e6f0a0082df4e420d5f0ba6b51fdafef9bed9cbd4cc0bf69840fccf52c2d6}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+S\+T\+A\+TE@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+S\+T\+A\+TE}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+S\+T\+A\+TE@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+S\+T\+A\+TE}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+S\+T\+A\+TE\label{sccp__sap_8h_a10a7e6f0a0082df4e420d5f0ba6b51fdab7a89459005112dfec8fb0d06d38e025}
+}]\index{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+P\+C\+S\+T\+A\+TE@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+P\+C\+S\+T\+A\+TE}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+P\+C\+S\+T\+A\+TE@{O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+P\+C\+S\+T\+A\+TE}}\item[{\em 
+O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+P\+C\+S\+T\+A\+TE\label{sccp__sap_8h_a10a7e6f0a0082df4e420d5f0ba6b51fda8f4ca1baf4f403bea0dfc0b62fedcf9c}
+}]\end{description}
+\end{Desc}
+
+
+\subsection{Function Documentation}
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+addr\+\_\+by\+\_\+name@{osmo\+\_\+sccp\+\_\+addr\+\_\+by\+\_\+name}}
+\index{osmo\+\_\+sccp\+\_\+addr\+\_\+by\+\_\+name@{osmo\+\_\+sccp\+\_\+addr\+\_\+by\+\_\+name}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+addr\+\_\+by\+\_\+name(struct osmo\+\_\+sccp\+\_\+addr $\ast$dest\+\_\+addr, const char $\ast$name)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+instance}$\ast$ osmo\+\_\+sccp\+\_\+addr\+\_\+by\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{dest\+\_\+addr, }
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_acb750ae6c0d4018e0b1d832f089f42fa}
+
+
+Lookup an S\+C\+CP address from the addressbook by its name. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em dest\+\_\+addr} & pointer to output the resulting sccp-\/address; (set to N\+U\+LL if not interested) \\
+\hline
+\mbox{\tt in}  & {\em name} & of the address to lookup \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+S\+S7 instance; N\+U\+LL on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+global(), and osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::inst.
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+addr\+\_\+cmp@{osmo\+\_\+sccp\+\_\+addr\+\_\+cmp}}
+\index{osmo\+\_\+sccp\+\_\+addr\+\_\+cmp@{osmo\+\_\+sccp\+\_\+addr\+\_\+cmp}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+addr\+\_\+cmp(const struct osmo\+\_\+sccp\+\_\+addr $\ast$a, const struct osmo\+\_\+sccp\+\_\+addr $\ast$b, uint32\+\_\+t presence\+\_\+criteria)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+addr\+\_\+cmp (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{a, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{b, }
+\item[{uint32\+\_\+t}]{presence\+\_\+criteria}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_ad88f30b0068a27f1462dafd29a5809db}
+
+
+Compare two S\+C\+CP addresses by given presence criteria. 
+
+Any O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+$\ast$ type not set in presence\+\_\+criteria is ignored. In case all bits are set in presence\+\_\+criteria, the comparison is in the order of\+: O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN. The S\+C\+CP addresses\textquotesingle{} Routing Indicator is not compared, see \doxyref{osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp()}{p.}{sccp__user_8c_aff3c1c4bd54d70d478e318440708140d}. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em a} & left side. \\
+\hline
+\mbox{\tt in}  & {\em b} & right side. \\
+\hline
+\mbox{\tt in}  & {\em presence\+\_\+criteria} & A bitmask of O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+$\ast$ values, or 0xffffffff to compare all parts, except the routing indicator. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if a $<$ b, 1 if a $>$ b, and 0 if all checked values match. 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+::gt, osmo\+\_\+sccp\+\_\+addr\+::ip, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, osmo\+\_\+sccp\+\_\+gt\+\_\+cmp(), osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, osmo\+\_\+sccp\+\_\+addr\+::ssn, osmo\+\_\+sccp\+\_\+addr\+::v4, and osmo\+\_\+sccp\+\_\+addr\+::v6.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp@{osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp}}
+\index{osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp@{osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp(const struct osmo\+\_\+sccp\+\_\+addr $\ast$a, const struct osmo\+\_\+sccp\+\_\+addr $\ast$b)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{a, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_aff3c1c4bd54d70d478e318440708140d}
+
+
+Compare the routing information of two S\+C\+CP addresses. 
+
+Compare the ri of a and b, and, if equal, return \doxyref{osmo\+\_\+sccp\+\_\+addr\+\_\+cmp()}{p.}{sccp__user_8c_ad88f30b0068a27f1462dafd29a5809db} with presence criteria selected according to ri. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em a} & left side. \\
+\hline
+\mbox{\tt in}  & {\em b} & right side. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if a $<$ b, 1 if a $>$ b, and 0 if a == b. 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+cmp(), O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+N\+O\+NE, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, osmo\+\_\+sccp\+\_\+addr\+::presence, and osmo\+\_\+sccp\+\_\+addr\+::ri.
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+check\+\_\+addr@{osmo\+\_\+sccp\+\_\+check\+\_\+addr}}
+\index{osmo\+\_\+sccp\+\_\+check\+\_\+addr@{osmo\+\_\+sccp\+\_\+check\+\_\+addr}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+check\+\_\+addr(struct osmo\+\_\+sccp\+\_\+addr $\ast$addr, uint32\+\_\+t presence)}]{\setlength{\rightskip}{0pt plus 5cm}bool osmo\+\_\+sccp\+\_\+check\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{addr, }
+\item[{uint32\+\_\+t}]{presence}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_a4384e35f0d7a832835621b6734a8240a}
+
+
+check whether a given S\+C\+C\+P-\/\+Address is consistent. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em addr} & S\+C\+CP address to check \\
+\hline
+\mbox{\tt in}  & {\em presence} & mask with minimum required address components \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true when address data seems plausible 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+::gt, osmo\+\_\+sccp\+\_\+gt\+::gti, osmo\+\_\+sccp\+\_\+gt\+::nai, osmo\+\_\+sccp\+\_\+gt\+::npi, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, osmo\+\_\+sccp\+\_\+addr\+::presence, and osmo\+\_\+sccp\+\_\+addr\+::ri.
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+get\+\_\+sccp@{osmo\+\_\+sccp\+\_\+get\+\_\+sccp}}
+\index{osmo\+\_\+sccp\+\_\+get\+\_\+sccp@{osmo\+\_\+sccp\+\_\+get\+\_\+sccp}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+get\+\_\+sccp(const struct osmo\+\_\+sccp\+\_\+user $\ast$scu)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+instance}$\ast$ osmo\+\_\+sccp\+\_\+get\+\_\+sccp (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_afc01ae3f1b165da8eaaadfed03da4344}
+
+
+get the S\+C\+CP instance that is related to the given sccp user 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em scu} & S\+C\+CP user \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+S\+C\+CP instance; N\+U\+LL if scu was N\+U\+LL 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+user\+::inst.
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+get\+\_\+ss7@{osmo\+\_\+sccp\+\_\+get\+\_\+ss7}}
+\index{osmo\+\_\+sccp\+\_\+get\+\_\+ss7@{osmo\+\_\+sccp\+\_\+get\+\_\+ss7}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+get\+\_\+ss7(const struct osmo\+\_\+sccp\+\_\+instance $\ast$sccp)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+instance}$\ast$ osmo\+\_\+sccp\+\_\+get\+\_\+ss7 (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{sccp}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_a177c061c44588a3adc4311f9dddb61ad}
+
+
+get the S\+S7 instance that is related to the given S\+C\+CP instance 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em sccp} & S\+C\+CP instance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+S\+S7 instance; N\+U\+LL if sccp was N\+U\+LL 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+instance\+::ss7.
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+gt\+\_\+cmp@{osmo\+\_\+sccp\+\_\+gt\+\_\+cmp}}
+\index{osmo\+\_\+sccp\+\_\+gt\+\_\+cmp@{osmo\+\_\+sccp\+\_\+gt\+\_\+cmp}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+gt\+\_\+cmp(const struct osmo\+\_\+sccp\+\_\+gt $\ast$a, const struct osmo\+\_\+sccp\+\_\+gt $\ast$b)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+gt\+\_\+cmp (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+gt} $\ast$}]{a, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+gt} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_a4cc1b98cb117cc04627d55df97123f0b}
+
+
+Compare two S\+C\+CP Global Titles. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em a} & left side. \\
+\hline
+\mbox{\tt in}  & {\em b} & right side. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if a $<$ b, 1 if a $>$ b, and 0 if a == b. 
+\end{DoxyReturn}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+addr\+\_\+cmp().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+gti\+\_\+name@{osmo\+\_\+sccp\+\_\+gti\+\_\+name}}
+\index{osmo\+\_\+sccp\+\_\+gti\+\_\+name@{osmo\+\_\+sccp\+\_\+gti\+\_\+name}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+gti\+\_\+name(enum osmo\+\_\+sccp\+\_\+gti val)}]{\setlength{\rightskip}{0pt plus 5cm}static const char$\ast$ osmo\+\_\+sccp\+\_\+gti\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{enum {\bf osmo\+\_\+sccp\+\_\+gti}}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{sccp__sap_8h_ac13761c9dc6327889bad8a136ccd304f}
+
+
+References osmo\+\_\+sccp\+\_\+gti\+\_\+names.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+addr\+\_\+name().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+instance\+\_\+create@{osmo\+\_\+sccp\+\_\+instance\+\_\+create}}
+\index{osmo\+\_\+sccp\+\_\+instance\+\_\+create@{osmo\+\_\+sccp\+\_\+instance\+\_\+create}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+instance\+\_\+create(struct osmo\+\_\+ss7\+\_\+instance $\ast$ss7, void $\ast$priv)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+instance}$\ast$ osmo\+\_\+sccp\+\_\+instance\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{ss7, }
+\item[{void $\ast$}]{priv}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_aa352d710ed42f9c57830743ddbd75dd2}
+
+
+create a S\+C\+CP Instance and register it as user with S\+S7 inst 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ss7} & S\+S7 instance to which this S\+C\+CP instance belongs \\
+\hline
+\mbox{\tt in}  & {\em priv} & private data to be stored within S\+C\+CP instance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+callee-\/allocated S\+C\+CP instance on success; N\+U\+LL on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+instance\+::connections, osmo\+\_\+ss7\+\_\+user\+::inst, osmo\+\_\+sccp\+\_\+instance\+::list, M\+T\+P\+\_\+\+S\+I\+\_\+\+S\+C\+CP, mtp\+\_\+user\+\_\+prim\+\_\+cb(), osmo\+\_\+ss7\+\_\+user\+::name, osmo\+\_\+ss7\+\_\+user\+\_\+register(), osmo\+\_\+ss7\+\_\+user\+::prim\+\_\+cb, osmo\+\_\+sccp\+\_\+instance\+::priv, osmo\+\_\+ss7\+\_\+user\+::priv, osmo\+\_\+sccp\+\_\+instance\+::ss7, osmo\+\_\+sccp\+\_\+instance\+::ss7\+\_\+user, and osmo\+\_\+sccp\+\_\+instance\+::users.
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+ensure\+\_\+sccp().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+instance\+\_\+destroy@{osmo\+\_\+sccp\+\_\+instance\+\_\+destroy}}
+\index{osmo\+\_\+sccp\+\_\+instance\+\_\+destroy@{osmo\+\_\+sccp\+\_\+instance\+\_\+destroy}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+instance\+\_\+destroy(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+sccp\+\_\+instance\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_a399c0860d3bba4c0a051d85ae52e488b}
+
+
+References osmo\+\_\+sccp\+\_\+instance\+::list, osmo\+\_\+sccp\+\_\+user\+::list, M\+T\+P\+\_\+\+S\+I\+\_\+\+S\+C\+CP, osmo\+\_\+sccp\+\_\+user\+\_\+unbind(), osmo\+\_\+ss7\+\_\+user\+\_\+unregister(), osmo\+\_\+ss7\+\_\+instance\+::sccp, sccp\+\_\+scoc\+\_\+flush\+\_\+connections(), osmo\+\_\+sccp\+\_\+instance\+::ss7, osmo\+\_\+sccp\+\_\+instance\+::ss7\+\_\+user, and osmo\+\_\+sccp\+\_\+instance\+::users.
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance@{osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance}}
+\index{osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance@{osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance(struct osmo\+\_\+sccp\+\_\+addr $\ast$dest\+\_\+addr, const struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, uint32\+\_\+t ssn)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{dest\+\_\+addr, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{uint32\+\_\+t}]{ssn}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_ac75660cfa2a1056de1586ceac3717b93}
+
+
+derive a basic local S\+C\+C\+P-\/\+Address from a given S\+C\+CP instance. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em dest\+\_\+addr} & pointer to output address memory \\
+\hline
+\mbox{\tt in}  & {\em inst} & S\+C\+CP instance \\
+\hline
+\mbox{\tt in}  & {\em ssn} & Subsystem Number \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+sccp\+\_\+make\+\_\+addr\+\_\+pc\+\_\+ssn(), osmo\+\_\+ss7\+\_\+instance\+::primary\+\_\+pc, and osmo\+\_\+sccp\+\_\+instance\+::ss7.
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+name\+\_\+by\+\_\+addr@{osmo\+\_\+sccp\+\_\+name\+\_\+by\+\_\+addr}}
+\index{osmo\+\_\+sccp\+\_\+name\+\_\+by\+\_\+addr@{osmo\+\_\+sccp\+\_\+name\+\_\+by\+\_\+addr}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+name\+\_\+by\+\_\+addr(const struct osmo\+\_\+sccp\+\_\+addr $\ast$addr)}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ osmo\+\_\+sccp\+\_\+name\+\_\+by\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{addr}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_aead37c0c3ecb10141b6d244b8334f9b2}
+
+
+Reverse lookup the lookup-\/name of a specified S\+C\+CP address. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em name} & of the address to lookup \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+char pointer to the lookup-\/name; N\+U\+LL on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::list\+\_\+global, and osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::name.
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+name@{osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+name}}
+\index{osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+name@{osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+name}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+name(enum osmo\+\_\+sccp\+\_\+routing\+\_\+ind val)}]{\setlength{\rightskip}{0pt plus 5cm}static const char$\ast$ osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{enum {\bf osmo\+\_\+sccp\+\_\+routing\+\_\+ind}}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{sccp__sap_8h_a45e6cf2baa027ee02d9ca97509b871b8}
+
+
+References osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+names.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+addr\+\_\+name().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+ssn\+\_\+name@{osmo\+\_\+sccp\+\_\+ssn\+\_\+name}}
+\index{osmo\+\_\+sccp\+\_\+ssn\+\_\+name@{osmo\+\_\+sccp\+\_\+ssn\+\_\+name}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+ssn\+\_\+name(enum osmo\+\_\+sccp\+\_\+ssn val)}]{\setlength{\rightskip}{0pt plus 5cm}static const char$\ast$ osmo\+\_\+sccp\+\_\+ssn\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{enum {\bf osmo\+\_\+sccp\+\_\+ssn}}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{sccp__sap_8h_ac44a5da42f35417130d3472e5250eeaa}
+
+
+References osmo\+\_\+sccp\+\_\+ssn\+\_\+names.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+addr\+\_\+name().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+user\+\_\+bind@{osmo\+\_\+sccp\+\_\+user\+\_\+bind}}
+\index{osmo\+\_\+sccp\+\_\+user\+\_\+bind@{osmo\+\_\+sccp\+\_\+user\+\_\+bind}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+user\+\_\+bind(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, const char $\ast$name, osmo\+\_\+prim\+\_\+cb prim\+\_\+cb, uint16\+\_\+t ssn)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+user}$\ast$ osmo\+\_\+sccp\+\_\+user\+\_\+bind (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{const char $\ast$}]{name, }
+\item[{osmo\+\_\+prim\+\_\+cb}]{prim\+\_\+cb, }
+\item[{uint16\+\_\+t}]{ssn}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_a8cae9c355d617de856fa23695e8de1ed}
+
+
+Bind a given S\+C\+CP User to a given S\+SN (at any PC) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+C\+CP Instance \\
+\hline
+\mbox{\tt in}  & {\em name} & human-\/readable name \\
+\hline
+\mbox{\tt in}  & {\em ssn} & Sub-\/\+System Number to bind to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Callee-\/allocated S\+C\+CP User on success; negative otherwise 
+\end{DoxyReturn}
+
+
+References O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+P\+C\+\_\+\+I\+N\+V\+A\+L\+ID, and sccp\+\_\+user\+\_\+bind\+\_\+pc().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+user\+\_\+bind\+\_\+pc@{osmo\+\_\+sccp\+\_\+user\+\_\+bind\+\_\+pc}}
+\index{osmo\+\_\+sccp\+\_\+user\+\_\+bind\+\_\+pc@{osmo\+\_\+sccp\+\_\+user\+\_\+bind\+\_\+pc}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+user\+\_\+bind\+\_\+pc(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, const char $\ast$name, osmo\+\_\+prim\+\_\+cb prim\+\_\+cb, uint16\+\_\+t ssn, uint32\+\_\+t pc)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+user}$\ast$ osmo\+\_\+sccp\+\_\+user\+\_\+bind\+\_\+pc (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{const char $\ast$}]{name, }
+\item[{osmo\+\_\+prim\+\_\+cb}]{prim\+\_\+cb, }
+\item[{uint16\+\_\+t}]{ssn, }
+\item[{uint32\+\_\+t}]{pc}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_a1eebca5ec6245abf6100ce397098ec76}
+
+
+Bind a given S\+C\+CP User to a given S\+S\+N+\+PC. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+C\+CP Instance \\
+\hline
+\mbox{\tt in}  & {\em name} & human-\/readable name \\
+\hline
+\mbox{\tt in}  & {\em ssn} & Sub-\/\+System Number to bind to \\
+\hline
+\mbox{\tt in}  & {\em pc} & Point Code to bind to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Callee-\/allocated S\+C\+CP User on success; negative otherwise 
+\end{DoxyReturn}
+
+
+References sccp\+\_\+user\+\_\+bind\+\_\+pc().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+user\+\_\+get\+\_\+priv@{osmo\+\_\+sccp\+\_\+user\+\_\+get\+\_\+priv}}
+\index{osmo\+\_\+sccp\+\_\+user\+\_\+get\+\_\+priv@{osmo\+\_\+sccp\+\_\+user\+\_\+get\+\_\+priv}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+user\+\_\+get\+\_\+priv(struct osmo\+\_\+sccp\+\_\+user $\ast$scu)}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ osmo\+\_\+sccp\+\_\+user\+\_\+get\+\_\+priv (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_a07ec39c977a302c8db00b6ab4257baef}
+
+
+References osmo\+\_\+sccp\+\_\+user\+::priv.
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+user\+\_\+name@{osmo\+\_\+sccp\+\_\+user\+\_\+name}}
+\index{osmo\+\_\+sccp\+\_\+user\+\_\+name@{osmo\+\_\+sccp\+\_\+user\+\_\+name}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+user\+\_\+name(struct osmo\+\_\+sccp\+\_\+user $\ast$scu)}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ osmo\+\_\+sccp\+\_\+user\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_a35cbc9cc49dd35f2744f69eca1b18b61}
+
+
+Compose a human readable string to describe the S\+C\+CP user\textquotesingle{}s connection. 
+
+The output follows [\textquotesingle{}$<$scu.\+name$>$\textquotesingle{}\+:]$<$local-\/sccp-\/addr$>$, e.\+g. \char`\"{}\textquotesingle{}\+Osmo\+H\+N\+B\+W\textquotesingle{}\+:\+R\+I=\+S\+S\+N\+\_\+\+P\+C,\+P\+C=0.\+23.\+5,\+S\+S\+N=\+R\+A\+N\+A\+P\char`\"{}, or just \char`\"{}\+R\+I=\+S\+S\+N\+\_\+\+P\+C,\+P\+C=0.\+23.\+5,\+S\+S\+N=\+R\+A\+N\+A\+P\char`\"{} if no scu-\/$>$name is set. This calls \doxyref{osmo\+\_\+sccp\+\_\+addr\+\_\+name()}{p.}{sccp__helpers_8h_a8d9ad80fd2ce4f316b061543cbab5573}, which returns a static buffer; hence calling this function and \doxyref{osmo\+\_\+sccp\+\_\+addr\+\_\+name()}{p.}{sccp__helpers_8h_a8d9ad80fd2ce4f316b061543cbab5573} in the same printf statement is likely to conflict. 
+
+References osmo\+\_\+sccp\+\_\+user\+::inst, osmo\+\_\+sccp\+\_\+user\+::name, osmo\+\_\+sccp\+\_\+addr\+\_\+name(), osmo\+\_\+sccp\+\_\+make\+\_\+addr\+\_\+pc\+\_\+ssn(), osmo\+\_\+sccp\+\_\+user\+::pc, osmo\+\_\+sccp\+\_\+instance\+::ss7, and osmo\+\_\+sccp\+\_\+user\+::ssn.
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down@{osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down}}
+\index{osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down@{osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{struct osmo\+\_\+prim\+\_\+hdr $\ast$}]{oph}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_a80a39e9ce7614bcd9715d28a72d8d1d8}
+
+
+Main entrance function for primitives from S\+C\+CP User. 
+
+Implies a msgb\+\_\+free(oph-\/$>$msg), otherwise the same as osmo\+\_\+sccp\+\_\+user\+\_\+sap(). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em scu} & S\+C\+CP User sending us the primitive \\
+\hline
+\mbox{\tt in}  & {\em oph} & Osmocom primitive sent by the user \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+scu\+\_\+prim\+::oph, and osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree().
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req(), osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp\+\_\+msg(), osmo\+\_\+sccp\+\_\+tx\+\_\+data(), osmo\+\_\+sccp\+\_\+tx\+\_\+disconn(), and osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree@{osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree}}
+\index{osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree@{osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{struct osmo\+\_\+prim\+\_\+hdr $\ast$}]{oph}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_a1e856f6b6f7d9533aca0ddab9e045226}
+
+
+Main entrance function for primitives from S\+C\+CP User. 
+
+The caller is required to free oph-\/$>$msg, otherwise the same as \doxyref{osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down()}{p.}{sccp__scoc_8c_a80a39e9ce7614bcd9715d28a72d8d1d8}. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em scu} & S\+C\+CP User sending us the primitive \\
+\hline
+\mbox{\tt in}  & {\em oph} & Osmocom primitive sent by the user \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative on error 
+\end{DoxyReturn}
+
+
+References conn\+\_\+create\+\_\+id(), conn\+\_\+find\+\_\+by\+\_\+id(), osmo\+\_\+scu\+\_\+connect\+\_\+param\+::conn\+\_\+id, osmo\+\_\+scu\+\_\+prim\+::connect, sccp\+\_\+connection\+::fi, osmo\+\_\+sccp\+\_\+user\+::inst, sccp\+\_\+connection\+::inst, osmo\+\_\+scu\+\_\+prim\+::oph, O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+C\+O\+N\+N\+E\+CT, O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+D\+A\+TA, O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT, O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+R\+E\+S\+ET, O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+U\+N\+I\+T\+D\+A\+TA, osmo\+\_\+scu\+\_\+prim\+\_\+name(), sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree(), scu\+\_\+prim\+\_\+conn\+\_\+id(), scu\+\_\+scoc\+\_\+event\+\_\+map, and osmo\+\_\+scu\+\_\+prim\+::u.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+user\+\_\+set\+\_\+priv@{osmo\+\_\+sccp\+\_\+user\+\_\+set\+\_\+priv}}
+\index{osmo\+\_\+sccp\+\_\+user\+\_\+set\+\_\+priv@{osmo\+\_\+sccp\+\_\+user\+\_\+set\+\_\+priv}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+user\+\_\+set\+\_\+priv(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, void $\ast$priv)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+sccp\+\_\+user\+\_\+set\+\_\+priv (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{void $\ast$}]{priv}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_a232a3859dff9bb004f12999c9717c82c}
+
+
+References osmo\+\_\+sccp\+\_\+user\+::priv.
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+user\+\_\+unbind@{osmo\+\_\+sccp\+\_\+user\+\_\+unbind}}
+\index{osmo\+\_\+sccp\+\_\+user\+\_\+unbind@{osmo\+\_\+sccp\+\_\+user\+\_\+unbind}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+user\+\_\+unbind(struct osmo\+\_\+sccp\+\_\+user $\ast$scu)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+sccp\+\_\+user\+\_\+unbind (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_ae2b5a2f259d5c4cf9b0e9dd9ba298665}
+
+
+Unbind a given S\+C\+CP user. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em scu} & S\+C\+CP User which is to be un-\/bound. Will be destroyed at the time this function returns. \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+sccp\+\_\+user\+::inst, osmo\+\_\+sccp\+\_\+user\+::list, osmo\+\_\+sccp\+\_\+user\+::name, osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+sccp\+\_\+user\+::pc, osmo\+\_\+sccp\+\_\+instance\+::ss7, and osmo\+\_\+sccp\+\_\+user\+::ssn.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+instance\+\_\+destroy().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+vty\+\_\+init@{osmo\+\_\+sccp\+\_\+vty\+\_\+init}}
+\index{osmo\+\_\+sccp\+\_\+vty\+\_\+init@{osmo\+\_\+sccp\+\_\+vty\+\_\+init}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+vty\+\_\+init(void)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+sccp\+\_\+vty\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_a6d4d5f16593e9d3f087228dd064dc3ef}
+
+
+References gen\+\_\+sccp\+\_\+timer\+\_\+cmd\+\_\+strs().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+scu\+\_\+prim\+\_\+name@{osmo\+\_\+scu\+\_\+prim\+\_\+name}}
+\index{osmo\+\_\+scu\+\_\+prim\+\_\+name@{osmo\+\_\+scu\+\_\+prim\+\_\+name}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+scu\+\_\+prim\+\_\+name(struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ osmo\+\_\+scu\+\_\+prim\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+prim\+\_\+hdr $\ast$}]{oph}
+\end{DoxyParamCaption}
+)}\label{sccp__sap_8h_afa8efaa947b2b61cb99b50b41c834904}
+
+
+References osmo\+\_\+scu\+\_\+prim\+\_\+names, and prim\+\_\+name\+\_\+buf.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree(), sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree(), and sccp\+\_\+user\+\_\+prim\+\_\+up().
+
+
+
+\subsection{Variable Documentation}
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+gti\+\_\+names@{osmo\+\_\+sccp\+\_\+gti\+\_\+names}}
+\index{osmo\+\_\+sccp\+\_\+gti\+\_\+names@{osmo\+\_\+sccp\+\_\+gti\+\_\+names}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+gti\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string osmo\+\_\+sccp\+\_\+gti\+\_\+names[$\,$]}\label{sccp__sap_8h_ae1bde590c466d405e70b9b804527c1ad}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+gti\+\_\+name().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+names@{osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+names}}
+\index{osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+names@{osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+names}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+names[$\,$]}\label{sccp__sap_8h_a7d2dbcc6dbd2e8f75fb6e75ba2bfe28b}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+name().
+
+\index{sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}!osmo\+\_\+sccp\+\_\+ssn\+\_\+names@{osmo\+\_\+sccp\+\_\+ssn\+\_\+names}}
+\index{osmo\+\_\+sccp\+\_\+ssn\+\_\+names@{osmo\+\_\+sccp\+\_\+ssn\+\_\+names}!sccp\+\_\+sap.\+h@{sccp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+ssn\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string osmo\+\_\+sccp\+\_\+ssn\+\_\+names[$\,$]}\label{sccp__sap_8h_a5fed5e157ab1a93095318b73beb22813}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+ssn\+\_\+name().
+

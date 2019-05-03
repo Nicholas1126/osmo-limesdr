@@ -1,0 +1,59 @@
+Source: osmo-hlr
+Section: net
+Priority: optional
+Maintainer: Max Suraev <msuraev@sysmocom.de>
+Build-Depends: debhelper (>= 9),
+               pkg-config,
+               dh-autoreconf,
+               dh-systemd (>= 1.5),
+               autotools-dev,
+               python-minimal,
+               libosmocore-dev,
+               libosmo-abis-dev,
+               libosmo-netif-dev,
+               libsqlite3-dev,
+               sqlite3
+Standards-Version: 3.9.6
+Vcs-Browser: http://cgit.osmocom.org/osmo-hlr
+Vcs-Git: git://git.osmocom.org/osmo-hlr
+Homepage: https://projects.osmocom.org/projects/osmo-hlr
+
+Package: osmo-hlr
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libdbd-sqlite3
+Description: Osmocom Home Location Register
+ OsmoHLR is a Osmocom implementation of HLR (Home Location Registrar) which works over GSUP
+ protocol. The subscribers are store in sqlite DB. It supports both 2G and 3G authentication.
+
+Package: osmo-hlr-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: osmo-hlr (= ${binary:Version}), ${misc:Depends}
+Description: Debug symbols for the osmo-hlr
+ Make debugging possible
+
+Package: libosmo-gsup-client0
+Section: libs
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends},
+	 ${misc:Depends}
+Pre-Depends: ${misc:Pre-Depends}
+Description: Osmocom GSUP (General Subscriber Update Protocol) client library
+  This is a shared library that can be used to implement client programs for
+  the GSUP protocol.  The typical GSUP server is OsmoHLR, with OsmoMSC, OsmoSGSN
+  and External USSD Entities (EUSEs) using this library to implement clients.
+
+Package: libosmo-gsup-client-dev
+Architecture: any
+Multi-Arch: same
+Depends: ${misc:Depends},
+	 libosmo-gsup-client0 (= ${binary:Version}),
+	 libosmocore-dev
+Description: Development headers of Osmocom GSUP client library
+  This is a shared library that can be used to implement client programs for
+  the GSUP protocol.  The typical GSUP server is OsmoHLR, with OsmoMSC, OsmoSGSN
+  and External USSD Entities (EUSEs) using this library to implement clients.
+  .
+  This package contains the development headers.

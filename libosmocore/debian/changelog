@@ -1,0 +1,866 @@
+libosmocore (1.0.1) unstable; urgency=medium
+
+  [ Max ]
+  * Rename msgb_wrap_with_TL()
+
+ -- Harald Welte <laforge@gnumonks.org>  Mon, 21 Jan 2019 14:50:42 +0100
+
+libosmocore (1.0.0) unstable; urgency=medium
+
+  [ Kévin Redon ]
+  * GSMTAP: add SIM sub_types
+  * comp128v23 (minor): update original code site and author
+
+  [ Neels Hofmeyr ]
+  * fix strncpy bugs in gsm/ipa.c
+  * fix strncpy bugs in socket.c
+  * cosmetic: osmo-sim-test.c: use memcpy instead of strncpy
+  * use __FILE__, not __BASE_FILE__
+  * log: add 'last' option to 'logging print file'
+  * gsm0808: inter-bsc HO messages: add missing BSSMAP header, x4
+  * api doc: fix osmo_quote_str_*
+  * add osmo_str_tolower() and _toupper() with test
+  * fix tests linking: don't use system installed libs
+  * logging vty: add VTY transcript test
+  * gsm0808: implement BSSMAP Classmark Request
+  * jenkins: add --enable-external-tests
+  * logging vty: rewrite 'logging level' vty cmd generation
+  * logging vty: deprecate the 'everything' keyword
+  * logging vty: write: check logging levels validity
+  * logging vty: deprecate 'all', introduce 'force-all'
+  * Revert "gsm0808: add function to convert amr gsm0408 setings to gsm0808"
+  * logging vty: add 'logging level set-all <level>'
+  * vty reference: fix deprecation bit evaluation
+  * vty list: fix deprecation/hidden bit logic
+  * vty: omit HIDDEN from vty reference
+  * vty logging: fix crash when missing 'logging enable'
+  * jenkins: print gcc version in log
+  * gsm_44_318.h: remove #if 0 from struct gan_cch_desc_ie
+  * add contrib/struct_endianess.py
+  * gsm0408_test: test encoding and decoding Mobile Identity
+  * api doc: gsm48_mi_to_string(): warn of return value implementation
+  * add osmo_bcd2str()
+  * gsm48_mi_to_string: use osmo_bcd2str(), fix some corner cases
+  * gsm48_generate_mid(): mask out ODD flag from mi_type
+  * gsm48_mi_to_string(): guard against zero length output buffer
+  * gsm48_mi_to_string(): do not read from zero length input buffer
+  * fix api doc for osmo_bcd2str()
+  * add to osmo_sock_get_name*() API
+  * add/clean big-endian packed structs (struct_endianess.py)
+  * define LOGPFSM fmt only once, in LOGPFSMLSRC
+  * add API doc for LOGPFSM* macros
+  * LOGPFSM*: guard against fi == NULL
+  * add LOGPFSMSL(), LOGPFSMSLSRC()
+  * gsm_utils: add enum osmo_rat_type, from osmo-msc enum ran_type
+  * osmo_rat_type: add OSMO_RAT_EUTRAN_SGS
+  * fix typo in enum BSS_MAP_MSG_TYPE: BSS_MAP_MSG_ASSIGMENT*
+  * add osmo_mi_name(), for MI-to-string like "IMSI-123456"
+  * add osmo_lu_type_names[], osmo_lu_type_name()
+  * change GSM48_CMSERV_* to enum type, add names
+  * comments: update/fix three 3GPP spec references
+
+  [ Alexander Couzens ]
+  * ctrl/vty: fsm: use correct element when iterating over fsm->proc.children
+  * bssgp: introduce flush queue functions
+  * configure.ac: check clock_gettime for glib < 2.17
+
+  [ Harald Welte ]
+  * gsm0480: Factor out msgb allocation helper function
+  * USSD: Introduce gsm0480_gen_ussd_resp_7bit()
+  * 04.80: New gsm0480_gen_{reject,return_error}() functions
+  * import oap_client into libosmogsm
+  * oap_client: Rename symbols with osmo_ prefix
+  * import oap_client_test from osmo-sgsn
+  * cosmetic: More context / naming / comment for test_idtag_parsing()
+  * Deprecate ipa_ccm_idtag_parse() with ipa_ccm_id_{get,resp}_parse()
+  * jenkins_arm.sh: Use same Werror related options as on other builds
+  * re-introduce ipa_ccm_idtag_parse_off()
+  * debian/rules: Don't overwrite .tarball-version
+  * Add RSPRO support to IPA and logging definitions
+  * Add new osmo-config-merge utility
+  * logging_vty: Ensure writing well-formed config files
+  * osmo-config-merge: Don't use C99 'for' loop initial declarations
+  * Revert "osmo-config-merge: Add manual page"
+  * osmo-config-merge: fclose() what we fopen()
+  * timerfd_create(): Fix error handling of osmo_fd_register()
+  * telnet_interface: avoid double-close of fd()
+  * vty.c: Set vty->fd to -1 after closing the FD
+  * SGsAP protocol definitions (header + C file)
+  * gsm23003: Add MME domain name related helper functions
+  * Fix VTY documentation error introduced  in "bind" VTY port change
+
+  [ Vadim Yanitskiy ]
+  * vty/vty.c: remove dead unused tall_bsc_ctx
+  * gsm/gsm0480.c: prevent NULL-pointer dereference
+  * gsm/gsm0480.c: use the local msgb allocator
+  * libosmogsm: (re)introduce gsm48_push_l3hdr()
+  * core/utils.h: drop duplicate '<stdbool.h>' include
+  * core/utils.h: move includes to the top
+  * vty/command.h: document and prettify CMD_ATTR_* flags
+  * utils/osmo-config-merge: explicitly return from main()
+  * libosmogsm/gsup.c: fix error code in osmo_gsup_encode()
+  * gsm/gsup.h: cosmetic: use tab for comment alignment
+  * core/msgb.h: introduce msgb_l4len() helper
+  * gsm0480: fix copy-pasted note for gsm0480_gen_return_error()
+  * GSUP/SMS: introduce MO-/MT-FORWARD-SM messages
+  * GSUP/SMS: introduce READY-FOR-SM message
+  * tests/gsm0808: use new msgb comparison API
+  * logging/gsmtap: fix buffer overflow in _gsmtap_raw_output()
+  * tests/gsup_test.c: drop session IEs from MO-ForwardSM Error
+
+  [ Philipp Maier ]
+  * socket: check return code of setsockopt
+  * socket: do not set SO_REUSEADDR for IPPROTO_UDP
+  * socket: add flag to enforce SO_REUSEADDR on UDP sockets
+  * gsmtap_util: make sure SO_REUSEADDR is applied for GSMTAP
+  * gsm0808: fix wrong codec defaults for OFR_AMR_WB
+  * gsm0808: add function to convert amr gsm0408 setings to gsm0808
+  * gsm0808: add function to convert amr gsm0408 setings to gsm0808
+  * gsm0808_utils: constify parameter
+  * gsm_utils: add function to get value strings for gsm48_chan_mode
+  * gsm0808: add function to convert AMR S15-S0 to gsm0408 settings
+  * gsm0808: allow decoding of zero length speech codec lists.
+  * gsm0808: fix doxygen apidoc
+  * gsm0808: cosmetic: rename parameter "reason" to "cause"
+  * gsm48: correct apidoc for gsm48_generate_mid()
+  * gsm_29_118: add missing include to header file
+  * gsm29118: add value strings for SGSAP IEI
+  * fsm: fix apidoc of osmo_fsm_state_name()
+  * gsm0808: add message generator for BSSMAP HANDOVER PERFORMED
+  * gsm_29_118: add missing extern for struct value_string decl.
+  * cosmetic apn: correct whitespace error
+  * gsm_29_118.h: Add constant for default port
+  * gsm29118: add generator functions for GSM29118 messages
+  * gsm0808: add encoder for cause codes and use it
+
+  [ Mykola Shchetinin ]
+  * vty/vty.c: fix bug in vty_config_write
+
+  [ Pau Espin Pedrol ]
+  * signal: Introduce API osmo_signal_talloc_ctx_init
+  * msgb: Introduce msgb_{de,en}queue_count APIs
+  * vty: Makefile: Fix LIBVERSION typo introduced in 0.12.0 release
+  * ipa: Document ipa_msg_recv* functions
+  * osmo-release.sh: Add quotes to string to fix shellcheck warning
+  * osmo-release.sh: Allow forcing release without LIBVERSION bump
+  * osmo-release.sh: Add checks to help avoid libversion debian major mismatch
+  * gsm_08_58.h: Introduce struct abis_rsl_link_id
+  * gsm_08_58.h: Introduce struct abis_rsl_chan_nr
+  * gsm48: gsm48_decode_freq_list: Improve documentation of paramter f
+  * gsm: Deprecate buggy gsm_arfcn2band API and introduce gsm_arfcn2band_rc
+  * timer: Fix clockid_t undefined on MacOS < 10.12
+  * stats.h: Fix build on MacOS
+
+  [ Stefan Sperling ]
+  * properly handle mandatory cli param of gsm0808_create_paging2
+  * Properly deal with sockaddr_un socket path length limitations.
+  * ensure unix socket paths are NUL-terminated for bind/connect
+  * fix error handling gprs_ns_nsip_listen()
+  * add support for ipaccess messages on the ctrl interface
+  * stop printing group description in vty_out_rate_ctr_group_fmt()
+  * make 'show rate-counters' show group index
+  * send NS_POUT_UNBLOCK_ACK before signalling S_NS_UNBLOCK
+  * document unblock-ack vs. signalling in gprs_ns_process_msg()
+  * rename CELL_IDENT_LAI_AND_LAC to CELL_IDENT_LAI
+  * port arfcn range encode support from osmo-bsc
+  * port rest octets encoding code from osmo-bsc
+
+  [ Keith ]
+  * Add CC_CAUSE value_string array
+
+  [ Alexander Chemeris ]
+  * coding: Correctly count bits when decoding EDGE bursts with MCS >= 7.
+  * coding: Always initialize bit counters in gsm0503_pdtch_egprs_decode().
+
+  [ Daniel Willmann ]
+  * osmo-config-merge: Fix some small issues
+  * osmo-config-merge: Add manual page
+  * stats_statsd: Send all stat_items as gauges
+
+  [ Shinjo Park ]
+  * GSMTAP: add definitions for new LTE RRC channels
+  * GSMTAP: add definitions for LTE NAS subtypes
+  * GSMTAP: fix typos in comments
+
+  [ Max ]
+  * vty: adjust telnet log
+  * Update cipher reject function
+  * Fix deprecation warning in gsm0808_test
+  * Add helper wrapper for BSSAP TLV parsing
+  * Update 3GPP TS 08.08 Cause handling
+  * Update GSM0808_LCLS enums
+  * Move msgb_push helpers to public header
+  * Support cipher mode reject with extended cause
+  * Add missing header include
+  * LCLS: add 48.008 parameter structure
+  * Update gsm0808_create_ass() doxygen
+  * ctrl: print textual error on IPA parsing failure
+  * Move BSSMAP_MSG_* defines to header file
+  * Update msgb Lx helpers
+  * ctrl: use #define for TRAP id
+  * Add msgb_tl_put() helper
+  * LCLS: update osmo_lcls struct
+  * Allow log_init() with NULL log_info
+  * Add osmo_sockaddr_in_to_str_and_uint()
+  * Constify llist_count() parameter
+  * msgb: add test helpers
+  * LCLS, TS 29.205: add GCR routines
+  * LCLS, TS 48.008: add GCR IE encoding/decoding
+  * LCLS: add gsm0808_create_ass2()
+  * Fix typos in SS opcode names
+  * LCLC: fix doc to match type signature
+  * Use define for key buffers
+  * TLV: fix doc copy-paste error
+  * TLV: add convenience function for 1-byte values
+  * LCLS: enc/dec entire parameter set instead of GCR
+  * Streamline glibc version check
+  * Automatically disable GnuTLS fallback
+  * LCLS: fix LCLS-CONNECT-CONTROL encoder
+  * msgb: fix debug print
+  * LCLS: use proper types for value_string wrappers
+  * LCLS: expand enc/dec tests
+  * LCLS: add GCR comparison helper
+
+  [ Oliver Smith ]
+  * cosmetic: fix typo (soocket -> socket)
+  * add osmo_sock_get_{local,remote}_ip{,_port}()
+  * socket.c: fix IP and port buffer sizes
+  * merge_doc.xsl: move to osmo-gsm-manuals.git
+  * GSUP: fix missing osmo_gsup_get_err_msg_type()s
+  * GSUP: add end marker to enum osmo_gsup_iei
+  * GSUP: add CHECK-IMEI message
+  * Cosmetic: GSUP: note "on wire" for imei_result
+  * gsm23003: add osmo_imei_str_valid()
+
+  [ Martin Hauke ]
+  * gsm/protocol/gsm_08_58.h: Fix typo
+
+  [ Holger Hans Peter Freyther ]
+  * vty: The telnet interface is TCP only. Fix the comments
+  * vty: Make TCP port configurable and introduce telnet_init_default
+
+ -- Harald Welte <laforge@gnumonks.org>  Sat, 19 Jan 2019 21:59:07 +0100
+
+libosmocore (0.12.0) unstable; urgency=medium
+
+  [ Pau Espin Pedrol ]
+  * control_if: Avoid heap-use-after-free in osmo_wqueue_bfd_cb
+  * configure: Check separately for lib implementing dlopen and dlsym
+  * tests: bitrev_test: Fix dynamic-stack-buffer-overflow
+  * tests: gea_test: Use correct max size for key in buffer
+  * tests: a5_test: Print wrong buffer correctly on error
+  * gsm: kasumi: Fix dynamic-stack-buffer-overflow on out buffers not multiple of 64 bits
+  * gsm: lapdm.c: Add missing new line char in notice log string
+  * ctrl: Log CMD TYPE on invalid ID number
+  * ctrl: Fix parsing of ERROR recvd msgs with id=err
+  * gsm0808: Add value_string for encryption algorithms
+  * ctrl: Introduce ctrl_cmd_parse3 API
+  * ctrl: ctrl_handle_msg: Avoid sending back received ERROR msgs
+  * tests: ctrl: Test received ERROR messages are handled correctly
+  * libosmocoding: clarify return values for TCH decoding functions
+  * libosmocodec: FR err concealment: Fix too many silent frames generated
+  * tests: codec: ecu_fr: Print XMAXC fields
+  * tests: codec: ecu_fr: Add buffer with unequal XMAXC values
+  * rate_ctr: Improve logging
+  * logging: log_vty_command_string: Fix undercount of buf alloc size
+  * logging_vty: Simplify code in config_write_log_single
+  * logging.c: Fix whitespace typo
+
+  [ Harald Welte ]
+  * lapdm: Fix back-pointer from lapdm_entity to lapdm_channel
+  * lapdm: Implement SABM related constraints
+  * lapdm: cleanup: send_rslms_rll_l3_ui(): Use msgb_tv_push()
+  * lapdm: send_rslms_rll_l3_ui(): Don't include B4/SACCH IE unless needed
+  * lapdm: don't enforce contention resolution on SAPI0/DCCH
+  * Add osmo_timerfd_* functions for osmo_fd-wrapped timerfd
+  * import isdn4linux HDLC code from linux kernel
+  * isdnhdlc: Port from kernel to userspace
+  * mncc: properly export osmo_mncc_name()
+  * cosmetic: Whitespace fixes in control_if.c
+  * ctrl: Introduce libosmoctrl.map to avoid unintended exports
+  * ctrl: Add doxygen API documentation; generate html from it
+  * debian: Add libosmoctrl-doc sub-package
+  * gsm_08_08.h: Add enum for LCLS config, control and status
+  * gsm0808: Add encoding functions for LCLS BSSMAP messages
+  * gsm0808: Add value_string for LCLS related IEs
+  * tlv: Add TLVP_VAL_MINLEN() to obtain value _if_ length is >= minimum
+  * Add osmo_isqrt32() to compute 32bit integer square root
+  * fsm: Change semantics of LOGPFSML() log-level
+  * vty: Don't dump deprecated commands in XML export
+  * vty: Add logging_vty_add_deprecated_subsys
+  * gsup: Add osmo_gsup_get_err_msg_type() function
+  * gsup: Add value_string for Session State IE
+  * gsm 04.80: Add value_string for component type and op code
+  * Fix embedded (arm-none-eabi) builds
+  * jenkins_arm.sh: Don't run 'make check' on embedded builds
+  * jenkins_arch.sh: Accept "arm-none-eabi" as alias for "arm"
+  * jenkins_arch.sh: Exit with error on unknown architecture
+  * Don't call abort() directly, always use osmo_panic()
+  * osmo_panic(): Annotate as __attribute__ ((noreturn))
+  * gprs_ns.h: Declare gprs_ns_cause_str() which already existed in c file
+
+  [ Stefan Sperling ]
+  * define a constant for the max length of called party BCD IE
+  * introduce vty_out_rate_ctr_group_fmt() function
+  * Add a 'show rate-counters' VTY command.
+  * remove unused argument from pad_append_ctr() helper function
+  * check bssgp_tlv_parse() return code in bssgp_rcvmsg()
+  * return error to sender upon bssgp_tlv_parse() failure
+
+  [ Neels Hofmeyr ]
+  * add gsm0808 channel enum to IE val conversion functions
+  * add gsm0808_cell_id_to_list()
+  * add support for gsm0808 HANDOVER REQUIRED message
+  * add gsm0808_create_handover_request_ack()
+  * add osmo_fsm_inst_state_chg_keep_timer()
+  * fix gsm0808_permitted_speech(): don't return HR3 for TCH_F + AMR
+  * add and tweak inter-BSC HO API
+  * vty/command.c: talloc from tall_vty_cmd_ctx, not NULL
+  * vty: cosmetic: cmd_deopt(): use talloc_strndup(), not memcpy()
+  * vty: fix use-after-free and memleaks in is_cmd_ambiguous()
+  * utils_test: fix isqrt_test calculation range
+  * utils_test: check stderr to catch sanitizer issues
+  * add osmo_sockaddr_to_str_and_uint()
+
+  [ Philipp Maier ]
+  * fsm: guard action callback
+  * gsm_04_08: add function to get value string
+  * gsm_08_08: gsm0808_permitted_speech does not have value strings
+
+  [ Thorsten Alteholz ]
+  * fix spelling
+
+  [ Keith ]
+  * Add enum gsm48_cause_coding from GSM 04.08 Section 10.5.4.11
+  * Add enum gsm48_progress_desc
+
+  [ Daniel Willmann ]
+  * ports.h: Add ctrl port for osmo-gbproxy
+  * Add function gprs_nsvc_state_append
+  * stats_vty: Add asciidoc sections between the different counters
+
+  [ Vadim Yanitskiy ]
+  * gsm0480: fix: don't overwrite the data of RELEASE_COMPLETE
+  * GSUP: implement TCAP-like session management
+  * GSUP: introduce new messages for SS/USSD payloads
+  * Doxygen: gitignore generated files for libosmoctrl
+  * gsm/gsm0480.c: introduce gsm0480_extract_ie_by_tag()
+  * gsm/gsm0480: refactor and expose gsm0480_parse_facility_ie()
+  * Don't enforce Python 2 for utilities
+
+  [ Alexander Chemeris ]
+  * coding: Fix (E)GPRS BER calculation to correctly account for puncturing.
+  * coding: Documentation typo fix.
+
+  [ Alexander Couzens ]
+  * vty: initialize termios before using it
+  * stats_statsd: sanitize statsd name
+
+ -- Pau Espin Pedrol <pespin@sysmocom.de>  Fri, 27 Jul 2018 17:31:46 +0200
+
+libosmocore (0.11.0) unstable; urgency=medium
+
+  [ Max ]
+  * Enable GnuTLS fallback
+  * Ctrl: add rate counter group introspection
+  * ctrl: log incorrect interval values
+  * Improve get_rate_ctr() error handling
+  * ctrl: make response easier to parse
+  * coding test: cosmetic cleanup
+  * coding test: enable debug output
+  * coding test: move bit dump into functions
+  * coding test: use OSMO_ASSERT
+  * Fix embedded build
+  * embedded: fix tests
+  * Embedded: fix sercomm test
+  * Add functions for extended RACH coding
+  * Do not allocate already existing counter group
+  * Fix incorrect spec reference
+  * Use 127.0.0.1 for GSMTAP logging by default
+  * coding: move eB adjustement to appropriate place
+  * Add function to properly encode RAI
+  * Use existing function for TLLI encoding
+  * log: print loginfo assertions source
+  * Allow multiple 'log gsmtap' sinks
+  * Deprecate gsm48_construct_ra()
+  * Log lapd_datalink state on errors
+  * jenkins: add dispatcher script
+  * Embedded: disable stats test
+  * Embedded: add sercomm stubs
+  * GSUP: don't fail test on first error
+  * jenkins: remove obsolete scripts
+  * jenkins: move make invocation into shared function
+  * utils: add helper wrapper for osmo_strlcpy()
+  * GSUP: change osmo_gsup_encode() return type
+  * Use python 3 for utilities
+  * Add test for gsm48_generate_mid_from_imsi()
+  * Add generic Mobile Identity encoder
+  * Add function to encode classmark
+
+  [ Niro Mahasinghe ]
+  * gsm0503_coding.c: Fix tch_efr_unreorder() of one bit
+  * gsm0503_coding.c: Use majority vote in tch_efr_unreorder()
+
+  [ Harald Welte ]
+  * debian: build now depends on libgnutls
+  * Fix/Update copyright notices; Add SPDX annotation
+  * Print /proc/cpuinfo before executing testsuite
+  * conv_acc: Our code requires SSSE3, not just SSE3
+  * ports.h: Use same VTY port number for osmo-mgw and osmo-bsc_mgcp
+  * gsmtap.h: Introduce new GSMTAP type for LTE NAS messages
+  * gsm0808_create_cipher_reject: Fix encoding of Cause IE
+  * rate_ctr: print proper error message if rate_ctr already exists
+  * timer: fixup whitespace issues
+  * control_if: Close control connection socket/fd on read/write == 0
+  * control_if: Log the disconnect of a CTRL client
+  * CTRL: Ensure peer/connection info is always printed the same way
+  * MNCC: Add MNCC to string dumper
+  * gsm48_pdisc_names: Use conscise, short names
+  * SMS: Add value_string for TS 04.11 CP and RP state
+  * gsm_04_08.h: Clearly annotate timers that don't have a 3GPP Default value
+  * gsm_04_08.h: Reduce T310 default to 30s.
+  * gsm48_hdr_msg_type[_r99]: Fix bit-masks
+  * gsm48_hdr_msg_type(): SS is in the same group as MM/CC
+  * tlv_parser: Report *first* occurrence of repeated IEs
+  * msgb: Add msgb_hexdump_{l2,l3}() to dump l2 or l3 part of message buffer
+  * Revert "Use python 3 for utilities"
+  * Revert "fsm: do not terminate child FSMs early"
+  * osmo_msgbdump_{l2,l3}(): Proper typecast
+  * debian/control: Fix Vcs-Browser URL
+  * Add GSM 04.08 type-of-number / numbering-plan-id definitions
+  * talloc_ctx_vty: Fix help strings (missing \n at end of line)
+  * Revert "Add function to encode classmark"
+  * rate_ctr: Add rate_ctr_inc2() as convenience wrapper
+  * coding: Add BER-reporting RACH decode functions
+  * l1sap: Add RSSI, BER and quarter-bit accurate timing to PH-RACH.ind
+  * l1sap: Add fields for higher-precision timing offset values
+  * abis_nm: Introduce abis_nm_dump_foh()
+  * VTY: Don't welcome the user to the "control" interface, if it's VTY
+  * prevent integer underflow in ipa_ccm_make_id_resp_from_req()
+  * RSL/LAPDm: Not all RLL message are "transparent"
+
+  [ Neels Hofmeyr ]
+  * vty: deprecate now empty node commands
+  * memleak: osmo_config_list_parse: getline() needs free also on error
+  * abis_test: sanitize: fix msgb memleak
+  * lapd_test: sanitize: fix msgb memleaks
+  * gsm0408_test: sanitize: cleanup msgb
+  * gsm0808_test: sanitize: fix msgb memleak
+  * msgb: add inline msgb_queue_free()
+  * rate_ctr: fix mem leak for mangled desc
+  * bssgp_fc_test: remove rounding to deciseconds
+  * bssgp_fc_test: clarify by outputting ok / failure messages
+  * bssgp_fc_test: sanitizer: free msgb context when done
+  * gprs_bssgp: bssgp_fc_in(): fix mem leak on queue overflow
+  * bssgp_fc_test: sanitize: free fc struct when done
+  * tlv_put: guard against NULL val and 0 len
+  * sercomm_test: sanitize: fix msgb mem leak
+  * osmo_strlcpy: sanitize: don't memcpy from NULL src even if len is 0
+  * fsm_tmr_cb: don't set T=0, the fi may no longer exist
+  * vty XML export: avoid repeating common node commands for each node
+  * VTY reference: do not list empty nodes
+  * VTY reference: use node names as section names
+  * vty: set name for VIEW+ENABLE nodes, for VTY reference
+  * vty reference: merge_doc.xsl: do not omit description tag
+  * comment: utils: more accurately describe OSMO_STRINGIFY macro
+  * logging vty: describe 'logging set-log-mask' command, add OSMO_STRINGIFY_VAL()
+  * fix osmo_identifier_valid(): only allow printable characters
+  * utils: add osmo_separated_identifiers_valid()
+  * add osmo_auth_c3() (separate from gsm_milenage())
+  * utils: add osmo_escape_str()
+  * ctrl_test.c: replace print_escaped() with new osmo_escape_str()
+  * ctrl: prep test: separate new ctrl_handle_msg() from handle_control_read()
+  * ctrl_test: expand to test message handling and detect mem leaks
+  * ctrl_test: show memleak when receiving GET_REPLY and SET_REPLY commands
+  * ctrl: fix mem leak when handling GET_REPLY and SET_REPLY
+  * ctrl_test: add two more current parsing bugs to prep for fix
+  * add ctrl_cmd_parse2() to return parsing errors
+  * ctrl: on parse errors, return a detailed message to sender
+  * rate_ctr: fix osmo-sgsn DoS: don't return NULL on already used index
+  * ports: define proper VTY and CTRL ports for OsmoHNBGW
+  * ctrl: tighten CTRL input parsing
+  * ctrl: separate handling of GET_REPLY, SET_REPLY and TRAP
+  * jenkins: add 'make V=1' for more verbose build logs
+  * logging vty: tweak general 'logging' command doc
+  * gsm: add gsm0808_speech_codec_type_names
+  * logging-gsmtap: send only basename of source file
+  * logging: add ability to log the log-level with API and vty
+  * logging: color the log level
+  * logging: color the log category according to level
+  * fix -Werror build: logging.c: always use literal with snprintf
+  * cosmetic: logging: if color is disabled, don't print ""
+  * logging: separate the '<000b>' subsys from filename logging
+  * logging: allow to log only the basename of each source
+  * logging vty: add 'logging print file (0|1|basename)' cmd
+  * vty: fix 'logging print file' output
+  * gsmtap_sendmsg(): clarify API doc concerning msgb ownership
+  * memleak: gsmtap_sendmsg(): don't return 0 when no data was written
+  * memleak: fix all libosmocore callers of gsmtap_sendmsg() to free on failure
+  * memleak: _gsmtap_raw_output(): free msg in case of vsnprintf failure
+  * cosmetic: gsm0408_test: RA test cases as array-of-struct
+  * gsm0408_test: cosmetically re-order MCC to come before MNC
+  * gsm0408_test: include BCD and leading zeros in test output
+  * gsm0408_test: RA test: include min/max value cases
+  * gsm0408_test: also test gsm48_generate_lai() and gsm48_decode_lai()
+  * implement support for 3-digit MNC with leading zeros
+  * gsm0408_test: check for new mnc_3_digits flag
+  * gsm0408_test: test new gsm48_{decode,generate}_lai2() functions
+  * gsm0408_test: add test cases for MNC with leading zeros
+  * gsm: add osmo_mnc_from_str(), osmo_mnc_cmp(), osmo_plmn_cmp() for 3-digit MNC
+  * introduce GSM_MCC_MNC_INVALID
+  * gsm23003_test: fix: compare members instead of bcmp
+  * fix osmo_mnc_from_str(): don't try to parse NULL
+  * gsm23003: add osmo_mcc_from_str()
+  * configure: add --enable-werror
+  * jenkins_amd64.sh: use --enable-werror configure flag, not CFLAGS
+  * gsm0808_test: cosmetic: re-arrange struct init; print hexdump on failure
+  * gsm0808_test: cosmetic: test non-hex MCC
+  * show failure in gsm0808_enc_cell_id_list2() in gsm0808_test
+  * fix gsm0808_enc_cell_id_list2 for leading-zero MNC
+  * cosmetic: gsm0808_test: drop extraneous assertion
+  * contrib/fsm-to-dot: add -h option to print basic instructions
+  * contrib/fsm-to-dot: allow transition from and to the same state
+  * contrib/fsm-to-dot: don't match on event names in comments
+  * contrib/fsm-to-dot: warn and draw unallowed state transitions
+  * contrib/fsm-to-dot: add default edge label '-'
+  * contrib/fsm-to-dot: mark arrows that feed events
+  * contrib/fsm-to-dot: less false positives on event parsing
+  * contrib/fsm-to-dot: mark illegal states in red
+  * contrib/fsm-to-dot: warn about identically named FSMs
+  * vty/command.c: write_config_file(): sanely compose temp path
+  * fix logging talloc ctx: add osmo_init_logging2()
+  * ctrl: test deferred cmd, show current failure
+  * ctrl: fix deferred commands (and hence fix osmo-bts-sysmo 'clock-info' cmd)
+  * cosmetic: flatten ctrl_handle_msg()
+  * fix ctrl_test sanitizer issues
+  * use osmo_init_logging2() with proper talloc ctx
+  * add osmo_quote_str(),osmo_quote_str_buf() and test
+  * fsm_test: terminate the main loop instead of exit on timeout
+  * osmo_fsm_inst_find_by_name(): guard against strcmp(NULL)
+  * fsm_test: more thoroughly test FSM inst ids and names
+  * fsm: id: properly set name in case of NULL id
+  * cosmetic: osmo_fsm_inst_update_id(): don't log "allocate"
+  * add osmo_fsm_inst_update_id_f()
+  * add gsm48_reject_value_names
+  * deprecate PLMN de-/coding functions incapable of 3-digit MNC with leading zeros
+  * avoid warning in gsm0808_create_layer3
+  * add osmo_cgi_name()
+  * add gsm0808_cell_id_list_add() to combine two cell identifier lists
+  * add tlv_parse2(), capable of multiple instances of the same IE
+  * add gsm0808_{enc,dec}_cell_id
+  * test_gsm0808_enc_dec_cell_id_list_lac(): validate encoded bytes
+  * test_gsm0808_enc_dec_cell_id_list_lac(): populate all LACs
+  * test_gsm0808_enc_dec_speech_codec_with_cfg: initialize properly
+  * cosmetic: log: fix typo, clarify msg for rate_ctr name mangling
+  * tlv: add TLV_GET() and TLV_GET_MINLEN()
+  * add gsm0808_cell_{id,id_list}_name() and friends
+  * gsm0808_test: fix more missing inits (address sanitizer issues)
+  * gsm0808_test: silence deprecation: use gsm0808_create_layer3_2()
+
+  [ Philipp Maier ]
+  * vty: add port number for osmo-mgw
+  * libosmocodec: add FR bit offset definitions
+  * libosmocodec: implement ECU (Error Concealment Unit) for FR
+  * fsm: fix double llist_del in osmo_fsm_inst_term()
+  * socket: fix socket leak in osmo_sock_local_ip()
+  * socket: use inet_ntop() instead of inet_ntoa() in osmo_sock_local_ip()
+  * fsm: add functions for unlinking and changing parents
+  * fsm: do not terminate child FSMs early
+  * fsm: allow graceful exit on FSM termination
+  * features: move bts feature related functionality to libosmocore
+  * features: define osmo_bts_*_feature() as static inline
+  * gsm_08_08: correct speech codec defaults
+  * gsm0808: Add value strings for BSSMAP cause codes
+
+  [ Pau Espin Pedrol ]
+  * vty: Fix bad use of vector_slot()
+  * gsm: Use correct include for getrandom
+  * utils: Fix false positive in compiler warning
+  * cosmetic: Fix trailing whitespace
+  * Fix malformed Abis/RSL messages with extra L3 Information field
+  * tests: coding_test: Fix compilation with -O0
+  * tests: utils_test: Fix test failure when compiling with -O0
+  * ports.h: Add VTY and CTRL ports for osmo-trx
+  * core: Add timespec helper macros and make timer_compat.h public
+  * core/logging.h: Add logging category for jitter buffer
+  * timer: Introduce osmo_clock_gettime to override clock_gettime
+  * timer: Document osmo_gettimeofday API
+  * osmo-release.sh: Set correct version when generating the changelog
+  * socket.c: osmo_sock_init2: bind: Several logic fixes and log improvements
+  * socket.c: osmo_sock_init2: connect: Several logic fixes and log improvements
+  * socket.c: osmo_sock_init: Several logic fixes and log improvements
+  * msgb: msgb_get: Drop unneeded tmp var
+  * msgb: msgb_pull: Abort when pulling more than avail size
+  * osmo_get_macaddr: Fix buffer read out of bounds
+  * osmo_sockaddr_is_local: Fix memleak
+  * gsm_08_58.h: Add Ericsson vendor-specific RSL message types
+  * osmo-release.sh: Remove temporary file TODO-RELEASE.entries after use
+  * osmo-release.sh: Exit with error if no description for new changelog entry provided
+  * osmo-release.sh: Fix error condition no LIBVERSION modified
+  * osmo-release.sh: Always generate entire commit changelog
+  * osmo-release.sh: Allow user to add extra information to the release commit
+  * debian: libosmoctrl: Use correct library version in pkg name
+  * debian/changelog: Fix typo in maintainer e-mail
+
+  [ Holger Hans Peter Freyther ]
+  * logging: Extend the LOGPSRC macro to put cont in it as well
+  * license: Fix the license to GPL
+
+  [ Alexander Couzens ]
+  * counters: add osmo_counters_count() returns the amount of counters
+  * vty: show asciidoc counters: don't create an empty table for osmo_counters
+  * gsm_08_58.h: introduce RSL_IE_ERIC_PAGING_GROUP
+  * gsm_utils: call gnutls_global_init() as constructor
+
+  [ Jean-Francois Dionne ]
+  * Fix LAPD UA msgb memory leak.
+
+  [ Vadim Yanitskiy ]
+  * libosmocodec: add FR/HR/EFR frame length definitions
+  * ussd_test.c: fix rc / len debug output confusion
+  * gsm0480: fix USSD OCTET STRING length confusion
+  * gsm0480: clean up the parse_process_uss_req() code
+  * gsm0480: handle UnstructuredSS Request with DSC != 0x0F
+  * gsm0480: parse GSM0480_MTYPE_FACILITY separately
+  * gsm0480: handle GSM0480_CTYPE_RETURN_RESULT
+  * gsm0480: handle USS_NOTIFY and USS_REQUEST with PROCESS_USS_REQ
+  * gsm0480: handle GSM0480_OP_CODE_PROCESS_USS_DATA
+  * gsm0480: add specification reference to SS message type
+  * gsm0480: pass exact GSM 04.80 payload length to parse_ss()
+  * gsm0480: move SS request length check to parse_ss()
+  * gsm0480: refactor gsm0480_decode_ss_request
+  * gsm0480: correct parse_ss_info_elements() declaration
+  * tests/ussd: fix wrong GSM 04.80 payload length
+  * gsm0480: parse all SS info elements in a message
+  * gsm0480: parse optional IEs for RELEASE COMPLETE message
+  * tests/ussd: prevent uninitialized memory access
+  * libosmocoding: fix typo in library documentation
+  * libosmocoding: use frame length definitions from codec.h
+  * src/msgb.c: cosmetic: fix spelling mistakes
+  * src/msgb.c: remove dead includes from OpenBSC
+  * src/msgb.c: print an error if msgb allocation failed
+  * src/msgb.c: avoid using internal talloc API
+  * gsm0480: document the 'ss_request' structure
+  * gsm0480: copy the raw USSD data, its DCS and length
+  * gsm0480: drop messages with incorrect data length
+  * protocol/gsm_04_08.h: drop incorrect GSM48_PDISC_USSD
+  * gsm/gsm48.c: add call independent SS message names
+
+  [ Stefan Sperling ]
+  * TLVP_PRESENT() should not return TRUE after tlv_parse() fails.
+  * Add helper functions for ACC bit flags in rach control IE.
+  * ensure that osmo_fsm vty commands are only installed once
+  * print BIG FAT ERROR message if osmo_fsm lacks event names
+  * ensure VTY commands don't segfault if an FSM has no event names
+  * support for more cell ID list types in libosmocore
+  * fix a cell identifier parsing bug in libosmocore
+  * fix cell identifier decoding in libosmocore
+  * use gsm48_decode_lai2() in gsm0808_dec_cell_id_list()
+  * fix bug in parse_cell_id_ci_list()
+  * fix parse_cell_id_lac_and_ci_list()
+  * add a test for CELL_IDENT_WHOLE_GLOBAL cell identifier lists
+  * add a regression test for TLV parsing with repeated IEs
+
+  [ Sergey Kostanbaev ]
+  * gsm0480: skip length check for 'RELEASE COMPLETE' message
+
+  [ allesklar2 ]
+  * gsmtap.h: define TETRA DMO mode channels
+
+  [ Martin Hauke ]
+  * build: Ensure all .pc files are installed
+
+  [ Daniel Willmann ]
+  * fsm: Add a function to change the FSM instance ID later
+  * contrib/jenkins_arch.sh: Fix script comparison and arm support
+  * fsm: Update the name as well if the id is updated and accept NULL
+
+  [ Thorsten Alteholz ]
+  * fix spelling
+  * fix issue on big endian architecture
+
+ -- Pau Espin Pedrol <pespin@sysmocom.de>  Thu, 03 May 2018 15:47:11 +0200
+
+libosmocore (0.10.2) unstable; urgency=medium
+
+  * Revert "vty: Fix bad use of vector_slot()"
+  * New upstream release of libosmocore
+
+ -- Harald Welte <laforge@gnumonks.org>  Thu, 02 Nov 2017 18:51:02 +0100
+
+libosmocore (0.10.1) unstable; urgency=medium
+
+  * New upstream release of libosmocore
+
+ -- Harald Welte <laforge@gnumonks.org>  Sun, 29 Oct 2017 10:46:47 +0100
+
+libosmocore (0.10.0+nmu1) UNRELEASED; urgency=medium
+
+  * Non-maintainer upload.
+  * New upstream release of libosmocore
+
+ -- Harald Welte <laforge@gnumonks.org>  Fri, 27 Oct 2017 19:45:00 +0200
+
+libosmocore (0.9.6) unstable; urgency=medium
+
+  * doc: osmocom-authn-protocol.txt: fix numbering, mark unused sync msgs
+  * New upstream release of libosmocore.
+
+ -- Max <msuraev@sysmocom.de>  Tue, 13 Dec 2016 18:23:56 +0100
+
+libosmocore (0.9.5) unstable; urgency=medium
+
+  * fix: DLGSUP logging category "unusable"
+  * New upstream release of libosmocore.
+  * ph_data_param struct changed / Extend L1SAP PH-DATA with measurement information
+  * size of ph_tch_param struct changed / Extend with RTP Marker
+  * size of struct log_target changed / Extend with GSMTAP
+
+ -- Max <msuraev@sysmocom.de>  Tue, 13 Dec 2016 18:22:56 +0100
+
+libosmocore (0.9.4) unstable; urgency=medium
+
+  * New upstream release of libosmocore.
+  * Internal API for GPRS cipher implementors updated to accommodate for arbitrary key lengths
+  * external talloc dependency / internal talloc removal
+  * size of ph_data_param struct changed / Extend L1SAP PH-DATA with presence information
+
+ -- Max <msuraev@sysmocom.de>  Tue, 13 Dec 2016 18:21:56 +0100
+
+libosmocore (0.9.3) unstable; urgency=medium
+
+  * Send all stats values after re-configuration.
+  * Fix using an empty prefix.
+  * Fix sending timing values.
+
+ -- Holger Hans Peter Freyther <holger@moiji-mobile.com>  Mon, 09 Nov 2015 21:34:37 +0100
+
+libosmocore (0.9.2) unstable; urgency=medium
+
+  * Fix the counter index after the NS reset.
+
+ -- Holger Hans Peter Freyther <holger@moiji-mobile.com>  Wed, 04 Nov 2015 14:47:48 +0100
+
+libosmocore (0.9.1) unstable; urgency=medium
+
+  * Fix rate_ctr attribute for GPRS NS counters.
+
+ -- Holger Hans Peter Freyther <holger@moiji-mobile.com>  Wed, 04 Nov 2015 10:23:39 +0100
+
+libosmocore (0.9.0) unstable; urgency=medium
+
+  * StatsD support
+  * Disable building of static libraries
+  * GTP Hub and OAP ports/identifiers assigned
+
+ -- Holger Hans Peter Freyther <holger@moiji-mobile.com>  Tue, 03 Nov 2015 09:31:41 +0100
+
+libosmocore (0.8.3) unstable; urgency=medium
+
+  * Prepare new release
+
+ -- Holger Hans Peter Freyther <holger@moiji-mobile.com>  Sun, 23 Aug 2015 17:38:55 +0200
+
+libosmocore (0.8.2) unstable; urgency=medium
+
+  * Add endian header
+  * GPRS flow control changes
+  * Add APN format routines to libosmocore.
+
+ -- Holger Hans Peter Freyther <holger@moiji-mobile.com>  Sat, 01 Aug 2015 20:18:45 +0200
+
+libosmocore (0.8.0) unstable; urgency=medium
+
+  * New upstream release of libosmocore.
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Sun, 18 Jan 2015 19:04:10 +0100
+
+libosmocore (0.7.0) unstable; urgency=medium
+
+  * New upstream release of libosmocore.
+
+ -- Harald Welte <laforge@gnumonks.org>  Thu, 21 Aug 2014 15:52:00 +0200
+
+libosmocore (0.6.6) UNRELEASED; urgency=medium
+
+  * New upstream release of libosmocore.
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Mon, 31 Mar 2014 15:37:33 +0200
+
+libosmocore (0.6.5) unstable; urgency=medium
+
+  * New upstream release of libosmocore
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Mon, 20 Jan 2014 10:37:23 +0100
+
+libosmocore (0.6.4+git3) unstable; urgency=low
+
+  * GPRS fix NS connections to a SGSN when configured via VTY
+
+ -- Jacob Erlbeck <jerlbeck@sysmocom.de>  Thu, 07 Nov 2013 16:07:20 +0100
+
+libosmocore (0.6.4+git2) unstable; urgency=low
+
+  * GPRS related changes, some GSM encoding/decoding changes
+  * GPRS correctly determine routable NSVC.
+  * Update with GPRS changes
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Thu, 10 Oct 2013 14:16:37 +0200
+
+libosmocore (0.6.3+git1-1) unstable; urgency=low
+
+  * New upstream release with new primitives, USSD fixes.
+  * Split libosmocore into several package. One lib per package.
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Fri, 09 Aug 2013 17:47:30 +0200
+
+libosmocore (0.6.2) unstable; urgency=low
+
+  * New upstream release with NS UDP DSCP ABI changes
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Wed, 26 Jun 2013 08:01:55 +0200
+
+libosmocore (0.5.3+git1-6) unstable; urgency=low
+
+  * Build new package with the new API required for osmo-bts/openbsc
+  * Package the arfcn utility.
+  * Add the SOCK_RAW work-around for glibc.
+  * Re-enable the debug packages thanks to Jan.
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Fri, 04 Jan 2013 09:54:55 +0100
+
+libosmocore (0.5.3+git1-2) unstable; urgency=low
+
+  * New upstream version
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Mon, 05 Nov 2012 21:35:57 +0100
+
+libosmocore (0.5.3+git1-1) precise; urgency=low
+
+  * Fix issue with package version.
+
+ -- Eric Butler <eric@codebutler.com>  Tue, 14 Aug 2012 20:43:17 -0700
+
+libosmocore (0.5.3+git1) precise; urgency=low
+
+  * Updated debian package.
+
+ -- Eric Butler <eric@codebutler.com>  Tue, 14 Aug 2012 16:53:56 -0700
+
+libosmocore (0.3.0) natty; urgency=low
+
+  * New upstream version of libosmocore
+
+ -- Harald Welte <laforge@gnumonks.org>  Tue, 10 May 2011 17:28:24 +0200
+
+libosmocore (0.1.27) natty; urgency=low
+
+  * New upstream version of libosmocore.
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Thu, 13 Jan 2011 18:07:36 +0800
+
+libosmocore (0.1.17-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Harald Welte <laforge@gnumonks.org>  Tue, 24 Aug 2010 10:55:04 +0200

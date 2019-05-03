@@ -1,0 +1,87 @@
+\section{osmo\+\_\+scu\+\_\+prim Struct Reference}
+\label{structosmo__scu__prim}\index{osmo\+\_\+scu\+\_\+prim@{osmo\+\_\+scu\+\_\+prim}}
+
+
+{\ttfamily \#include $<$sccp\+\_\+sap.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct osmo\+\_\+prim\+\_\+hdr {\bf oph}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>struct {\bf osmo\_scu\_connect\_param} {\bf connect}\\
+\>struct {\bf osmo\_scu\_data\_param} {\bf data}\\
+\>struct {\bf osmo\_scu\_disconn\_param} {\bf disconnect}\\
+\>struct {\bf osmo\_scu\_reset\_param} {\bf reset}\\
+\>struct {\bf osmo\_scu\_unitdata\_param} {\bf unitdata}\\
+\>struct {\bf osmo\_scu\_notice\_param} {\bf notice}\\
+\} {\bf u}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{osmo\+\_\+scu\+\_\+prim@{osmo\+\_\+scu\+\_\+prim}!connect@{connect}}
+\index{connect@{connect}!osmo\+\_\+scu\+\_\+prim@{osmo\+\_\+scu\+\_\+prim}}
+\subsubsection[{connect}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+scu\+\_\+connect\+\_\+param} osmo\+\_\+scu\+\_\+prim\+::connect}\label{structosmo__scu__prim_a906d0ffd0b404f75076123db2ba80f97}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req(), osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp\+\_\+msg(), osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree(), scoc\+\_\+fsm\+\_\+idle(), scu\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), and scu\+\_\+prim\+\_\+conn\+\_\+id().
+
+\index{osmo\+\_\+scu\+\_\+prim@{osmo\+\_\+scu\+\_\+prim}!data@{data}}
+\index{data@{data}!osmo\+\_\+scu\+\_\+prim@{osmo\+\_\+scu\+\_\+prim}}
+\subsubsection[{data}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+scu\+\_\+data\+\_\+param} osmo\+\_\+scu\+\_\+prim\+::data}\label{structosmo__scu__prim_abb32a8ee3f60be2c851a8248264d580a}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+tx\+\_\+data(), scu\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), and scu\+\_\+prim\+\_\+conn\+\_\+id().
+
+\index{osmo\+\_\+scu\+\_\+prim@{osmo\+\_\+scu\+\_\+prim}!disconnect@{disconnect}}
+\index{disconnect@{disconnect}!osmo\+\_\+scu\+\_\+prim@{osmo\+\_\+scu\+\_\+prim}}
+\subsubsection[{disconnect}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+scu\+\_\+disconn\+\_\+param} osmo\+\_\+scu\+\_\+prim\+::disconnect}\label{structosmo__scu__prim_a7faff854a507bb7fa3b676c928e8f89e}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+tx\+\_\+disconn(), scoc\+\_\+fsm\+\_\+conn\+\_\+pend\+\_\+out(), scu\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), scu\+\_\+prim\+\_\+conn\+\_\+id(), and xua\+\_\+gen\+\_\+msg\+\_\+co().
+
+\index{osmo\+\_\+scu\+\_\+prim@{osmo\+\_\+scu\+\_\+prim}!notice@{notice}}
+\index{notice@{notice}!osmo\+\_\+scu\+\_\+prim@{osmo\+\_\+scu\+\_\+prim}}
+\subsubsection[{notice}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+scu\+\_\+notice\+\_\+param} osmo\+\_\+scu\+\_\+prim\+::notice}\label{structosmo__scu__prim_a4aa1b5f7b529cf68723b6f7c8facc078}
+
+
+Referenced by sclc\+\_\+rx\+\_\+cldr().
+
+\index{osmo\+\_\+scu\+\_\+prim@{osmo\+\_\+scu\+\_\+prim}!oph@{oph}}
+\index{oph@{oph}!osmo\+\_\+scu\+\_\+prim@{osmo\+\_\+scu\+\_\+prim}}
+\subsubsection[{oph}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+prim\+\_\+hdr osmo\+\_\+scu\+\_\+prim\+::oph}\label{structosmo__scu__prim_a0bf42a60284d6fae886b610b868b7d52}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req(), osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp\+\_\+msg(), osmo\+\_\+sccp\+\_\+tx\+\_\+data(), osmo\+\_\+sccp\+\_\+tx\+\_\+disconn(), osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata(), osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down(), osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree(), sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down(), sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree(), sccp\+\_\+user\+\_\+prim\+\_\+up(), sclc\+\_\+rx\+\_\+cldr(), sclc\+\_\+rx\+\_\+cldt(), scu\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), scu\+\_\+prim\+\_\+alloc(), scu\+\_\+prim\+\_\+conn\+\_\+id(), xua\+\_\+gen\+\_\+msg\+\_\+cl(), xua\+\_\+gen\+\_\+msg\+\_\+co(), and xua\+\_\+gen\+\_\+relre().
+
+\index{osmo\+\_\+scu\+\_\+prim@{osmo\+\_\+scu\+\_\+prim}!reset@{reset}}
+\index{reset@{reset}!osmo\+\_\+scu\+\_\+prim@{osmo\+\_\+scu\+\_\+prim}}
+\subsubsection[{reset}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+scu\+\_\+reset\+\_\+param} osmo\+\_\+scu\+\_\+prim\+::reset}\label{structosmo__scu__prim_ae5b5437ca1a507c684dc1c8a84ea72e0}
+
+
+Referenced by scu\+\_\+prim\+\_\+conn\+\_\+id().
+
+\index{osmo\+\_\+scu\+\_\+prim@{osmo\+\_\+scu\+\_\+prim}!u@{u}}
+\index{u@{u}!osmo\+\_\+scu\+\_\+prim@{osmo\+\_\+scu\+\_\+prim}}
+\subsubsection[{u}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   osmo\+\_\+scu\+\_\+prim\+::u}\label{structosmo__scu__prim_a7c686e340a1f45662b605811ea39b7d0}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req(), osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp\+\_\+msg(), osmo\+\_\+sccp\+\_\+tx\+\_\+data(), osmo\+\_\+sccp\+\_\+tx\+\_\+disconn(), osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata(), osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree(), sclc\+\_\+rx\+\_\+cldr(), sclc\+\_\+rx\+\_\+cldt(), scoc\+\_\+fsm\+\_\+conn\+\_\+pend\+\_\+out(), scoc\+\_\+fsm\+\_\+idle(), scu\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), scu\+\_\+prim\+\_\+conn\+\_\+id(), xua\+\_\+gen\+\_\+msg\+\_\+cl(), and xua\+\_\+gen\+\_\+msg\+\_\+co().
+
+\index{osmo\+\_\+scu\+\_\+prim@{osmo\+\_\+scu\+\_\+prim}!unitdata@{unitdata}}
+\index{unitdata@{unitdata}!osmo\+\_\+scu\+\_\+prim@{osmo\+\_\+scu\+\_\+prim}}
+\subsubsection[{unitdata}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+scu\+\_\+unitdata\+\_\+param} osmo\+\_\+scu\+\_\+prim\+::unitdata}\label{structosmo__scu__prim_a79602dc9720157f71fdf70581ead993a}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata(), sclc\+\_\+rx\+\_\+cldt(), and xua\+\_\+gen\+\_\+msg\+\_\+cl().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/osmocom/sigtran/{\bf sccp\+\_\+sap.\+h}\end{DoxyCompactItemize}

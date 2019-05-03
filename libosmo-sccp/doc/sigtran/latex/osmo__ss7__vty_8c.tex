@@ -1,0 +1,1542 @@
+\section{src/osmo\+\_\+ss7\+\_\+vty.c File Reference}
+\label{osmo__ss7__vty_8c}\index{src/osmo\+\_\+ss7\+\_\+vty.\+c@{src/osmo\+\_\+ss7\+\_\+vty.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/vty/vty.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/vty/command.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/vty/logging.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/vty/telnet\+\_\+interface.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/vty/misc.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/osmo\+\_\+ss7.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/mtp.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+internal.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$osmocom/sigtran/sccp\+\_\+sap.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}sccp\+\_\+internal.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+entry}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR}~\char`\"{}(sua$\vert$m3ua$\vert$ipa)\char`\"{}
+\item 
+\#define {\bf X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR}
+\item 
+\#define {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+MD}~\char`\"{}routing-\/key R\+C\+O\+N\+T\+E\+XT D\+PC\char`\"{}
+\item 
+\#define {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+RS}
+\item 
+\#define {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+RG}~\char`\"{} si (aal2$\vert$bicc$\vert$b-\/isup$\vert$h248$\vert$isup$\vert$sat-\/isup$\vert$sccp$\vert$tup)\char`\"{}
+\item 
+\#define {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS}
+\item 
+\#define {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+RG}~\char`\"{} ssn S\+SN\char`\"{}
+\item 
+\#define {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf cs7\+\_\+role\+\_\+t} \{ {\bf C\+S7\+\_\+\+R\+O\+L\+E\+\_\+\+SG}, 
+{\bf C\+S7\+\_\+\+R\+O\+L\+E\+\_\+\+A\+SP}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+instance, cs7\+\_\+instance\+\_\+cmd,\char`\"{}cs7 instance $<$0-\/15$>$\char`\"{}, C\+S7\+\_\+\+S\+TR\char`\"{}Configure a S\+S7 Instance\textbackslash{}n\char`\"{}I\+N\+S\+T\+\_\+\+S\+TR\char`\"{}Number of the instance\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+net\+\_\+ind, cs7\+\_\+net\+\_\+ind\+\_\+cmd,\char`\"{}network-\/indicator (international $\vert$ national $\vert$ reserved $\vert$ {\bf spare})\char`\"{},\char`\"{}Configure the Network Indicator\textbackslash{}n\char`\"{}\char`\"{}International Network\textbackslash{}n\char`\"{}\char`\"{}National Network\textbackslash{}n\char`\"{}\char`\"{}Reserved Network\textbackslash{}n\char`\"{}\char`\"{}Spare Network\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+pc\+\_\+format, cs7\+\_\+pc\+\_\+format\+\_\+cmd,\char`\"{}point-\/code format $<$1-\/24$>$ [$<$1-\/23$>$] [$<$1-\/22$>$]\char`\"{}, P\+C\+\_\+\+S\+TR\char`\"{}Configure Point Code Format\textbackslash{}n\char`\"{}\char`\"{}Length of first PC component\textbackslash{}n\char`\"{}\char`\"{}Length of second PC component\textbackslash{}n\char`\"{}\char`\"{}Length of third PC component\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+pc\+\_\+format\+\_\+def, cs7\+\_\+pc\+\_\+format\+\_\+def\+\_\+cmd,\char`\"{}point-\/code format default\char`\"{}, P\+C\+\_\+\+S\+TR\char`\"{}Configure Point Code Format\textbackslash{}n\char`\"{}\char`\"{}Default Point Code Format (3.\+8.\+3)\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+pc\+\_\+delimiter, cs7\+\_\+pc\+\_\+delimiter\+\_\+cmd,\char`\"{}point-\/code delimiter (default$\vert$dash)\char`\"{}, P\+C\+\_\+\+S\+TR\char`\"{}Configure Point Code Delimiter\textbackslash{}n\char`\"{}\char`\"{}Use dot as delimiter\textbackslash{}n\char`\"{}\char`\"{}User dash as delimiter\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+point\+\_\+code, cs7\+\_\+point\+\_\+code\+\_\+cmd,\char`\"{}point-\/code P\+O\+I\+N\+T\+\_\+\+C\+O\+DE\char`\"{},\char`\"{}Configure the local Point Code\textbackslash{}n\char`\"{}\char`\"{}Point Code\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+permit\+\_\+dyn\+\_\+rkm, cs7\+\_\+permit\+\_\+dyn\+\_\+rkm\+\_\+cmd,\char`\"{}xua rkm routing-\/key-\/allocation (static-\/only$\vert$dynamic-\/permitted)\char`\"{},\char`\"{}S\+I\+G\+T\+R\+AN xxx\+UA related\textbackslash{}n\char`\"{}\char`\"{}Routing Key Management\textbackslash{}n\char`\"{}\char`\"{}Routing Key Management Allocation Policy\textbackslash{}n\char`\"{}\char`\"{}Only static (pre-\/confgured) Routing Keys permitted\textbackslash{}n\char`\"{}\char`\"{}Dynamically allocate Routing Keys for what A\+S\+Ps request\textbackslash{}n\char`\"{})
+\item 
+static void {\bf write\+\_\+one\+\_\+cs7} (struct vty $\ast$vty, struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst)
+\item 
+static int {\bf config\+\_\+write\+\_\+cs7} (struct vty $\ast$vty)
+\item 
+{\bf D\+E\+F\+UN} (show\+\_\+cs7\+\_\+user, show\+\_\+cs7\+\_\+user\+\_\+cmd,\char`\"{}show cs7 instance $<$0-\/15$>$ users\char`\"{}, S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR}\char`\"{}User Table\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+route\+\_\+table, cs7\+\_\+route\+\_\+table\+\_\+cmd,\char`\"{}route-\/table system\char`\"{},\char`\"{}Specify the name of the route table\textbackslash{}n\char`\"{}\char`\"{}Name of the route table\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+rt\+\_\+upd, cs7\+\_\+rt\+\_\+upd\+\_\+cmd,\char`\"{}update route P\+O\+I\+N\+T\+\_\+\+C\+O\+DE M\+A\+SK linkset L\+S\+\_\+\+N\+A\+ME [priority P\+R\+IO] [qos-\/class (C\+L\+A\+SS$\vert$default)]\char`\"{},\char`\"{}Update the Route\textbackslash{}n\char`\"{}\char`\"{}Update the Route\textbackslash{}n\char`\"{}\char`\"{}Destination Point Code\textbackslash{}n\char`\"{}\char`\"{}Point Code Mask\textbackslash{}n\char`\"{}\char`\"{}Point Code Length\textbackslash{}n\char`\"{}\char`\"{}Specify Destination Linkset\textbackslash{}n\char`\"{}\char`\"{}Linkset Name\textbackslash{}n\char`\"{}\char`\"{}Specify Priority\textbackslash{}n\char`\"{}\char`\"{}Priority\textbackslash{}n\char`\"{}\char`\"{}Specify QoS Class\textbackslash{}n\char`\"{}\char`\"{}QoS Class\textbackslash{}n\char`\"{}\char`\"{}Default QoS Class\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+rt\+\_\+rem, cs7\+\_\+rt\+\_\+rem\+\_\+cmd,\char`\"{}remove route P\+O\+I\+N\+T\+\_\+\+C\+O\+DE M\+A\+SK\char`\"{},\char`\"{}Remove a Route\textbackslash{}n\char`\"{}\char`\"{}Remove a Route\textbackslash{}n\char`\"{}\char`\"{}Destination Point Code\textbackslash{}n\char`\"{}\char`\"{}Point Code Mask\textbackslash{}n\char`\"{}\char`\"{}Point Code Length\textbackslash{}n\char`\"{})
+\item 
+static void {\bf write\+\_\+one\+\_\+rtable} (struct vty $\ast$vty, struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$rtable)
+\item 
+static void {\bf vty\+\_\+dump\+\_\+rtable} (struct vty $\ast$vty, struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$rtbl)
+\item 
+{\bf D\+E\+F\+UN} (show\+\_\+cs7\+\_\+route, show\+\_\+cs7\+\_\+route\+\_\+cmd,\char`\"{}show cs7 instance $<$0-\/15$>$ route\char`\"{}, S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR}\char`\"{}Routing Table\textbackslash{}n\char`\"{})
+\item 
+static enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol} {\bf parse\+\_\+asp\+\_\+proto} (const char $\ast$protocol)
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+xua, cs7\+\_\+xua\+\_\+cmd,\char`\"{}listen \char`\"{}X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR\char`\"{} $<$0-\/65534$>$\char`\"{},\char`\"{}Configure/Enable x\+UA Listener\textbackslash{}n\char`\"{}X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR\char`\"{}S\+C\+TP Port number\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (no\+\_\+cs7\+\_\+xua, no\+\_\+cs7\+\_\+xua\+\_\+cmd,\char`\"{}no listen \char`\"{}X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR\char`\"{} $<$0-\/65534$>$\char`\"{}, N\+O\+\_\+\+S\+TR\char`\"{}Disable x\+UA Listener on given S\+C\+TP Port\textbackslash{}n\char`\"{}X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR\char`\"{}S\+C\+TP Port number\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (xua\+\_\+local\+\_\+ip, xua\+\_\+local\+\_\+ip\+\_\+cmd,\char`\"{}local-\/ip A.\+B.\+C.\+D\char`\"{},\char`\"{}Configure the Local IP Address for x\+U\+A\textbackslash{}n\char`\"{}\char`\"{}IP Address to use for X\+U\+A\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (xua\+\_\+accept\+\_\+dyn\+\_\+asp, xua\+\_\+accept\+\_\+dyn\+\_\+asp\+\_\+cmd,\char`\"{}accept-\/asp-\/connections (pre-\/configured$\vert$dynamic-\/permitted)\char`\"{},\char`\"{}Define what kind of A\+SP connections to accept\textbackslash{}n\char`\"{}\char`\"{}Accept only pre-\/confiugred A\+S\+Ps (source IP/prt)\textbackslash{}n\char`\"{}\char`\"{}Accept any connection and dynamically create an A\+SP definition\textbackslash{}n\char`\"{})
+\item 
+static void {\bf write\+\_\+one\+\_\+xua} (struct vty $\ast$vty, struct {\bf osmo\+\_\+xua\+\_\+server} $\ast$xs)
+\item 
+static void {\bf vty\+\_\+dump\+\_\+xua\+\_\+server} (struct vty $\ast$vty, struct {\bf osmo\+\_\+xua\+\_\+server} $\ast$xs)
+\item 
+{\bf D\+E\+F\+UN} (show\+\_\+cs7\+\_\+xua, show\+\_\+cs7\+\_\+xua\+\_\+cmd,\char`\"{}show cs7 \char`\"{}X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR\char`\"{} [$<$0-\/65534$>$]\char`\"{}, S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR}\char`\"{}Port Number\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+asp, cs7\+\_\+asp\+\_\+cmd,\char`\"{}asp N\+A\+ME $<$0-\/65535$>$ $<$0-\/65535$>$ \char`\"{}X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR,\char`\"{}Configure Application Server Process\textbackslash{}n\char`\"{}\char`\"{}Name of A\+S\+P\textbackslash{}n\char`\"{}\char`\"{}Remote S\+C\+TP port number\textbackslash{}n\char`\"{}\char`\"{}Local S\+C\+TP port number\textbackslash{}n\char`\"{}X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR)
+\item 
+{\bf D\+E\+F\+UN} (no\+\_\+cs7\+\_\+asp, no\+\_\+cs7\+\_\+asp\+\_\+cmd,\char`\"{}no asp N\+A\+ME\char`\"{}, N\+O\+\_\+\+S\+TR\char`\"{}Disable Application Server Process\textbackslash{}n\char`\"{}\char`\"{}Name of A\+S\+P\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (asp\+\_\+local\+\_\+ip, asp\+\_\+local\+\_\+ip\+\_\+cmd,\char`\"{}local-\/ip A.\+B.\+C.\+D\char`\"{},\char`\"{}Specify Local IP Address from which to contact A\+S\+P\textbackslash{}n\char`\"{}\char`\"{}Local IP Address from which to contact of A\+S\+P\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (asp\+\_\+remote\+\_\+ip, asp\+\_\+remote\+\_\+ip\+\_\+cmd,\char`\"{}remote-\/ip A.\+B.\+C.\+D\char`\"{},\char`\"{}Specify Remote IP Address of A\+S\+P\textbackslash{}n\char`\"{}\char`\"{}Remote IP Address of A\+S\+P\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (asp\+\_\+qos\+\_\+clas, asp\+\_\+qos\+\_\+class\+\_\+cmd,\char`\"{}qos-\/class $<$0-\/255$>$\char`\"{},\char`\"{}Specify QoS Class of A\+S\+P\textbackslash{}n\char`\"{}\char`\"{}QoS Class of A\+S\+P\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (asp\+\_\+block, asp\+\_\+block\+\_\+cmd,\char`\"{}block\char`\"{},\char`\"{}Allows a S\+C\+TP Association with A\+SP, but doesn\textquotesingle{}t let it become active\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (asp\+\_\+shutdown, asp\+\_\+shutdown\+\_\+cmd,\char`\"{}shutdown\char`\"{},\char`\"{}Terminates S\+C\+TP association; New associations will be rejected\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (show\+\_\+cs7\+\_\+asp, show\+\_\+cs7\+\_\+asp\+\_\+cmd,\char`\"{}show cs7 instance $<$0-\/15$>$ asp\char`\"{}, S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR}\char`\"{}Application Server Process (A\+SP)\textbackslash{}n\char`\"{})
+\item 
+static void {\bf write\+\_\+one\+\_\+asp} (struct vty $\ast$vty, struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp)
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+as, cs7\+\_\+as\+\_\+cmd,\char`\"{}as N\+A\+ME \char`\"{}X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR,\char`\"{}Configure an Application Server\textbackslash{}n\char`\"{}\char`\"{}Name of the Application Server\textbackslash{}n\char`\"{}X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR)
+\item 
+{\bf D\+E\+F\+UN} (no\+\_\+cs7\+\_\+as, no\+\_\+cs7\+\_\+as\+\_\+cmd,\char`\"{}no as N\+A\+ME\char`\"{}, N\+O\+\_\+\+S\+TR\char`\"{}Disable Application Server\textbackslash{}n\char`\"{}\char`\"{}Name of A\+S\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (as\+\_\+asp, as\+\_\+asp\+\_\+cmd,\char`\"{}asp N\+A\+ME\char`\"{},\char`\"{}Specify that a given A\+SP is part of this A\+S\textbackslash{}n\char`\"{}\char`\"{}Name of A\+SP to be added to A\+S\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (as\+\_\+no\+\_\+asp, as\+\_\+no\+\_\+asp\+\_\+cmd,\char`\"{}no asp N\+A\+ME\char`\"{}, N\+O\+\_\+\+S\+TR\char`\"{}Specify A\+SP to be removed from this A\+S\textbackslash{}n\char`\"{}\char`\"{}Name of A\+SP to be removed\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (as\+\_\+traf\+\_\+mode, as\+\_\+traf\+\_\+mode\+\_\+cmd,\char`\"{}traffic-\/mode (broadcast $\vert$ loadshare $\vert$ roundrobin $\vert$ override)\char`\"{},\char`\"{}Specifies traffic mode of operation of the A\+SP within the A\+S\textbackslash{}n\char`\"{}\char`\"{}Broadcast to all A\+SP within A\+S\textbackslash{}n\char`\"{}\char`\"{}Share Load among all A\+SP within A\+S\textbackslash{}n\char`\"{}\char`\"{}Round-\/Robin between all A\+SP within A\+S\textbackslash{}n\char`\"{}\char`\"{}Override\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (as\+\_\+recov\+\_\+tout, as\+\_\+recov\+\_\+tout\+\_\+cmd,\char`\"{}recovery-\/timeout $<$1-\/2000$>$\char`\"{},\char`\"{}Specifies the recovery timeout value in milliseconds\textbackslash{}n\char`\"{}\char`\"{}Recovery Timeout in Milliseconds\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (as\+\_\+qos\+\_\+clas, as\+\_\+qos\+\_\+class\+\_\+cmd,\char`\"{}qos-\/class $<$0-\/255$>$\char`\"{},\char`\"{}Specity QoS Class of A\+S\textbackslash{}n\char`\"{}\char`\"{}QoS Class of A\+S\textbackslash{}n\char`\"{})
+\item 
+static int {\bf \+\_\+rout\+\_\+key} (struct vty $\ast$vty, const char $\ast$rcontext, const char $\ast${\bf dpc}, const char $\ast${\bf si}, const char $\ast$ssn)
+\item 
+{\bf D\+E\+F\+UN} (as\+\_\+rout\+\_\+key, as\+\_\+rout\+\_\+key\+\_\+cmd, {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+MD}, {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+RS})
+\item 
+{\bf D\+E\+F\+UN} (as\+\_\+rout\+\_\+key\+\_\+si, as\+\_\+rout\+\_\+key\+\_\+si\+\_\+cmd, {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+MD} {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+RG}, {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+RS} {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS})
+\item 
+{\bf D\+E\+F\+UN} (as\+\_\+rout\+\_\+key\+\_\+ssn, as\+\_\+rout\+\_\+key\+\_\+ssn\+\_\+cmd, {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+MD} {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+RG}, {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+RS} {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS})
+\item 
+{\bf D\+E\+F\+UN} (as\+\_\+rout\+\_\+key\+\_\+si\+\_\+ssn, as\+\_\+rout\+\_\+key\+\_\+si\+\_\+ssn\+\_\+cmd, {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+MD} {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+RG} {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+RG}, {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+RS} {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS} {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS})
+\item 
+{\bf D\+E\+F\+UN} (as\+\_\+pc\+\_\+override, as\+\_\+pc\+\_\+override\+\_\+cmd,\char`\"{}point-\/code override {\bf dpc} PC\char`\"{},\char`\"{}Point Code Specific Features\textbackslash{}n\char`\"{}\char`\"{}Override (force) a point-\/code to hard-\/coded value\textbackslash{}n\char`\"{}\char`\"{}Override Source Point Code\textbackslash{}n\char`\"{}\char`\"{}Override Destination Point Code\textbackslash{}n\char`\"{}\char`\"{}New Point Code\textbackslash{}n\char`\"{})
+\item 
+static void {\bf write\+\_\+one\+\_\+as} (struct vty $\ast$vty, struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$as)
+\item 
+{\bf D\+E\+F\+UN} (show\+\_\+cs7\+\_\+as, show\+\_\+cs7\+\_\+as\+\_\+cmd,\char`\"{}show cs7 instance $<$0-\/15$>$ as (active$\vert$all$\vert$m3ua$\vert$sua)\char`\"{}, S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR}\char`\"{}Application Server (AS)\textbackslash{}n\char`\"{}\char`\"{}Display all active A\+Ss\textbackslash{}n\char`\"{}\char`\"{}Display all A\+Ss (default)\textbackslash{}n\char`\"{}\char`\"{}Display all m3ua A\+Ss\textbackslash{}n\char`\"{}\char`\"{}Display all S\+UA A\+Ss\textbackslash{}n\char`\"{})
+\item 
+{\bf L\+L\+I\+S\+T\+\_\+\+H\+E\+AD} (sccp\+\_\+address\+\_\+book\+\_\+global)
+\item 
+static struct {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+entry} $\ast$ {\bf addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+local} (const char $\ast$name, const struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst)
+\item 
+static struct {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+entry} $\ast$ {\bf addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+global} (const char $\ast$name)
+\item 
+struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$ {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+by\+\_\+name} (struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$dest\+\_\+addr, const char $\ast$name)
+\begin{DoxyCompactList}\small\item\em Lookup an S\+C\+CP address from the addressbook by its name. \end{DoxyCompactList}\item 
+const char $\ast$ {\bf osmo\+\_\+sccp\+\_\+name\+\_\+by\+\_\+addr} (const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$addr)
+\begin{DoxyCompactList}\small\item\em Reverse lookup the lookup-\/name of a specified S\+C\+CP address. \end{DoxyCompactList}\item 
+static void {\bf write\+\_\+sccp\+\_\+addressbook} (struct vty $\ast$vty, const struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst)
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+show\+\_\+sccpaddr, cs7\+\_\+show\+\_\+sccpaddr\+\_\+cmd,\char`\"{}show cs7 instance $<$0-\/15$>$ sccp addressbook\char`\"{}, S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf S\+C\+C\+P\+\_\+\+S\+TR}\char`\"{}List all S\+C\+CP addressbook entries\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+sccpaddr, cs7\+\_\+sccpaddr\+\_\+cmd,\char`\"{}sccp-\/address N\+A\+ME\char`\"{},\char`\"{}Create/Modify an S\+C\+CP addressbook entry\textbackslash{}n\char`\"{}\char`\"{}Name of the S\+C\+CP Address\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+sccpaddr\+\_\+del, cs7\+\_\+sccpaddr\+\_\+del\+\_\+cmd,\char`\"{}no sccp-\/address N\+A\+ME\char`\"{}, N\+O\+\_\+\+S\+TR\char`\"{}Delete an S\+C\+CP addressbook entry\textbackslash{}n\char`\"{}\char`\"{}Name of the S\+C\+CP Address\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+sccpaddr\+\_\+ri, cs7\+\_\+sccpaddr\+\_\+ri\+\_\+cmd,\char`\"{}routing-\/indicator (GT$\vert$PC$\vert$IP)\char`\"{},\char`\"{}Add Routing Indicator\textbackslash{}n\char`\"{}\char`\"{}by global-\/title\textbackslash{}n\char`\"{}\char`\"{}by point-\/code\textbackslash{}n\char`\"{}\char`\"{}by ip-\/address\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+sccpaddr\+\_\+pc, cs7\+\_\+sccpaddr\+\_\+pc\+\_\+cmd,\char`\"{}point-\/code P\+O\+I\+N\+T\+\_\+\+C\+O\+DE\char`\"{},\char`\"{}Add point-\/code Number\textbackslash{}n\char`\"{}\char`\"{}P\+C\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+sccpaddr\+\_\+pc\+\_\+del, cs7\+\_\+sccpaddr\+\_\+pc\+\_\+del\+\_\+cmd,\char`\"{}no point-\/code\char`\"{}, N\+O\+\_\+\+S\+TR\char`\"{}Remove point-\/code Number\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+sccpaddr\+\_\+ssn, cs7\+\_\+sccpaddr\+\_\+ssn\+\_\+cmd,\char`\"{}subsystem-\/number $<$0-\/4294967295$>$\char`\"{},\char`\"{}Add Subsystem Number\textbackslash{}n\char`\"{}\char`\"{}S\+S\+N\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+sccpaddr\+\_\+ssn\+\_\+del, cs7\+\_\+sccpaddr\+\_\+ssn\+\_\+del\+\_\+cmd,\char`\"{}no subsystem-\/number\char`\"{}, N\+O\+\_\+\+S\+TR\char`\"{}Remove Subsystem Number\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+sccpaddr\+\_\+gt, cs7\+\_\+sccpaddr\+\_\+gt\+\_\+cmd,\char`\"{}global-\/title\char`\"{},\char`\"{}Add/Modify Global Title\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+sccpaddr\+\_\+gt\+\_\+del, cs7\+\_\+sccpaddr\+\_\+gt\+\_\+del\+\_\+cmd,\char`\"{}no global-\/title\char`\"{}, N\+O\+\_\+\+S\+TR\char`\"{}Remove Global Title\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+sccpaddr\+\_\+gt\+\_\+gti, cs7\+\_\+sccpaddr\+\_\+gt\+\_\+gti\+\_\+cmd,\char`\"{}global-\/title-\/indicator $<$0-\/15$>$\char`\"{},\char`\"{}Set Global Title Indicator\textbackslash{}n\char`\"{}\char`\"{}G\+T\+I\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+sccpaddr\+\_\+gt\+\_\+tt, cs7\+\_\+sccpaddr\+\_\+gt\+\_\+tt\+\_\+cmd,\char`\"{}translation-\/type $<$0-\/255$>$\char`\"{},\char`\"{}Set Global Title Translation Type\textbackslash{}n\char`\"{}\char`\"{}T\+T\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+sccpaddr\+\_\+gt\+\_\+npi, cs7\+\_\+sccpaddr\+\_\+gt\+\_\+npi\+\_\+cmd,\char`\"{}numbering-\/plan-\/indicator $<$0-\/15$>$\char`\"{},\char`\"{}Set Global Title Numbering Plan Indicator\textbackslash{}n\char`\"{}\char`\"{}N\+P\+I\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+sccpaddr\+\_\+gt\+\_\+nai, cs7\+\_\+sccpaddr\+\_\+gt\+\_\+nai\+\_\+cmd,\char`\"{}nature-\/of-\/address-\/indicator $<$0-\/127$>$\char`\"{},\char`\"{}Set Global Title Nature of Address Indicator\textbackslash{}n\char`\"{}\char`\"{}N\+A\+I\textbackslash{}n\char`\"{})
+\item 
+{\bf D\+E\+F\+UN} (cs7\+\_\+sccpaddr\+\_\+gt\+\_\+digits, cs7\+\_\+sccpaddr\+\_\+gt\+\_\+digits\+\_\+cmd,\char`\"{}digits D\+I\+G\+I\+TS\char`\"{},\char`\"{}Set Global Title Digits\textbackslash{}n\char`\"{}\char`\"{}Number digits\textbackslash{}n\char`\"{})
+\item 
+int {\bf osmo\+\_\+ss7\+\_\+vty\+\_\+go\+\_\+parent} (struct vty $\ast$vty)
+\item 
+int {\bf osmo\+\_\+ss7\+\_\+is\+\_\+config\+\_\+node} (struct vty $\ast$vty, int node)
+\item 
+static void {\bf vty\+\_\+init\+\_\+addr} (void)
+\item 
+static void {\bf vty\+\_\+init\+\_\+shared} (void $\ast$ctx)
+\item 
+void {\bf osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+asp} (void $\ast$ctx)
+\item 
+void {\bf osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+sg} (void $\ast$ctx)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf cs7\+\_\+role\+\_\+t} {\bf \+\_\+\+\_\+attribute\+\_\+\+\_\+}
+\item 
+static enum {\bf cs7\+\_\+role\+\_\+t} {\bf cs7\+\_\+role}
+\item 
+static void $\ast$ {\bf g\+\_\+ctx}
+\item 
+static struct cmd\+\_\+node {\bf cs7\+\_\+node}
+\item 
+static const struct value\+\_\+string {\bf ss7\+\_\+network\+\_\+indicator\+\_\+vals} [$\,$]
+\item 
+static struct cmd\+\_\+node {\bf rtable\+\_\+node}
+\item 
+static struct cmd\+\_\+node {\bf xua\+\_\+node}
+\item 
+static struct cmd\+\_\+node {\bf asp\+\_\+node}
+\item 
+static struct cmd\+\_\+node {\bf as\+\_\+node}
+\item 
+const struct value\+\_\+string {\bf mtp\+\_\+si\+\_\+vals} [$\,$]
+\item 
+static struct cmd\+\_\+node {\bf sccpaddr\+\_\+node}
+\item 
+static struct cmd\+\_\+node {\bf sccpaddr\+\_\+gt\+\_\+node}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+MD@{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+MD}}
+\index{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+MD@{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+MD}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+MD}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+MD~\char`\"{}routing-\/key R\+C\+O\+N\+T\+E\+XT D\+PC\char`\"{}}\label{osmo__ss7__vty_8c_a682f1914c7838dc08806b9da5110079f}
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+RS@{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+RS}}
+\index{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+RS@{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+RS}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+RS}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+RS}\label{osmo__ss7__vty_8c_aa7644529db029732d87d19a253a59d29}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{stringliteral}{"Define a routing key\(\backslash\)n"} \(\backslash\)
+        \textcolor{stringliteral}{"Routing context number\(\backslash\)n"} \(\backslash\)
+        \textcolor{stringliteral}{"Destination Point Code\(\backslash\)n"}
+\end{DoxyCode}
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+RG@{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+RG}}
+\index{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+RG@{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+RG}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+RG}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+RG~\char`\"{} si (aal2$\vert$bicc$\vert$b-\/isup$\vert$h248$\vert$isup$\vert$sat-\/isup$\vert$sccp$\vert$tup)\char`\"{}}\label{osmo__ss7__vty_8c_a48380d59146eb571d785397674813aaa}
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS@{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS}}
+\index{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS@{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS}\label{osmo__ss7__vty_8c_a51a8928c6df0c567dbb910a84e210827}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{stringliteral}{"Match on Service Indicator\(\backslash\)n"} \(\backslash\)
+        \textcolor{stringliteral}{"ATM Adaption Layer 2\(\backslash\)n"} \(\backslash\)
+        \textcolor{stringliteral}{"Bearer Independent Call Control\(\backslash\)n"} \(\backslash\)
+        \textcolor{stringliteral}{"Broadband ISDN User Part\(\backslash\)n"} \(\backslash\)
+        \textcolor{stringliteral}{"H.248\(\backslash\)n"} \(\backslash\)
+        \textcolor{stringliteral}{"ISDN User Part\(\backslash\)n"} \(\backslash\)
+        \textcolor{stringliteral}{"Sattelite ISDN User Part\(\backslash\)n"} \(\backslash\)
+        \textcolor{stringliteral}{"Signalling Connection Control Part\(\backslash\)n"} \(\backslash\)
+        \textcolor{stringliteral}{"Telephony User Part\(\backslash\)n"}
+\end{DoxyCode}
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+RG@{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+RG}}
+\index{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+RG@{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+RG}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+RG}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+RG~\char`\"{} ssn S\+SN\char`\"{}}\label{osmo__ss7__vty_8c_a04f81e6b512b7d50c66efa65c975489e}
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS@{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS}}
+\index{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS@{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS}\label{osmo__ss7__vty_8c_abb323199bb551576ad102102c64df8e4}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{stringliteral}{"Match on Sub-System Number\(\backslash\)n"} \(\backslash\)
+        \textcolor{stringliteral}{"Sub-System Number to match on\(\backslash\)n"}
+\end{DoxyCode}
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR@{X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR}}
+\index{X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR@{X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR}]{\setlength{\rightskip}{0pt plus 5cm}\#define X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR}\label{osmo__ss7__vty_8c_a949d5f69b175d77ee760da96301724c5}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{stringliteral}{"SCCP User Adaptation\(\backslash\)n"}         \(\backslash\)
+        \textcolor{stringliteral}{"MTP3 User Adaptation\(\backslash\)n"}        \(\backslash\)
+        \textcolor{stringliteral}{"IPA Multiplex (SCCP Lite)\(\backslash\)n"}
+\end{DoxyCode}
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR@{X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR}}
+\index{X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR@{X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR}]{\setlength{\rightskip}{0pt plus 5cm}\#define X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR~\char`\"{}(sua$\vert$m3ua$\vert$ipa)\char`\"{}}\label{osmo__ss7__vty_8c_ad33390e3572b10c583f9cf2aac606608}
+
+
+\subsection{Enumeration Type Documentation}
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!cs7\+\_\+role\+\_\+t@{cs7\+\_\+role\+\_\+t}}
+\index{cs7\+\_\+role\+\_\+t@{cs7\+\_\+role\+\_\+t}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{cs7\+\_\+role\+\_\+t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf cs7\+\_\+role\+\_\+t}}\label{osmo__ss7__vty_8c_aa6181aded5492004a6442972bb31c15b}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{C\+S7\+\_\+\+R\+O\+L\+E\+\_\+\+SG@{C\+S7\+\_\+\+R\+O\+L\+E\+\_\+\+SG}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!C\+S7\+\_\+\+R\+O\+L\+E\+\_\+\+SG@{C\+S7\+\_\+\+R\+O\+L\+E\+\_\+\+SG}}\item[{\em 
+C\+S7\+\_\+\+R\+O\+L\+E\+\_\+\+SG\label{osmo__ss7__vty_8c_aa6181aded5492004a6442972bb31c15ba6251043fc6df5347b66432be2da06d62}
+}]\index{C\+S7\+\_\+\+R\+O\+L\+E\+\_\+\+A\+SP@{C\+S7\+\_\+\+R\+O\+L\+E\+\_\+\+A\+SP}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!C\+S7\+\_\+\+R\+O\+L\+E\+\_\+\+A\+SP@{C\+S7\+\_\+\+R\+O\+L\+E\+\_\+\+A\+SP}}\item[{\em 
+C\+S7\+\_\+\+R\+O\+L\+E\+\_\+\+A\+SP\label{osmo__ss7__vty_8c_aa6181aded5492004a6442972bb31c15ba2a7a9a010cf4c267e4b996a0661bc5ec}
+}]\end{description}
+\end{Desc}
+
+
+\subsection{Function Documentation}
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!\+\_\+rout\+\_\+key@{\+\_\+rout\+\_\+key}}
+\index{\+\_\+rout\+\_\+key@{\+\_\+rout\+\_\+key}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{\+\_\+rout\+\_\+key(struct vty $\ast$vty, const char $\ast$rcontext, const char $\ast$dpc, const char $\ast$si, const char $\ast$ssn)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+rout\+\_\+key (
+\begin{DoxyParamCaption}
+\item[{struct vty $\ast$}]{vty, }
+\item[{const char $\ast$}]{rcontext, }
+\item[{const char $\ast$}]{dpc, }
+\item[{const char $\ast$}]{si, }
+\item[{const char $\ast$}]{ssn}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_adde6602dc2a909e9808cf73477c33fdb}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::context, osmo\+\_\+ss7\+\_\+as\+::inst, mtp\+\_\+si\+\_\+vals, osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse(), osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::pc, osmo\+\_\+ss7\+\_\+as\+::routing\+\_\+key, osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::si, and osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::ssn.
+
+
+
+Referenced by D\+E\+F\+U\+N().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+global@{addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+global}}
+\index{addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+global@{addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+global}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+global(const char $\ast$name)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+entry}$\ast$ addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+global (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_aba2fa01f70c79151f55ac41caa9d3caf}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::list\+\_\+global, and osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::name.
+
+
+
+Referenced by D\+E\+F\+U\+N(), and osmo\+\_\+sccp\+\_\+addr\+\_\+by\+\_\+name().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+local@{addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+local}}
+\index{addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+local@{addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+local}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+local(const char $\ast$name, const struct osmo\+\_\+ss7\+\_\+instance $\ast$inst)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+entry}$\ast$ addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+local (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name, }
+\item[{const struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_aa7eb70efb6f7165428c017383828d22e}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::inst, osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::list, osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::name, and osmo\+\_\+ss7\+\_\+instance\+::sccp\+\_\+address\+\_\+book.
+
+
+
+Referenced by D\+E\+F\+U\+N().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!config\+\_\+write\+\_\+cs7@{config\+\_\+write\+\_\+cs7}}
+\index{config\+\_\+write\+\_\+cs7@{config\+\_\+write\+\_\+cs7}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{config\+\_\+write\+\_\+cs7(struct vty $\ast$vty)}]{\setlength{\rightskip}{0pt plus 5cm}static int config\+\_\+write\+\_\+cs7 (
+\begin{DoxyParamCaption}
+\item[{struct vty $\ast$}]{vty}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_a08221210441df4d191562e488104e901}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::list, osmo\+\_\+ss7\+\_\+instances, and write\+\_\+one\+\_\+cs7().
+
+
+
+Referenced by vty\+\_\+init\+\_\+shared().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+instance, cs7\+\_\+instance\+\_\+cmd,""cs7 instance $<$0-\/15$>$"", C\+S7\+\_\+\+S\+TR""Configure a S\+S7 Instance\textbackslash{}n""I\+N\+S\+T\+\_\+\+S\+TR""Number of the instance\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+instance}]{, }
+\item[{cs7\+\_\+instance\+\_\+cmd}]{, }
+\item[{\char`\"{}cs7 instance $<$0-\/15$>$\char`\"{}}]{, }
+\item[{{\bf C\+S7\+\_\+\+S\+TR}\char`\"{}Configure a S\+S7 Instance\textbackslash{}n\char`\"{}I\+N\+S\+T\+\_\+\+S\+TR\char`\"{}Number of the instance\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a48d8eb631ea6c0a8f070366b0a595732}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+instance\+::description, g\+\_\+ctx, and osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create().
+
+
+
+Referenced by D\+E\+F\+U\+N().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+net\+\_\+ind, cs7\+\_\+net\+\_\+ind\+\_\+cmd,""network-\/indicator (international \texttt{"|} national \texttt{"|} reserved \texttt{"|} spare)"",""Configure the Network Indicator\textbackslash{}n""""International Network\textbackslash{}n""""National Network\textbackslash{}n""""Reserved Network\textbackslash{}n""""Spare Network\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+net\+\_\+ind}]{, }
+\item[{cs7\+\_\+net\+\_\+ind\+\_\+cmd}]{, }
+\item[{\char`\"{}network-\/indicator (international $\vert$ national $\vert$ reserved $\vert$ {\bf spare})\char`\"{}}]{, }
+\item[{\char`\"{}Configure the Network Indicator\textbackslash{}n\char`\"{}\char`\"{}International Network\textbackslash{}n\char`\"{}\char`\"{}National Network\textbackslash{}n\char`\"{}\char`\"{}Reserved Network\textbackslash{}n\char`\"{}\char`\"{}Spare Network\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a5879d929dba4ee61abbda70c7d09e81f}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+instance\+::network\+\_\+indicator, ni, and ss7\+\_\+network\+\_\+indicator\+\_\+vals.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+pc\+\_\+format, cs7\+\_\+pc\+\_\+format\+\_\+cmd,""point-\/code format $<$1-\/24$>$ [$<$1-\/23$>$] [$<$1-\/22$>$]"", P\+C\+\_\+\+S\+TR""Configure Point Code Format\textbackslash{}n""""Length of first P\+C component\textbackslash{}n""""Length of second P\+C component\textbackslash{}n""""Length of third P\+C component\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+pc\+\_\+format}]{, }
+\item[{cs7\+\_\+pc\+\_\+format\+\_\+cmd}]{, }
+\item[{\char`\"{}point-\/code format $<$1-\/24$>$  \char`\"{}}]{[$<$ 1-\/23 $>$][$<$ 1-\/22 $>$], }
+\item[{{\bf P\+C\+\_\+\+S\+TR}\char`\"{}Configure Point Code Format\textbackslash{}n\char`\"{}\char`\"{}Length of first PC component\textbackslash{}n\char`\"{}\char`\"{}Length of second PC component\textbackslash{}n\char`\"{}\char`\"{}Length of third PC component\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_aa6dfde949f7f6eec0a004c7009620d4f}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+pc\+\_\+fmt\+::component\+\_\+len, and osmo\+\_\+ss7\+\_\+instance\+::pc\+\_\+fmt.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+pc\+\_\+format\+\_\+def, cs7\+\_\+pc\+\_\+format\+\_\+def\+\_\+cmd,""point-\/code format default"", P\+C\+\_\+\+S\+TR""Configure Point Code Format\textbackslash{}n""""Default Point Code Format (3.\+8.\+3)\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+pc\+\_\+format\+\_\+def}]{, }
+\item[{cs7\+\_\+pc\+\_\+format\+\_\+def\+\_\+cmd}]{, }
+\item[{\char`\"{}point-\/code format default\char`\"{}}]{, }
+\item[{{\bf P\+C\+\_\+\+S\+TR}\char`\"{}Configure Point Code Format\textbackslash{}n\char`\"{}\char`\"{}Default Point Code Format (3.\+8.\+3)\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_ab52e90153db074ab8a3e930c3ea97f31}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+pc\+\_\+fmt\+::component\+\_\+len, and osmo\+\_\+ss7\+\_\+instance\+::pc\+\_\+fmt.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+pc\+\_\+delimiter, cs7\+\_\+pc\+\_\+delimiter\+\_\+cmd,""point-\/code delimiter (default\texttt{"|}dash)"", P\+C\+\_\+\+S\+TR""Configure Point Code Delimiter\textbackslash{}n""""Use dot as delimiter\textbackslash{}n""""User dash as delimiter\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+pc\+\_\+delimiter}]{, }
+\item[{cs7\+\_\+pc\+\_\+delimiter\+\_\+cmd}]{, }
+\item[{\char`\"{}point-\/code delimiter (default$\vert$dash)\char`\"{}}]{, }
+\item[{{\bf P\+C\+\_\+\+S\+TR}\char`\"{}Configure Point Code Delimiter\textbackslash{}n\char`\"{}\char`\"{}Use dot as delimiter\textbackslash{}n\char`\"{}\char`\"{}User dash as delimiter\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a79185b473b6a57b71111c2dfc502e886}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+pc\+\_\+fmt\+::delimiter, and osmo\+\_\+ss7\+\_\+instance\+::pc\+\_\+fmt.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+point\+\_\+code, cs7\+\_\+point\+\_\+code\+\_\+cmd,""point-\/code P\+O\+I\+N\+T\+\_\+\+C\+O\+DE"",""Configure the local Point Code\textbackslash{}n""""Point Code\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+point\+\_\+code}]{, }
+\item[{cs7\+\_\+point\+\_\+code\+\_\+cmd}]{, }
+\item[{\char`\"{}point-\/code P\+O\+I\+N\+T\+\_\+\+C\+O\+DE\char`\"{}}]{, }
+\item[{\char`\"{}Configure the local Point Code\textbackslash{}n\char`\"{}\char`\"{}Point Code\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a8c34f281b9394512ad6ea3f53bafb7b2}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+valid(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse(), and osmo\+\_\+ss7\+\_\+instance\+::primary\+\_\+pc.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+permit\+\_\+dyn\+\_\+rkm, cs7\+\_\+permit\+\_\+dyn\+\_\+rkm\+\_\+cmd,""xua rkm routing-\/key-\/allocation (static-\/only\texttt{"|}dynamic-\/permitted)"",""S\+I\+G\+T\+R\+A\+N xxx\+U\+A related\textbackslash{}n""""Routing Key Management\textbackslash{}n""""Routing Key Management Allocation Policy\textbackslash{}n""""Only static (pre-\/confgured) Routing Keys permitted\textbackslash{}n""""Dynamically allocate Routing Keys for what A\+S\+Ps request\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+permit\+\_\+dyn\+\_\+rkm}]{, }
+\item[{cs7\+\_\+permit\+\_\+dyn\+\_\+rkm\+\_\+cmd}]{, }
+\item[{\char`\"{}xua rkm routing-\/key-\/allocation (static-\/only$\vert$dynamic-\/permitted)\char`\"{}}]{, }
+\item[{\char`\"{}S\+I\+G\+T\+R\+AN xxx\+UA related\textbackslash{}n\char`\"{}\char`\"{}Routing Key Management\textbackslash{}n\char`\"{}\char`\"{}Routing Key Management Allocation Policy\textbackslash{}n\char`\"{}\char`\"{}Only static (pre-\/confgured) Routing Keys permitted\textbackslash{}n\char`\"{}\char`\"{}Dynamically allocate Routing Keys for what A\+S\+Ps request\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a0efe736cecae06d699d2d8f93d7a7f8f}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+instance\+::permit\+\_\+dyn\+\_\+rkm\+\_\+alloc, and write\+\_\+one\+\_\+cs7().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(show\+\_\+cs7\+\_\+user, show\+\_\+cs7\+\_\+user\+\_\+cmd,""show cs7 instance $<$0-\/15$>$ users"", S\+H\+O\+W\+\_\+\+S\+T\+R C\+S7\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+TR""User Table\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{show\+\_\+cs7\+\_\+user}]{, }
+\item[{show\+\_\+cs7\+\_\+user\+\_\+cmd}]{, }
+\item[{\char`\"{}show cs7 instance $<$0-\/15$>$ users\char`\"{}}]{, }
+\item[{S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR}\char`\"{}User Table\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a7c8d90faa407aa16888d4c8dd866b950}
+
+
+References osmo\+\_\+ss7\+\_\+user\+::name, osmo\+\_\+ss7\+\_\+instance\+\_\+find(), and osmo\+\_\+ss7\+\_\+instance\+::user.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+route\+\_\+table, cs7\+\_\+route\+\_\+table\+\_\+cmd,""route-\/table system"",""Specify the name of the route table\textbackslash{}n""""Name of the route table\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+route\+\_\+table}]{, }
+\item[{cs7\+\_\+route\+\_\+table\+\_\+cmd}]{, }
+\item[{\char`\"{}route-\/table system\char`\"{}}]{, }
+\item[{\char`\"{}Specify the name of the route table\textbackslash{}n\char`\"{}\char`\"{}Name of the route table\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a05c527c00de9dca0922309dd22a2e646}
+
+
+References osmo\+\_\+ss7\+\_\+route\+\_\+table\+::cfg, osmo\+\_\+ss7\+\_\+route\+\_\+table\+::description, and osmo\+\_\+ss7\+\_\+instance\+::rtable\+\_\+system.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+rt\+\_\+upd, cs7\+\_\+rt\+\_\+upd\+\_\+cmd,""update route P\+O\+I\+N\+T\+\_\+\+C\+O\+D\+E M\+A\+S\+K linkset L\+S\+\_\+\+N\+A\+M\+E [priority P\+R\+IO] [qos-\/class (\+C\+L\+A\+SS\texttt{"|}default)]"",""Update the Route\textbackslash{}n""""Update the Route\textbackslash{}n""""Destination Point Code\textbackslash{}n""""Point Code Mask\textbackslash{}n""""Point Code Length\textbackslash{}n""""Specify Destination Linkset\textbackslash{}n""""Linkset Name\textbackslash{}n""""Specify Priority\textbackslash{}n""""Priority\textbackslash{}n""""Specify Qo\+S Class\textbackslash{}n""""Qo\+S Class\textbackslash{}n""""Default Qo\+S Class\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+rt\+\_\+upd}]{, }
+\item[{cs7\+\_\+rt\+\_\+upd\+\_\+cmd}]{, }
+\item[{\char`\"{}update route P\+O\+I\+N\+T\+\_\+\+C\+O\+DE M\+A\+SK linkset L\+S\+\_\+\+N\+A\+ME  \char`\"{}}]{[priority P\+R\+I\+O][qos-\/class(\+C\+L\+A\+S\+S$\vert$default)], }
+\item[{\char`\"{}Update the Route\textbackslash{}n\char`\"{}\char`\"{}Update the Route\textbackslash{}n\char`\"{}\char`\"{}Destination Point Code\textbackslash{}n\char`\"{}\char`\"{}Point Code Mask\textbackslash{}n\char`\"{}\char`\"{}Point Code Length\textbackslash{}n\char`\"{}\char`\"{}Specify Destination Linkset\textbackslash{}n\char`\"{}\char`\"{}Linkset Name\textbackslash{}n\char`\"{}\char`\"{}Specify Priority\textbackslash{}n\char`\"{}\char`\"{}Priority\textbackslash{}n\char`\"{}\char`\"{}Specify QoS Class\textbackslash{}n\char`\"{}\char`\"{}QoS Class\textbackslash{}n\char`\"{}\char`\"{}Default QoS Class\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a0fd2e8acdce998966584ef73a65de2b5}
+
+
+References osmo\+\_\+ss7\+\_\+route\+::cfg, dpc, osmo\+\_\+ss7\+\_\+route\+\_\+table\+::inst, osmo\+\_\+ss7\+\_\+route\+::mask, osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse\+\_\+mask\+\_\+or\+\_\+len(), osmo\+\_\+ss7\+\_\+route\+\_\+create(), osmo\+\_\+ss7\+\_\+route\+::priority, and osmo\+\_\+ss7\+\_\+route\+::qos\+\_\+class.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+rt\+\_\+rem, cs7\+\_\+rt\+\_\+rem\+\_\+cmd,""remove route P\+O\+I\+N\+T\+\_\+\+C\+O\+D\+E M\+A\+SK"",""Remove a Route\textbackslash{}n""""Remove a Route\textbackslash{}n""""Destination Point Code\textbackslash{}n""""Point Code Mask\textbackslash{}n""""Point Code Length\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+rt\+\_\+rem}]{, }
+\item[{cs7\+\_\+rt\+\_\+rem\+\_\+cmd}]{, }
+\item[{\char`\"{}remove route P\+O\+I\+N\+T\+\_\+\+C\+O\+DE M\+A\+SK\char`\"{}}]{, }
+\item[{\char`\"{}Remove a Route\textbackslash{}n\char`\"{}\char`\"{}Remove a Route\textbackslash{}n\char`\"{}\char`\"{}Destination Point Code\textbackslash{}n\char`\"{}\char`\"{}Point Code Mask\textbackslash{}n\char`\"{}\char`\"{}Point Code Length\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a92e5ecfede3f89070096c873b2d595df}
+
+
+References dpc, osmo\+\_\+ss7\+\_\+route\+\_\+table\+::inst, osmo\+\_\+ss7\+\_\+route\+::mask, osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse\+\_\+mask\+\_\+or\+\_\+len(), osmo\+\_\+ss7\+\_\+route\+\_\+destroy(), and osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc\+\_\+mask().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(show\+\_\+cs7\+\_\+route, show\+\_\+cs7\+\_\+route\+\_\+cmd,""show cs7 instance $<$0-\/15$>$ route"", S\+H\+O\+W\+\_\+\+S\+T\+R C\+S7\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+TR""Routing Table\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{show\+\_\+cs7\+\_\+route}]{, }
+\item[{show\+\_\+cs7\+\_\+route\+\_\+cmd}]{, }
+\item[{\char`\"{}show cs7 instance $<$0-\/15$>$ route\char`\"{}}]{, }
+\item[{S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR}\char`\"{}Routing Table\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a910f2ba40de6173a754b4a938c517ecb}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+\_\+find(), osmo\+\_\+ss7\+\_\+instance\+::rtable\+\_\+system, and vty\+\_\+dump\+\_\+rtable().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+xua, cs7\+\_\+xua\+\_\+cmd,""listen ""X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR"" $<$0-\/65534$>$"",""Configure/\+Enable x\+U\+A Listener\textbackslash{}n""X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR""S\+C\+T\+P Port number\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+xua}]{, }
+\item[{cs7\+\_\+xua\+\_\+cmd}]{, }
+\item[{\char`\"{}listen \char`\"{}X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR\char`\"{} $<$0-\/65534$>$\char`\"{}}]{, }
+\item[{\char`\"{}Configure/Enable x\+UA Listener\textbackslash{}n\char`\"{}X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR\char`\"{}S\+C\+TP Port number\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_ad9d35cfb9c29035e27b9ccfd313ea13a}
+
+
+References osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+find(), parse\+\_\+asp\+\_\+proto(), and osmo\+\_\+xua\+\_\+server\+::proto.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(no\+\_\+cs7\+\_\+xua, no\+\_\+cs7\+\_\+xua\+\_\+cmd,""no listen ""X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR"" $<$0-\/65534$>$"", N\+O\+\_\+\+S\+TR""Disable x\+U\+A Listener on given S\+C\+T\+P Port\textbackslash{}n""X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR""S\+C\+T\+P Port number\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{no\+\_\+cs7\+\_\+xua}]{, }
+\item[{no\+\_\+cs7\+\_\+xua\+\_\+cmd}]{, }
+\item[{\char`\"{}no listen \char`\"{}X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR\char`\"{} $<$0-\/65534$>$\char`\"{}}]{, }
+\item[{N\+O\+\_\+\+S\+TR\char`\"{}Disable x\+UA Listener on given S\+C\+TP Port\textbackslash{}n\char`\"{}X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR\char`\"{}S\+C\+TP Port number\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a627e069b392e5d186e85789fdbd9b039}
+
+
+References osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+destroy(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+find(), parse\+\_\+asp\+\_\+proto(), and osmo\+\_\+xua\+\_\+server\+::proto.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(xua\+\_\+local\+\_\+ip, xua\+\_\+local\+\_\+ip\+\_\+cmd,""local-\/ip A.\+B.\+C.\+D"",""Configure the Local I\+P Address for x\+U\+A\textbackslash{}n""""I\+P Address to use for X\+U\+A\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{xua\+\_\+local\+\_\+ip}]{, }
+\item[{xua\+\_\+local\+\_\+ip\+\_\+cmd}]{, }
+\item[{\char`\"{}local-\/ip A.\+B.\+C.\+D\char`\"{}}]{, }
+\item[{\char`\"{}Configure the Local IP Address for x\+U\+A\textbackslash{}n\char`\"{}\char`\"{}IP Address to use for X\+U\+A\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a504bb937789c3f1413fad91390bc2a6c}
+
+
+References osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+bind(), and osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+set\+\_\+local\+\_\+host().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(xua\+\_\+accept\+\_\+dyn\+\_\+asp, xua\+\_\+accept\+\_\+dyn\+\_\+asp\+\_\+cmd,""accept-\/asp-\/connections (pre-\/configured\texttt{"|}dynamic-\/permitted)"",""Define what kind of A\+S\+P connections to accept\textbackslash{}n""""Accept only pre-\/confiugred A\+S\+Ps (source I\+P/prt)\textbackslash{}n""""Accept any connection and dynamically create an A\+S\+P definition\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{xua\+\_\+accept\+\_\+dyn\+\_\+asp}]{, }
+\item[{xua\+\_\+accept\+\_\+dyn\+\_\+asp\+\_\+cmd}]{, }
+\item[{\char`\"{}accept-\/asp-\/connections (pre-\/configured$\vert$dynamic-\/permitted)\char`\"{}}]{, }
+\item[{\char`\"{}Define what kind of A\+SP connections to accept\textbackslash{}n\char`\"{}\char`\"{}Accept only pre-\/confiugred A\+S\+Ps (source IP/prt)\textbackslash{}n\char`\"{}\char`\"{}Accept any connection and dynamically create an A\+SP definition\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a196c321219cd5d331710a23841de7ca6}
+
+
+References osmo\+\_\+xua\+\_\+server\+::accept\+\_\+dyn\+\_\+reg, and osmo\+\_\+xua\+\_\+server\+::cfg.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(show\+\_\+cs7\+\_\+xua, show\+\_\+cs7\+\_\+xua\+\_\+cmd,""show cs7 ""X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR"" [$<$0-\/65534$>$]"", S\+H\+O\+W\+\_\+\+S\+T\+R C\+S7\+\_\+\+S\+T\+R X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR""Port Number"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{show\+\_\+cs7\+\_\+xua}]{, }
+\item[{show\+\_\+cs7\+\_\+xua\+\_\+cmd}]{, }
+\item[{\char`\"{}show cs7 \char`\"{}X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR\char`\"{} \char`\"{}}]{[$<$ 0-\/65534 $>$], }
+\item[{S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR}\char`\"{}Port Number\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_ac3fae9217e991e11637815d164d988ad}
+
+
+References osmo\+\_\+xua\+\_\+server\+::cfg, osmo\+\_\+xua\+\_\+server\+::list, osmo\+\_\+ss7\+\_\+instances, osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+find(), parse\+\_\+asp\+\_\+proto(), osmo\+\_\+xua\+\_\+server\+::proto, vty\+\_\+dump\+\_\+xua\+\_\+server(), and osmo\+\_\+ss7\+\_\+instance\+::xua\+\_\+servers.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+asp, cs7\+\_\+asp\+\_\+cmd,""asp N\+A\+M\+E $<$0-\/65535$>$ $<$0-\/65535$>$ ""X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+T\+R,""Configure Application Server Process\textbackslash{}n""""Name of A\+S\+P\textbackslash{}n""""Remote S\+C\+T\+P port number\textbackslash{}n""""Local S\+C\+T\+P port number\textbackslash{}n""X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+T\+R)}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+asp}]{, }
+\item[{cs7\+\_\+asp\+\_\+cmd}]{, }
+\item[{\char`\"{}asp N\+A\+ME $<$0-\/65535$>$ $<$0-\/65535$>$ \char`\"{}}]{X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR, }
+\item[{\char`\"{}Configure Application Server Process\textbackslash{}n\char`\"{}\char`\"{}Name of A\+S\+P\textbackslash{}n\char`\"{}\char`\"{}Remote S\+C\+TP port number\textbackslash{}n\char`\"{}\char`\"{}Local S\+C\+TP port number\textbackslash{}n\char`\"{}}]{X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a010b31e33fec14806628aa84fa4cecb6}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::description, osmo\+\_\+ss7\+\_\+asp\+::is\+\_\+server, osmo\+\_\+ss7\+\_\+instance\+::name, osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+or\+\_\+create(), O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+N\+O\+NE, and parse\+\_\+asp\+\_\+proto().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(no\+\_\+cs7\+\_\+asp, no\+\_\+cs7\+\_\+asp\+\_\+cmd,""no asp N\+A\+ME"", N\+O\+\_\+\+S\+TR""Disable Application Server Process\textbackslash{}n""""Name of A\+S\+P\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{no\+\_\+cs7\+\_\+asp}]{, }
+\item[{no\+\_\+cs7\+\_\+asp\+\_\+cmd}]{, }
+\item[{\char`\"{}no asp N\+A\+ME\char`\"{}}]{, }
+\item[{N\+O\+\_\+\+S\+TR\char`\"{}Disable Application Server Process\textbackslash{}n\char`\"{}\char`\"{}Name of A\+S\+P\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a31cd4d43e1b92df2e5d9678485dbd587}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::name, osmo\+\_\+ss7\+\_\+asp\+\_\+destroy(), and osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+name().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(asp\+\_\+local\+\_\+ip, asp\+\_\+local\+\_\+ip\+\_\+cmd,""local-\/ip A.\+B.\+C.\+D"",""Specify Local I\+P Address from which to contact A\+S\+P\textbackslash{}n""""Local I\+P Address from which to contact of A\+S\+P\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{asp\+\_\+local\+\_\+ip}]{, }
+\item[{asp\+\_\+local\+\_\+ip\+\_\+cmd}]{, }
+\item[{\char`\"{}local-\/ip A.\+B.\+C.\+D\char`\"{}}]{, }
+\item[{\char`\"{}Specify Local IP Address from which to contact A\+S\+P\textbackslash{}n\char`\"{}\char`\"{}Local IP Address from which to contact of A\+S\+P\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a34f5260d55aeb5ccfee3c9545d3dc366}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::host, and osmo\+\_\+ss7\+\_\+asp\+::local.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(asp\+\_\+remote\+\_\+ip, asp\+\_\+remote\+\_\+ip\+\_\+cmd,""remote-\/ip A.\+B.\+C.\+D"",""Specify Remote I\+P Address of A\+S\+P\textbackslash{}n""""Remote I\+P Address of A\+S\+P\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{asp\+\_\+remote\+\_\+ip}]{, }
+\item[{asp\+\_\+remote\+\_\+ip\+\_\+cmd}]{, }
+\item[{\char`\"{}remote-\/ip A.\+B.\+C.\+D\char`\"{}}]{, }
+\item[{\char`\"{}Specify Remote IP Address of A\+S\+P\textbackslash{}n\char`\"{}\char`\"{}Remote IP Address of A\+S\+P\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a6256e12dbbe95e1fe09650934d026788}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::host, and osmo\+\_\+ss7\+\_\+asp\+::remote.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(asp\+\_\+qos\+\_\+clas, asp\+\_\+qos\+\_\+class\+\_\+cmd,""qos-\/class $<$0-\/255$>$"",""Specify Qo\+S Class of A\+S\+P\textbackslash{}n""""Qo\+S Class of A\+S\+P\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{asp\+\_\+qos\+\_\+clas}]{, }
+\item[{asp\+\_\+qos\+\_\+class\+\_\+cmd}]{, }
+\item[{\char`\"{}qos-\/class $<$0-\/255$>$\char`\"{}}]{, }
+\item[{\char`\"{}Specify QoS Class of A\+S\+P\textbackslash{}n\char`\"{}\char`\"{}QoS Class of A\+S\+P\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a43881c48bf7d36ac2192c8d9c9082e9d}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, and osmo\+\_\+ss7\+\_\+asp\+::qos\+\_\+class.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(asp\+\_\+block, asp\+\_\+block\+\_\+cmd,""block"",""Allows a S\+C\+T\+P Association with A\+S\+P, but doesn\textquotesingle{}t let it become active\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{asp\+\_\+block}]{, }
+\item[{asp\+\_\+block\+\_\+cmd}]{, }
+\item[{\char`\"{}block\char`\"{}}]{, }
+\item[{\char`\"{}Allows a S\+C\+TP Association with}]{A\+SP, }
+\item[{but doesn\textquotesingle{}t let it become active\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a45033996ab080fdb1137fd11d2d305a9}
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(asp\+\_\+shutdown, asp\+\_\+shutdown\+\_\+cmd,""shutdown"",""Terminates S\+C\+T\+P association; New associations will be rejected\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{asp\+\_\+shutdown}]{, }
+\item[{asp\+\_\+shutdown\+\_\+cmd}]{, }
+\item[{\char`\"{}shutdown\char`\"{}}]{, }
+\item[{\char`\"{}Terminates S\+C\+TP association; New associations will be rejected\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a56016f838f90a2c8d47bf80cce2452a5}
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(show\+\_\+cs7\+\_\+asp, show\+\_\+cs7\+\_\+asp\+\_\+cmd,""show cs7 instance $<$0-\/15$>$ asp"", S\+H\+O\+W\+\_\+\+S\+T\+R C\+S7\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+TR""Application Server Process (\+A\+S\+P)\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{show\+\_\+cs7\+\_\+asp}]{, }
+\item[{show\+\_\+cs7\+\_\+asp\+\_\+cmd}]{, }
+\item[{\char`\"{}show cs7 instance $<$0-\/15$>$ asp\char`\"{}}]{, }
+\item[{S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR}\char`\"{}Application Server Process (A\+SP)\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_ad3fd205ef879ede557c3173a2dd83c04}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::asp\+\_\+list, osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::fi, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::host, osmo\+\_\+ss7\+\_\+asp\+::list, osmo\+\_\+ss7\+\_\+asp\+::name, osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+vals, osmo\+\_\+ss7\+\_\+instance\+\_\+find(), osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::port, osmo\+\_\+ss7\+\_\+asp\+::proto, and osmo\+\_\+ss7\+\_\+asp\+::remote.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+as, cs7\+\_\+as\+\_\+cmd,""as N\+A\+M\+E ""X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+T\+R,""Configure an Application Server\textbackslash{}n""""Name of the Application Server\textbackslash{}n""X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+T\+R)}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+as}]{, }
+\item[{cs7\+\_\+as\+\_\+cmd}]{, }
+\item[{\char`\"{}as N\+A\+ME \char`\"{}}]{X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+S\+TR, }
+\item[{\char`\"{}Configure an Application Server\textbackslash{}n\char`\"{}\char`\"{}Name of the Application Server\textbackslash{}n\char`\"{}}]{X\+U\+A\+\_\+\+V\+A\+R\+\_\+\+H\+E\+L\+P\+\_\+\+S\+TR}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a5edcbc75a36fa6f4609719fe4e422977}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+as\+::description, osmo\+\_\+ss7\+\_\+as\+::name, osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+or\+\_\+create(), O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+N\+O\+NE, and parse\+\_\+asp\+\_\+proto().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(no\+\_\+cs7\+\_\+as, no\+\_\+cs7\+\_\+as\+\_\+cmd,""no as N\+A\+ME"", N\+O\+\_\+\+S\+TR""Disable Application Server\textbackslash{}n""""Name of A\+S\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{no\+\_\+cs7\+\_\+as}]{, }
+\item[{no\+\_\+cs7\+\_\+as\+\_\+cmd}]{, }
+\item[{\char`\"{}no as N\+A\+ME\char`\"{}}]{, }
+\item[{N\+O\+\_\+\+S\+TR\char`\"{}Disable Application Server\textbackslash{}n\char`\"{}\char`\"{}Name of A\+S\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_abf4ff2a8b4d758884104ec694d9cb824}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::name, osmo\+\_\+ss7\+\_\+as\+\_\+destroy(), and osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+name().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(as\+\_\+asp, as\+\_\+asp\+\_\+cmd,""asp N\+A\+ME"",""Specify that a given A\+S\+P is part of this A\+S\textbackslash{}n""""Name of A\+S\+P to be added to A\+S\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{as\+\_\+asp}]{, }
+\item[{as\+\_\+asp\+\_\+cmd}]{, }
+\item[{\char`\"{}asp N\+A\+ME\char`\"{}}]{, }
+\item[{\char`\"{}Specify that a given A\+SP is part of this A\+S\textbackslash{}n\char`\"{}\char`\"{}Name of A\+SP to be added to A\+S\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_ac4424940f67ce4486bcdd0c520ecf675}
+
+
+References osmo\+\_\+ss7\+\_\+as\+\_\+add\+\_\+asp().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(as\+\_\+no\+\_\+asp, as\+\_\+no\+\_\+asp\+\_\+cmd,""no asp N\+A\+ME"", N\+O\+\_\+\+S\+TR""Specify A\+S\+P to be removed from this A\+S\textbackslash{}n""""Name of A\+S\+P to be removed\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{as\+\_\+no\+\_\+asp}]{, }
+\item[{as\+\_\+no\+\_\+asp\+\_\+cmd}]{, }
+\item[{\char`\"{}no asp N\+A\+ME\char`\"{}}]{, }
+\item[{N\+O\+\_\+\+S\+TR\char`\"{}Specify A\+SP to be removed from this A\+S\textbackslash{}n\char`\"{}\char`\"{}Name of A\+SP to be removed\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a6e265243571c8e64f8f8317d04d5fe2c}
+
+
+References osmo\+\_\+ss7\+\_\+as\+\_\+del\+\_\+asp().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(as\+\_\+traf\+\_\+mode, as\+\_\+traf\+\_\+mode\+\_\+cmd,""traffic-\/mode (broadcast \texttt{"|} loadshare \texttt{"|} roundrobin \texttt{"|} override)"",""Specifies traffic mode of operation of the A\+S\+P within the A\+S\textbackslash{}n""""Broadcast to all A\+S\+P within A\+S\textbackslash{}n""""Share Load among all A\+S\+P within A\+S\textbackslash{}n""""Round-\/\+Robin between all A\+S\+P within A\+S\textbackslash{}n""""Override\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{as\+\_\+traf\+\_\+mode}]{, }
+\item[{as\+\_\+traf\+\_\+mode\+\_\+cmd}]{, }
+\item[{\char`\"{}traffic-\/mode (broadcast $\vert$ loadshare $\vert$ roundrobin $\vert$ override)\char`\"{}}]{, }
+\item[{\char`\"{}Specifies traffic mode of operation of the A\+SP within the A\+S\textbackslash{}n\char`\"{}\char`\"{}Broadcast to all A\+SP within A\+S\textbackslash{}n\char`\"{}\char`\"{}Share Load among all A\+SP within A\+S\textbackslash{}n\char`\"{}\char`\"{}Round-\/Robin between all A\+SP within A\+S\textbackslash{}n\char`\"{}\char`\"{}Override\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a4b44a5f433ff672a2be9bec279f210c3}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+as\+::mode, and osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode\+\_\+vals.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(as\+\_\+recov\+\_\+tout, as\+\_\+recov\+\_\+tout\+\_\+cmd,""recovery-\/timeout $<$1-\/2000$>$"",""Specifies the recovery timeout value in milliseconds\textbackslash{}n""""Recovery Timeout in Milliseconds\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{as\+\_\+recov\+\_\+tout}]{, }
+\item[{as\+\_\+recov\+\_\+tout\+\_\+cmd}]{, }
+\item[{\char`\"{}recovery-\/timeout $<$1-\/2000$>$\char`\"{}}]{, }
+\item[{\char`\"{}Specifies the recovery timeout value in milliseconds\textbackslash{}n\char`\"{}\char`\"{}Recovery Timeout in Milliseconds\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a494b13369c27c0ca3bc0fc490b740577}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::cfg, and osmo\+\_\+ss7\+\_\+as\+::recovery\+\_\+timeout\+\_\+msec.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(as\+\_\+qos\+\_\+clas, as\+\_\+qos\+\_\+class\+\_\+cmd,""qos-\/class $<$0-\/255$>$"",""Specity Qo\+S Class of A\+S\textbackslash{}n""""Qo\+S Class of A\+S\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{as\+\_\+qos\+\_\+clas}]{, }
+\item[{as\+\_\+qos\+\_\+class\+\_\+cmd}]{, }
+\item[{\char`\"{}qos-\/class $<$0-\/255$>$\char`\"{}}]{, }
+\item[{\char`\"{}Specity QoS Class of A\+S\textbackslash{}n\char`\"{}\char`\"{}QoS Class of A\+S\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a24c42c0ed399bbd1f762383348c2afce}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::cfg, and osmo\+\_\+ss7\+\_\+as\+::qos\+\_\+class.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(as\+\_\+rout\+\_\+key, as\+\_\+rout\+\_\+key\+\_\+cmd, R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D, R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+R\+S)}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{as\+\_\+rout\+\_\+key}]{, }
+\item[{as\+\_\+rout\+\_\+key\+\_\+cmd}]{, }
+\item[{{\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+MD}}]{, }
+\item[{{\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+RS}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a8651092e07f0b5a4c6cb0542b01231e2}
+
+
+References \+\_\+rout\+\_\+key().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(as\+\_\+rout\+\_\+key\+\_\+si, as\+\_\+rout\+\_\+key\+\_\+si\+\_\+cmd, R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+R\+G, R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+R\+S R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+R\+G\+\_\+\+S\+T\+R\+S)}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{as\+\_\+rout\+\_\+key\+\_\+si}]{, }
+\item[{as\+\_\+rout\+\_\+key\+\_\+si\+\_\+cmd}]{, }
+\item[{{\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+MD}}]{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+RG, }
+\item[{{\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+RS}}]{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a1c42b694526b43b6788ce6ac67513e8a}
+
+
+References \+\_\+rout\+\_\+key().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(as\+\_\+rout\+\_\+key\+\_\+ssn, as\+\_\+rout\+\_\+key\+\_\+ssn\+\_\+cmd, R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+R\+G, R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+R\+S R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+R\+G\+\_\+\+S\+T\+R\+S)}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{as\+\_\+rout\+\_\+key\+\_\+ssn}]{, }
+\item[{as\+\_\+rout\+\_\+key\+\_\+ssn\+\_\+cmd}]{, }
+\item[{{\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+MD}}]{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+RG, }
+\item[{{\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+RS}}]{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a62240c18bdfb79596fea9995b78bc10e}
+
+
+References \+\_\+rout\+\_\+key().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(as\+\_\+rout\+\_\+key\+\_\+si\+\_\+ssn, as\+\_\+rout\+\_\+key\+\_\+si\+\_\+ssn\+\_\+cmd, R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+R\+G R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+R\+G, R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+R\+S R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+R\+G\+\_\+\+S\+T\+R\+S R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+R\+G\+\_\+\+S\+T\+R\+S)}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{as\+\_\+rout\+\_\+key\+\_\+si\+\_\+ssn}]{, }
+\item[{as\+\_\+rout\+\_\+key\+\_\+si\+\_\+ssn\+\_\+cmd}]{, }
+\item[{{\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+MD} {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+RG}}]{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+RG, }
+\item[{{\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+C\+M\+D\+\_\+\+S\+T\+RS} {\bf R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS}}]{R\+O\+U\+T\+I\+N\+G\+\_\+\+K\+E\+Y\+\_\+\+S\+S\+N\+\_\+\+A\+R\+G\+\_\+\+S\+T\+RS}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a9f6e052ef8cc425f7565ba9a476e893a}
+
+
+References \+\_\+rout\+\_\+key().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(as\+\_\+pc\+\_\+override, as\+\_\+pc\+\_\+override\+\_\+cmd,""point-\/code override dpc PC"",""Point Code Specific Features\textbackslash{}n""""Override (force) a point-\/code to hard-\/coded value\textbackslash{}n""""Override Source Point Code\textbackslash{}n""""Override Destination Point Code\textbackslash{}n""""New Point Code\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{as\+\_\+pc\+\_\+override}]{, }
+\item[{as\+\_\+pc\+\_\+override\+\_\+cmd}]{, }
+\item[{\char`\"{}point-\/code override {\bf dpc} PC\char`\"{}}]{, }
+\item[{\char`\"{}Point Code Specific Features\textbackslash{}n\char`\"{}\char`\"{}Override (force) a point-\/code to hard-\/coded value\textbackslash{}n\char`\"{}\char`\"{}Override Source Point Code\textbackslash{}n\char`\"{}\char`\"{}Override Destination Point Code\textbackslash{}n\char`\"{}\char`\"{}New Point Code\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a3752b1e2a1ecaa4b4e254da7c4b2f511}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+as\+::inst, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+I\+PA, osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse(), osmo\+\_\+ss7\+\_\+as\+::pc\+\_\+override, and osmo\+\_\+ss7\+\_\+as\+::proto.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(show\+\_\+cs7\+\_\+as, show\+\_\+cs7\+\_\+as\+\_\+cmd,""show cs7 instance $<$0-\/15$>$ as (active\texttt{"|}all\texttt{"|}m3ua\texttt{"|}sua)"", S\+H\+O\+W\+\_\+\+S\+T\+R C\+S7\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+TR""Application Server (\+A\+S)\textbackslash{}n""""Display all active A\+Ss\textbackslash{}n""""Display all A\+Ss (default)\textbackslash{}n""""Display all m3ua A\+Ss\textbackslash{}n""""Display all S\+U\+A A\+Ss\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{show\+\_\+cs7\+\_\+as}]{, }
+\item[{show\+\_\+cs7\+\_\+as\+\_\+cmd}]{, }
+\item[{\char`\"{}show cs7 instance $<$0-\/15$>$ as (active$\vert$all$\vert$m3ua$\vert$sua)\char`\"{}}]{, }
+\item[{S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR}\char`\"{}Application Server (AS)\textbackslash{}n\char`\"{}\char`\"{}Display all active A\+Ss\textbackslash{}n\char`\"{}\char`\"{}Display all A\+Ss (default)\textbackslash{}n\char`\"{}\char`\"{}Display all m3ua A\+Ss\textbackslash{}n\char`\"{}\char`\"{}Display all S\+UA A\+Ss\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a32fe4326fc442c021b436255fed2bf77}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::as\+\_\+list, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::context, osmo\+\_\+ss7\+\_\+as\+::fi, osmo\+\_\+ss7\+\_\+as\+::inst, osmo\+\_\+ss7\+\_\+as\+::list, osmo\+\_\+ss7\+\_\+as\+::name, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+M3\+UA, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+S\+UA, osmo\+\_\+ss7\+\_\+instance\+\_\+find(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::pc, osmo\+\_\+ss7\+\_\+as\+::proto, and osmo\+\_\+ss7\+\_\+as\+::routing\+\_\+key.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+show\+\_\+sccpaddr, cs7\+\_\+show\+\_\+sccpaddr\+\_\+cmd,""show cs7 instance $<$0-\/15$>$ sccp addressbook"", S\+H\+O\+W\+\_\+\+S\+T\+R C\+S7\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+T\+R I\+N\+S\+T\+\_\+\+S\+T\+R S\+C\+C\+P\+\_\+\+S\+TR""List all S\+C\+C\+P addressbook entries\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+show\+\_\+sccpaddr}]{, }
+\item[{cs7\+\_\+show\+\_\+sccpaddr\+\_\+cmd}]{, }
+\item[{\char`\"{}show cs7 instance $<$0-\/15$>$ sccp addressbook\char`\"{}}]{, }
+\item[{S\+H\+O\+W\+\_\+\+S\+TR {\bf C\+S7\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf I\+N\+S\+T\+\_\+\+S\+TR} {\bf S\+C\+C\+P\+\_\+\+S\+TR}\char`\"{}List all S\+C\+CP addressbook entries\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a1a1a7dcfa8df5d28222da19b8d9793d2}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+instance\+::description, osmo\+\_\+sccp\+\_\+gt\+::digits, osmo\+\_\+sccp\+\_\+addr\+::gt, osmo\+\_\+sccp\+\_\+gt\+::gti, osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::inst, osmo\+\_\+sccp\+\_\+addr\+::ip, osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::list, osmo\+\_\+sccp\+\_\+gt\+::nai, osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::name, osmo\+\_\+sccp\+\_\+gt\+::npi, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, osmo\+\_\+ss7\+\_\+instance\+\_\+find(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, osmo\+\_\+sccp\+\_\+addr\+::ri, osmo\+\_\+ss7\+\_\+instance\+::sccp\+\_\+address\+\_\+book, osmo\+\_\+sccp\+\_\+addr\+::ssn, osmo\+\_\+sccp\+\_\+gt\+::tt, osmo\+\_\+sccp\+\_\+addr\+::v4, and osmo\+\_\+sccp\+\_\+addr\+::v6.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+sccpaddr, cs7\+\_\+sccpaddr\+\_\+cmd,""sccp-\/address N\+A\+ME"",""Create/\+Modify an S\+C\+C\+P addressbook entry\textbackslash{}n""""Name of the S\+C\+C\+P Address\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+sccpaddr}]{, }
+\item[{cs7\+\_\+sccpaddr\+\_\+cmd}]{, }
+\item[{\char`\"{}sccp-\/address N\+A\+ME\char`\"{}}]{, }
+\item[{\char`\"{}Create/Modify an S\+C\+CP addressbook entry\textbackslash{}n\char`\"{}\char`\"{}Name of the S\+C\+CP Address\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a795242fc38f07bc80d56a500e4835ef9}
+
+
+References addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+global(), addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+local(), osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::name, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, and osmo\+\_\+ss7\+\_\+instance\+::sccp\+\_\+address\+\_\+book.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+sccpaddr\+\_\+del, cs7\+\_\+sccpaddr\+\_\+del\+\_\+cmd,""no sccp-\/address N\+A\+ME"", N\+O\+\_\+\+S\+TR""Delete an S\+C\+C\+P addressbook entry\textbackslash{}n""""Name of the S\+C\+C\+P Address\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+sccpaddr\+\_\+del}]{, }
+\item[{cs7\+\_\+sccpaddr\+\_\+del\+\_\+cmd}]{, }
+\item[{\char`\"{}no sccp-\/address N\+A\+ME\char`\"{}}]{, }
+\item[{N\+O\+\_\+\+S\+TR\char`\"{}Delete an S\+C\+CP addressbook entry\textbackslash{}n\char`\"{}\char`\"{}Name of the S\+C\+CP Address\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a3d6ffb955843b77808796c8aeb6aab49}
+
+
+References addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+local(), and osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::name.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+sccpaddr\+\_\+ri, cs7\+\_\+sccpaddr\+\_\+ri\+\_\+cmd,""routing-\/indicator (\+GT\texttt{"|}PC\texttt{"|}I\+P)"",""Add Routing Indicator\textbackslash{}n""""by global-\/title\textbackslash{}n""""by point-\/code\textbackslash{}n""""by ip-\/address\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+sccpaddr\+\_\+ri}]{, }
+\item[{cs7\+\_\+sccpaddr\+\_\+ri\+\_\+cmd}]{, }
+\item[{\char`\"{}routing-\/indicator (GT$\vert$PC$\vert$IP)\char`\"{}}]{, }
+\item[{\char`\"{}Add Routing Indicator\textbackslash{}n\char`\"{}\char`\"{}by global-\/title\textbackslash{}n\char`\"{}\char`\"{}by point-\/code\textbackslash{}n\char`\"{}\char`\"{}by ip-\/address\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a363be0068ff491d1321d7e70684850d4}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, and osmo\+\_\+sccp\+\_\+addr\+::ri.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+sccpaddr\+\_\+pc, cs7\+\_\+sccpaddr\+\_\+pc\+\_\+cmd,""point-\/code P\+O\+I\+N\+T\+\_\+\+C\+O\+DE"",""Add point-\/code Number\textbackslash{}n""""P\+C\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+sccpaddr\+\_\+pc}]{, }
+\item[{cs7\+\_\+sccpaddr\+\_\+pc\+\_\+cmd}]{, }
+\item[{\char`\"{}point-\/code P\+O\+I\+N\+T\+\_\+\+C\+O\+DE\char`\"{}}]{, }
+\item[{\char`\"{}Add point-\/code Number\textbackslash{}n\char`\"{}\char`\"{}P\+C\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a16488d41cf2a1b21a5f76143f9396bf0}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::inst, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+N\+O\+NE, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse(), osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, and osmo\+\_\+sccp\+\_\+addr\+::ri.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+sccpaddr\+\_\+pc\+\_\+del, cs7\+\_\+sccpaddr\+\_\+pc\+\_\+del\+\_\+cmd,""no point-\/code"", N\+O\+\_\+\+S\+TR""Remove point-\/code Number\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+sccpaddr\+\_\+pc\+\_\+del}]{, }
+\item[{cs7\+\_\+sccpaddr\+\_\+pc\+\_\+del\+\_\+cmd}]{, }
+\item[{\char`\"{}no point-\/code\char`\"{}}]{, }
+\item[{N\+O\+\_\+\+S\+TR\char`\"{}Remove point-\/code Number\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_adee8e8547dbc91868c2a683bb3ca6fdd}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, osmo\+\_\+sccp\+\_\+addr\+::pc, and osmo\+\_\+sccp\+\_\+addr\+::presence.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+sccpaddr\+\_\+ssn, cs7\+\_\+sccpaddr\+\_\+ssn\+\_\+cmd,""subsystem-\/number $<$0-\/4294967295$>$"",""Add Subsystem Number\textbackslash{}n""""S\+S\+N\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+sccpaddr\+\_\+ssn}]{, }
+\item[{cs7\+\_\+sccpaddr\+\_\+ssn\+\_\+cmd}]{, }
+\item[{\char`\"{}subsystem-\/number $<$0-\/4294967295$>$\char`\"{}}]{, }
+\item[{\char`\"{}Add Subsystem Number\textbackslash{}n\char`\"{}\char`\"{}S\+S\+N\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_acd1890ac23b466cf5c13278249244745}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, osmo\+\_\+sccp\+\_\+addr\+::presence, and osmo\+\_\+sccp\+\_\+addr\+::ssn.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+sccpaddr\+\_\+ssn\+\_\+del, cs7\+\_\+sccpaddr\+\_\+ssn\+\_\+del\+\_\+cmd,""no subsystem-\/number"", N\+O\+\_\+\+S\+TR""Remove Subsystem Number\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+sccpaddr\+\_\+ssn\+\_\+del}]{, }
+\item[{cs7\+\_\+sccpaddr\+\_\+ssn\+\_\+del\+\_\+cmd}]{, }
+\item[{\char`\"{}no subsystem-\/number\char`\"{}}]{, }
+\item[{N\+O\+\_\+\+S\+TR\char`\"{}Remove Subsystem Number\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a3971ff3e8911af7067141ef9ded95b7a}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+addr\+::ip, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, osmo\+\_\+sccp\+\_\+addr\+::presence, osmo\+\_\+sccp\+\_\+addr\+::ssn, and osmo\+\_\+sccp\+\_\+addr\+::v4.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+sccpaddr\+\_\+gt, cs7\+\_\+sccpaddr\+\_\+gt\+\_\+cmd,""global-\/title"",""Add/\+Modify Global Title\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+sccpaddr\+\_\+gt}]{, }
+\item[{cs7\+\_\+sccpaddr\+\_\+gt\+\_\+cmd}]{, }
+\item[{\char`\"{}global-\/title\char`\"{}}]{, }
+\item[{\char`\"{}Add/Modify Global Title\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_ad3b6232577e00af39ee4c63b6e79a525}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, and osmo\+\_\+sccp\+\_\+addr\+::presence.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+sccpaddr\+\_\+gt\+\_\+del, cs7\+\_\+sccpaddr\+\_\+gt\+\_\+del\+\_\+cmd,""no global-\/title"", N\+O\+\_\+\+S\+TR""Remove Global Title\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+sccpaddr\+\_\+gt\+\_\+del}]{, }
+\item[{cs7\+\_\+sccpaddr\+\_\+gt\+\_\+del\+\_\+cmd}]{, }
+\item[{\char`\"{}no global-\/title\char`\"{}}]{, }
+\item[{N\+O\+\_\+\+S\+TR\char`\"{}Remove Global Title\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a367c6c6b58eafb43798885b511d78878}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, osmo\+\_\+sccp\+\_\+addr\+::gt, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, and osmo\+\_\+sccp\+\_\+addr\+::presence.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+sccpaddr\+\_\+gt\+\_\+gti, cs7\+\_\+sccpaddr\+\_\+gt\+\_\+gti\+\_\+cmd,""global-\/title-\/indicator $<$0-\/15$>$"",""Set Global Title Indicator\textbackslash{}n""""G\+T\+I\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+sccpaddr\+\_\+gt\+\_\+gti}]{, }
+\item[{cs7\+\_\+sccpaddr\+\_\+gt\+\_\+gti\+\_\+cmd}]{, }
+\item[{\char`\"{}global-\/title-\/indicator $<$0-\/15$>$\char`\"{}}]{, }
+\item[{\char`\"{}Set Global Title Indicator\textbackslash{}n\char`\"{}\char`\"{}G\+T\+I\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a3ea8d4711d795e92524d2f5cd7bae9d1}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, osmo\+\_\+sccp\+\_\+addr\+::gt, and osmo\+\_\+sccp\+\_\+gt\+::gti.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+sccpaddr\+\_\+gt\+\_\+tt, cs7\+\_\+sccpaddr\+\_\+gt\+\_\+tt\+\_\+cmd,""translation-\/type $<$0-\/255$>$"",""Set Global Title Translation Type\textbackslash{}n""""T\+T\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+sccpaddr\+\_\+gt\+\_\+tt}]{, }
+\item[{cs7\+\_\+sccpaddr\+\_\+gt\+\_\+tt\+\_\+cmd}]{, }
+\item[{\char`\"{}translation-\/type $<$0-\/255$>$\char`\"{}}]{, }
+\item[{\char`\"{}Set Global Title Translation Type\textbackslash{}n\char`\"{}\char`\"{}T\+T\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_ad9db9b8a6952a6105b9c4aea9d3a112b}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, osmo\+\_\+sccp\+\_\+addr\+::gt, and osmo\+\_\+sccp\+\_\+gt\+::tt.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+sccpaddr\+\_\+gt\+\_\+npi, cs7\+\_\+sccpaddr\+\_\+gt\+\_\+npi\+\_\+cmd,""numbering-\/plan-\/indicator $<$0-\/15$>$"",""Set Global Title Numbering Plan Indicator\textbackslash{}n""""N\+P\+I\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+sccpaddr\+\_\+gt\+\_\+npi}]{, }
+\item[{cs7\+\_\+sccpaddr\+\_\+gt\+\_\+npi\+\_\+cmd}]{, }
+\item[{\char`\"{}numbering-\/plan-\/indicator $<$0-\/15$>$\char`\"{}}]{, }
+\item[{\char`\"{}Set Global Title Numbering Plan Indicator\textbackslash{}n\char`\"{}\char`\"{}N\+P\+I\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a73aabedea6870627333be9f27a596e39}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, osmo\+\_\+sccp\+\_\+addr\+::gt, and osmo\+\_\+sccp\+\_\+gt\+::npi.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+sccpaddr\+\_\+gt\+\_\+nai, cs7\+\_\+sccpaddr\+\_\+gt\+\_\+nai\+\_\+cmd,""nature-\/of-\/address-\/indicator $<$0-\/127$>$"",""Set Global Title Nature of Address Indicator\textbackslash{}n""""N\+A\+I\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+sccpaddr\+\_\+gt\+\_\+nai}]{, }
+\item[{cs7\+\_\+sccpaddr\+\_\+gt\+\_\+nai\+\_\+cmd}]{, }
+\item[{\char`\"{}nature-\/of-\/address-\/indicator $<$0-\/127$>$\char`\"{}}]{, }
+\item[{\char`\"{}Set Global Title Nature of Address Indicator\textbackslash{}n\char`\"{}\char`\"{}N\+A\+I\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a35031b0d52118d07181e522845ffbc53}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, osmo\+\_\+sccp\+\_\+addr\+::gt, and osmo\+\_\+sccp\+\_\+gt\+::nai.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!D\+E\+F\+UN@{D\+E\+F\+UN}}
+\index{D\+E\+F\+UN@{D\+E\+F\+UN}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{D\+E\+F\+U\+N(cs7\+\_\+sccpaddr\+\_\+gt\+\_\+digits, cs7\+\_\+sccpaddr\+\_\+gt\+\_\+digits\+\_\+cmd,""digits D\+I\+G\+I\+TS"",""Set Global Title Digits\textbackslash{}n""""Number digits\textbackslash{}n"")}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+UN (
+\begin{DoxyParamCaption}
+\item[{cs7\+\_\+sccpaddr\+\_\+gt\+\_\+digits}]{, }
+\item[{cs7\+\_\+sccpaddr\+\_\+gt\+\_\+digits\+\_\+cmd}]{, }
+\item[{\char`\"{}digits D\+I\+G\+I\+TS\char`\"{}}]{, }
+\item[{\char`\"{}Set Global Title Digits\textbackslash{}n\char`\"{}\char`\"{}Number digits\textbackslash{}n\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_afd657e672dfadb6a56592e6952e1674c}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, osmo\+\_\+sccp\+\_\+gt\+::digits, and osmo\+\_\+sccp\+\_\+addr\+::gt.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!L\+L\+I\+S\+T\+\_\+\+H\+E\+AD@{L\+L\+I\+S\+T\+\_\+\+H\+E\+AD}}
+\index{L\+L\+I\+S\+T\+\_\+\+H\+E\+AD@{L\+L\+I\+S\+T\+\_\+\+H\+E\+AD}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{L\+L\+I\+S\+T\+\_\+\+H\+E\+A\+D(sccp\+\_\+address\+\_\+book\+\_\+global)}]{\setlength{\rightskip}{0pt plus 5cm}L\+L\+I\+S\+T\+\_\+\+H\+E\+AD (
+\begin{DoxyParamCaption}
+\item[{sccp\+\_\+address\+\_\+book\+\_\+global}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a32d8898ccbfdadf43521f749b9b37b9a}
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!osmo\+\_\+sccp\+\_\+addr\+\_\+by\+\_\+name@{osmo\+\_\+sccp\+\_\+addr\+\_\+by\+\_\+name}}
+\index{osmo\+\_\+sccp\+\_\+addr\+\_\+by\+\_\+name@{osmo\+\_\+sccp\+\_\+addr\+\_\+by\+\_\+name}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+addr\+\_\+by\+\_\+name(struct osmo\+\_\+sccp\+\_\+addr $\ast$dest\+\_\+addr, const char $\ast$name)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+instance}$\ast$ osmo\+\_\+sccp\+\_\+addr\+\_\+by\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{dest\+\_\+addr, }
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_acb750ae6c0d4018e0b1d832f089f42fa}
+
+
+Lookup an S\+C\+CP address from the addressbook by its name. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em dest\+\_\+addr} & pointer to output the resulting sccp-\/address; (set to N\+U\+LL if not interested) \\
+\hline
+\mbox{\tt in}  & {\em name} & of the address to lookup \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+S\+S7 instance; N\+U\+LL on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+global(), and osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::inst.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!osmo\+\_\+sccp\+\_\+name\+\_\+by\+\_\+addr@{osmo\+\_\+sccp\+\_\+name\+\_\+by\+\_\+addr}}
+\index{osmo\+\_\+sccp\+\_\+name\+\_\+by\+\_\+addr@{osmo\+\_\+sccp\+\_\+name\+\_\+by\+\_\+addr}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+name\+\_\+by\+\_\+addr(const struct osmo\+\_\+sccp\+\_\+addr $\ast$addr)}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ osmo\+\_\+sccp\+\_\+name\+\_\+by\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{addr}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_aead37c0c3ecb10141b6d244b8334f9b2}
+
+
+Reverse lookup the lookup-\/name of a specified S\+C\+CP address. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em name} & of the address to lookup \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+char pointer to the lookup-\/name; N\+U\+LL on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::list\+\_\+global, and osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::name.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!osmo\+\_\+ss7\+\_\+is\+\_\+config\+\_\+node@{osmo\+\_\+ss7\+\_\+is\+\_\+config\+\_\+node}}
+\index{osmo\+\_\+ss7\+\_\+is\+\_\+config\+\_\+node@{osmo\+\_\+ss7\+\_\+is\+\_\+config\+\_\+node}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+is\+\_\+config\+\_\+node(struct vty $\ast$vty, int node)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+is\+\_\+config\+\_\+node (
+\begin{DoxyParamCaption}
+\item[{struct vty $\ast$}]{vty, }
+\item[{int}]{node}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_ac343e7f4ac0757285d3ed4f842f52d6e}
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!osmo\+\_\+ss7\+\_\+vty\+\_\+go\+\_\+parent@{osmo\+\_\+ss7\+\_\+vty\+\_\+go\+\_\+parent}}
+\index{osmo\+\_\+ss7\+\_\+vty\+\_\+go\+\_\+parent@{osmo\+\_\+ss7\+\_\+vty\+\_\+go\+\_\+parent}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+vty\+\_\+go\+\_\+parent(struct vty $\ast$vty)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+vty\+\_\+go\+\_\+parent (
+\begin{DoxyParamCaption}
+\item[{struct vty $\ast$}]{vty}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_abdfadd0c1cd0b7d847f9f01e4a4c9134}
+
+
+References osmo\+\_\+ss7\+\_\+route\+\_\+table\+::inst, osmo\+\_\+ss7\+\_\+as\+::inst, osmo\+\_\+ss7\+\_\+asp\+::inst, osmo\+\_\+xua\+\_\+server\+::inst, osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::inst, and osmo\+\_\+ss7\+\_\+asp\+\_\+restart().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+asp@{osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+asp}}
+\index{osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+asp@{osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+asp}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+asp(void $\ast$ctx)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+asp (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_af4d60a28bd339b50f8b0077b2479b2d4}
+
+
+References cs7\+\_\+role, C\+S7\+\_\+\+R\+O\+L\+E\+\_\+\+A\+SP, and vty\+\_\+init\+\_\+shared().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+sg@{osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+sg}}
+\index{osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+sg@{osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+sg}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+sg(void $\ast$ctx)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+sg (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__vty_8c_a1c0ba46e8ee2cfa470db9be9b620ce9a}
+
+
+References cs7\+\_\+role, C\+S7\+\_\+\+R\+O\+L\+E\+\_\+\+SG, rtable\+\_\+node, vty\+\_\+init\+\_\+shared(), and xua\+\_\+node.
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!parse\+\_\+asp\+\_\+proto@{parse\+\_\+asp\+\_\+proto}}
+\index{parse\+\_\+asp\+\_\+proto@{parse\+\_\+asp\+\_\+proto}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{parse\+\_\+asp\+\_\+proto(const char $\ast$protocol)}]{\setlength{\rightskip}{0pt plus 5cm}static enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol} parse\+\_\+asp\+\_\+proto (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{protocol}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_a8569efc5ce8572070d91019e33d9351e}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+vals.
+
+
+
+Referenced by D\+E\+F\+U\+N().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!vty\+\_\+dump\+\_\+rtable@{vty\+\_\+dump\+\_\+rtable}}
+\index{vty\+\_\+dump\+\_\+rtable@{vty\+\_\+dump\+\_\+rtable}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{vty\+\_\+dump\+\_\+rtable(struct vty $\ast$vty, struct osmo\+\_\+ss7\+\_\+route\+\_\+table $\ast$rtbl)}]{\setlength{\rightskip}{0pt plus 5cm}static void vty\+\_\+dump\+\_\+rtable (
+\begin{DoxyParamCaption}
+\item[{struct vty $\ast$}]{vty, }
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$}]{rtbl}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_a5fe8a510f06a371a0b30ec2f86eef4e9}
+
+
+References osmo\+\_\+ss7\+\_\+route\+\_\+table\+::cfg, osmo\+\_\+ss7\+\_\+route\+::cfg, osmo\+\_\+ss7\+\_\+route\+::linkset\+\_\+name, osmo\+\_\+ss7\+\_\+route\+::list, osmo\+\_\+ss7\+\_\+route\+\_\+table\+::name, osmo\+\_\+ss7\+\_\+route\+\_\+print(), osmo\+\_\+ss7\+\_\+route\+::priority, and osmo\+\_\+ss7\+\_\+route\+\_\+table\+::routes.
+
+
+
+Referenced by D\+E\+F\+U\+N().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!vty\+\_\+dump\+\_\+xua\+\_\+server@{vty\+\_\+dump\+\_\+xua\+\_\+server}}
+\index{vty\+\_\+dump\+\_\+xua\+\_\+server@{vty\+\_\+dump\+\_\+xua\+\_\+server}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{vty\+\_\+dump\+\_\+xua\+\_\+server(struct vty $\ast$vty, struct osmo\+\_\+xua\+\_\+server $\ast$xs)}]{\setlength{\rightskip}{0pt plus 5cm}static void vty\+\_\+dump\+\_\+xua\+\_\+server (
+\begin{DoxyParamCaption}
+\item[{struct vty $\ast$}]{vty, }
+\item[{struct {\bf osmo\+\_\+xua\+\_\+server} $\ast$}]{xs}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_a090a9a134832fe71c9cbda54542ee075}
+
+
+References osmo\+\_\+xua\+\_\+server\+::cfg, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::host, osmo\+\_\+xua\+\_\+server\+::local, osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+vals, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::port, and osmo\+\_\+xua\+\_\+server\+::proto.
+
+
+
+Referenced by D\+E\+F\+U\+N().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!vty\+\_\+init\+\_\+addr@{vty\+\_\+init\+\_\+addr}}
+\index{vty\+\_\+init\+\_\+addr@{vty\+\_\+init\+\_\+addr}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{vty\+\_\+init\+\_\+addr(void)}]{\setlength{\rightskip}{0pt plus 5cm}static void vty\+\_\+init\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_ac1123c90bc0db4efbee98cb88bde481c}
+
+
+References sccpaddr\+\_\+gt\+\_\+node, and sccpaddr\+\_\+node.
+
+
+
+Referenced by vty\+\_\+init\+\_\+shared().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!vty\+\_\+init\+\_\+shared@{vty\+\_\+init\+\_\+shared}}
+\index{vty\+\_\+init\+\_\+shared@{vty\+\_\+init\+\_\+shared}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{vty\+\_\+init\+\_\+shared(void $\ast$ctx)}]{\setlength{\rightskip}{0pt plus 5cm}static void vty\+\_\+init\+\_\+shared (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_a97f52bfe8da2defb9da2e5844ebb9bc4}
+
+
+References as\+\_\+node, asp\+\_\+node, config\+\_\+write\+\_\+cs7(), cs7\+\_\+node, g\+\_\+ctx, and vty\+\_\+init\+\_\+addr().
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+asp(), and osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+sg().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!write\+\_\+one\+\_\+as@{write\+\_\+one\+\_\+as}}
+\index{write\+\_\+one\+\_\+as@{write\+\_\+one\+\_\+as}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{write\+\_\+one\+\_\+as(struct vty $\ast$vty, struct osmo\+\_\+ss7\+\_\+as $\ast$as)}]{\setlength{\rightskip}{0pt plus 5cm}static void write\+\_\+one\+\_\+as (
+\begin{DoxyParamCaption}
+\item[{struct vty $\ast$}]{vty, }
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$}]{as}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_acea728298b03d75b608ba2eb0e696d5d}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::asps, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::context, osmo\+\_\+ss7\+\_\+as\+::description, osmo\+\_\+ss7\+\_\+as\+::inst, osmo\+\_\+ss7\+\_\+as\+::mode, mtp\+\_\+si\+\_\+vals, osmo\+\_\+ss7\+\_\+as\+::name, osmo\+\_\+ss7\+\_\+asp\+::name, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+\_\+\+T\+M\+O\+D\+\_\+\+L\+O\+A\+D\+S\+H\+A\+RE, osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode\+\_\+name(), osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+name(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::pc, osmo\+\_\+ss7\+\_\+as\+::pc\+\_\+override, osmo\+\_\+ss7\+\_\+as\+::proto, osmo\+\_\+ss7\+\_\+as\+::qos\+\_\+class, osmo\+\_\+ss7\+\_\+as\+::recovery\+\_\+timeout\+\_\+msec, osmo\+\_\+ss7\+\_\+as\+::rkm\+\_\+dyn\+\_\+allocated, osmo\+\_\+ss7\+\_\+as\+::routing\+\_\+key, osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::si, osmo\+\_\+ss7\+\_\+as\+::simple\+\_\+client\+\_\+allocated, and osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::ssn.
+
+
+
+Referenced by write\+\_\+one\+\_\+cs7().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!write\+\_\+one\+\_\+asp@{write\+\_\+one\+\_\+asp}}
+\index{write\+\_\+one\+\_\+asp@{write\+\_\+one\+\_\+asp}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{write\+\_\+one\+\_\+asp(struct vty $\ast$vty, struct osmo\+\_\+ss7\+\_\+asp $\ast$asp)}]{\setlength{\rightskip}{0pt plus 5cm}static void write\+\_\+one\+\_\+asp (
+\begin{DoxyParamCaption}
+\item[{struct vty $\ast$}]{vty, }
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_abb6ba50a851508f6a5e9a0e5a42491bb}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::description, osmo\+\_\+ss7\+\_\+asp\+::dyn\+\_\+allocated, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::host, osmo\+\_\+ss7\+\_\+asp\+::local, osmo\+\_\+ss7\+\_\+asp\+::name, osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+name(), osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::port, osmo\+\_\+ss7\+\_\+asp\+::proto, osmo\+\_\+ss7\+\_\+asp\+::qos\+\_\+class, osmo\+\_\+ss7\+\_\+asp\+::remote, and osmo\+\_\+ss7\+\_\+asp\+::simple\+\_\+client\+\_\+allocated.
+
+
+
+Referenced by write\+\_\+one\+\_\+cs7().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!write\+\_\+one\+\_\+cs7@{write\+\_\+one\+\_\+cs7}}
+\index{write\+\_\+one\+\_\+cs7@{write\+\_\+one\+\_\+cs7}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{write\+\_\+one\+\_\+cs7(struct vty $\ast$vty, struct osmo\+\_\+ss7\+\_\+instance $\ast$inst)}]{\setlength{\rightskip}{0pt plus 5cm}static void write\+\_\+one\+\_\+cs7 (
+\begin{DoxyParamCaption}
+\item[{struct vty $\ast$}]{vty, }
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_aba74f22911a65aebe77cc41498637912}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::as\+\_\+list, osmo\+\_\+ss7\+\_\+instance\+::asp\+\_\+list, osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+pc\+\_\+fmt\+::component\+\_\+len, cs7\+\_\+role, C\+S7\+\_\+\+R\+O\+L\+E\+\_\+\+SG, osmo\+\_\+ss7\+\_\+pc\+\_\+fmt\+::delimiter, osmo\+\_\+ss7\+\_\+instance\+::description, osmo\+\_\+ss7\+\_\+instance\+::id, osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::list, osmo\+\_\+ss7\+\_\+instance\+::network\+\_\+indicator, osmo\+\_\+sccp\+\_\+vty\+\_\+write\+\_\+cs7\+\_\+node(), osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+valid(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+ss7\+\_\+instance\+::pc\+\_\+fmt, osmo\+\_\+ss7\+\_\+instance\+::permit\+\_\+dyn\+\_\+rkm\+\_\+alloc, osmo\+\_\+ss7\+\_\+instance\+::primary\+\_\+pc, osmo\+\_\+ss7\+\_\+instance\+::rtable\+\_\+list, osmo\+\_\+ss7\+\_\+instance\+::sccp, ss7\+\_\+network\+\_\+indicator\+\_\+vals, write\+\_\+one\+\_\+as(), write\+\_\+one\+\_\+asp(), write\+\_\+one\+\_\+rtable(), write\+\_\+one\+\_\+xua(), write\+\_\+sccp\+\_\+addressbook(), and osmo\+\_\+ss7\+\_\+instance\+::xua\+\_\+servers.
+
+
+
+Referenced by config\+\_\+write\+\_\+cs7(), and D\+E\+F\+U\+N().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!write\+\_\+one\+\_\+rtable@{write\+\_\+one\+\_\+rtable}}
+\index{write\+\_\+one\+\_\+rtable@{write\+\_\+one\+\_\+rtable}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{write\+\_\+one\+\_\+rtable(struct vty $\ast$vty, struct osmo\+\_\+ss7\+\_\+route\+\_\+table $\ast$rtable)}]{\setlength{\rightskip}{0pt plus 5cm}static void write\+\_\+one\+\_\+rtable (
+\begin{DoxyParamCaption}
+\item[{struct vty $\ast$}]{vty, }
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$}]{rtable}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_a28130d303c1d87ce911b0f678a71d7da}
+
+
+References osmo\+\_\+ss7\+\_\+route\+\_\+table\+::cfg, osmo\+\_\+ss7\+\_\+route\+::cfg, osmo\+\_\+ss7\+\_\+route\+\_\+table\+::description, osmo\+\_\+ss7\+\_\+route\+\_\+table\+::inst, osmo\+\_\+ss7\+\_\+route\+::linkset\+\_\+name, osmo\+\_\+ss7\+\_\+route\+::list, osmo\+\_\+ss7\+\_\+route\+::mask, osmo\+\_\+ss7\+\_\+route\+\_\+table\+::name, osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print2(), osmo\+\_\+ss7\+\_\+route\+::pc, osmo\+\_\+ss7\+\_\+route\+::priority, osmo\+\_\+ss7\+\_\+route\+::qos\+\_\+class, and osmo\+\_\+ss7\+\_\+route\+\_\+table\+::routes.
+
+
+
+Referenced by write\+\_\+one\+\_\+cs7().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!write\+\_\+one\+\_\+xua@{write\+\_\+one\+\_\+xua}}
+\index{write\+\_\+one\+\_\+xua@{write\+\_\+one\+\_\+xua}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{write\+\_\+one\+\_\+xua(struct vty $\ast$vty, struct osmo\+\_\+xua\+\_\+server $\ast$xs)}]{\setlength{\rightskip}{0pt plus 5cm}static void write\+\_\+one\+\_\+xua (
+\begin{DoxyParamCaption}
+\item[{struct vty $\ast$}]{vty, }
+\item[{struct {\bf osmo\+\_\+xua\+\_\+server} $\ast$}]{xs}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_ad8c8c099a80995abe43f97cc042c4e4f}
+
+
+References osmo\+\_\+xua\+\_\+server\+::accept\+\_\+dyn\+\_\+reg, osmo\+\_\+xua\+\_\+server\+::cfg, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::host, osmo\+\_\+xua\+\_\+server\+::local, osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+vals, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::port, and osmo\+\_\+xua\+\_\+server\+::proto.
+
+
+
+Referenced by write\+\_\+one\+\_\+cs7().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!write\+\_\+sccp\+\_\+addressbook@{write\+\_\+sccp\+\_\+addressbook}}
+\index{write\+\_\+sccp\+\_\+addressbook@{write\+\_\+sccp\+\_\+addressbook}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{write\+\_\+sccp\+\_\+addressbook(struct vty $\ast$vty, const struct osmo\+\_\+ss7\+\_\+instance $\ast$inst)}]{\setlength{\rightskip}{0pt plus 5cm}static void write\+\_\+sccp\+\_\+addressbook (
+\begin{DoxyParamCaption}
+\item[{struct vty $\ast$}]{vty, }
+\item[{const struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_a0af314559c46750211cf2a8eff926d25}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::addr, osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+sccp\+\_\+gt\+::digits, osmo\+\_\+sccp\+\_\+addr\+::gt, osmo\+\_\+sccp\+\_\+gt\+::gti, osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::inst, osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::list, osmo\+\_\+sccp\+\_\+gt\+::nai, osmo\+\_\+sccp\+\_\+addr\+\_\+entry\+::name, osmo\+\_\+sccp\+\_\+gt\+::npi, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+N\+O\+NE, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, osmo\+\_\+sccp\+\_\+addr\+::ri, osmo\+\_\+ss7\+\_\+instance\+::sccp\+\_\+address\+\_\+book, osmo\+\_\+sccp\+\_\+addr\+::ssn, and osmo\+\_\+sccp\+\_\+gt\+::tt.
+
+
+
+Referenced by write\+\_\+one\+\_\+cs7().
+
+
+
+\subsection{Variable Documentation}
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!\+\_\+\+\_\+attribute\+\_\+\+\_\+@{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+attribute\+\_\+\+\_\+@{\+\_\+\+\_\+attribute\+\_\+\+\_\+}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{\+\_\+\+\_\+attribute\+\_\+\+\_\+}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf cs7\+\_\+role\+\_\+t}  \+\_\+\+\_\+attribute\+\_\+\+\_\+}\label{osmo__ss7__vty_8c_a7a622bbcebfa565b32692c63be9670d6}
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!as\+\_\+node@{as\+\_\+node}}
+\index{as\+\_\+node@{as\+\_\+node}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{as\+\_\+node}]{\setlength{\rightskip}{0pt plus 5cm}struct cmd\+\_\+node as\+\_\+node\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_a76147374ed09da751526e089b92300db}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        L\_CS7\_AS\_NODE,
+        \textcolor{stringliteral}{"%s(config-cs7-as)# "},
+        1,
+\}
+\end{DoxyCode}
+
+
+Referenced by vty\+\_\+init\+\_\+shared().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!asp\+\_\+node@{asp\+\_\+node}}
+\index{asp\+\_\+node@{asp\+\_\+node}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{asp\+\_\+node}]{\setlength{\rightskip}{0pt plus 5cm}struct cmd\+\_\+node asp\+\_\+node\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_ad45de442044dd5ab4e19bc2ccc979779}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        L\_CS7\_ASP\_NODE,
+        \textcolor{stringliteral}{"%s(config-cs7-asp)# "},
+        1,
+\}
+\end{DoxyCode}
+
+
+Referenced by vty\+\_\+init\+\_\+shared().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!cs7\+\_\+node@{cs7\+\_\+node}}
+\index{cs7\+\_\+node@{cs7\+\_\+node}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{cs7\+\_\+node}]{\setlength{\rightskip}{0pt plus 5cm}struct cmd\+\_\+node cs7\+\_\+node\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_a009f069ba9d1e438fe0bb1752a78f68b}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        L\_CS7\_NODE,
+        \textcolor{stringliteral}{"%s(config-cs7)# "},
+        1,
+\}
+\end{DoxyCode}
+
+
+Referenced by vty\+\_\+init\+\_\+shared().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!cs7\+\_\+role@{cs7\+\_\+role}}
+\index{cs7\+\_\+role@{cs7\+\_\+role}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{cs7\+\_\+role}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf cs7\+\_\+role\+\_\+t} cs7\+\_\+role\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_a12db7bf4e93c97d4d465048ed4484b98}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+asp(), osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+sg(), and write\+\_\+one\+\_\+cs7().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!g\+\_\+ctx@{g\+\_\+ctx}}
+\index{g\+\_\+ctx@{g\+\_\+ctx}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{g\+\_\+ctx}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ g\+\_\+ctx\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_a01cf3ea623f5aa14d7127d26c4dba715}
+
+
+Referenced by D\+E\+F\+U\+N(), and vty\+\_\+init\+\_\+shared().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!mtp\+\_\+si\+\_\+vals@{mtp\+\_\+si\+\_\+vals}}
+\index{mtp\+\_\+si\+\_\+vals@{mtp\+\_\+si\+\_\+vals}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{mtp\+\_\+si\+\_\+vals}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string mtp\+\_\+si\+\_\+vals[$\,$]}\label{osmo__ss7__vty_8c_a302af65ae379fd4c883fae04233ad551}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ MTP_SI_SCCP,          \textcolor{stringliteral}{"sccp"} \},
+        \{ MTP_SI_TUP,           \textcolor{stringliteral}{"tup"} \},
+        \{ MTP_SI_ISUP,          \textcolor{stringliteral}{"isup"} \},
+        \{ MTP_SI_DUP,           \textcolor{stringliteral}{"dup"} \},
+        \{ MTP_SI_TESTING,       \textcolor{stringliteral}{"testing"} \},
+        \{ MTP_SI_B_ISUP,        \textcolor{stringliteral}{"b-isup"} \},
+        \{ MTP_SI_SAT_ISUP,      \textcolor{stringliteral}{"sat-isup"} \},
+        \{ MTP_SI_AAL2_SIG,      \textcolor{stringliteral}{"aal2"} \},
+        \{ MTP_SI_BICC,          \textcolor{stringliteral}{"bicc"} \},
+        \{ MTP_SI_GCP,           \textcolor{stringliteral}{"h248"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+
+
+Referenced by \+\_\+rout\+\_\+key(), and write\+\_\+one\+\_\+as().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!rtable\+\_\+node@{rtable\+\_\+node}}
+\index{rtable\+\_\+node@{rtable\+\_\+node}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{rtable\+\_\+node}]{\setlength{\rightskip}{0pt plus 5cm}struct cmd\+\_\+node rtable\+\_\+node\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_a7e8e9206c234d28d7e1442be05dce397}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        L\_CS7\_RTABLE\_NODE,
+        \textcolor{stringliteral}{"%s(config-cs7-rt)# "},
+        1,
+\}
+\end{DoxyCode}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+sg().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!sccpaddr\+\_\+gt\+\_\+node@{sccpaddr\+\_\+gt\+\_\+node}}
+\index{sccpaddr\+\_\+gt\+\_\+node@{sccpaddr\+\_\+gt\+\_\+node}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{sccpaddr\+\_\+gt\+\_\+node}]{\setlength{\rightskip}{0pt plus 5cm}struct cmd\+\_\+node sccpaddr\+\_\+gt\+\_\+node\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_a41a21a1fa9a591c99083b3c236c8ca5d}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        L\_CS7\_SCCPADDR\_GT\_NODE,
+        \textcolor{stringliteral}{"%s(config-cs7-sccpaddr-gt)# "},
+        1,
+\}
+\end{DoxyCode}
+
+
+Referenced by vty\+\_\+init\+\_\+addr().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!sccpaddr\+\_\+node@{sccpaddr\+\_\+node}}
+\index{sccpaddr\+\_\+node@{sccpaddr\+\_\+node}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{sccpaddr\+\_\+node}]{\setlength{\rightskip}{0pt plus 5cm}struct cmd\+\_\+node sccpaddr\+\_\+node\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_a3a4bd522435455b44047beeec5e12f45}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        L\_CS7\_SCCPADDR\_NODE,
+        \textcolor{stringliteral}{"%s(config-cs7-sccpaddr)# "},
+        1,
+\}
+\end{DoxyCode}
+
+
+Referenced by vty\+\_\+init\+\_\+addr().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!ss7\+\_\+network\+\_\+indicator\+\_\+vals@{ss7\+\_\+network\+\_\+indicator\+\_\+vals}}
+\index{ss7\+\_\+network\+\_\+indicator\+\_\+vals@{ss7\+\_\+network\+\_\+indicator\+\_\+vals}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{ss7\+\_\+network\+\_\+indicator\+\_\+vals}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string ss7\+\_\+network\+\_\+indicator\+\_\+vals[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_a551bc7617d3321692c8492461381d38a}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ 0,    \textcolor{stringliteral}{"international"} \},
+        \{ 1,    \textcolor{stringliteral}{"spare"} \},
+        \{ 2,    \textcolor{stringliteral}{"national"} \},
+        \{ 3,    \textcolor{stringliteral}{"reserved"} \},
+        \{ 0,    NULL \}
+\}
+\end{DoxyCode}
+
+
+Referenced by D\+E\+F\+U\+N(), and write\+\_\+one\+\_\+cs7().
+
+\index{osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}!xua\+\_\+node@{xua\+\_\+node}}
+\index{xua\+\_\+node@{xua\+\_\+node}!osmo\+\_\+ss7\+\_\+vty.\+c@{osmo\+\_\+ss7\+\_\+vty.\+c}}
+\subsubsection[{xua\+\_\+node}]{\setlength{\rightskip}{0pt plus 5cm}struct cmd\+\_\+node xua\+\_\+node\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__vty_8c_a111fd18d75ae97c8f6b04fa4bfab8484}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        L\_CS7\_XUA\_NODE,
+        \textcolor{stringliteral}{"%s(config-cs7-listen)# "},
+        1,
+\}
+\end{DoxyCode}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+vty\+\_\+init\+\_\+sg().
+

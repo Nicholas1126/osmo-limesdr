@@ -1,0 +1,411 @@
+\section{src/xua\+\_\+default\+\_\+lm\+\_\+fsm.c File Reference}
+\label{xua__default__lm__fsm_8c}\index{src/xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{src/xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/fsm.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/logging.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/osmo\+\_\+ss7.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/sigtran\+\_\+sap.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/m3ua.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+internal.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+asp\+\_\+fsm.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf lm\+\_\+fsm\+\_\+priv}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf S}(x)~(1 $<$$<$ (x))
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf lm\+\_\+state} \{ \\*
+{\bf S\+\_\+\+I\+D\+LE}, 
+{\bf S\+\_\+\+W\+A\+I\+T\+\_\+\+A\+S\+P\+\_\+\+UP}, 
+{\bf S\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+FY}, 
+{\bf S\+\_\+\+R\+K\+M\+\_\+\+R\+EG}, 
+\\*
+{\bf S\+\_\+\+A\+C\+T\+I\+VE}
+ \}
+\item 
+enum {\bf lm\+\_\+event} \{ \\*
+{\bf L\+M\+\_\+\+E\+\_\+\+S\+C\+T\+P\+\_\+\+E\+S\+T\+\_\+\+I\+ND}, 
+{\bf L\+M\+\_\+\+E\+\_\+\+A\+S\+P\+\_\+\+U\+P\+\_\+\+C\+O\+NF}, 
+{\bf L\+M\+\_\+\+E\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+I\+ND}, 
+{\bf L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND}, 
+\\*
+{\bf L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND}, 
+{\bf L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+I\+ND}, 
+{\bf L\+M\+\_\+\+E\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+C\+O\+NF}, 
+{\bf L\+M\+\_\+\+E\+\_\+\+S\+C\+T\+P\+\_\+\+D\+I\+S\+C\+\_\+\+I\+ND}
+ \}
+\item 
+enum {\bf lm\+\_\+timer} \{ {\bf T\+\_\+\+W\+A\+I\+T\+\_\+\+A\+S\+P\+\_\+\+UP}, 
+{\bf T\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+FY}, 
+{\bf T\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+R\+KM}, 
+{\bf T\+\_\+\+W\+A\+I\+T\+\_\+\+R\+K\+\_\+\+R\+E\+G\+\_\+\+R\+E\+SP}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$ {\bf find\+\_\+first\+\_\+as\+\_\+in\+\_\+asp} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp)
+\item 
+static int {\bf handle\+\_\+reg\+\_\+conf} (struct osmo\+\_\+fsm\+\_\+inst $\ast$fi, uint32\+\_\+t l\+\_\+rk\+\_\+id, uint32\+\_\+t rctx)
+\item 
+static void {\bf restart\+\_\+asp} (struct osmo\+\_\+fsm\+\_\+inst $\ast$fi)
+\item 
+static void {\bf lm\+\_\+idle} (struct osmo\+\_\+fsm\+\_\+inst $\ast$fi, uint32\+\_\+t event, void $\ast${\bf data})
+\item 
+static void {\bf lm\+\_\+wait\+\_\+asp\+\_\+up} (struct osmo\+\_\+fsm\+\_\+inst $\ast$fi, uint32\+\_\+t event, void $\ast${\bf data})
+\item 
+static int {\bf lm\+\_\+timer\+\_\+cb} (struct osmo\+\_\+fsm\+\_\+inst $\ast$fi)
+\item 
+static void {\bf lm\+\_\+wait\+\_\+notify} (struct osmo\+\_\+fsm\+\_\+inst $\ast$fi, uint32\+\_\+t event, void $\ast${\bf data})
+\item 
+static void {\bf lm\+\_\+rkm\+\_\+reg} (struct osmo\+\_\+fsm\+\_\+inst $\ast$fi, uint32\+\_\+t event, void $\ast${\bf data})
+\item 
+static void {\bf lm\+\_\+active} (struct osmo\+\_\+fsm\+\_\+inst $\ast$fi, uint32\+\_\+t event, void $\ast${\bf data})
+\item 
+static void {\bf lm\+\_\+allstate} (struct osmo\+\_\+fsm\+\_\+inst $\ast$fi, uint32\+\_\+t event, void $\ast${\bf data})
+\item 
+static int {\bf default\+\_\+lm\+\_\+prim\+\_\+cb} (struct osmo\+\_\+prim\+\_\+hdr $\ast$oph, void $\ast$\+\_\+asp)
+\item 
+int {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+use\+\_\+default\+\_\+lm} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, int log\+\_\+level)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const struct value\+\_\+string {\bf lm\+\_\+event\+\_\+names} [$\,$]
+\item 
+static const struct osmo\+\_\+fsm\+\_\+state {\bf lm\+\_\+states} [$\,$]
+\item 
+static const struct osmo\+\_\+prim\+\_\+event\+\_\+map {\bf lm\+\_\+event\+\_\+map} [$\,$]
+\item 
+struct osmo\+\_\+fsm {\bf xua\+\_\+default\+\_\+lm\+\_\+fsm}
+\item 
+static const struct {\bf osmo\+\_\+xua\+\_\+layer\+\_\+manager} {\bf default\+\_\+layer\+\_\+manager}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!S@{S}}
+\index{S@{S}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{S}]{\setlength{\rightskip}{0pt plus 5cm}\#define S(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(1 $<$$<$ (x))}\label{xua__default__lm__fsm_8c_ac4a3ed3432929804c708f7760fb79e28}
+
+
+\subsection{Enumeration Type Documentation}
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!lm\+\_\+event@{lm\+\_\+event}}
+\index{lm\+\_\+event@{lm\+\_\+event}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{lm\+\_\+event}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf lm\+\_\+event}}\label{xua__default__lm__fsm_8c_acdbd3ea7ab611b8d2f6ae7b9effec487}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{L\+M\+\_\+\+E\+\_\+\+S\+C\+T\+P\+\_\+\+E\+S\+T\+\_\+\+I\+ND@{L\+M\+\_\+\+E\+\_\+\+S\+C\+T\+P\+\_\+\+E\+S\+T\+\_\+\+I\+ND}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!L\+M\+\_\+\+E\+\_\+\+S\+C\+T\+P\+\_\+\+E\+S\+T\+\_\+\+I\+ND@{L\+M\+\_\+\+E\+\_\+\+S\+C\+T\+P\+\_\+\+E\+S\+T\+\_\+\+I\+ND}}\item[{\em 
+L\+M\+\_\+\+E\+\_\+\+S\+C\+T\+P\+\_\+\+E\+S\+T\+\_\+\+I\+ND\label{xua__default__lm__fsm_8c_acdbd3ea7ab611b8d2f6ae7b9effec487aca8485a5cf00262252dd2e37cbd4da9e}
+}]\index{L\+M\+\_\+\+E\+\_\+\+A\+S\+P\+\_\+\+U\+P\+\_\+\+C\+O\+NF@{L\+M\+\_\+\+E\+\_\+\+A\+S\+P\+\_\+\+U\+P\+\_\+\+C\+O\+NF}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!L\+M\+\_\+\+E\+\_\+\+A\+S\+P\+\_\+\+U\+P\+\_\+\+C\+O\+NF@{L\+M\+\_\+\+E\+\_\+\+A\+S\+P\+\_\+\+U\+P\+\_\+\+C\+O\+NF}}\item[{\em 
+L\+M\+\_\+\+E\+\_\+\+A\+S\+P\+\_\+\+U\+P\+\_\+\+C\+O\+NF\label{xua__default__lm__fsm_8c_acdbd3ea7ab611b8d2f6ae7b9effec487acf09c39a066012d2f91c588bb5ab4ec5}
+}]\index{L\+M\+\_\+\+E\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+I\+ND@{L\+M\+\_\+\+E\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+I\+ND}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!L\+M\+\_\+\+E\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+I\+ND@{L\+M\+\_\+\+E\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+I\+ND}}\item[{\em 
+L\+M\+\_\+\+E\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+I\+ND\label{xua__default__lm__fsm_8c_acdbd3ea7ab611b8d2f6ae7b9effec487a4af6794192a2e0421afc38db3958c0cf}
+}]\index{L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND@{L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND@{L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND}}\item[{\em 
+L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND\label{xua__default__lm__fsm_8c_acdbd3ea7ab611b8d2f6ae7b9effec487a019205de8d24118e33ea6d97b8862a4e}
+}]\index{L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND@{L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND@{L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND}}\item[{\em 
+L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND\label{xua__default__lm__fsm_8c_acdbd3ea7ab611b8d2f6ae7b9effec487ac8f3fe6992409ed2ff1059a52b2df98f}
+}]\index{L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+I\+ND@{L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+I\+ND}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+I\+ND@{L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+I\+ND}}\item[{\em 
+L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+I\+ND\label{xua__default__lm__fsm_8c_acdbd3ea7ab611b8d2f6ae7b9effec487a5a65105156a8f7b33e68e1845307761a}
+}]\index{L\+M\+\_\+\+E\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+C\+O\+NF@{L\+M\+\_\+\+E\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+C\+O\+NF}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!L\+M\+\_\+\+E\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+C\+O\+NF@{L\+M\+\_\+\+E\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+C\+O\+NF}}\item[{\em 
+L\+M\+\_\+\+E\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+C\+O\+NF\label{xua__default__lm__fsm_8c_acdbd3ea7ab611b8d2f6ae7b9effec487a97a1effa823524fa3aed22efb3dc9e82}
+}]\index{L\+M\+\_\+\+E\+\_\+\+S\+C\+T\+P\+\_\+\+D\+I\+S\+C\+\_\+\+I\+ND@{L\+M\+\_\+\+E\+\_\+\+S\+C\+T\+P\+\_\+\+D\+I\+S\+C\+\_\+\+I\+ND}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!L\+M\+\_\+\+E\+\_\+\+S\+C\+T\+P\+\_\+\+D\+I\+S\+C\+\_\+\+I\+ND@{L\+M\+\_\+\+E\+\_\+\+S\+C\+T\+P\+\_\+\+D\+I\+S\+C\+\_\+\+I\+ND}}\item[{\em 
+L\+M\+\_\+\+E\+\_\+\+S\+C\+T\+P\+\_\+\+D\+I\+S\+C\+\_\+\+I\+ND\label{xua__default__lm__fsm_8c_acdbd3ea7ab611b8d2f6ae7b9effec487a7198a4dd65c936f5e759185dd32b2b6a}
+}]\end{description}
+\end{Desc}
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!lm\+\_\+state@{lm\+\_\+state}}
+\index{lm\+\_\+state@{lm\+\_\+state}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{lm\+\_\+state}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf lm\+\_\+state}}\label{xua__default__lm__fsm_8c_abd45524893fe80bbf126182e53674795}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{S\+\_\+\+I\+D\+LE@{S\+\_\+\+I\+D\+LE}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!S\+\_\+\+I\+D\+LE@{S\+\_\+\+I\+D\+LE}}\item[{\em 
+S\+\_\+\+I\+D\+LE\label{xua__default__lm__fsm_8c_abd45524893fe80bbf126182e53674795a86e3fc319fdf083afe88308950abab44}
+}]\index{S\+\_\+\+W\+A\+I\+T\+\_\+\+A\+S\+P\+\_\+\+UP@{S\+\_\+\+W\+A\+I\+T\+\_\+\+A\+S\+P\+\_\+\+UP}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!S\+\_\+\+W\+A\+I\+T\+\_\+\+A\+S\+P\+\_\+\+UP@{S\+\_\+\+W\+A\+I\+T\+\_\+\+A\+S\+P\+\_\+\+UP}}\item[{\em 
+S\+\_\+\+W\+A\+I\+T\+\_\+\+A\+S\+P\+\_\+\+UP\label{xua__default__lm__fsm_8c_abd45524893fe80bbf126182e53674795a3a58465c97398f25c91014bdf6679380}
+}]\index{S\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+FY@{S\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+FY}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!S\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+FY@{S\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+FY}}\item[{\em 
+S\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+FY\label{xua__default__lm__fsm_8c_abd45524893fe80bbf126182e53674795a8609cdd264328299ba619e0c10d88600}
+}]\index{S\+\_\+\+R\+K\+M\+\_\+\+R\+EG@{S\+\_\+\+R\+K\+M\+\_\+\+R\+EG}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!S\+\_\+\+R\+K\+M\+\_\+\+R\+EG@{S\+\_\+\+R\+K\+M\+\_\+\+R\+EG}}\item[{\em 
+S\+\_\+\+R\+K\+M\+\_\+\+R\+EG\label{xua__default__lm__fsm_8c_abd45524893fe80bbf126182e53674795ac79e06fa211a2f5a09129ca9082de3f5}
+}]\index{S\+\_\+\+A\+C\+T\+I\+VE@{S\+\_\+\+A\+C\+T\+I\+VE}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!S\+\_\+\+A\+C\+T\+I\+VE@{S\+\_\+\+A\+C\+T\+I\+VE}}\item[{\em 
+S\+\_\+\+A\+C\+T\+I\+VE\label{xua__default__lm__fsm_8c_abd45524893fe80bbf126182e53674795aced5990aa7e8f86cb70f6bde9b6c5314}
+}]\end{description}
+\end{Desc}
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!lm\+\_\+timer@{lm\+\_\+timer}}
+\index{lm\+\_\+timer@{lm\+\_\+timer}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{lm\+\_\+timer}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf lm\+\_\+timer}}\label{xua__default__lm__fsm_8c_a7a10727210a7a500a852c8ecb187cbe6}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{T\+\_\+\+W\+A\+I\+T\+\_\+\+A\+S\+P\+\_\+\+UP@{T\+\_\+\+W\+A\+I\+T\+\_\+\+A\+S\+P\+\_\+\+UP}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!T\+\_\+\+W\+A\+I\+T\+\_\+\+A\+S\+P\+\_\+\+UP@{T\+\_\+\+W\+A\+I\+T\+\_\+\+A\+S\+P\+\_\+\+UP}}\item[{\em 
+T\+\_\+\+W\+A\+I\+T\+\_\+\+A\+S\+P\+\_\+\+UP\label{xua__default__lm__fsm_8c_a7a10727210a7a500a852c8ecb187cbe6ada450a83e71a458406b869748e53daaa}
+}]\index{T\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+FY@{T\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+FY}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!T\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+FY@{T\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+FY}}\item[{\em 
+T\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+FY\label{xua__default__lm__fsm_8c_a7a10727210a7a500a852c8ecb187cbe6a9adb3654f07f7713bb8553cc2d42521b}
+}]\index{T\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+R\+KM@{T\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+R\+KM}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!T\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+R\+KM@{T\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+R\+KM}}\item[{\em 
+T\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+R\+KM\label{xua__default__lm__fsm_8c_a7a10727210a7a500a852c8ecb187cbe6aaa2eb9ffea7dc0319051ff7b74fa9bc9}
+}]\index{T\+\_\+\+W\+A\+I\+T\+\_\+\+R\+K\+\_\+\+R\+E\+G\+\_\+\+R\+E\+SP@{T\+\_\+\+W\+A\+I\+T\+\_\+\+R\+K\+\_\+\+R\+E\+G\+\_\+\+R\+E\+SP}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!T\+\_\+\+W\+A\+I\+T\+\_\+\+R\+K\+\_\+\+R\+E\+G\+\_\+\+R\+E\+SP@{T\+\_\+\+W\+A\+I\+T\+\_\+\+R\+K\+\_\+\+R\+E\+G\+\_\+\+R\+E\+SP}}\item[{\em 
+T\+\_\+\+W\+A\+I\+T\+\_\+\+R\+K\+\_\+\+R\+E\+G\+\_\+\+R\+E\+SP\label{xua__default__lm__fsm_8c_a7a10727210a7a500a852c8ecb187cbe6a203817bcc2791cf2a5cc7d65a4c2dcfa}
+}]\end{description}
+\end{Desc}
+
+
+\subsection{Function Documentation}
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!default\+\_\+lm\+\_\+prim\+\_\+cb@{default\+\_\+lm\+\_\+prim\+\_\+cb}}
+\index{default\+\_\+lm\+\_\+prim\+\_\+cb@{default\+\_\+lm\+\_\+prim\+\_\+cb}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{default\+\_\+lm\+\_\+prim\+\_\+cb(struct osmo\+\_\+prim\+\_\+hdr $\ast$oph, void $\ast$\+\_\+asp)}]{\setlength{\rightskip}{0pt plus 5cm}static int default\+\_\+lm\+\_\+prim\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+prim\+\_\+hdr $\ast$}]{oph, }
+\item[{void $\ast$}]{\+\_\+asp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__default__lm__fsm_8c_ad618f521d9e0a42c7c237d5133145edf}
+
+
+References lm\+\_\+fsm\+\_\+priv\+::asp, lm\+\_\+event\+\_\+map, osmo\+\_\+ss7\+\_\+asp\+::lm\+\_\+priv, and osmo\+\_\+xlm\+\_\+prim\+\_\+name().
+
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!find\+\_\+first\+\_\+as\+\_\+in\+\_\+asp@{find\+\_\+first\+\_\+as\+\_\+in\+\_\+asp}}
+\index{find\+\_\+first\+\_\+as\+\_\+in\+\_\+asp@{find\+\_\+first\+\_\+as\+\_\+in\+\_\+asp}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{find\+\_\+first\+\_\+as\+\_\+in\+\_\+asp(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf osmo\+\_\+ss7\+\_\+as}$\ast$ find\+\_\+first\+\_\+as\+\_\+in\+\_\+asp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__default__lm__fsm_8c_afb7efc06da962e4826988f1fd98bc8cd}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::as\+\_\+list, osmo\+\_\+ss7\+\_\+as\+::asps, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::inst, and osmo\+\_\+ss7\+\_\+as\+::list.
+
+
+
+Referenced by lm\+\_\+timer\+\_\+cb().
+
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!handle\+\_\+reg\+\_\+conf@{handle\+\_\+reg\+\_\+conf}}
+\index{handle\+\_\+reg\+\_\+conf@{handle\+\_\+reg\+\_\+conf}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{handle\+\_\+reg\+\_\+conf(struct osmo\+\_\+fsm\+\_\+inst $\ast$fi, uint32\+\_\+t l\+\_\+rk\+\_\+id, uint32\+\_\+t rctx)}]{\setlength{\rightskip}{0pt plus 5cm}static int handle\+\_\+reg\+\_\+conf (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+fsm\+\_\+inst $\ast$}]{fi, }
+\item[{uint32\+\_\+t}]{l\+\_\+rk\+\_\+id, }
+\item[{uint32\+\_\+t}]{rctx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__default__lm__fsm_8c_a6c119bb8074d53fa355e57e8dd491ae1}
+
+
+References lm\+\_\+fsm\+\_\+priv\+::asp, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::context, osmo\+\_\+ss7\+\_\+asp\+::inst, osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+l\+\_\+rk\+\_\+id(), and osmo\+\_\+ss7\+\_\+as\+::routing\+\_\+key.
+
+
+
+Referenced by lm\+\_\+rkm\+\_\+reg().
+
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!lm\+\_\+active@{lm\+\_\+active}}
+\index{lm\+\_\+active@{lm\+\_\+active}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{lm\+\_\+active(struct osmo\+\_\+fsm\+\_\+inst $\ast$fi, uint32\+\_\+t event, void $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}static void lm\+\_\+active (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+fsm\+\_\+inst $\ast$}]{fi, }
+\item[{uint32\+\_\+t}]{event, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__default__lm__fsm_8c_a1205f9d457be0d11432ba4a9c5c3bece}
+
+
+References lm\+\_\+fsm\+\_\+priv\+::asp, data, osmo\+\_\+ss7\+\_\+asp\+::fi, L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND, L\+M\+\_\+\+E\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+I\+ND, M3\+U\+A\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+I\+\_\+\+A\+S\+\_\+\+A\+CT, M3\+U\+A\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+T\+\_\+\+S\+T\+A\+T\+C\+HG, osmo\+\_\+xlm\+\_\+prim\+::notify, osmo\+\_\+xlm\+\_\+prim\+::oph, O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+N\+O\+T\+I\+FY, restart\+\_\+asp(), osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::status\+\_\+info, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::status\+\_\+type, osmo\+\_\+xlm\+\_\+prim\+::u, and X\+U\+A\+\_\+\+A\+S\+P\+\_\+\+E\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+R\+EQ.
+
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!lm\+\_\+allstate@{lm\+\_\+allstate}}
+\index{lm\+\_\+allstate@{lm\+\_\+allstate}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{lm\+\_\+allstate(struct osmo\+\_\+fsm\+\_\+inst $\ast$fi, uint32\+\_\+t event, void $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}static void lm\+\_\+allstate (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+fsm\+\_\+inst $\ast$}]{fi, }
+\item[{uint32\+\_\+t}]{event, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__default__lm__fsm_8c_a20d50feab8e3eaa837d5df03c84e2c34}
+
+
+References L\+M\+\_\+\+E\+\_\+\+S\+C\+T\+P\+\_\+\+D\+I\+S\+C\+\_\+\+I\+ND, and restart\+\_\+asp().
+
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!lm\+\_\+idle@{lm\+\_\+idle}}
+\index{lm\+\_\+idle@{lm\+\_\+idle}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{lm\+\_\+idle(struct osmo\+\_\+fsm\+\_\+inst $\ast$fi, uint32\+\_\+t event, void $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}static void lm\+\_\+idle (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+fsm\+\_\+inst $\ast$}]{fi, }
+\item[{uint32\+\_\+t}]{event, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__default__lm__fsm_8c_a60dd2d52f2badc355ea435930a165b48}
+
+
+References lm\+\_\+fsm\+\_\+priv\+::asp, osmo\+\_\+ss7\+\_\+asp\+::fi, L\+M\+\_\+\+E\+\_\+\+S\+C\+T\+P\+\_\+\+E\+S\+T\+\_\+\+I\+ND, S\+\_\+\+W\+A\+I\+T\+\_\+\+A\+S\+P\+\_\+\+UP, T\+\_\+\+W\+A\+I\+T\+\_\+\+A\+S\+P\+\_\+\+UP, and X\+U\+A\+\_\+\+A\+S\+P\+\_\+\+E\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+U\+P\+\_\+\+R\+EQ.
+
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!lm\+\_\+rkm\+\_\+reg@{lm\+\_\+rkm\+\_\+reg}}
+\index{lm\+\_\+rkm\+\_\+reg@{lm\+\_\+rkm\+\_\+reg}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{lm\+\_\+rkm\+\_\+reg(struct osmo\+\_\+fsm\+\_\+inst $\ast$fi, uint32\+\_\+t event, void $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}static void lm\+\_\+rkm\+\_\+reg (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+fsm\+\_\+inst $\ast$}]{fi, }
+\item[{uint32\+\_\+t}]{event, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__default__lm__fsm_8c_a2090e10df8659ac3000aad5d36b60fcd}
+
+
+References osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::context, data, handle\+\_\+reg\+\_\+conf(), osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+reg\+::key, osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::l\+\_\+rk\+\_\+id, L\+M\+\_\+\+E\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+C\+O\+NF, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+S\+U\+C\+C\+E\+SS, restart\+\_\+asp(), osmo\+\_\+xlm\+\_\+prim\+::rk\+\_\+reg, S\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+FY, osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+reg\+::status, T\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+R\+KM, and osmo\+\_\+xlm\+\_\+prim\+::u.
+
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!lm\+\_\+timer\+\_\+cb@{lm\+\_\+timer\+\_\+cb}}
+\index{lm\+\_\+timer\+\_\+cb@{lm\+\_\+timer\+\_\+cb}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{lm\+\_\+timer\+\_\+cb(struct osmo\+\_\+fsm\+\_\+inst $\ast$fi)}]{\setlength{\rightskip}{0pt plus 5cm}static int lm\+\_\+timer\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+fsm\+\_\+inst $\ast$}]{fi}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__default__lm__fsm_8c_a8c72c7cf37f1a40ecb75694a565f28b8}
+
+
+References lm\+\_\+fsm\+\_\+priv\+::asp, osmo\+\_\+ss7\+\_\+as\+::cfg, find\+\_\+first\+\_\+as\+\_\+in\+\_\+asp(), osmo\+\_\+xlm\+\_\+prim\+\_\+rk\+\_\+reg\+::key, osmo\+\_\+xlm\+\_\+prim\+::oph, O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+R\+K\+\_\+\+R\+EG, osmo\+\_\+xlm\+\_\+sap\+\_\+down(), restart\+\_\+asp(), osmo\+\_\+xlm\+\_\+prim\+::rk\+\_\+reg, osmo\+\_\+ss7\+\_\+as\+::routing\+\_\+key, S\+\_\+\+R\+K\+M\+\_\+\+R\+EG, T\+\_\+\+W\+A\+I\+T\+\_\+\+A\+S\+P\+\_\+\+UP, T\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+FY, T\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+R\+KM, T\+\_\+\+W\+A\+I\+T\+\_\+\+R\+K\+\_\+\+R\+E\+G\+\_\+\+R\+E\+SP, osmo\+\_\+xlm\+\_\+prim\+::u, and xua\+\_\+xlm\+\_\+prim\+\_\+alloc().
+
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!lm\+\_\+wait\+\_\+asp\+\_\+up@{lm\+\_\+wait\+\_\+asp\+\_\+up}}
+\index{lm\+\_\+wait\+\_\+asp\+\_\+up@{lm\+\_\+wait\+\_\+asp\+\_\+up}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{lm\+\_\+wait\+\_\+asp\+\_\+up(struct osmo\+\_\+fsm\+\_\+inst $\ast$fi, uint32\+\_\+t event, void $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}static void lm\+\_\+wait\+\_\+asp\+\_\+up (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+fsm\+\_\+inst $\ast$}]{fi, }
+\item[{uint32\+\_\+t}]{event, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__default__lm__fsm_8c_a6fabb7152bb688864bff87aaa3ec82dc}
+
+
+References L\+M\+\_\+\+E\+\_\+\+A\+S\+P\+\_\+\+U\+P\+\_\+\+C\+O\+NF, S\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+FY, and T\+\_\+\+W\+A\+I\+T\+\_\+\+N\+O\+T\+I\+FY.
+
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!lm\+\_\+wait\+\_\+notify@{lm\+\_\+wait\+\_\+notify}}
+\index{lm\+\_\+wait\+\_\+notify@{lm\+\_\+wait\+\_\+notify}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{lm\+\_\+wait\+\_\+notify(struct osmo\+\_\+fsm\+\_\+inst $\ast$fi, uint32\+\_\+t event, void $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}static void lm\+\_\+wait\+\_\+notify (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+fsm\+\_\+inst $\ast$}]{fi, }
+\item[{uint32\+\_\+t}]{event, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__default__lm__fsm_8c_a387d93798384a435bebd88338f8306b9}
+
+
+References lm\+\_\+fsm\+\_\+priv\+::asp, data, osmo\+\_\+ss7\+\_\+asp\+::fi, L\+M\+\_\+\+E\+\_\+\+A\+S\+\_\+\+I\+N\+A\+C\+T\+I\+V\+E\+\_\+\+I\+ND, L\+M\+\_\+\+E\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+I\+ND, M3\+U\+A\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+I\+\_\+\+A\+S\+\_\+\+I\+N\+A\+CT, M3\+U\+A\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+I\+\_\+\+A\+S\+\_\+\+P\+E\+ND, M3\+U\+A\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+T\+\_\+\+S\+T\+A\+T\+C\+HG, osmo\+\_\+xlm\+\_\+prim\+::notify, osmo\+\_\+xlm\+\_\+prim\+::oph, O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+N\+O\+T\+I\+FY, S\+\_\+\+A\+C\+T\+I\+VE, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::status\+\_\+info, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::status\+\_\+type, osmo\+\_\+xlm\+\_\+prim\+::u, and X\+U\+A\+\_\+\+A\+S\+P\+\_\+\+E\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+R\+EQ.
+
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!osmo\+\_\+ss7\+\_\+asp\+\_\+use\+\_\+default\+\_\+lm@{osmo\+\_\+ss7\+\_\+asp\+\_\+use\+\_\+default\+\_\+lm}}
+\index{osmo\+\_\+ss7\+\_\+asp\+\_\+use\+\_\+default\+\_\+lm@{osmo\+\_\+ss7\+\_\+asp\+\_\+use\+\_\+default\+\_\+lm}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+asp\+\_\+use\+\_\+default\+\_\+lm(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, int log\+\_\+level)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+asp\+\_\+use\+\_\+default\+\_\+lm (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{int}]{log\+\_\+level}
+\end{DoxyParamCaption}
+)}\label{xua__default__lm__fsm_8c_af4039d65a094d2cd510a3ed991e05deb}
+
+
+References lm\+\_\+fsm\+\_\+priv\+::asp, osmo\+\_\+ss7\+\_\+asp\+::cfg, default\+\_\+layer\+\_\+manager, osmo\+\_\+ss7\+\_\+asp\+::lm, osmo\+\_\+ss7\+\_\+asp\+::lm\+\_\+priv, osmo\+\_\+ss7\+\_\+asp\+::name, and xua\+\_\+default\+\_\+lm\+\_\+fsm.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), and restart\+\_\+asp().
+
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!restart\+\_\+asp@{restart\+\_\+asp}}
+\index{restart\+\_\+asp@{restart\+\_\+asp}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{restart\+\_\+asp(struct osmo\+\_\+fsm\+\_\+inst $\ast$fi)}]{\setlength{\rightskip}{0pt plus 5cm}static void restart\+\_\+asp (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+fsm\+\_\+inst $\ast$}]{fi}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{xua__default__lm__fsm_8c_a47e12f692f84f527e49b4859ea045388}
+
+
+References lm\+\_\+fsm\+\_\+priv\+::asp, osmo\+\_\+ss7\+\_\+asp\+\_\+restart(), and osmo\+\_\+ss7\+\_\+asp\+\_\+use\+\_\+default\+\_\+lm().
+
+
+
+Referenced by lm\+\_\+active(), lm\+\_\+allstate(), lm\+\_\+rkm\+\_\+reg(), and lm\+\_\+timer\+\_\+cb().
+
+
+
+\subsection{Variable Documentation}
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!default\+\_\+layer\+\_\+manager@{default\+\_\+layer\+\_\+manager}}
+\index{default\+\_\+layer\+\_\+manager@{default\+\_\+layer\+\_\+manager}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{default\+\_\+layer\+\_\+manager}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf osmo\+\_\+xua\+\_\+layer\+\_\+manager} default\+\_\+layer\+\_\+manager\hspace{0.3cm}{\ttfamily [static]}}\label{xua__default__lm__fsm_8c_a2a6abce8a1458b653c185ca1d75dd470}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        .prim\_cb = default_lm_prim_cb,
+\}
+\end{DoxyCode}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+asp\+\_\+use\+\_\+default\+\_\+lm().
+
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!lm\+\_\+event\+\_\+map@{lm\+\_\+event\+\_\+map}}
+\index{lm\+\_\+event\+\_\+map@{lm\+\_\+event\+\_\+map}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{lm\+\_\+event\+\_\+map}]{\setlength{\rightskip}{0pt plus 5cm}const struct osmo\+\_\+prim\+\_\+event\+\_\+map lm\+\_\+event\+\_\+map[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{xua__default__lm__fsm_8c_a51949de02d1451a339c030bfa04e58f0}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ XUA_SAP_LM, OSMO_XLM_PRIM_M_SCTP_ESTABLISH, PRIM\_OP\_INDICATION, 
+      LM_E_SCTP_EST_IND \},
+        \{ XUA_SAP_LM, OSMO_XLM_PRIM_M_SCTP_RELEASE, PRIM\_OP\_INDICATION, 
+      LM_E_SCTP_DISC_IND \},
+        \{ XUA_SAP_LM, OSMO_XLM_PRIM_M_ASP_UP, PRIM\_OP\_CONFIRM, LM_E_ASP_UP_CONF \},
+        \{ XUA_SAP_LM, OSMO_XLM_PRIM_M_AS_STATUS, PRIM\_OP\_INDICATION, 
+      LM_E_AS_STATUS_IND \},
+        \{ XUA_SAP_LM, OSMO_XLM_PRIM_M_NOTIFY, PRIM\_OP\_INDICATION, 
+      LM_E_NOTIFY_IND \},
+        \{ XUA_SAP_LM, OSMO_XLM_PRIM_M_AS_INACTIVE, PRIM\_OP\_INDICATION, 
+      LM_E_AS_INACTIVE_IND \},
+        \{ XUA_SAP_LM, OSMO_XLM_PRIM_M_AS_ACTIVE, PRIM\_OP\_INDICATION, 
+      LM_E_AS_ACTIVE_IND \},
+        \{ XUA_SAP_LM, OSMO_XLM_PRIM_M_RK_REG, PRIM\_OP\_CONFIRM, LM_E_RKM_REG_CONF \},
+        \{ 0, 0, 0, OSMO\_NO\_EVENT \},
+\}
+\end{DoxyCode}
+
+
+Referenced by default\+\_\+lm\+\_\+prim\+\_\+cb().
+
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!lm\+\_\+event\+\_\+names@{lm\+\_\+event\+\_\+names}}
+\index{lm\+\_\+event\+\_\+names@{lm\+\_\+event\+\_\+names}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{lm\+\_\+event\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string lm\+\_\+event\+\_\+names[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{xua__default__lm__fsm_8c_a524a2ce1ebc7967814b338b51f576a55}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ LM_E_SCTP_EST_IND,    \textcolor{stringliteral}{"SCTP-ESTABLISH.ind"} \},
+        \{ LM_E_ASP_UP_CONF,     \textcolor{stringliteral}{"ASP-UP.conf"} \},
+        \{ LM_E_NOTIFY_IND,      \textcolor{stringliteral}{"NOTIFY.ind"} \},
+        \{ LM_E_AS_INACTIVE_IND, \textcolor{stringliteral}{"AS-INACTIVE.ind"} \},
+        \{ LM_E_AS_ACTIVE_IND,   \textcolor{stringliteral}{"AS-ACTIVE.ind"} \},
+        \{ LM_E_AS_STATUS_IND,   \textcolor{stringliteral}{"AS-STATUS.ind"} \},
+        \{ LM_E_RKM_REG_CONF,    \textcolor{stringliteral}{"RKM\_REG.conf"} \},
+        \{ LM_E_SCTP_DISC_IND,   \textcolor{stringliteral}{"SCTP-RELEASE.ind"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!lm\+\_\+states@{lm\+\_\+states}}
+\index{lm\+\_\+states@{lm\+\_\+states}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{lm\+\_\+states}]{\setlength{\rightskip}{0pt plus 5cm}const struct osmo\+\_\+fsm\+\_\+state lm\+\_\+states[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{xua__default__lm__fsm_8c_a57c9b8d5dc3d987500e141df6154a822}
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}!xua\+\_\+default\+\_\+lm\+\_\+fsm@{xua\+\_\+default\+\_\+lm\+\_\+fsm}}
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm@{xua\+\_\+default\+\_\+lm\+\_\+fsm}!xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c@{xua\+\_\+default\+\_\+lm\+\_\+fsm.\+c}}
+\subsubsection[{xua\+\_\+default\+\_\+lm\+\_\+fsm}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+fsm xua\+\_\+default\+\_\+lm\+\_\+fsm}\label{xua__default__lm__fsm_8c_a6440967ba56751bd7b6913c0bc6402e9}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        .name = \textcolor{stringliteral}{"xua\_default\_lm"},
+        .states = lm_states,
+        .num\_states = ARRAY\_SIZE(lm_states),
+        .timer\_cb = lm_timer_cb,
+        .event\_names = lm_event_names,
+        .allstate\_event\_mask = S(LM_E_SCTP_DISC_IND),
+        .allstate\_action = lm_allstate,
+        .log\_subsys = DLSS7,
+\}
+\end{DoxyCode}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+asp\+\_\+use\+\_\+default\+\_\+lm(), and osmo\+\_\+ss7\+\_\+init().
+

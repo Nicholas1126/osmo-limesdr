@@ -1,0 +1,921 @@
+\section{src/m3ua.c File Reference}
+\label{m3ua_8c}\index{src/m3ua.\+c@{src/m3ua.\+c}}
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/utils.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/linuxlist.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/write\+\_\+queue.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/logging.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/timer.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/socket.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/netif/stream.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/xua\+\_\+msg.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/mtp\+\_\+sap.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/sccp\+\_\+sap.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/osmo\+\_\+ss7.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/m3ua.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/sua.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+as\+\_\+fsm.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+asp\+\_\+fsm.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+internal.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf M3\+U\+A\+\_\+\+M\+S\+G\+B\+\_\+\+S\+I\+ZE}~1500
+\item 
+\#define {\bf M\+A\+N\+D\+\_\+\+I\+ES}(msgt,  ies)~[msgt] = (ies)
+\item 
+\#define {\bf M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE}~2048
+\item 
+\#define {\bf M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM}~512
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf mtp\+\_\+xfer\+\_\+param\+\_\+to\+\_\+m3ua\+\_\+dh} (struct {\bf m3ua\+\_\+data\+\_\+hdr} $\ast$mdh, const struct {\bf osmo\+\_\+mtp\+\_\+transfer\+\_\+param} $\ast$param)
+\item 
+void {\bf m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param} (struct {\bf osmo\+\_\+mtp\+\_\+transfer\+\_\+param} $\ast$param, const struct {\bf m3ua\+\_\+data\+\_\+hdr} $\ast$mdh)
+\item 
+struct msgb $\ast$ {\bf m3ua\+\_\+msgb\+\_\+alloc} (const char $\ast$name)
+\item 
+struct {\bf xua\+\_\+msg} $\ast$ {\bf m3ua\+\_\+xfer\+\_\+from\+\_\+data} (const struct {\bf m3ua\+\_\+data\+\_\+hdr} $\ast$data\+\_\+hdr, const uint8\+\_\+t $\ast${\bf data}, unsigned int data\+\_\+len)
+\item 
+static struct {\bf xua\+\_\+msg} $\ast$ {\bf m3ua\+\_\+gen\+\_\+error} (uint32\+\_\+t err\+\_\+code)
+\item 
+static struct {\bf xua\+\_\+msg} $\ast$ {\bf m3ua\+\_\+gen\+\_\+error\+\_\+msg} (uint32\+\_\+t err\+\_\+code, struct msgb $\ast$msg)
+\item 
+struct {\bf xua\+\_\+msg} $\ast$ {\bf m3ua\+\_\+encode\+\_\+notify} (const struct {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+notify} $\ast$npar)
+\item 
+int {\bf m3ua\+\_\+decode\+\_\+notify} (struct {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+notify} $\ast$npar, void $\ast$ctx, const struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static struct msgb $\ast$ {\bf m3ua\+\_\+to\+\_\+msg} (struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf m3ua\+\_\+tx\+\_\+xua\+\_\+asp} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+int {\bf m3ua\+\_\+tx\+\_\+xua\+\_\+as} (struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$as, struct {\bf xua\+\_\+msg} $\ast$xua)
+\begin{DoxyCompactList}\small\item\em Send a given x\+UA message via a given M3\+UA Application Server. \end{DoxyCompactList}\item 
+struct {\bf m3ua\+\_\+data\+\_\+hdr} $\ast$ {\bf data\+\_\+hdr\+\_\+from\+\_\+m3ua} (struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf m3ua\+\_\+rx\+\_\+xfer} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf m3ua\+\_\+rx\+\_\+mgmt\+\_\+err} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf m3ua\+\_\+rx\+\_\+mgmt} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf m3ua\+\_\+rx\+\_\+asp} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+int {\bf m3ua\+\_\+rx\+\_\+msg} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em process M3\+UA message received from socket \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const struct value\+\_\+string {\bf m3ua\+\_\+err\+\_\+names} [$\,$]
+\item 
+const struct value\+\_\+string {\bf m3ua\+\_\+ntfy\+\_\+type\+\_\+names} [$\,$]
+\item 
+const struct value\+\_\+string {\bf m3ua\+\_\+ntfy\+\_\+stchg\+\_\+names} [$\,$]
+\item 
+const struct value\+\_\+string {\bf m3ua\+\_\+ntfy\+\_\+other\+\_\+names} [$\,$]
+\item 
+static const struct value\+\_\+string {\bf m3ua\+\_\+iei\+\_\+names} [$\,$]
+\item 
+static const uint16\+\_\+t {\bf data\+\_\+mand\+\_\+ies} [$\,$]
+\item 
+static const struct value\+\_\+string {\bf m3ua\+\_\+xfer\+\_\+msgt\+\_\+names} [$\,$]
+\item 
+static const struct {\bf xua\+\_\+msg\+\_\+class} {\bf msg\+\_\+class\+\_\+xfer}
+\item 
+static const uint16\+\_\+t {\bf duna\+\_\+mand\+\_\+ies} [$\,$]
+\item 
+static const uint16\+\_\+t {\bf dava\+\_\+mand\+\_\+ies} [$\,$]
+\item 
+static const uint16\+\_\+t {\bf daud\+\_\+mand\+\_\+ies} [$\,$]
+\item 
+static const uint16\+\_\+t {\bf scon\+\_\+mand\+\_\+ies} [$\,$]
+\item 
+static const uint16\+\_\+t {\bf dupu\+\_\+mand\+\_\+ies} [$\,$]
+\item 
+static const uint16\+\_\+t {\bf drst\+\_\+mand\+\_\+ies} [$\,$]
+\item 
+static const struct value\+\_\+string {\bf m3ua\+\_\+snm\+\_\+msgt\+\_\+names} [$\,$]
+\item 
+const struct {\bf xua\+\_\+msg\+\_\+class} {\bf m3ua\+\_\+msg\+\_\+class\+\_\+snm}
+\item 
+static const struct value\+\_\+string {\bf m3ua\+\_\+aspsm\+\_\+msgt\+\_\+names} [$\,$]
+\item 
+const struct {\bf xua\+\_\+msg\+\_\+class} {\bf m3ua\+\_\+msg\+\_\+class\+\_\+aspsm}
+\item 
+const struct value\+\_\+string {\bf m3ua\+\_\+asptm\+\_\+msgt\+\_\+names} [$\,$]
+\item 
+const struct {\bf xua\+\_\+msg\+\_\+class} {\bf m3ua\+\_\+msg\+\_\+class\+\_\+asptm}
+\item 
+static const uint16\+\_\+t {\bf err\+\_\+req\+\_\+ies} [$\,$]
+\item 
+static const uint16\+\_\+t {\bf ntfy\+\_\+req\+\_\+ies} [$\,$]
+\item 
+static const struct value\+\_\+string {\bf m3ua\+\_\+mgmt\+\_\+msgt\+\_\+names} [$\,$]
+\item 
+const struct {\bf xua\+\_\+msg\+\_\+class} {\bf m3ua\+\_\+msg\+\_\+class\+\_\+mgmt}
+\item 
+static const uint16\+\_\+t {\bf reg\+\_\+req\+\_\+ies} [$\,$]
+\item 
+static const uint16\+\_\+t {\bf reg\+\_\+rsp\+\_\+ies} [$\,$]
+\item 
+static const uint16\+\_\+t {\bf dereg\+\_\+req\+\_\+ies} [$\,$]
+\item 
+static const uint16\+\_\+t {\bf dereg\+\_\+rsp\+\_\+ies} [$\,$]
+\item 
+static const struct value\+\_\+string {\bf m3ua\+\_\+rkm\+\_\+msgt\+\_\+names} [$\,$]
+\item 
+const struct {\bf xua\+\_\+msg\+\_\+class} {\bf m3ua\+\_\+msg\+\_\+class\+\_\+rkm}
+\item 
+const struct {\bf xua\+\_\+dialect} {\bf xua\+\_\+dialect\+\_\+m3ua}
+\item 
+static const struct {\bf xua\+\_\+msg\+\_\+event\+\_\+map} {\bf m3ua\+\_\+aspxm\+\_\+map} [$\,$]
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{m3ua.\+c@{m3ua.\+c}!M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM@{M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM}}
+\index{M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM@{M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM}]{\setlength{\rightskip}{0pt plus 5cm}\#define M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM~512}\label{m3ua_8c_a0a663c3db596ddb20df217c428675585}
+
+
+Referenced by m3ua\+\_\+msgb\+\_\+alloc().
+
+\index{m3ua.\+c@{m3ua.\+c}!M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE@{M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE}}
+\index{M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE@{M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE}]{\setlength{\rightskip}{0pt plus 5cm}\#define M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE~2048}\label{m3ua_8c_abd0d34f59b10a9030dfbd87f24239f57}
+
+
+Referenced by m3ua\+\_\+msgb\+\_\+alloc().
+
+\index{m3ua.\+c@{m3ua.\+c}!M3\+U\+A\+\_\+\+M\+S\+G\+B\+\_\+\+S\+I\+ZE@{M3\+U\+A\+\_\+\+M\+S\+G\+B\+\_\+\+S\+I\+ZE}}
+\index{M3\+U\+A\+\_\+\+M\+S\+G\+B\+\_\+\+S\+I\+ZE@{M3\+U\+A\+\_\+\+M\+S\+G\+B\+\_\+\+S\+I\+ZE}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{M3\+U\+A\+\_\+\+M\+S\+G\+B\+\_\+\+S\+I\+ZE}]{\setlength{\rightskip}{0pt plus 5cm}\#define M3\+U\+A\+\_\+\+M\+S\+G\+B\+\_\+\+S\+I\+ZE~1500}\label{m3ua_8c_a41a6ffbf30f870bb34ef56e08726669a}
+\index{m3ua.\+c@{m3ua.\+c}!M\+A\+N\+D\+\_\+\+I\+ES@{M\+A\+N\+D\+\_\+\+I\+ES}}
+\index{M\+A\+N\+D\+\_\+\+I\+ES@{M\+A\+N\+D\+\_\+\+I\+ES}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{M\+A\+N\+D\+\_\+\+I\+ES}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+N\+D\+\_\+\+I\+ES(
+\begin{DoxyParamCaption}
+\item[{}]{msgt, }
+\item[{}]{ies}
+\end{DoxyParamCaption}
+)~[msgt] = (ies)}\label{m3ua_8c_af10f2a394be1aaa2fb7dd4d1495e2316}
+
+
+\subsection{Function Documentation}
+\index{m3ua.\+c@{m3ua.\+c}!data\+\_\+hdr\+\_\+from\+\_\+m3ua@{data\+\_\+hdr\+\_\+from\+\_\+m3ua}}
+\index{data\+\_\+hdr\+\_\+from\+\_\+m3ua@{data\+\_\+hdr\+\_\+from\+\_\+m3ua}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{data\+\_\+hdr\+\_\+from\+\_\+m3ua(struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf m3ua\+\_\+data\+\_\+hdr}$\ast$ data\+\_\+hdr\+\_\+from\+\_\+m3ua (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{m3ua_8c_aed43760964d48ed2ae9e15b1e63e7611}
+
+
+References xua\+\_\+msg\+\_\+part\+::dat, xua\+\_\+msg\+::hdr, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+\_\+\+D\+A\+TA, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+X\+F\+ER, M3\+U\+A\+\_\+\+X\+F\+E\+R\+\_\+\+D\+A\+TA, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type, and xua\+\_\+msg\+\_\+find\+\_\+tag().
+
+
+
+Referenced by hmdt\+\_\+message\+\_\+for\+\_\+distribution(), and m3ua\+\_\+rx\+\_\+xfer().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+decode\+\_\+notify@{m3ua\+\_\+decode\+\_\+notify}}
+\index{m3ua\+\_\+decode\+\_\+notify@{m3ua\+\_\+decode\+\_\+notify}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+decode\+\_\+notify(struct osmo\+\_\+xlm\+\_\+prim\+\_\+notify $\ast$npar, void $\ast$ctx, const struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}int m3ua\+\_\+decode\+\_\+notify (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+notify} $\ast$}]{npar, }
+\item[{void $\ast$}]{ctx, }
+\item[{const struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{m3ua_8c_a446729f54e5da95d3eefc9ae04248cdf}
+
+
+References osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::asp\+\_\+id, xua\+\_\+msg\+\_\+part\+::dat, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::info\+\_\+string, xua\+\_\+msg\+\_\+part\+::len, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+A\+S\+P\+\_\+\+ID, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+I\+N\+F\+O\+\_\+\+S\+T\+R\+I\+NG, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+T\+A\+T\+US, N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+A\+S\+P\+\_\+\+ID, N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::presence, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::route\+\_\+ctx, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::status\+\_\+info, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::status\+\_\+type, xua\+\_\+msg\+\_\+find\+\_\+tag(), and xua\+\_\+msg\+\_\+part\+\_\+get\+\_\+u32().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy(), and sua\+\_\+rx\+\_\+mgmt\+\_\+ntfy().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param@{m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param}}
+\index{m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param@{m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param(struct osmo\+\_\+mtp\+\_\+transfer\+\_\+param $\ast$param, const struct m3ua\+\_\+data\+\_\+hdr $\ast$mdh)}]{\setlength{\rightskip}{0pt plus 5cm}void m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+mtp\+\_\+transfer\+\_\+param} $\ast$}]{param, }
+\item[{const struct {\bf m3ua\+\_\+data\+\_\+hdr} $\ast$}]{mdh}
+\end{DoxyParamCaption}
+)}\label{m3ua_8c_ac1a04dfbafd50c05516ed474fd6337f3}
+
+
+References osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::dpc, m3ua\+\_\+data\+\_\+hdr\+::dpc, m3ua\+\_\+data\+\_\+hdr\+::mp, m3ua\+\_\+data\+\_\+hdr\+::ni, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::opc, m3ua\+\_\+data\+\_\+hdr\+::opc, m3ua\+\_\+data\+\_\+hdr\+::si, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::sio, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::sls, and m3ua\+\_\+data\+\_\+hdr\+::sls.
+
+
+
+Referenced by ipa\+\_\+rx\+\_\+msg\+\_\+sccp(), m3ua\+\_\+rx\+\_\+xfer(), and m3ua\+\_\+to\+\_\+xfer\+\_\+ind().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+encode\+\_\+notify@{m3ua\+\_\+encode\+\_\+notify}}
+\index{m3ua\+\_\+encode\+\_\+notify@{m3ua\+\_\+encode\+\_\+notify}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+encode\+\_\+notify(const struct osmo\+\_\+xlm\+\_\+prim\+\_\+notify $\ast$npar)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf xua\+\_\+msg}$\ast$ m3ua\+\_\+encode\+\_\+notify (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+notify} $\ast$}]{npar}
+\end{DoxyParamCaption}
+)}\label{m3ua_8c_a7f3779c54a38b2e1f8c18a5ed541cb7f}
+
+
+References osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::asp\+\_\+id, xua\+\_\+msg\+::hdr, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::info\+\_\+string, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+A\+S\+P\+\_\+\+ID, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+I\+N\+F\+O\+\_\+\+S\+T\+R\+I\+NG, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+T\+A\+T\+US, M3\+U\+A\+\_\+\+M\+G\+M\+T\+\_\+\+N\+T\+FY, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+M\+G\+MT, M3\+U\+A\+\_\+\+N\+O\+T\+I\+FY, N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+A\+S\+P\+\_\+\+ID, N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::presence, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::route\+\_\+ctx, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::status\+\_\+info, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::status\+\_\+type, X\+U\+A\+\_\+\+H\+DR, xua\+\_\+msg\+\_\+add\+\_\+data(), xua\+\_\+msg\+\_\+add\+\_\+u32(), and xua\+\_\+msg\+\_\+alloc().
+
+
+
+Referenced by encode\+\_\+notify().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+gen\+\_\+error@{m3ua\+\_\+gen\+\_\+error}}
+\index{m3ua\+\_\+gen\+\_\+error@{m3ua\+\_\+gen\+\_\+error}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+gen\+\_\+error(uint32\+\_\+t err\+\_\+code)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf xua\+\_\+msg}$\ast$ m3ua\+\_\+gen\+\_\+error (
+\begin{DoxyParamCaption}
+\item[{uint32\+\_\+t}]{err\+\_\+code}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a91eadba21ef58e0a8cf6773efd58981c}
+
+
+References xua\+\_\+msg\+::hdr, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+E\+R\+R\+\_\+\+C\+O\+DE, M3\+U\+A\+\_\+\+M\+G\+M\+T\+\_\+\+E\+RR, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+M\+G\+MT, M3\+U\+A\+\_\+\+V\+E\+R\+S\+I\+ON, xua\+\_\+common\+\_\+hdr\+::version, X\+U\+A\+\_\+\+H\+DR, xua\+\_\+msg\+\_\+add\+\_\+u32(), and xua\+\_\+msg\+\_\+alloc().
+
+
+
+Referenced by m3ua\+\_\+gen\+\_\+error\+\_\+msg().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+gen\+\_\+error\+\_\+msg@{m3ua\+\_\+gen\+\_\+error\+\_\+msg}}
+\index{m3ua\+\_\+gen\+\_\+error\+\_\+msg@{m3ua\+\_\+gen\+\_\+error\+\_\+msg}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+gen\+\_\+error\+\_\+msg(uint32\+\_\+t err\+\_\+code, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf xua\+\_\+msg}$\ast$ m3ua\+\_\+gen\+\_\+error\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{uint32\+\_\+t}]{err\+\_\+code, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a7caa3c33d6266cf0c551c6cbd4bee629}
+
+
+References m3ua\+\_\+gen\+\_\+error(), M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+I\+A\+G\+\_\+\+I\+N\+FO, and xua\+\_\+msg\+\_\+add\+\_\+data().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+msg().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+msgb\+\_\+alloc@{m3ua\+\_\+msgb\+\_\+alloc}}
+\index{m3ua\+\_\+msgb\+\_\+alloc@{m3ua\+\_\+msgb\+\_\+alloc}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+msgb\+\_\+alloc(const char $\ast$name)}]{\setlength{\rightskip}{0pt plus 5cm}struct msgb$\ast$ m3ua\+\_\+msgb\+\_\+alloc (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\label{m3ua_8c_a27c054af9499c82ee64945a48f16abf7}
+
+
+References M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM, and M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE.
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+req(), m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req(), m3ua\+\_\+to\+\_\+xfer\+\_\+ind(), xua\+\_\+cli\+\_\+read\+\_\+cb(), xua\+\_\+rkm\+\_\+send\+\_\+dereg\+\_\+req(), xua\+\_\+rkm\+\_\+send\+\_\+reg\+\_\+req(), and xua\+\_\+srv\+\_\+conn\+\_\+cb().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+rx\+\_\+asp@{m3ua\+\_\+rx\+\_\+asp}}
+\index{m3ua\+\_\+rx\+\_\+asp@{m3ua\+\_\+rx\+\_\+asp}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+rx\+\_\+asp(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int m3ua\+\_\+rx\+\_\+asp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a21cbcae66f8c041104eccbcfc0253700}
+
+
+References xua\+\_\+msg\+\_\+event\+\_\+map\+::event, osmo\+\_\+ss7\+\_\+asp\+::fi, M3\+U\+A\+\_\+\+E\+R\+R\+\_\+\+U\+N\+E\+X\+P\+E\+C\+T\+E\+D\+\_\+\+M\+SG, M3\+U\+A\+\_\+\+E\+R\+R\+\_\+\+U\+N\+S\+U\+P\+P\+\_\+\+M\+S\+G\+\_\+\+T\+Y\+PE, and xua\+\_\+msg\+\_\+event\+\_\+map().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+msg().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+rx\+\_\+mgmt@{m3ua\+\_\+rx\+\_\+mgmt}}
+\index{m3ua\+\_\+rx\+\_\+mgmt@{m3ua\+\_\+rx\+\_\+mgmt}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+rx\+\_\+mgmt(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int m3ua\+\_\+rx\+\_\+mgmt (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_ad24afbe93eb8be87e769aac2dbf0fa6c}
+
+
+References xua\+\_\+msg\+::hdr, M3\+U\+A\+\_\+\+E\+R\+R\+\_\+\+U\+N\+S\+U\+P\+P\+\_\+\+M\+S\+G\+\_\+\+T\+Y\+PE, M3\+U\+A\+\_\+\+M\+G\+M\+T\+\_\+\+E\+RR, M3\+U\+A\+\_\+\+M\+G\+M\+T\+\_\+\+N\+T\+FY, m3ua\+\_\+rx\+\_\+mgmt\+\_\+err(), m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy(), and xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type.
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+msg().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+rx\+\_\+mgmt\+\_\+err@{m3ua\+\_\+rx\+\_\+mgmt\+\_\+err}}
+\index{m3ua\+\_\+rx\+\_\+mgmt\+\_\+err@{m3ua\+\_\+rx\+\_\+mgmt\+\_\+err}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+rx\+\_\+mgmt\+\_\+err(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int m3ua\+\_\+rx\+\_\+mgmt\+\_\+err (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a472fe124fa7e675ed066779df79cd3d3}
+
+
+References osmo\+\_\+xlm\+\_\+prim\+\_\+error\+::code, osmo\+\_\+xlm\+\_\+prim\+::error, L\+O\+G\+P\+A\+SP, m3ua\+\_\+err\+\_\+names, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+E\+R\+R\+\_\+\+C\+O\+DE, O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+E\+R\+R\+OR, osmo\+\_\+xlm\+\_\+prim\+::u, xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim(), xua\+\_\+msg\+\_\+dump(), xua\+\_\+msg\+\_\+get\+\_\+u32(), and xua\+\_\+xlm\+\_\+prim\+\_\+alloc().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+mgmt().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy@{m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy}}
+\index{m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy@{m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a95417d0d7ef5890b8e40c870407bde10}
+
+
+References osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::info\+\_\+string, L\+O\+G\+P\+A\+SP, m3ua\+\_\+decode\+\_\+notify(), M3\+U\+A\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+T\+\_\+\+O\+T\+H\+ER, M3\+U\+A\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+T\+\_\+\+S\+T\+A\+T\+C\+HG, m3ua\+\_\+ntfy\+\_\+other\+\_\+names, m3ua\+\_\+ntfy\+\_\+stchg\+\_\+names, m3ua\+\_\+ntfy\+\_\+type\+\_\+names, osmo\+\_\+xlm\+\_\+prim\+::notify, O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+N\+O\+T\+I\+FY, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::status\+\_\+info, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::status\+\_\+type, osmo\+\_\+xlm\+\_\+prim\+::u, xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim(), and xua\+\_\+xlm\+\_\+prim\+\_\+alloc().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+mgmt().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+rx\+\_\+msg@{m3ua\+\_\+rx\+\_\+msg}}
+\index{m3ua\+\_\+rx\+\_\+msg@{m3ua\+\_\+rx\+\_\+msg}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+rx\+\_\+msg(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int m3ua\+\_\+rx\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{m3ua_8c_a3dd5abc2f138a16910f323c9e52427e6}
+
+
+process M3\+UA message received from socket 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em asp} & Application Server Process receiving msg \\
+\hline
+\mbox{\tt in}  & {\em msg} & received message buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, xua\+\_\+common\+\_\+hdr\+::data, xua\+\_\+msg\+::hdr, L\+O\+G\+P\+A\+SP, M3\+U\+A\+\_\+\+E\+R\+R\+\_\+\+I\+N\+V\+A\+L\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+ID, M3\+U\+A\+\_\+\+E\+R\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+V\+E\+R\+S\+I\+ON, M3\+U\+A\+\_\+\+E\+R\+R\+\_\+\+M\+I\+S\+S\+I\+N\+G\+\_\+\+P\+A\+R\+AM, M3\+U\+A\+\_\+\+E\+R\+R\+\_\+\+P\+A\+R\+A\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+E\+RR, M3\+U\+A\+\_\+\+E\+R\+R\+\_\+\+U\+N\+S\+U\+P\+P\+\_\+\+M\+S\+G\+\_\+\+C\+L\+A\+SS, m3ua\+\_\+gen\+\_\+error\+\_\+msg(), M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+A\+S\+P\+SM, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+A\+S\+P\+TM, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+M\+G\+MT, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+R\+KM, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+S\+NM, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+X\+F\+ER, m3ua\+\_\+rx\+\_\+asp(), m3ua\+\_\+rx\+\_\+mgmt(), m3ua\+\_\+rx\+\_\+rkm(), m3ua\+\_\+rx\+\_\+xfer(), m3ua\+\_\+tx\+\_\+xua\+\_\+asp(), M3\+U\+A\+\_\+\+V\+E\+R\+S\+I\+ON, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+M3\+UA, osmo\+\_\+ss7\+\_\+asp\+::proto, xua\+\_\+common\+\_\+hdr\+::version, xua\+\_\+dialect\+\_\+check\+\_\+all\+\_\+mand\+\_\+ies(), xua\+\_\+from\+\_\+msg(), xua\+\_\+hdr\+\_\+dump(), and xua\+\_\+msg\+\_\+free().
+
+
+
+Referenced by xua\+\_\+cli\+\_\+read\+\_\+cb(), and xua\+\_\+srv\+\_\+conn\+\_\+cb().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+rx\+\_\+xfer@{m3ua\+\_\+rx\+\_\+xfer}}
+\index{m3ua\+\_\+rx\+\_\+xfer@{m3ua\+\_\+rx\+\_\+xfer}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+rx\+\_\+xfer(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int m3ua\+\_\+rx\+\_\+xfer (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_adfdab85e76ea4094d36e002b071e2913}
+
+
+References data\+\_\+hdr\+\_\+from\+\_\+m3ua(), osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::dpc, xua\+\_\+msg\+::hdr, osmo\+\_\+ss7\+\_\+asp\+::inst, L\+O\+G\+P\+A\+SP, m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param(), M3\+U\+A\+\_\+\+E\+R\+R\+\_\+\+I\+N\+V\+A\+L\+\_\+\+R\+O\+U\+T\+\_\+\+C\+TX, M3\+U\+A\+\_\+\+E\+R\+R\+\_\+\+N\+O\+\_\+\+C\+O\+N\+F\+G\+D\+\_\+\+A\+S\+\_\+\+F\+O\+R\+\_\+\+A\+SP, M3\+U\+A\+\_\+\+E\+R\+R\+\_\+\+U\+N\+S\+U\+P\+P\+\_\+\+M\+S\+G\+\_\+\+T\+Y\+PE, m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2(), M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, M3\+U\+A\+\_\+\+X\+F\+E\+R\+\_\+\+D\+A\+TA, m3ua\+\_\+xfer\+\_\+msgt\+\_\+names, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type, xua\+\_\+msg\+::mtp, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::opc, osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+rctx(), osmo\+\_\+ss7\+\_\+as\+\_\+has\+\_\+asp(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print2(), xua\+\_\+msg\+\_\+free\+\_\+tag(), and xua\+\_\+msg\+\_\+get\+\_\+u32().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+msg().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+to\+\_\+msg@{m3ua\+\_\+to\+\_\+msg}}
+\index{m3ua\+\_\+to\+\_\+msg@{m3ua\+\_\+to\+\_\+msg}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+to\+\_\+msg(struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static struct msgb$\ast$ m3ua\+\_\+to\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a952c17b3d5177f465ed06f8e03fc296e}
+
+
+References xua\+\_\+msg\+::hdr, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+X\+F\+ER, M3\+U\+A\+\_\+\+P\+P\+ID, M3\+U\+A\+\_\+\+V\+E\+R\+S\+I\+ON, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class, and xua\+\_\+to\+\_\+msg().
+
+
+
+Referenced by m3ua\+\_\+tx\+\_\+xua\+\_\+as(), and m3ua\+\_\+tx\+\_\+xua\+\_\+asp().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+tx\+\_\+xua\+\_\+as@{m3ua\+\_\+tx\+\_\+xua\+\_\+as}}
+\index{m3ua\+\_\+tx\+\_\+xua\+\_\+as@{m3ua\+\_\+tx\+\_\+xua\+\_\+as}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+tx\+\_\+xua\+\_\+as(struct osmo\+\_\+ss7\+\_\+as $\ast$as, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}int m3ua\+\_\+tx\+\_\+xua\+\_\+as (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$}]{as, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{m3ua_8c_a2d947fe12b0e169755b8b4f2951b721e}
+
+
+Send a given x\+UA message via a given M3\+UA Application Server. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em as} & Application Server through which to send xua \\
+\hline
+\mbox{\tt in}  & {\em xua} & x\+UA message to be sent \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::context, osmo\+\_\+ss7\+\_\+as\+::fi, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, m3ua\+\_\+to\+\_\+msg(), O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+M3\+UA, osmo\+\_\+ss7\+\_\+as\+::proto, osmo\+\_\+ss7\+\_\+as\+::routing\+\_\+key, X\+U\+A\+\_\+\+A\+S\+\_\+\+E\+\_\+\+T\+R\+A\+N\+S\+F\+E\+R\+\_\+\+R\+EQ, and xua\+\_\+msg\+\_\+add\+\_\+u32().
+
+
+
+Referenced by hmrt\+\_\+message\+\_\+for\+\_\+routing().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+tx\+\_\+xua\+\_\+asp@{m3ua\+\_\+tx\+\_\+xua\+\_\+asp}}
+\index{m3ua\+\_\+tx\+\_\+xua\+\_\+asp@{m3ua\+\_\+tx\+\_\+xua\+\_\+asp}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+tx\+\_\+xua\+\_\+asp(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int m3ua\+\_\+tx\+\_\+xua\+\_\+asp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_aea5844f2cb9585a9010c3948b79e392e}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, m3ua\+\_\+to\+\_\+msg(), O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+M3\+UA, osmo\+\_\+ss7\+\_\+asp\+\_\+send(), and osmo\+\_\+ss7\+\_\+asp\+::proto.
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+msg().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+xfer\+\_\+from\+\_\+data@{m3ua\+\_\+xfer\+\_\+from\+\_\+data}}
+\index{m3ua\+\_\+xfer\+\_\+from\+\_\+data@{m3ua\+\_\+xfer\+\_\+from\+\_\+data}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+xfer\+\_\+from\+\_\+data(const struct m3ua\+\_\+data\+\_\+hdr $\ast$data\+\_\+hdr, const uint8\+\_\+t $\ast$data, unsigned int data\+\_\+len)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf xua\+\_\+msg}$\ast$ m3ua\+\_\+xfer\+\_\+from\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf m3ua\+\_\+data\+\_\+hdr} $\ast$}]{data\+\_\+hdr, }
+\item[{const uint8\+\_\+t $\ast$}]{data, }
+\item[{unsigned int}]{data\+\_\+len}
+\end{DoxyParamCaption}
+)}\label{m3ua_8c_aad969ffbe815ce0108698b2d874bb98a}
+
+
+References xua\+\_\+msg\+\_\+part\+::dat, xua\+\_\+msg\+\_\+part\+::entry, xua\+\_\+msg\+::hdr, xua\+\_\+msg\+::headers, xua\+\_\+msg\+\_\+part\+::len, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+\_\+\+D\+A\+TA, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+X\+F\+ER, M3\+U\+A\+\_\+\+X\+F\+E\+R\+\_\+\+D\+A\+TA, xua\+\_\+msg\+\_\+part\+::tag, X\+U\+A\+\_\+\+H\+DR, and xua\+\_\+msg\+\_\+alloc().
+
+
+
+Referenced by ipa\+\_\+rx\+\_\+msg\+\_\+sccp(), and mtp\+\_\+prim\+\_\+to\+\_\+m3ua().
+
+\index{m3ua.\+c@{m3ua.\+c}!mtp\+\_\+xfer\+\_\+param\+\_\+to\+\_\+m3ua\+\_\+dh@{mtp\+\_\+xfer\+\_\+param\+\_\+to\+\_\+m3ua\+\_\+dh}}
+\index{mtp\+\_\+xfer\+\_\+param\+\_\+to\+\_\+m3ua\+\_\+dh@{mtp\+\_\+xfer\+\_\+param\+\_\+to\+\_\+m3ua\+\_\+dh}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{mtp\+\_\+xfer\+\_\+param\+\_\+to\+\_\+m3ua\+\_\+dh(struct m3ua\+\_\+data\+\_\+hdr $\ast$mdh, const struct osmo\+\_\+mtp\+\_\+transfer\+\_\+param $\ast$param)}]{\setlength{\rightskip}{0pt plus 5cm}void mtp\+\_\+xfer\+\_\+param\+\_\+to\+\_\+m3ua\+\_\+dh (
+\begin{DoxyParamCaption}
+\item[{struct {\bf m3ua\+\_\+data\+\_\+hdr} $\ast$}]{mdh, }
+\item[{const struct {\bf osmo\+\_\+mtp\+\_\+transfer\+\_\+param} $\ast$}]{param}
+\end{DoxyParamCaption}
+)}\label{m3ua_8c_a62fec3de2da183f6a7d87e9e84eadbe8}
+
+
+References osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::dpc, m3ua\+\_\+data\+\_\+hdr\+::dpc, m3ua\+\_\+data\+\_\+hdr\+::mp, m3ua\+\_\+data\+\_\+hdr\+::ni, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::opc, m3ua\+\_\+data\+\_\+hdr\+::opc, m3ua\+\_\+data\+\_\+hdr\+::si, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::sio, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::sls, and m3ua\+\_\+data\+\_\+hdr\+::sls.
+
+
+
+Referenced by mtp\+\_\+prim\+\_\+to\+\_\+m3ua().
+
+
+
+\subsection{Variable Documentation}
+\index{m3ua.\+c@{m3ua.\+c}!data\+\_\+mand\+\_\+ies@{data\+\_\+mand\+\_\+ies}}
+\index{data\+\_\+mand\+\_\+ies@{data\+\_\+mand\+\_\+ies}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{data\+\_\+mand\+\_\+ies}]{\setlength{\rightskip}{0pt plus 5cm}const uint16\+\_\+t data\+\_\+mand\+\_\+ies[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a0dec2e2c52a7f5e1c4c0a4cbcf93b8af}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        M3UA_IEI_PROT_DATA, 0
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!daud\+\_\+mand\+\_\+ies@{daud\+\_\+mand\+\_\+ies}}
+\index{daud\+\_\+mand\+\_\+ies@{daud\+\_\+mand\+\_\+ies}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{daud\+\_\+mand\+\_\+ies}]{\setlength{\rightskip}{0pt plus 5cm}const uint16\+\_\+t daud\+\_\+mand\+\_\+ies[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_ad33ebb95b46b68932185e4526ea54271}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        M3UA_IEI_AFFECTED_PC, 0
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!dava\+\_\+mand\+\_\+ies@{dava\+\_\+mand\+\_\+ies}}
+\index{dava\+\_\+mand\+\_\+ies@{dava\+\_\+mand\+\_\+ies}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{dava\+\_\+mand\+\_\+ies}]{\setlength{\rightskip}{0pt plus 5cm}const uint16\+\_\+t dava\+\_\+mand\+\_\+ies[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a432c07a5723749796adf40c709fa03b8}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        M3UA_IEI_AFFECTED_PC, 0
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!dereg\+\_\+req\+\_\+ies@{dereg\+\_\+req\+\_\+ies}}
+\index{dereg\+\_\+req\+\_\+ies@{dereg\+\_\+req\+\_\+ies}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{dereg\+\_\+req\+\_\+ies}]{\setlength{\rightskip}{0pt plus 5cm}const uint16\+\_\+t dereg\+\_\+req\+\_\+ies[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_aa2a54b97b5401d9fbee06c136b514201}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        M3UA_IEI_ROUTE_CTX, 0
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!dereg\+\_\+rsp\+\_\+ies@{dereg\+\_\+rsp\+\_\+ies}}
+\index{dereg\+\_\+rsp\+\_\+ies@{dereg\+\_\+rsp\+\_\+ies}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{dereg\+\_\+rsp\+\_\+ies}]{\setlength{\rightskip}{0pt plus 5cm}const uint16\+\_\+t dereg\+\_\+rsp\+\_\+ies[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a26ac31c60d013259e4c19640287ae22e}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        M3UA_IEI_DEREG_RESULT, 0
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!drst\+\_\+mand\+\_\+ies@{drst\+\_\+mand\+\_\+ies}}
+\index{drst\+\_\+mand\+\_\+ies@{drst\+\_\+mand\+\_\+ies}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{drst\+\_\+mand\+\_\+ies}]{\setlength{\rightskip}{0pt plus 5cm}const uint16\+\_\+t drst\+\_\+mand\+\_\+ies[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a48ecf604e0c72bd179d70840c8db0619}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        M3UA_IEI_AFFECTED_PC, 0
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!duna\+\_\+mand\+\_\+ies@{duna\+\_\+mand\+\_\+ies}}
+\index{duna\+\_\+mand\+\_\+ies@{duna\+\_\+mand\+\_\+ies}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{duna\+\_\+mand\+\_\+ies}]{\setlength{\rightskip}{0pt plus 5cm}const uint16\+\_\+t duna\+\_\+mand\+\_\+ies[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a83031dada44b3b406e668d70e6d54400}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        M3UA_IEI_AFFECTED_PC, 0
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!dupu\+\_\+mand\+\_\+ies@{dupu\+\_\+mand\+\_\+ies}}
+\index{dupu\+\_\+mand\+\_\+ies@{dupu\+\_\+mand\+\_\+ies}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{dupu\+\_\+mand\+\_\+ies}]{\setlength{\rightskip}{0pt plus 5cm}const uint16\+\_\+t dupu\+\_\+mand\+\_\+ies[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a12710cbc13bd1ece48359ef1a5447d7a}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        M3UA_IEI_AFFECTED_PC, M3UA_IEI_USER_CAUSE, 0
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!err\+\_\+req\+\_\+ies@{err\+\_\+req\+\_\+ies}}
+\index{err\+\_\+req\+\_\+ies@{err\+\_\+req\+\_\+ies}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{err\+\_\+req\+\_\+ies}]{\setlength{\rightskip}{0pt plus 5cm}const uint16\+\_\+t err\+\_\+req\+\_\+ies[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_aabba7438715175738fe3cb7ef7f2ff3a}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        M3UA_IEI_ERR_CODE, 0
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+aspsm\+\_\+msgt\+\_\+names@{m3ua\+\_\+aspsm\+\_\+msgt\+\_\+names}}
+\index{m3ua\+\_\+aspsm\+\_\+msgt\+\_\+names@{m3ua\+\_\+aspsm\+\_\+msgt\+\_\+names}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+aspsm\+\_\+msgt\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+aspsm\+\_\+msgt\+\_\+names[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_aedeeb45ea953715b07a481c37a1fe60b}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ M3UA_ASPSM_UP,        \textcolor{stringliteral}{"UP"} \},
+        \{ M3UA_ASPSM_DOWN,      \textcolor{stringliteral}{"DOWN"} \},
+        \{ M3UA_ASPSM_BEAT,      \textcolor{stringliteral}{"BEAT"} \},
+        \{ M3UA_ASPSM_UP_ACK,    \textcolor{stringliteral}{"UP-ACK"} \},
+        \{ M3UA_ASPSM_DOWN_ACK,  \textcolor{stringliteral}{"DOWN-ACK"} \},
+        \{ M3UA_ASPSM_BEAT_ACK,  \textcolor{stringliteral}{"BEAT-ACK"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+asptm\+\_\+msgt\+\_\+names@{m3ua\+\_\+asptm\+\_\+msgt\+\_\+names}}
+\index{m3ua\+\_\+asptm\+\_\+msgt\+\_\+names@{m3ua\+\_\+asptm\+\_\+msgt\+\_\+names}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+asptm\+\_\+msgt\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+asptm\+\_\+msgt\+\_\+names[$\,$]}\label{m3ua_8c_a2325c85c80cd3a09f2bdf493f344ea84}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ M3UA_ASPTM_ACTIVE,    \textcolor{stringliteral}{"ACTIVE"} \},
+        \{ M3UA_ASPTM_INACTIVE,  \textcolor{stringliteral}{"INACTIVE"} \},
+        \{ M3UA_ASPTM_ACTIVE_ACK,\textcolor{stringliteral}{"ACTIVE-ACK"} \},
+        \{ M3UA_ASPTM_INACTIVE_ACK, \textcolor{stringliteral}{"INACTIVE-ACK"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+aspxm\+\_\+map@{m3ua\+\_\+aspxm\+\_\+map}}
+\index{m3ua\+\_\+aspxm\+\_\+map@{m3ua\+\_\+aspxm\+\_\+map}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+aspxm\+\_\+map}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf xua\+\_\+msg\+\_\+event\+\_\+map} m3ua\+\_\+aspxm\+\_\+map[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a95c8d714f16e4cad5cd2291946f2d018}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ M3UA_MSGC_ASPSM, M3UA_ASPSM_UP, XUA_ASP_E_ASPSM_ASPUP \},
+        \{ M3UA_MSGC_ASPSM, M3UA_ASPSM_DOWN, XUA_ASP_E_ASPSM_ASPDN \},
+        \{ M3UA_MSGC_ASPSM, M3UA_ASPSM_BEAT, XUA_ASP_E_ASPSM_BEAT \},
+        \{ M3UA_MSGC_ASPSM, M3UA_ASPSM_UP_ACK, XUA_ASP_E_ASPSM_ASPUP_ACK \},
+        \{ M3UA_MSGC_ASPSM, M3UA_ASPSM_DOWN_ACK, XUA_ASP_E_ASPSM_ASPDN_ACK \},
+        \{ M3UA_MSGC_ASPSM, M3UA_ASPSM_BEAT_ACK, XUA_ASP_E_ASPSM_BEAT_ACK \},
+        \{ M3UA_MSGC_ASPTM, M3UA_ASPTM_ACTIVE, XUA_ASP_E_ASPTM_ASPAC \},
+        \{ M3UA_MSGC_ASPTM, M3UA_ASPTM_INACTIVE, XUA_ASP_E_ASPTM_ASPIA \},
+        \{ M3UA_MSGC_ASPTM, M3UA_ASPTM_ACTIVE_ACK, XUA_ASP_E_ASPTM_ASPAC_ACK \},
+        \{ M3UA_MSGC_ASPTM, M3UA_ASPTM_INACTIVE_ACK, XUA_ASP_E_ASPTM_ASPIA_ACK \},
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+err\+\_\+names@{m3ua\+\_\+err\+\_\+names}}
+\index{m3ua\+\_\+err\+\_\+names@{m3ua\+\_\+err\+\_\+names}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+err\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+err\+\_\+names[$\,$]}\label{m3ua_8c_a11c55fb5f6f56682c1754819b5a80eba}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ M3UA_ERR_INVALID_VERSION,     \textcolor{stringliteral}{"Invalid Version"} \},
+        \{ M3UA_ERR_UNSUPP_MSG_CLASS,    \textcolor{stringliteral}{"Unsupported Message Class"} \},
+        \{ M3UA_ERR_UNSUPP_MSG_TYPE,     \textcolor{stringliteral}{"Unsupported Message Type"} \},
+        \{ M3UA_ERR_UNSUPP_TRAF_MOD_TYP, \textcolor{stringliteral}{"Unsupported Traffic Mode Type"} \},
+        \{ M3UA_ERR_UNEXPECTED_MSG,      \textcolor{stringliteral}{"Unexpected Message"} \},
+        \{ M3UA_ERR_PROTOCOL_ERR,        \textcolor{stringliteral}{"Protocol Error"} \},
+        \{ M3UA_ERR_INVAL_STREAM_ID,     \textcolor{stringliteral}{"Invalid Stream Identifier"} \},
+        \{ M3UA_ERR_REFUSED_MGMT_BLOCKING, \textcolor{stringliteral}{"Refused - Management Blocking"} \},
+        \{ M3UA_ERR_ASP_ID_REQD,         \textcolor{stringliteral}{"ASP Identifier Required"} \},
+        \{ M3UA_ERR_INVAL_ASP_ID,        \textcolor{stringliteral}{"Invalid ASP Identifier"} \},
+        \{ M3UA_ERR_INVAL_PARAM_VAL,     \textcolor{stringliteral}{"Invalid Parameter Value"} \},
+        \{ M3UA_ERR_PARAM_FIELD_ERR,     \textcolor{stringliteral}{"Parameter Field Error"} \},
+        \{ M3UA_ERR_UNEXP_PARAM,         \textcolor{stringliteral}{"Unexpected Parameter"} \},
+        \{ M3UA_ERR_DEST_STATUS_UNKN,    \textcolor{stringliteral}{"Destination Status Unknown"} \},
+        \{ M3UA_ERR_INVAL_NET_APPEAR,    \textcolor{stringliteral}{"Invalid Network Appearance"} \},
+        \{ M3UA_ERR_MISSING_PARAM,       \textcolor{stringliteral}{"Missing Parameter"} \},
+        \{ M3UA_ERR_INVAL_ROUT_CTX,      \textcolor{stringliteral}{"Invalid Routing Context"} \},
+        \{ M3UA_ERR_NO_CONFGD_AS_FOR_ASP,\textcolor{stringliteral}{"No Configured AS for ASP"} \},
+        \{ SUA_ERR_SUBSYS_STATUS_UNKN,   \textcolor{stringliteral}{"Subsystem Status Unknown"} \},
+        \{ SUA_ERR_INVAL_LOADSH_LEVEL,   \textcolor{stringliteral}{"Invalid loadsharing level"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+
+
+Referenced by m3ua\+\_\+rx\+\_\+mgmt\+\_\+err(), and sua\+\_\+rx\+\_\+mgmt\+\_\+err().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+iei\+\_\+names@{m3ua\+\_\+iei\+\_\+names}}
+\index{m3ua\+\_\+iei\+\_\+names@{m3ua\+\_\+iei\+\_\+names}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+iei\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+iei\+\_\+names[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_ae8a54d2c40aa1006643f73c16d66f8af}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ M3UA_IEI_INFO_STRING,         \textcolor{stringliteral}{"INFO String"} \},
+        \{ M3UA_IEI_ROUTE_CTX,           \textcolor{stringliteral}{"Routing Context"} \},
+        \{ M3UA_IEI_DIAG_INFO,           \textcolor{stringliteral}{"Diagnostic Info"} \},
+        \{ M3UA_IEI_HEARDBT_DATA,        \textcolor{stringliteral}{"Heartbeat Data"} \},
+        \{ M3UA_IEI_TRAF_MODE_TYP,       \textcolor{stringliteral}{"Traffic Mode Type"} \},
+        \{ M3UA_IEI_ERR_CODE,            \textcolor{stringliteral}{"Error Code"} \},
+        \{ M3UA_IEI_STATUS,              \textcolor{stringliteral}{"Status"} \},
+        \{ M3UA_IEI_ASP_ID,              \textcolor{stringliteral}{"ASP Identifier"} \},
+        \{ M3UA_IEI_AFFECTED_PC,         \textcolor{stringliteral}{"Affected Point Code"} \},
+        \{ M3UA_IEI_CORR_ID,             \textcolor{stringliteral}{"Correlation Id"} \},
+
+        \{ M3UA_IEI_NET_APPEAR,          \textcolor{stringliteral}{"Network Appearance"} \},
+        \{ M3UA_IEI_USER_CAUSE,          \textcolor{stringliteral}{"User/Cause"} \},
+        \{ M3UA_IEI_CONG_IND,            \textcolor{stringliteral}{"Congestion Indication"} \},
+        \{ M3UA_IEI_CONC_DEST,           \textcolor{stringliteral}{"Concerned Destination"} \},
+        \{ M3UA_IEI_ROUT_KEY,            \textcolor{stringliteral}{"Routing Key"} \},
+        \{ M3UA_IEI_REG_RESULT,          \textcolor{stringliteral}{"Registration Result"} \},
+        \{ M3UA_IEI_DEREG_RESULT,        \textcolor{stringliteral}{"De-Registration Result"} \},
+        \{ M3UA_IEI_LOC_RKEY_ID,         \textcolor{stringliteral}{"Local Routing-Key Identifier"} \},
+        \{ M3UA_IEI_DEST_PC,             \textcolor{stringliteral}{"Destination Point Code"} \},
+        \{ M3UA_IEI_SVC_IND,             \textcolor{stringliteral}{"Service Indicators"} \},
+        \{ M3UA_IEI_ORIG_PC,             \textcolor{stringliteral}{"Originating Point Code List"} \},
+        \{ M3UA_IEI_PROT_DATA,           \textcolor{stringliteral}{"Protocol Data"} \},
+        \{ M3UA_IEI_REG_STATUS,          \textcolor{stringliteral}{"Registration Status"} \},
+        \{ M3UA_IEI_DEREG_STATUS,        \textcolor{stringliteral}{"De-Registration Status"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+mgmt\+\_\+msgt\+\_\+names@{m3ua\+\_\+mgmt\+\_\+msgt\+\_\+names}}
+\index{m3ua\+\_\+mgmt\+\_\+msgt\+\_\+names@{m3ua\+\_\+mgmt\+\_\+msgt\+\_\+names}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+mgmt\+\_\+msgt\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+mgmt\+\_\+msgt\+\_\+names[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a9004127a1d3b1fa30a42bd539f4299fc}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ M3UA_MGMT_ERR,        \textcolor{stringliteral}{"ERROR"} \},
+        \{ M3UA_MGMT_NTFY,       \textcolor{stringliteral}{"NOTIFY"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+msg\+\_\+class\+\_\+aspsm@{m3ua\+\_\+msg\+\_\+class\+\_\+aspsm}}
+\index{m3ua\+\_\+msg\+\_\+class\+\_\+aspsm@{m3ua\+\_\+msg\+\_\+class\+\_\+aspsm}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+msg\+\_\+class\+\_\+aspsm}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf xua\+\_\+msg\+\_\+class} m3ua\+\_\+msg\+\_\+class\+\_\+aspsm}\label{m3ua_8c_aa105aa577d0ecdda428b9352405069ae}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        .name = \textcolor{stringliteral}{"ASPSM"},
+        .msgt\_names = m3ua_aspsm_msgt_names,
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+msg\+\_\+class\+\_\+asptm@{m3ua\+\_\+msg\+\_\+class\+\_\+asptm}}
+\index{m3ua\+\_\+msg\+\_\+class\+\_\+asptm@{m3ua\+\_\+msg\+\_\+class\+\_\+asptm}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+msg\+\_\+class\+\_\+asptm}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf xua\+\_\+msg\+\_\+class} m3ua\+\_\+msg\+\_\+class\+\_\+asptm}\label{m3ua_8c_aa223b2feb9001b4e618842ba7f9fe530}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        .name = \textcolor{stringliteral}{"ASPTM"},
+        .msgt\_names = m3ua_asptm_msgt_names,
+        .iei\_names = m3ua_iei_names,
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+msg\+\_\+class\+\_\+mgmt@{m3ua\+\_\+msg\+\_\+class\+\_\+mgmt}}
+\index{m3ua\+\_\+msg\+\_\+class\+\_\+mgmt@{m3ua\+\_\+msg\+\_\+class\+\_\+mgmt}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+msg\+\_\+class\+\_\+mgmt}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf xua\+\_\+msg\+\_\+class} m3ua\+\_\+msg\+\_\+class\+\_\+mgmt}\label{m3ua_8c_ac6878c5b045b1e7267b1a0b3afa364db}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        .name = \textcolor{stringliteral}{"MGMT"},
+        .msgt\_names = m3ua_mgmt_msgt_names,
+        .iei\_names = m3ua_iei_names,
+        .mand\_ies = \{
+                MAND_IES(M3UA_MGMT_ERR, err_req_ies),
+                MAND_IES(M3UA_MGMT_NTFY, ntfy_req_ies),
+        \},
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+msg\+\_\+class\+\_\+rkm@{m3ua\+\_\+msg\+\_\+class\+\_\+rkm}}
+\index{m3ua\+\_\+msg\+\_\+class\+\_\+rkm@{m3ua\+\_\+msg\+\_\+class\+\_\+rkm}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+msg\+\_\+class\+\_\+rkm}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf xua\+\_\+msg\+\_\+class} m3ua\+\_\+msg\+\_\+class\+\_\+rkm}\label{m3ua_8c_a7cb679c8ca9d252dfa766ec7f2fba44c}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        .name = \textcolor{stringliteral}{"RKM"},
+        .msgt\_names = m3ua_rkm_msgt_names,
+        .iei\_names = m3ua_iei_names,
+        .mand\_ies = \{
+                MAND_IES(M3UA_RKM_REG_REQ, reg_req_ies),
+                MAND_IES(M3UA_RKM_REG_RSP, reg_rsp_ies),
+                MAND_IES(M3UA_RKM_DEREG_REQ, dereg_req_ies),
+                MAND_IES(M3UA_RKM_DEREG_RSP, dereg_rsp_ies),
+        \},
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+msg\+\_\+class\+\_\+snm@{m3ua\+\_\+msg\+\_\+class\+\_\+snm}}
+\index{m3ua\+\_\+msg\+\_\+class\+\_\+snm@{m3ua\+\_\+msg\+\_\+class\+\_\+snm}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+msg\+\_\+class\+\_\+snm}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf xua\+\_\+msg\+\_\+class} m3ua\+\_\+msg\+\_\+class\+\_\+snm}\label{m3ua_8c_a35e9ebf716b800839c00351acc2af5df}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        .name = \textcolor{stringliteral}{"SNM"},
+        .msgt\_names = m3ua_snm_msgt_names,
+        .mand\_ies = \{
+                MAND_IES(M3UA_SNM_DUNA, duna_mand_ies),
+                MAND_IES(M3UA_SNM_DAVA, dava_mand_ies),
+                MAND_IES(M3UA_SNM_DAUD, daud_mand_ies),
+                MAND_IES(M3UA_SNM_SCON, scon_mand_ies),
+                MAND_IES(M3UA_SNM_DUPU, dupu_mand_ies),
+                MAND_IES(M3UA_SNM_DRST, drst_mand_ies),
+        \},
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+ntfy\+\_\+other\+\_\+names@{m3ua\+\_\+ntfy\+\_\+other\+\_\+names}}
+\index{m3ua\+\_\+ntfy\+\_\+other\+\_\+names@{m3ua\+\_\+ntfy\+\_\+other\+\_\+names}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+ntfy\+\_\+other\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+ntfy\+\_\+other\+\_\+names[$\,$]}\label{m3ua_8c_aa8ec421eaf92b35c2d0a1d70c9e69c6e}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ M3UA_NOTIFY_I_OT_INS_RES,     \textcolor{stringliteral}{"Insufficient ASP Resouces active in AS"} \},
+        \{ M3UA_NOTIFY_I_OT_ALT_ASP_ACT, \textcolor{stringliteral}{"Alternative ASP Active"} \},
+        \{ M3UA_NOTIFY_I_OT_ASP_FAILURE, \textcolor{stringliteral}{"ASP Failure"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+
+
+Referenced by m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy(), and sua\+\_\+rx\+\_\+mgmt\+\_\+ntfy().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+ntfy\+\_\+stchg\+\_\+names@{m3ua\+\_\+ntfy\+\_\+stchg\+\_\+names}}
+\index{m3ua\+\_\+ntfy\+\_\+stchg\+\_\+names@{m3ua\+\_\+ntfy\+\_\+stchg\+\_\+names}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+ntfy\+\_\+stchg\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+ntfy\+\_\+stchg\+\_\+names[$\,$]}\label{m3ua_8c_a336c3d71f1928545474640e45077bc88}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ M3UA_NOTIFY_I_RESERVED,       \textcolor{stringliteral}{"Reserved"} \},
+        \{ M3UA_NOTIFY_I_AS_INACT,       \textcolor{stringliteral}{"AS Inactive"} \},
+        \{ M3UA_NOTIFY_I_AS_ACT,         \textcolor{stringliteral}{"AS Active"} \},
+        \{ M3UA_NOTIFY_I_AS_PEND,        \textcolor{stringliteral}{"AS Pending"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+
+
+Referenced by m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy(), and sua\+\_\+rx\+\_\+mgmt\+\_\+ntfy().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+ntfy\+\_\+type\+\_\+names@{m3ua\+\_\+ntfy\+\_\+type\+\_\+names}}
+\index{m3ua\+\_\+ntfy\+\_\+type\+\_\+names@{m3ua\+\_\+ntfy\+\_\+type\+\_\+names}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+ntfy\+\_\+type\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+ntfy\+\_\+type\+\_\+names[$\,$]}\label{m3ua_8c_a0ce1a526587558d83d657b761f3c62c4}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ M3UA_NOTIFY_T_STATCHG,        \textcolor{stringliteral}{"State Change"} \},
+        \{ M3UA_NOTIFY_T_OTHER,          \textcolor{stringliteral}{"Other"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+
+
+Referenced by m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy(), and sua\+\_\+rx\+\_\+mgmt\+\_\+ntfy().
+
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+rkm\+\_\+msgt\+\_\+names@{m3ua\+\_\+rkm\+\_\+msgt\+\_\+names}}
+\index{m3ua\+\_\+rkm\+\_\+msgt\+\_\+names@{m3ua\+\_\+rkm\+\_\+msgt\+\_\+names}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+rkm\+\_\+msgt\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+rkm\+\_\+msgt\+\_\+names[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a1d9d393e28f0e2247757af11c490f39e}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ M3UA_RKM_REG_REQ,     \textcolor{stringliteral}{"REG-REQ"} \},
+        \{ M3UA_RKM_REG_RSP,     \textcolor{stringliteral}{"REG-RESP"} \},
+        \{ M3UA_RKM_DEREG_REQ,   \textcolor{stringliteral}{"DEREG-REQ"} \},
+        \{ M3UA_RKM_DEREG_RSP,   \textcolor{stringliteral}{"DEREG-RESP"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+snm\+\_\+msgt\+\_\+names@{m3ua\+\_\+snm\+\_\+msgt\+\_\+names}}
+\index{m3ua\+\_\+snm\+\_\+msgt\+\_\+names@{m3ua\+\_\+snm\+\_\+msgt\+\_\+names}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+snm\+\_\+msgt\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+snm\+\_\+msgt\+\_\+names[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a96ad2b2c9d56411f67c26a6b5c6d7bdd}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ M3UA_SNM_DUNA,        \textcolor{stringliteral}{"DUNA"} \},
+        \{ M3UA_SNM_DAVA,        \textcolor{stringliteral}{"DAVA"} \},
+        \{ M3UA_SNM_DAUD,        \textcolor{stringliteral}{"DAUD"} \},
+        \{ M3UA_SNM_SCON,        \textcolor{stringliteral}{"SCON"} \},
+        \{ M3UA_SNM_DUPU,        \textcolor{stringliteral}{"DUPU"} \},
+        \{ M3UA_SNM_DRST,        \textcolor{stringliteral}{"DRST"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!m3ua\+\_\+xfer\+\_\+msgt\+\_\+names@{m3ua\+\_\+xfer\+\_\+msgt\+\_\+names}}
+\index{m3ua\+\_\+xfer\+\_\+msgt\+\_\+names@{m3ua\+\_\+xfer\+\_\+msgt\+\_\+names}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{m3ua\+\_\+xfer\+\_\+msgt\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+xfer\+\_\+msgt\+\_\+names[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_ab7c93245b2f1ec5018cc58d59317bacf}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ M3UA_XFER_DATA,       \textcolor{stringliteral}{"DATA"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+
+
+Referenced by m3ua\+\_\+rx\+\_\+xfer().
+
+\index{m3ua.\+c@{m3ua.\+c}!msg\+\_\+class\+\_\+xfer@{msg\+\_\+class\+\_\+xfer}}
+\index{msg\+\_\+class\+\_\+xfer@{msg\+\_\+class\+\_\+xfer}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{msg\+\_\+class\+\_\+xfer}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf xua\+\_\+msg\+\_\+class} msg\+\_\+class\+\_\+xfer\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_af0e6d3c9b9322f03fc705e1666be4ad9}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        .name = \textcolor{stringliteral}{"XFER"},
+        .msgt\_names = m3ua_xfer_msgt_names,
+        .mand\_ies = \{
+                MAND_IES(M3UA_XFER_DATA, data_mand_ies),
+        \},
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!ntfy\+\_\+req\+\_\+ies@{ntfy\+\_\+req\+\_\+ies}}
+\index{ntfy\+\_\+req\+\_\+ies@{ntfy\+\_\+req\+\_\+ies}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{ntfy\+\_\+req\+\_\+ies}]{\setlength{\rightskip}{0pt plus 5cm}const uint16\+\_\+t ntfy\+\_\+req\+\_\+ies[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a7a4668e13461858e7ae5c96f946f032c}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        M3UA_IEI_STATUS, 0
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!reg\+\_\+req\+\_\+ies@{reg\+\_\+req\+\_\+ies}}
+\index{reg\+\_\+req\+\_\+ies@{reg\+\_\+req\+\_\+ies}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{reg\+\_\+req\+\_\+ies}]{\setlength{\rightskip}{0pt plus 5cm}const uint16\+\_\+t reg\+\_\+req\+\_\+ies[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a7866fdd10f679afcc6e42d10c59ffcf7}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        M3UA_IEI_ROUT_KEY, 0
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!reg\+\_\+rsp\+\_\+ies@{reg\+\_\+rsp\+\_\+ies}}
+\index{reg\+\_\+rsp\+\_\+ies@{reg\+\_\+rsp\+\_\+ies}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{reg\+\_\+rsp\+\_\+ies}]{\setlength{\rightskip}{0pt plus 5cm}const uint16\+\_\+t reg\+\_\+rsp\+\_\+ies[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_ad2f30e4680b32979455a6b68718f00f1}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        M3UA_IEI_REG_RESULT, 0
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!scon\+\_\+mand\+\_\+ies@{scon\+\_\+mand\+\_\+ies}}
+\index{scon\+\_\+mand\+\_\+ies@{scon\+\_\+mand\+\_\+ies}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{scon\+\_\+mand\+\_\+ies}]{\setlength{\rightskip}{0pt plus 5cm}const uint16\+\_\+t scon\+\_\+mand\+\_\+ies[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{m3ua_8c_a09664928650382f05db82d15791cd264}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        M3UA_IEI_AFFECTED_PC, 0
+\}
+\end{DoxyCode}
+\index{m3ua.\+c@{m3ua.\+c}!xua\+\_\+dialect\+\_\+m3ua@{xua\+\_\+dialect\+\_\+m3ua}}
+\index{xua\+\_\+dialect\+\_\+m3ua@{xua\+\_\+dialect\+\_\+m3ua}!m3ua.\+c@{m3ua.\+c}}
+\subsubsection[{xua\+\_\+dialect\+\_\+m3ua}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf xua\+\_\+dialect} xua\+\_\+dialect\+\_\+m3ua}\label{m3ua_8c_a14e3c740216dbf27160e15377d4dbd43}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        .name = \textcolor{stringliteral}{"M3UA"},
+        .ppid = M3UA_PPID,
+        .port = M3UA_PORT,
+        .log\_subsys = DLM3UA,
+        .class = \{
+                [M3UA_MSGC_MGMT] = &m3ua_msg_class_mgmt,
+                [M3UA_MSGC_XFER] = &msg_class_xfer,
+                [M3UA_MSGC_SNM] = &m3ua_msg_class_snm,
+                [M3UA_MSGC_ASPSM] = &m3ua_msg_class_aspsm,
+                [M3UA_MSGC_ASPTM] = &m3ua_msg_class_asptm,
+                [M3UA_MSGC_RKM] = &m3ua_msg_class_rkm,
+        \},
+\}
+\end{DoxyCode}

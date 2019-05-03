@@ -1,0 +1,59 @@
+\section{osmo\+\_\+mtp\+\_\+prim Struct Reference}
+\label{structosmo__mtp__prim}\index{osmo\+\_\+mtp\+\_\+prim@{osmo\+\_\+mtp\+\_\+prim}}
+
+
+{\ttfamily \#include $<$mtp\+\_\+sap.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct osmo\+\_\+prim\+\_\+hdr {\bf oph}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>struct {\bf osmo\_mtp\_transfer\_param} {\bf transfer}\\
+\>struct {\bf osmo\_mtp\_pause\_param} {\bf pause}\\
+\>struct {\bf osmo\_mtp\_resume\_param} {\bf resume}\\
+\>struct {\bf osmo\_mtp\_status\_param} {\bf status}\\
+\} {\bf u}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{osmo\+\_\+mtp\+\_\+prim@{osmo\+\_\+mtp\+\_\+prim}!oph@{oph}}
+\index{oph@{oph}!osmo\+\_\+mtp\+\_\+prim@{osmo\+\_\+mtp\+\_\+prim}}
+\subsubsection[{oph}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+prim\+\_\+hdr osmo\+\_\+mtp\+\_\+prim\+::oph}\label{structosmo__mtp__prim_acf303b6294b887c076a71c563e7d6fe7}
+
+
+Referenced by deliver\+\_\+to\+\_\+mtp\+\_\+user(), m3ua\+\_\+to\+\_\+xfer\+\_\+ind(), mtp\+\_\+prim\+\_\+to\+\_\+m3ua(), osmo\+\_\+ss7\+\_\+mtp\+\_\+to\+\_\+user(), osmo\+\_\+ss7\+\_\+user\+\_\+mtp\+\_\+xfer\+\_\+req(), and sua2sccp\+\_\+tx\+\_\+m3ua().
+
+\index{osmo\+\_\+mtp\+\_\+prim@{osmo\+\_\+mtp\+\_\+prim}!pause@{pause}}
+\index{pause@{pause}!osmo\+\_\+mtp\+\_\+prim@{osmo\+\_\+mtp\+\_\+prim}}
+\subsubsection[{pause}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+mtp\+\_\+pause\+\_\+param} osmo\+\_\+mtp\+\_\+prim\+::pause}\label{structosmo__mtp__prim_abe354714a09a9468b4ca559de1c2fb25}
+\index{osmo\+\_\+mtp\+\_\+prim@{osmo\+\_\+mtp\+\_\+prim}!resume@{resume}}
+\index{resume@{resume}!osmo\+\_\+mtp\+\_\+prim@{osmo\+\_\+mtp\+\_\+prim}}
+\subsubsection[{resume}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+mtp\+\_\+resume\+\_\+param} osmo\+\_\+mtp\+\_\+prim\+::resume}\label{structosmo__mtp__prim_a612e191f10b9f1395c11deeafd0479db}
+\index{osmo\+\_\+mtp\+\_\+prim@{osmo\+\_\+mtp\+\_\+prim}!status@{status}}
+\index{status@{status}!osmo\+\_\+mtp\+\_\+prim@{osmo\+\_\+mtp\+\_\+prim}}
+\subsubsection[{status}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+mtp\+\_\+status\+\_\+param} osmo\+\_\+mtp\+\_\+prim\+::status}\label{structosmo__mtp__prim_a252ffe68ce38f38f281264b1731b7702}
+\index{osmo\+\_\+mtp\+\_\+prim@{osmo\+\_\+mtp\+\_\+prim}!transfer@{transfer}}
+\index{transfer@{transfer}!osmo\+\_\+mtp\+\_\+prim@{osmo\+\_\+mtp\+\_\+prim}}
+\subsubsection[{transfer}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+mtp\+\_\+transfer\+\_\+param} osmo\+\_\+mtp\+\_\+prim\+::transfer}\label{structosmo__mtp__prim_aa50cfd1e1d3c48f01c62d4c793d26db8}
+
+
+Referenced by deliver\+\_\+to\+\_\+mtp\+\_\+user(), m3ua\+\_\+to\+\_\+xfer\+\_\+ind(), mtp\+\_\+prim\+\_\+to\+\_\+m3ua(), mtp\+\_\+user\+\_\+prim\+\_\+cb(), osmo\+\_\+ss7\+\_\+mtp\+\_\+to\+\_\+user(), osmo\+\_\+ss7\+\_\+user\+\_\+mtp\+\_\+xfer\+\_\+req(), and sua2sccp\+\_\+tx\+\_\+m3ua().
+
+\index{osmo\+\_\+mtp\+\_\+prim@{osmo\+\_\+mtp\+\_\+prim}!u@{u}}
+\index{u@{u}!osmo\+\_\+mtp\+\_\+prim@{osmo\+\_\+mtp\+\_\+prim}}
+\subsubsection[{u}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   osmo\+\_\+mtp\+\_\+prim\+::u}\label{structosmo__mtp__prim_af89958fb9e8fd234603f4194a5678c40}
+
+
+Referenced by deliver\+\_\+to\+\_\+mtp\+\_\+user(), m3ua\+\_\+to\+\_\+xfer\+\_\+ind(), mtp\+\_\+prim\+\_\+to\+\_\+m3ua(), mtp\+\_\+user\+\_\+prim\+\_\+cb(), osmo\+\_\+ss7\+\_\+mtp\+\_\+to\+\_\+user(), osmo\+\_\+ss7\+\_\+user\+\_\+mtp\+\_\+xfer\+\_\+req(), and sua2sccp\+\_\+tx\+\_\+m3ua().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/osmocom/sigtran/{\bf mtp\+\_\+sap.\+h}\end{DoxyCompactItemize}

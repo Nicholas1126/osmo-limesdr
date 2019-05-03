@@ -1,0 +1,90 @@
+\section{osmo\+\_\+xua\+\_\+server Struct Reference}
+\label{structosmo__xua__server}\index{osmo\+\_\+xua\+\_\+server@{osmo\+\_\+xua\+\_\+server}}
+
+
+{\ttfamily \#include $<$osmo\+\_\+ss7.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct llist\+\_\+head {\bf list}
+\item 
+struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$ {\bf inst}
+\item 
+struct llist\+\_\+head {\bf asp\+\_\+list}
+\item 
+struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$ {\bf server}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>bool {\bf accept\_dyn\_reg}\\
+\>struct {\bf osmo\_ss7\_asp\_peer} {\bf local}\\
+\>enum {\bf osmo\_ss7\_asp\_protocol} {\bf proto}\\
+\} {\bf cfg}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{osmo\+\_\+xua\+\_\+server@{osmo\+\_\+xua\+\_\+server}!accept\+\_\+dyn\+\_\+reg@{accept\+\_\+dyn\+\_\+reg}}
+\index{accept\+\_\+dyn\+\_\+reg@{accept\+\_\+dyn\+\_\+reg}!osmo\+\_\+xua\+\_\+server@{osmo\+\_\+xua\+\_\+server}}
+\subsubsection[{accept\+\_\+dyn\+\_\+reg}]{\setlength{\rightskip}{0pt plus 5cm}bool osmo\+\_\+xua\+\_\+server\+::accept\+\_\+dyn\+\_\+reg}\label{structosmo__xua__server_a9d4bb306794ea75ad02baa42546726eb}
+
+
+Referenced by D\+E\+F\+U\+N(), write\+\_\+one\+\_\+xua(), and xua\+\_\+accept\+\_\+cb().
+
+\index{osmo\+\_\+xua\+\_\+server@{osmo\+\_\+xua\+\_\+server}!asp\+\_\+list@{asp\+\_\+list}}
+\index{asp\+\_\+list@{asp\+\_\+list}!osmo\+\_\+xua\+\_\+server@{osmo\+\_\+xua\+\_\+server}}
+\subsubsection[{asp\+\_\+list}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head osmo\+\_\+xua\+\_\+server\+::asp\+\_\+list}\label{structosmo__xua__server_a5624439338814a877c66b36a82e247f4}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+destroy(), and xua\+\_\+accept\+\_\+cb().
+
+\index{osmo\+\_\+xua\+\_\+server@{osmo\+\_\+xua\+\_\+server}!cfg@{cfg}}
+\index{cfg@{cfg}!osmo\+\_\+xua\+\_\+server@{osmo\+\_\+xua\+\_\+server}}
+\subsubsection[{cfg}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   osmo\+\_\+xua\+\_\+server\+::cfg}\label{structosmo__xua__server_a848a8f97849ad45fd0bab0f6a1b986a2}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+ss7\+\_\+instance\+\_\+bind(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+bind(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+find(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+set\+\_\+local\+\_\+host(), vty\+\_\+dump\+\_\+xua\+\_\+server(), write\+\_\+one\+\_\+xua(), and xua\+\_\+accept\+\_\+cb().
+
+\index{osmo\+\_\+xua\+\_\+server@{osmo\+\_\+xua\+\_\+server}!inst@{inst}}
+\index{inst@{inst}!osmo\+\_\+xua\+\_\+server@{osmo\+\_\+xua\+\_\+server}}
+\subsubsection[{inst}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+instance}$\ast$ osmo\+\_\+xua\+\_\+server\+::inst}\label{structosmo__xua__server_a2ddea103730f2733d6acd1370eb8bec9}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+vty\+\_\+go\+\_\+parent(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create(), and xua\+\_\+accept\+\_\+cb().
+
+\index{osmo\+\_\+xua\+\_\+server@{osmo\+\_\+xua\+\_\+server}!list@{list}}
+\index{list@{list}!osmo\+\_\+xua\+\_\+server@{osmo\+\_\+xua\+\_\+server}}
+\subsubsection[{list}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head osmo\+\_\+xua\+\_\+server\+::list}\label{structosmo__xua__server_ae23911d11adfdb7a596e12f57e78e7e4}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+ss7\+\_\+instance\+\_\+bind(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+destroy(), and osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+find().
+
+\index{osmo\+\_\+xua\+\_\+server@{osmo\+\_\+xua\+\_\+server}!local@{local}}
+\index{local@{local}!osmo\+\_\+xua\+\_\+server@{osmo\+\_\+xua\+\_\+server}}
+\subsubsection[{local}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+peer} osmo\+\_\+xua\+\_\+server\+::local}\label{structosmo__xua__server_aeb2bb0edaa40ef69be129fd32a1cd931}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+instance\+\_\+bind(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+bind(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+find(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+set\+\_\+local\+\_\+host(), vty\+\_\+dump\+\_\+xua\+\_\+server(), and write\+\_\+one\+\_\+xua().
+
+\index{osmo\+\_\+xua\+\_\+server@{osmo\+\_\+xua\+\_\+server}!proto@{proto}}
+\index{proto@{proto}!osmo\+\_\+xua\+\_\+server@{osmo\+\_\+xua\+\_\+server}}
+\subsubsection[{proto}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol} osmo\+\_\+xua\+\_\+server\+::proto}\label{structosmo__xua__server_a1c68bd03df7e50771cd148d8354549bd}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+bind(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+find(), vty\+\_\+dump\+\_\+xua\+\_\+server(), write\+\_\+one\+\_\+xua(), and xua\+\_\+accept\+\_\+cb().
+
+\index{osmo\+\_\+xua\+\_\+server@{osmo\+\_\+xua\+\_\+server}!server@{server}}
+\index{server@{server}!osmo\+\_\+xua\+\_\+server@{osmo\+\_\+xua\+\_\+server}}
+\subsubsection[{server}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+stream\+\_\+srv\+\_\+link$\ast$ osmo\+\_\+xua\+\_\+server\+::server}\label{structosmo__xua__server_a077845fe1f5e0b1fd26e373e0ba986f1}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+bind(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+destroy(), and osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+set\+\_\+local\+\_\+host().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/osmocom/sigtran/{\bf osmo\+\_\+ss7.\+h}\end{DoxyCompactItemize}

@@ -1,0 +1,692 @@
+\section{src/sccp\+\_\+user.c File Reference}
+\label{sccp__user_8c}\index{src/sccp\+\_\+user.\+c@{src/sccp\+\_\+user.\+c}}
+{\ttfamily \#include $<$stdbool.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/linuxlist.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/logging.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/osmo\+\_\+ss7.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/sccp\+\_\+sap.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/mtp\+\_\+sap.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/mtp.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/sccp\+\_\+helpers.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}sccp\+\_\+internal.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+internal.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$ {\bf sccp\+\_\+user\+\_\+find} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, uint16\+\_\+t ssn, uint32\+\_\+t pc)
+\begin{DoxyCompactList}\small\item\em Find a S\+C\+CP User registered for given P\+C+\+S\+SN or S\+SN only. \end{DoxyCompactList}\item 
+static struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$ {\bf sccp\+\_\+user\+\_\+bind\+\_\+pc} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, const char $\ast$name, osmo\+\_\+prim\+\_\+cb prim\+\_\+cb, uint16\+\_\+t ssn, uint32\+\_\+t pc)
+\begin{DoxyCompactList}\small\item\em Bind a S\+C\+CP User to a given Point Code. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$ {\bf osmo\+\_\+sccp\+\_\+user\+\_\+bind\+\_\+pc} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, const char $\ast$name, osmo\+\_\+prim\+\_\+cb prim\+\_\+cb, uint16\+\_\+t ssn, uint32\+\_\+t pc)
+\begin{DoxyCompactList}\small\item\em Bind a given S\+C\+CP User to a given S\+S\+N+\+PC. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$ {\bf osmo\+\_\+sccp\+\_\+user\+\_\+bind} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, const char $\ast$name, osmo\+\_\+prim\+\_\+cb prim\+\_\+cb, uint16\+\_\+t ssn)
+\begin{DoxyCompactList}\small\item\em Bind a given S\+C\+CP User to a given S\+SN (at any PC) \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+sccp\+\_\+user\+\_\+unbind} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu)
+\begin{DoxyCompactList}\small\item\em Unbind a given S\+C\+CP user. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+sccp\+\_\+user\+\_\+set\+\_\+priv} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, void $\ast$priv)
+\item 
+void $\ast$ {\bf osmo\+\_\+sccp\+\_\+user\+\_\+get\+\_\+priv} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu)
+\item 
+int {\bf sccp\+\_\+user\+\_\+prim\+\_\+up} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, struct {\bf osmo\+\_\+scu\+\_\+prim} $\ast$prim)
+\begin{DoxyCompactList}\small\item\em Send a S\+C\+CP User S\+AP Primitive up to the User. \end{DoxyCompactList}\item 
+static int {\bf mtp\+\_\+user\+\_\+prim\+\_\+cb} (struct osmo\+\_\+prim\+\_\+hdr $\ast$oph, void $\ast$ctx)
+\item 
+static {\bf L\+L\+I\+S\+T\+\_\+\+H\+E\+AD} (sccp\+\_\+instances)
+\item 
+struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$ {\bf osmo\+\_\+sccp\+\_\+instance\+\_\+create} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$ss7, void $\ast$priv)
+\begin{DoxyCompactList}\small\item\em create a S\+C\+CP Instance and register it as user with S\+S7 inst \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+sccp\+\_\+instance\+\_\+destroy} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst)
+\item 
+void {\bf osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance} (struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$dest\+\_\+addr, const struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, uint32\+\_\+t ssn)
+\begin{DoxyCompactList}\small\item\em derive a basic local S\+C\+C\+P-\/\+Address from a given S\+C\+CP instance. \end{DoxyCompactList}\item 
+bool {\bf osmo\+\_\+sccp\+\_\+check\+\_\+addr} (struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$addr, uint32\+\_\+t presence)
+\begin{DoxyCompactList}\small\item\em check whether a given S\+C\+C\+P-\/\+Address is consistent. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+sccp\+\_\+gt\+\_\+cmp} (const struct {\bf osmo\+\_\+sccp\+\_\+gt} $\ast$a, const struct {\bf osmo\+\_\+sccp\+\_\+gt} $\ast$b)
+\begin{DoxyCompactList}\small\item\em Compare two S\+C\+CP Global Titles. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+cmp} (const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$a, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$b, uint32\+\_\+t presence\+\_\+criteria)
+\begin{DoxyCompactList}\small\item\em Compare two S\+C\+CP addresses by given presence criteria. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp} (const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$a, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$b)
+\begin{DoxyCompactList}\small\item\em Compare the routing information of two S\+C\+CP addresses. \end{DoxyCompactList}\item 
+const char $\ast$ {\bf osmo\+\_\+sccp\+\_\+user\+\_\+name} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu)
+\begin{DoxyCompactList}\small\item\em Compose a human readable string to describe the S\+C\+CP user\textquotesingle{}s connection. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$ {\bf osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id} (void $\ast$ctx, uint32\+\_\+t ss7\+\_\+id, const char $\ast$name, uint32\+\_\+t default\+\_\+pc, enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol} prot, int default\+\_\+local\+\_\+port, const char $\ast$default\+\_\+local\+\_\+ip, int default\+\_\+remote\+\_\+port, const char $\ast$default\+\_\+remote\+\_\+ip)
+\begin{DoxyCompactList}\small\item\em request an sccp client instance \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$ {\bf osmo\+\_\+sccp\+\_\+simple\+\_\+client} (void $\ast$ctx, const char $\ast$name, uint32\+\_\+t default\+\_\+pc, enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol} prot, int default\+\_\+local\+\_\+port, const char $\ast$default\+\_\+local\+\_\+ip, int default\+\_\+remote\+\_\+port, const char $\ast$default\+\_\+remote\+\_\+ip)
+\begin{DoxyCompactList}\small\item\em request an sccp client instance \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$ {\bf osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id} (void $\ast$ctx, uint32\+\_\+t ss7\+\_\+id, uint32\+\_\+t pc, enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol} prot, int local\+\_\+port, const char $\ast$local\+\_\+ip)
+\item 
+struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$ {\bf osmo\+\_\+sccp\+\_\+simple\+\_\+server} (void $\ast$ctx, uint32\+\_\+t pc, enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol} prot, int local\+\_\+port, const char $\ast$local\+\_\+ip)
+\item 
+struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$ {\bf osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol} prot, const char $\ast$name, uint32\+\_\+t pc, int local\+\_\+port, int remote\+\_\+port, const char $\ast$remote\+\_\+ip)
+\item 
+struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$ {\bf osmo\+\_\+sccp\+\_\+get\+\_\+ss7} (const struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$sccp)
+\begin{DoxyCompactList}\small\item\em get the S\+S7 instance that is related to the given S\+C\+CP instance \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$ {\bf osmo\+\_\+sccp\+\_\+get\+\_\+sccp} (const struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu)
+\begin{DoxyCompactList}\small\item\em get the S\+C\+CP instance that is related to the given sccp user \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!L\+L\+I\+S\+T\+\_\+\+H\+E\+AD@{L\+L\+I\+S\+T\+\_\+\+H\+E\+AD}}
+\index{L\+L\+I\+S\+T\+\_\+\+H\+E\+AD@{L\+L\+I\+S\+T\+\_\+\+H\+E\+AD}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{L\+L\+I\+S\+T\+\_\+\+H\+E\+A\+D(sccp\+\_\+instances)}]{\setlength{\rightskip}{0pt plus 5cm}static L\+L\+I\+S\+T\+\_\+\+H\+E\+AD (
+\begin{DoxyParamCaption}
+\item[{sccp\+\_\+instances}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__user_8c_a9159153a857fee3da7730a2c0f00b651}
+
+
+Referenced by mtp\+\_\+user\+\_\+prim\+\_\+cb().
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!mtp\+\_\+user\+\_\+prim\+\_\+cb@{mtp\+\_\+user\+\_\+prim\+\_\+cb}}
+\index{mtp\+\_\+user\+\_\+prim\+\_\+cb@{mtp\+\_\+user\+\_\+prim\+\_\+cb}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{mtp\+\_\+user\+\_\+prim\+\_\+cb(struct osmo\+\_\+prim\+\_\+hdr $\ast$oph, void $\ast$ctx)}]{\setlength{\rightskip}{0pt plus 5cm}static int mtp\+\_\+user\+\_\+prim\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+prim\+\_\+hdr $\ast$}]{oph, }
+\item[{void $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__user_8c_a601023d8501b59b9ec4bd9acc16d4020}
+
+
+References L\+L\+I\+S\+T\+\_\+\+H\+E\+A\+D(), xua\+\_\+msg\+::mtp, M\+T\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER, O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+T\+R\+A\+N\+S\+F\+ER, osmo\+\_\+sccp\+\_\+to\+\_\+xua(), scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua(), osmo\+\_\+mtp\+\_\+prim\+::transfer, and osmo\+\_\+mtp\+\_\+prim\+::u.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+instance\+\_\+create().
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+addr\+\_\+cmp@{osmo\+\_\+sccp\+\_\+addr\+\_\+cmp}}
+\index{osmo\+\_\+sccp\+\_\+addr\+\_\+cmp@{osmo\+\_\+sccp\+\_\+addr\+\_\+cmp}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+addr\+\_\+cmp(const struct osmo\+\_\+sccp\+\_\+addr $\ast$a, const struct osmo\+\_\+sccp\+\_\+addr $\ast$b, uint32\+\_\+t presence\+\_\+criteria)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+addr\+\_\+cmp (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{a, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{b, }
+\item[{uint32\+\_\+t}]{presence\+\_\+criteria}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_ad88f30b0068a27f1462dafd29a5809db}
+
+
+Compare two S\+C\+CP addresses by given presence criteria. 
+
+Any O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+$\ast$ type not set in presence\+\_\+criteria is ignored. In case all bits are set in presence\+\_\+criteria, the comparison is in the order of\+: O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN. The S\+C\+CP addresses\textquotesingle{} Routing Indicator is not compared, see \doxyref{osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp()}{p.}{sccp__user_8c_aff3c1c4bd54d70d478e318440708140d}. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em a} & left side. \\
+\hline
+\mbox{\tt in}  & {\em b} & right side. \\
+\hline
+\mbox{\tt in}  & {\em presence\+\_\+criteria} & A bitmask of O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+$\ast$ values, or 0xffffffff to compare all parts, except the routing indicator. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if a $<$ b, 1 if a $>$ b, and 0 if all checked values match. 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+::gt, osmo\+\_\+sccp\+\_\+addr\+::ip, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, osmo\+\_\+sccp\+\_\+gt\+\_\+cmp(), osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, osmo\+\_\+sccp\+\_\+addr\+::ssn, osmo\+\_\+sccp\+\_\+addr\+::v4, and osmo\+\_\+sccp\+\_\+addr\+::v6.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp().
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp@{osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp}}
+\index{osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp@{osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp(const struct osmo\+\_\+sccp\+\_\+addr $\ast$a, const struct osmo\+\_\+sccp\+\_\+addr $\ast$b)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+addr\+\_\+ri\+\_\+cmp (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{a, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_aff3c1c4bd54d70d478e318440708140d}
+
+
+Compare the routing information of two S\+C\+CP addresses. 
+
+Compare the ri of a and b, and, if equal, return \doxyref{osmo\+\_\+sccp\+\_\+addr\+\_\+cmp()}{p.}{sccp__user_8c_ad88f30b0068a27f1462dafd29a5809db} with presence criteria selected according to ri. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em a} & left side. \\
+\hline
+\mbox{\tt in}  & {\em b} & right side. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if a $<$ b, 1 if a $>$ b, and 0 if a == b. 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+cmp(), O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+N\+O\+NE, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, osmo\+\_\+sccp\+\_\+addr\+::presence, and osmo\+\_\+sccp\+\_\+addr\+::ri.
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+check\+\_\+addr@{osmo\+\_\+sccp\+\_\+check\+\_\+addr}}
+\index{osmo\+\_\+sccp\+\_\+check\+\_\+addr@{osmo\+\_\+sccp\+\_\+check\+\_\+addr}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+check\+\_\+addr(struct osmo\+\_\+sccp\+\_\+addr $\ast$addr, uint32\+\_\+t presence)}]{\setlength{\rightskip}{0pt plus 5cm}bool osmo\+\_\+sccp\+\_\+check\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{addr, }
+\item[{uint32\+\_\+t}]{presence}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_a4384e35f0d7a832835621b6734a8240a}
+
+
+check whether a given S\+C\+C\+P-\/\+Address is consistent. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em addr} & S\+C\+CP address to check \\
+\hline
+\mbox{\tt in}  & {\em presence} & mask with minimum required address components \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true when address data seems plausible 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+::gt, osmo\+\_\+sccp\+\_\+gt\+::gti, osmo\+\_\+sccp\+\_\+gt\+::nai, osmo\+\_\+sccp\+\_\+gt\+::npi, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv6, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, osmo\+\_\+sccp\+\_\+addr\+::presence, and osmo\+\_\+sccp\+\_\+addr\+::ri.
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+get\+\_\+sccp@{osmo\+\_\+sccp\+\_\+get\+\_\+sccp}}
+\index{osmo\+\_\+sccp\+\_\+get\+\_\+sccp@{osmo\+\_\+sccp\+\_\+get\+\_\+sccp}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+get\+\_\+sccp(const struct osmo\+\_\+sccp\+\_\+user $\ast$scu)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+instance}$\ast$ osmo\+\_\+sccp\+\_\+get\+\_\+sccp (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_afc01ae3f1b165da8eaaadfed03da4344}
+
+
+get the S\+C\+CP instance that is related to the given sccp user 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em scu} & S\+C\+CP user \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+S\+C\+CP instance; N\+U\+LL if scu was N\+U\+LL 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+user\+::inst.
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+get\+\_\+ss7@{osmo\+\_\+sccp\+\_\+get\+\_\+ss7}}
+\index{osmo\+\_\+sccp\+\_\+get\+\_\+ss7@{osmo\+\_\+sccp\+\_\+get\+\_\+ss7}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+get\+\_\+ss7(const struct osmo\+\_\+sccp\+\_\+instance $\ast$sccp)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+instance}$\ast$ osmo\+\_\+sccp\+\_\+get\+\_\+ss7 (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{sccp}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_a177c061c44588a3adc4311f9dddb61ad}
+
+
+get the S\+S7 instance that is related to the given S\+C\+CP instance 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em sccp} & S\+C\+CP instance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+S\+S7 instance; N\+U\+LL if sccp was N\+U\+LL 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+instance\+::ss7.
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+gt\+\_\+cmp@{osmo\+\_\+sccp\+\_\+gt\+\_\+cmp}}
+\index{osmo\+\_\+sccp\+\_\+gt\+\_\+cmp@{osmo\+\_\+sccp\+\_\+gt\+\_\+cmp}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+gt\+\_\+cmp(const struct osmo\+\_\+sccp\+\_\+gt $\ast$a, const struct osmo\+\_\+sccp\+\_\+gt $\ast$b)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+gt\+\_\+cmp (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+gt} $\ast$}]{a, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+gt} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_a4cc1b98cb117cc04627d55df97123f0b}
+
+
+Compare two S\+C\+CP Global Titles. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em a} & left side. \\
+\hline
+\mbox{\tt in}  & {\em b} & right side. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if a $<$ b, 1 if a $>$ b, and 0 if a == b. 
+\end{DoxyReturn}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+addr\+\_\+cmp().
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+instance\+\_\+create@{osmo\+\_\+sccp\+\_\+instance\+\_\+create}}
+\index{osmo\+\_\+sccp\+\_\+instance\+\_\+create@{osmo\+\_\+sccp\+\_\+instance\+\_\+create}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+instance\+\_\+create(struct osmo\+\_\+ss7\+\_\+instance $\ast$ss7, void $\ast$priv)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+instance}$\ast$ osmo\+\_\+sccp\+\_\+instance\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{ss7, }
+\item[{void $\ast$}]{priv}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_aa352d710ed42f9c57830743ddbd75dd2}
+
+
+create a S\+C\+CP Instance and register it as user with S\+S7 inst 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ss7} & S\+S7 instance to which this S\+C\+CP instance belongs \\
+\hline
+\mbox{\tt in}  & {\em priv} & private data to be stored within S\+C\+CP instance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+callee-\/allocated S\+C\+CP instance on success; N\+U\+LL on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+instance\+::connections, osmo\+\_\+ss7\+\_\+user\+::inst, osmo\+\_\+sccp\+\_\+instance\+::list, M\+T\+P\+\_\+\+S\+I\+\_\+\+S\+C\+CP, mtp\+\_\+user\+\_\+prim\+\_\+cb(), osmo\+\_\+ss7\+\_\+user\+::name, osmo\+\_\+ss7\+\_\+user\+\_\+register(), osmo\+\_\+ss7\+\_\+user\+::prim\+\_\+cb, osmo\+\_\+sccp\+\_\+instance\+::priv, osmo\+\_\+ss7\+\_\+user\+::priv, osmo\+\_\+sccp\+\_\+instance\+::ss7, osmo\+\_\+sccp\+\_\+instance\+::ss7\+\_\+user, and osmo\+\_\+sccp\+\_\+instance\+::users.
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+ensure\+\_\+sccp().
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+instance\+\_\+destroy@{osmo\+\_\+sccp\+\_\+instance\+\_\+destroy}}
+\index{osmo\+\_\+sccp\+\_\+instance\+\_\+destroy@{osmo\+\_\+sccp\+\_\+instance\+\_\+destroy}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+instance\+\_\+destroy(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+sccp\+\_\+instance\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_a399c0860d3bba4c0a051d85ae52e488b}
+
+
+References osmo\+\_\+sccp\+\_\+instance\+::list, osmo\+\_\+sccp\+\_\+user\+::list, M\+T\+P\+\_\+\+S\+I\+\_\+\+S\+C\+CP, osmo\+\_\+sccp\+\_\+user\+\_\+unbind(), osmo\+\_\+ss7\+\_\+user\+\_\+unregister(), osmo\+\_\+ss7\+\_\+instance\+::sccp, sccp\+\_\+scoc\+\_\+flush\+\_\+connections(), osmo\+\_\+sccp\+\_\+instance\+::ss7, osmo\+\_\+sccp\+\_\+instance\+::ss7\+\_\+user, and osmo\+\_\+sccp\+\_\+instance\+::users.
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance@{osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance}}
+\index{osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance@{osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance(struct osmo\+\_\+sccp\+\_\+addr $\ast$dest\+\_\+addr, const struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, uint32\+\_\+t ssn)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{dest\+\_\+addr, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{uint32\+\_\+t}]{ssn}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_ac75660cfa2a1056de1586ceac3717b93}
+
+
+derive a basic local S\+C\+C\+P-\/\+Address from a given S\+C\+CP instance. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em dest\+\_\+addr} & pointer to output address memory \\
+\hline
+\mbox{\tt in}  & {\em inst} & S\+C\+CP instance \\
+\hline
+\mbox{\tt in}  & {\em ssn} & Subsystem Number \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+sccp\+\_\+make\+\_\+addr\+\_\+pc\+\_\+ssn(), osmo\+\_\+ss7\+\_\+instance\+::primary\+\_\+pc, and osmo\+\_\+sccp\+\_\+instance\+::ss7.
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+simple\+\_\+client@{osmo\+\_\+sccp\+\_\+simple\+\_\+client}}
+\index{osmo\+\_\+sccp\+\_\+simple\+\_\+client@{osmo\+\_\+sccp\+\_\+simple\+\_\+client}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+simple\+\_\+client(void $\ast$ctx, const char $\ast$name, uint32\+\_\+t default\+\_\+pc, enum osmo\+\_\+ss7\+\_\+asp\+\_\+protocol prot, int default\+\_\+local\+\_\+port, const char $\ast$default\+\_\+local\+\_\+ip, int default\+\_\+remote\+\_\+port, const char $\ast$default\+\_\+remote\+\_\+ip)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+instance}$\ast$ osmo\+\_\+sccp\+\_\+simple\+\_\+client (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ctx, }
+\item[{const char $\ast$}]{name, }
+\item[{uint32\+\_\+t}]{default\+\_\+pc, }
+\item[{enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol}}]{prot, }
+\item[{int}]{default\+\_\+local\+\_\+port, }
+\item[{const char $\ast$}]{default\+\_\+local\+\_\+ip, }
+\item[{int}]{default\+\_\+remote\+\_\+port, }
+\item[{const char $\ast$}]{default\+\_\+remote\+\_\+ip}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_aa5ffac9ab07012935f038770aba150a4}
+
+
+request an sccp client instance 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ctx} & talloc context \\
+\hline
+\mbox{\tt in}  & {\em name} & human readable name \\
+\hline
+\mbox{\tt in}  & {\em default\+\_\+pc} & pointcode to be used on missing V\+TY setting \\
+\hline
+\mbox{\tt in}  & {\em prot} & protocol to be used (e.\+g O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+M3\+UA) \\
+\hline
+\mbox{\tt in}  & {\em default\+\_\+local\+\_\+port} & local port to be usd on missing V\+TY setting \\
+\hline
+\mbox{\tt in}  & {\em default\+\_\+local\+\_\+ip} & local I\+P-\/address to be usd on missing V\+TY setting \\
+\hline
+\mbox{\tt in}  & {\em default\+\_\+remote\+\_\+port} & remote port to be usd on missing V\+TY setting \\
+\hline
+\mbox{\tt in}  & {\em default\+\_\+remote\+\_\+ip} & remote I\+P-\/address to be usd on missing V\+TY setting \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+callee-\/allocated S\+C\+CP instance on success; N\+U\+LL on error 
+\end{DoxyReturn}
+This is simplified version of \doxyref{osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id()}{p.}{sccp__user_8c_a50cc424232ce7c2bd378dd503e0d9e81}. the only difference is that the ID of the C\+S7 instance will be set to 1 statically 
+
+References osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id().
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id@{osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id}}
+\index{osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id@{osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(void $\ast$ctx, uint32\+\_\+t ss7\+\_\+id, const char $\ast$name, uint32\+\_\+t default\+\_\+pc, enum osmo\+\_\+ss7\+\_\+asp\+\_\+protocol prot, int default\+\_\+local\+\_\+port, const char $\ast$default\+\_\+local\+\_\+ip, int default\+\_\+remote\+\_\+port, const char $\ast$default\+\_\+remote\+\_\+ip)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+instance}$\ast$ osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ctx, }
+\item[{uint32\+\_\+t}]{ss7\+\_\+id, }
+\item[{const char $\ast$}]{name, }
+\item[{uint32\+\_\+t}]{default\+\_\+pc, }
+\item[{enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol}}]{prot, }
+\item[{int}]{default\+\_\+local\+\_\+port, }
+\item[{const char $\ast$}]{default\+\_\+local\+\_\+ip, }
+\item[{int}]{default\+\_\+remote\+\_\+port, }
+\item[{const char $\ast$}]{default\+\_\+remote\+\_\+ip}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_a50cc424232ce7c2bd378dd503e0d9e81}
+
+
+request an sccp client instance 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ctx} & talloc context \\
+\hline
+\mbox{\tt in}  & {\em ss7\+\_\+id} & of the S\+S7/\+C\+S7 instance \\
+\hline
+\mbox{\tt in}  & {\em name} & human readable name \\
+\hline
+\mbox{\tt in}  & {\em default\+\_\+pc} & pointcode to be used on missing V\+TY setting \\
+\hline
+\mbox{\tt in}  & {\em prot} & protocol to be used (e.\+g O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+M3\+UA) \\
+\hline
+\mbox{\tt in}  & {\em default\+\_\+local\+\_\+port} & local port to be usd on missing V\+TY setting \\
+\hline
+\mbox{\tt in}  & {\em default\+\_\+local\+\_\+ip} & local I\+P-\/address to be usd on missing V\+TY setting \\
+\hline
+\mbox{\tt in}  & {\em default\+\_\+remote\+\_\+port} & remote port to be usd on missing V\+TY setting \\
+\hline
+\mbox{\tt in}  & {\em default\+\_\+remote\+\_\+ip} & remote I\+P-\/address to be usd on missing V\+TY setting \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+callee-\/allocated S\+C\+CP instance on success; N\+U\+LL on error 
+\end{DoxyReturn}
+The function will examine the given C\+S7 instance and its sub components (as, asp, etc.). If necessary it will allocate the missing components. If no C\+S7 instance can be detected under the caller supplied ID, a new instance will be created beforehand. 
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::host, osmo\+\_\+ss7\+\_\+instance\+::id, osmo\+\_\+ss7\+\_\+asp\+::is\+\_\+server, osmo\+\_\+ss7\+\_\+asp\+::local, osmo\+\_\+ss7\+\_\+as\+::name, osmo\+\_\+ss7\+\_\+asp\+::name, osmo\+\_\+ss7\+\_\+as\+\_\+add\+\_\+asp(), osmo\+\_\+ss7\+\_\+as\+\_\+destroy(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+proto(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+asp\+\_\+destroy(), osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+name(), osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+proto(), osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+or\+\_\+create(), O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+I\+PA, osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+port(), osmo\+\_\+ss7\+\_\+asp\+\_\+restart(), osmo\+\_\+ss7\+\_\+asp\+\_\+use\+\_\+default\+\_\+lm(), osmo\+\_\+ss7\+\_\+ensure\+\_\+sccp(), osmo\+\_\+ss7\+\_\+instance\+\_\+destroy(), osmo\+\_\+ss7\+\_\+instance\+\_\+find(), osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+valid(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+ss7\+\_\+route\+\_\+create(), osmo\+\_\+ss7\+\_\+route\+\_\+destroy(), osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc\+\_\+mask(), osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::pc, osmo\+\_\+ss7\+\_\+instance\+::primary\+\_\+pc, osmo\+\_\+ss7\+\_\+asp\+::remote, osmo\+\_\+ss7\+\_\+as\+::routing\+\_\+key, osmo\+\_\+ss7\+\_\+instance\+::rtable\+\_\+system, osmo\+\_\+ss7\+\_\+instance\+::sccp, osmo\+\_\+ss7\+\_\+as\+::simple\+\_\+client\+\_\+allocated, and osmo\+\_\+ss7\+\_\+asp\+::simple\+\_\+client\+\_\+allocated.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+simple\+\_\+client().
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+simple\+\_\+server@{osmo\+\_\+sccp\+\_\+simple\+\_\+server}}
+\index{osmo\+\_\+sccp\+\_\+simple\+\_\+server@{osmo\+\_\+sccp\+\_\+simple\+\_\+server}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+simple\+\_\+server(void $\ast$ctx, uint32\+\_\+t pc, enum osmo\+\_\+ss7\+\_\+asp\+\_\+protocol prot, int local\+\_\+port, const char $\ast$local\+\_\+ip)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+instance}$\ast$ osmo\+\_\+sccp\+\_\+simple\+\_\+server (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ctx, }
+\item[{uint32\+\_\+t}]{pc, }
+\item[{enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol}}]{prot, }
+\item[{int}]{local\+\_\+port, }
+\item[{const char $\ast$}]{local\+\_\+ip}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_ab228576f1118b1893a1488b1adf84980}
+
+
+References osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id().
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt@{osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt}}
+\index{osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt@{osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, enum osmo\+\_\+ss7\+\_\+asp\+\_\+protocol prot, const char $\ast$name, uint32\+\_\+t pc, int local\+\_\+port, int remote\+\_\+port, const char $\ast$remote\+\_\+ip)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+instance}$\ast$ osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol}}]{prot, }
+\item[{const char $\ast$}]{name, }
+\item[{uint32\+\_\+t}]{pc, }
+\item[{int}]{local\+\_\+port, }
+\item[{int}]{remote\+\_\+port, }
+\item[{const char $\ast$}]{remote\+\_\+ip}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_afb417d5b253ea73da5f44a1de99ec278}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::is\+\_\+server, osmo\+\_\+ss7\+\_\+as\+\_\+add\+\_\+asp(), osmo\+\_\+ss7\+\_\+as\+\_\+destroy(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+port(), osmo\+\_\+ss7\+\_\+asp\+\_\+restart(), osmo\+\_\+ss7\+\_\+route\+\_\+create(), osmo\+\_\+ss7\+\_\+route\+\_\+destroy(), osmo\+\_\+ss7\+\_\+instance\+::rtable\+\_\+system, osmo\+\_\+ss7\+\_\+instance\+::sccp, and osmo\+\_\+sccp\+\_\+instance\+::ss7.
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id@{osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id}}
+\index{osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id@{osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id(void $\ast$ctx, uint32\+\_\+t ss7\+\_\+id, uint32\+\_\+t pc, enum osmo\+\_\+ss7\+\_\+asp\+\_\+protocol prot, int local\+\_\+port, const char $\ast$local\+\_\+ip)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+instance}$\ast$ osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ctx, }
+\item[{uint32\+\_\+t}]{ss7\+\_\+id, }
+\item[{uint32\+\_\+t}]{pc, }
+\item[{enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol}}]{prot, }
+\item[{int}]{local\+\_\+port, }
+\item[{const char $\ast$}]{local\+\_\+ip}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_a9b977efa4ea7410df144d02c3aa9f94d}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+port(), osmo\+\_\+ss7\+\_\+ensure\+\_\+sccp(), osmo\+\_\+ss7\+\_\+instance\+\_\+destroy(), osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+bind(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+destroy(), osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+ss7\+\_\+instance\+::primary\+\_\+pc, and osmo\+\_\+ss7\+\_\+instance\+::sccp.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+simple\+\_\+server().
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+user\+\_\+bind@{osmo\+\_\+sccp\+\_\+user\+\_\+bind}}
+\index{osmo\+\_\+sccp\+\_\+user\+\_\+bind@{osmo\+\_\+sccp\+\_\+user\+\_\+bind}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+user\+\_\+bind(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, const char $\ast$name, osmo\+\_\+prim\+\_\+cb prim\+\_\+cb, uint16\+\_\+t ssn)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+user}$\ast$ osmo\+\_\+sccp\+\_\+user\+\_\+bind (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{const char $\ast$}]{name, }
+\item[{osmo\+\_\+prim\+\_\+cb}]{prim\+\_\+cb, }
+\item[{uint16\+\_\+t}]{ssn}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_a8cae9c355d617de856fa23695e8de1ed}
+
+
+Bind a given S\+C\+CP User to a given S\+SN (at any PC) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+C\+CP Instance \\
+\hline
+\mbox{\tt in}  & {\em name} & human-\/readable name \\
+\hline
+\mbox{\tt in}  & {\em ssn} & Sub-\/\+System Number to bind to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Callee-\/allocated S\+C\+CP User on success; negative otherwise 
+\end{DoxyReturn}
+
+
+References O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+P\+C\+\_\+\+I\+N\+V\+A\+L\+ID, and sccp\+\_\+user\+\_\+bind\+\_\+pc().
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+user\+\_\+bind\+\_\+pc@{osmo\+\_\+sccp\+\_\+user\+\_\+bind\+\_\+pc}}
+\index{osmo\+\_\+sccp\+\_\+user\+\_\+bind\+\_\+pc@{osmo\+\_\+sccp\+\_\+user\+\_\+bind\+\_\+pc}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+user\+\_\+bind\+\_\+pc(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, const char $\ast$name, osmo\+\_\+prim\+\_\+cb prim\+\_\+cb, uint16\+\_\+t ssn, uint32\+\_\+t pc)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+user}$\ast$ osmo\+\_\+sccp\+\_\+user\+\_\+bind\+\_\+pc (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{const char $\ast$}]{name, }
+\item[{osmo\+\_\+prim\+\_\+cb}]{prim\+\_\+cb, }
+\item[{uint16\+\_\+t}]{ssn, }
+\item[{uint32\+\_\+t}]{pc}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_a1eebca5ec6245abf6100ce397098ec76}
+
+
+Bind a given S\+C\+CP User to a given S\+S\+N+\+PC. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+C\+CP Instance \\
+\hline
+\mbox{\tt in}  & {\em name} & human-\/readable name \\
+\hline
+\mbox{\tt in}  & {\em ssn} & Sub-\/\+System Number to bind to \\
+\hline
+\mbox{\tt in}  & {\em pc} & Point Code to bind to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Callee-\/allocated S\+C\+CP User on success; negative otherwise 
+\end{DoxyReturn}
+
+
+References sccp\+\_\+user\+\_\+bind\+\_\+pc().
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+user\+\_\+get\+\_\+priv@{osmo\+\_\+sccp\+\_\+user\+\_\+get\+\_\+priv}}
+\index{osmo\+\_\+sccp\+\_\+user\+\_\+get\+\_\+priv@{osmo\+\_\+sccp\+\_\+user\+\_\+get\+\_\+priv}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+user\+\_\+get\+\_\+priv(struct osmo\+\_\+sccp\+\_\+user $\ast$scu)}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ osmo\+\_\+sccp\+\_\+user\+\_\+get\+\_\+priv (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_a07ec39c977a302c8db00b6ab4257baef}
+
+
+References osmo\+\_\+sccp\+\_\+user\+::priv.
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+user\+\_\+name@{osmo\+\_\+sccp\+\_\+user\+\_\+name}}
+\index{osmo\+\_\+sccp\+\_\+user\+\_\+name@{osmo\+\_\+sccp\+\_\+user\+\_\+name}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+user\+\_\+name(struct osmo\+\_\+sccp\+\_\+user $\ast$scu)}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ osmo\+\_\+sccp\+\_\+user\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_a35cbc9cc49dd35f2744f69eca1b18b61}
+
+
+Compose a human readable string to describe the S\+C\+CP user\textquotesingle{}s connection. 
+
+The output follows [\textquotesingle{}$<$scu.\+name$>$\textquotesingle{}\+:]$<$local-\/sccp-\/addr$>$, e.\+g. \char`\"{}\textquotesingle{}\+Osmo\+H\+N\+B\+W\textquotesingle{}\+:\+R\+I=\+S\+S\+N\+\_\+\+P\+C,\+P\+C=0.\+23.\+5,\+S\+S\+N=\+R\+A\+N\+A\+P\char`\"{}, or just \char`\"{}\+R\+I=\+S\+S\+N\+\_\+\+P\+C,\+P\+C=0.\+23.\+5,\+S\+S\+N=\+R\+A\+N\+A\+P\char`\"{} if no scu-\/$>$name is set. This calls \doxyref{osmo\+\_\+sccp\+\_\+addr\+\_\+name()}{p.}{sccp__helpers_8h_a8d9ad80fd2ce4f316b061543cbab5573}, which returns a static buffer; hence calling this function and \doxyref{osmo\+\_\+sccp\+\_\+addr\+\_\+name()}{p.}{sccp__helpers_8h_a8d9ad80fd2ce4f316b061543cbab5573} in the same printf statement is likely to conflict. 
+
+References osmo\+\_\+sccp\+\_\+user\+::inst, osmo\+\_\+sccp\+\_\+user\+::name, osmo\+\_\+sccp\+\_\+addr\+\_\+name(), osmo\+\_\+sccp\+\_\+make\+\_\+addr\+\_\+pc\+\_\+ssn(), osmo\+\_\+sccp\+\_\+user\+::pc, osmo\+\_\+sccp\+\_\+instance\+::ss7, and osmo\+\_\+sccp\+\_\+user\+::ssn.
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+user\+\_\+set\+\_\+priv@{osmo\+\_\+sccp\+\_\+user\+\_\+set\+\_\+priv}}
+\index{osmo\+\_\+sccp\+\_\+user\+\_\+set\+\_\+priv@{osmo\+\_\+sccp\+\_\+user\+\_\+set\+\_\+priv}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+user\+\_\+set\+\_\+priv(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, void $\ast$priv)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+sccp\+\_\+user\+\_\+set\+\_\+priv (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{void $\ast$}]{priv}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_a232a3859dff9bb004f12999c9717c82c}
+
+
+References osmo\+\_\+sccp\+\_\+user\+::priv.
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!osmo\+\_\+sccp\+\_\+user\+\_\+unbind@{osmo\+\_\+sccp\+\_\+user\+\_\+unbind}}
+\index{osmo\+\_\+sccp\+\_\+user\+\_\+unbind@{osmo\+\_\+sccp\+\_\+user\+\_\+unbind}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+user\+\_\+unbind(struct osmo\+\_\+sccp\+\_\+user $\ast$scu)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+sccp\+\_\+user\+\_\+unbind (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_ae2b5a2f259d5c4cf9b0e9dd9ba298665}
+
+
+Unbind a given S\+C\+CP user. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em scu} & S\+C\+CP User which is to be un-\/bound. Will be destroyed at the time this function returns. \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+sccp\+\_\+user\+::inst, osmo\+\_\+sccp\+\_\+user\+::list, osmo\+\_\+sccp\+\_\+user\+::name, osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+sccp\+\_\+user\+::pc, osmo\+\_\+sccp\+\_\+instance\+::ss7, and osmo\+\_\+sccp\+\_\+user\+::ssn.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+instance\+\_\+destroy().
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!sccp\+\_\+user\+\_\+bind\+\_\+pc@{sccp\+\_\+user\+\_\+bind\+\_\+pc}}
+\index{sccp\+\_\+user\+\_\+bind\+\_\+pc@{sccp\+\_\+user\+\_\+bind\+\_\+pc}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{sccp\+\_\+user\+\_\+bind\+\_\+pc(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, const char $\ast$name, osmo\+\_\+prim\+\_\+cb prim\+\_\+cb, uint16\+\_\+t ssn, uint32\+\_\+t pc)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf osmo\+\_\+sccp\+\_\+user}$\ast$ sccp\+\_\+user\+\_\+bind\+\_\+pc (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{const char $\ast$}]{name, }
+\item[{osmo\+\_\+prim\+\_\+cb}]{prim\+\_\+cb, }
+\item[{uint16\+\_\+t}]{ssn, }
+\item[{uint32\+\_\+t}]{pc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__user_8c_a8e71c6e0cbb751c8019390b105afbe60}
+
+
+Bind a S\+C\+CP User to a given Point Code. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+C\+CP Instance \\
+\hline
+\mbox{\tt in}  & {\em name} & human-\/readable name \\
+\hline
+\mbox{\tt in}  & {\em ssn} & Sub-\/\+System Number to bind to \\
+\hline
+\mbox{\tt in}  & {\em pc} & Point Code to bind to, or O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+P\+C\+\_\+\+I\+N\+V\+A\+L\+ID if none. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Callee-\/allocated S\+C\+CP User on success; negative otherwise 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+user\+::inst, osmo\+\_\+sccp\+\_\+user\+::list, osmo\+\_\+sccp\+\_\+user\+::name, osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+sccp\+\_\+user\+::pc, osmo\+\_\+sccp\+\_\+user\+::prim\+\_\+cb, sccp\+\_\+user\+\_\+find(), osmo\+\_\+sccp\+\_\+instance\+::ss7, osmo\+\_\+sccp\+\_\+user\+::ssn, and osmo\+\_\+sccp\+\_\+instance\+::users.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+user\+\_\+bind(), and osmo\+\_\+sccp\+\_\+user\+\_\+bind\+\_\+pc().
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!sccp\+\_\+user\+\_\+find@{sccp\+\_\+user\+\_\+find}}
+\index{sccp\+\_\+user\+\_\+find@{sccp\+\_\+user\+\_\+find}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{sccp\+\_\+user\+\_\+find(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, uint16\+\_\+t ssn, uint32\+\_\+t pc)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+user}$\ast$ sccp\+\_\+user\+\_\+find (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{uint16\+\_\+t}]{ssn, }
+\item[{uint32\+\_\+t}]{pc}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_a4eed9498fc7d3cc333a5661b779e1a8a}
+
+
+Find a S\+C\+CP User registered for given P\+C+\+S\+SN or S\+SN only. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+C\+CP Instance in which to search \\
+\hline
+\mbox{\tt in}  & {\em ssn} & Sub-\/\+System Number to search for \\
+\hline
+\mbox{\tt in}  & {\em pc} & Point Code to search for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Matching S\+C\+CP User; N\+U\+LL if none found 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+user\+::list, osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+valid(), osmo\+\_\+sccp\+\_\+user\+::pc, osmo\+\_\+sccp\+\_\+user\+::ssn, and osmo\+\_\+sccp\+\_\+instance\+::users.
+
+
+
+Referenced by D\+E\+F\+U\+N(), sccp\+\_\+find\+\_\+user(), sccp\+\_\+user\+\_\+bind\+\_\+pc(), sclc\+\_\+rx\+\_\+cldr(), sclc\+\_\+rx\+\_\+cldt(), and scrc\+\_\+node\+\_\+6().
+
+\index{sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}!sccp\+\_\+user\+\_\+prim\+\_\+up@{sccp\+\_\+user\+\_\+prim\+\_\+up}}
+\index{sccp\+\_\+user\+\_\+prim\+\_\+up@{sccp\+\_\+user\+\_\+prim\+\_\+up}!sccp\+\_\+user.\+c@{sccp\+\_\+user.\+c}}
+\subsubsection[{sccp\+\_\+user\+\_\+prim\+\_\+up(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, struct osmo\+\_\+scu\+\_\+prim $\ast$prim)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+user\+\_\+prim\+\_\+up (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{struct {\bf osmo\+\_\+scu\+\_\+prim} $\ast$}]{prim}
+\end{DoxyParamCaption}
+)}\label{sccp__user_8c_a26760477f3cab4b33aa24e964bb2d91a}
+
+
+Send a S\+C\+CP User S\+AP Primitive up to the User. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em scu} & S\+C\+CP User to whom to send the primitive \\
+\hline
+\mbox{\tt in}  & {\em prim} & Primitive to send to the user \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+return value of the S\+C\+CP User\textquotesingle{}s prim\+\_\+cb() function 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+user\+::name, osmo\+\_\+scu\+\_\+prim\+::oph, osmo\+\_\+scu\+\_\+prim\+\_\+name(), and osmo\+\_\+sccp\+\_\+user\+::prim\+\_\+cb.
+
+
+
+Referenced by sclc\+\_\+rx\+\_\+cldr(), sclc\+\_\+rx\+\_\+cldt(), and scu\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send().
+

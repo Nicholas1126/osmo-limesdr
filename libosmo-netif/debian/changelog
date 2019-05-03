@@ -1,0 +1,138 @@
+libosmo-netif (0.4.0) unstable; urgency=medium
+
+  [ Neels Hofmeyr ]
+  * fix strncpy bug in rs232.c
+  * logging: fix typo in stream.c
+
+  [ Harald Welte ]
+  * Migrate from osmo_ipa_idtag_parse() to ipa_ccm_id_resp_parse()
+  * link libosmo-netif against libosmogsm
+  * debian/rules: Don't overwrite .tarball-version
+
+  [ Pau Espin Pedrol ]
+  * jibuf: fix indentation in line inside conditional clause
+
+  [ Stefan Sperling ]
+  * detect freed connections in osmo_stream_srv_read()
+
+ -- Harald Welte <laforge@gnumonks.org>  Sat, 19 Jan 2019 22:28:01 +0100
+
+libosmo-netif (0.3.0) unstable; urgency=medium
+
+  [ Pau Espin Pedrol ]
+  * tests: jibuf_test: Set some functions as static
+  * tests: jibuf_test: Add scenario to show out-of-order bug
+  * jibuf: Fix out-of-order seq queue around syncpoints
+  * osmux: change log lvl of batch full to debug
+
+  [ Harald Welte ]
+  * remove "channel" layer
+  * stream.c: Use non-blocking connect in osmo_stream_cli
+
+ -- Pau Espin Pedrol <pespin@sysmocom.de>  Fri, 27 Jul 2018 18:31:42 +0200
+
+libosmo-netif (0.2.0) unstable; urgency=medium
+
+  [ Neels Hofmeyr ]
+  * jenkins: use osmo-clean-workspace.sh before and after build
+  * add --enable-sanitize config option
+  * gitignore: vim swp files
+  * osmo_stream_{cli,srv}_destroy: fix mem leak: empty msgb queue
+  * configure: add --enable-werror
+  * jenkins.sh: use --enable-werror configure flag, not CFLAGS
+
+  [ Harald Welte ]
+  * debian/control: Fix upstream-name
+  * debian/copyright: There are no AGPL licensed files left
+  * src/rs232.c: Fix accidential reference to GPLv3+ instead of GPLv2+
+  * Add SPDX-License-Identifier + Copyright statements
+  * debian/control: Fix Vcs-Browser
+  * osmux: Fix use of uninitialized memory in osmux_out_handle
+
+  [ Pau Espin Pedrol ]
+  * stream: Avoid re-creating and leaking socket when unneeded
+  * contrib: jenkins.sh: Disable building doxygen for deps
+  * test: osmo-pcap-test: Fix clock drift while replaying pcap file
+  * osmux: Use correct log category DLMUX
+  * stream.c: osmo_stream_cli_open2: Remove wrong assumption in reconnect decision
+  * tests: osmo-pcap-test: Fix pcap includes not found in old versions
+  * osmux: osmux_xfrm_output_pull: Improve checks and log of malformed packets
+  * jibuf: Add initial implementation of Jitter Buffer
+  * tests: jibuf_tool: Initial commit
+  * tests: jibuf_tool: Improve jibuf_test to read pcaps
+  * tests: jibuf_tool: Add OSMUX support
+  * tests: jibuf_tool: Add parameters to control size of buffer
+  * jibuf: Take RTP marker into account
+  * jibuf: re-sync clock out of sync timestamps
+  * tests: jibuf_tool: Add seq.plt
+  * jibuf: Estimate src clock skew
+  * tests: use osmo_init_logging2
+  * Build jibuf_tool based on libpcap availability
+  * examples: use osmo_init_logging2
+  * osmux: Add new API osmux_xfrm_output_sched to fix rtp generation issues
+  * tests: Add osmux2 testsuite
+  * osmux: Set Marker bit on osmux frame loss detected
+  * osmux: Move examples and tests to use new output APIs
+
+  [ Max ]
+  * Enable sanitize for CI tests
+
+  [ Stefan Sperling ]
+  * add support for flushing and destroying a server-side stream
+
+  [ Alexey ]
+  * Update README.md
+
+ -- Pau Espin Pedrol <pespin@sysmocom.de>  Thu, 03 May 2018 16:55:21 +0200
+
+libosmo-netif (0.1.1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Harald Welte <lafore@gnumonks.org>  Sat, 28 Oct 2017 12:41:34 +0200
+
+libosmo-netif (0.1.0) unstable; urgency=medium
+
+  [ Holger Hans Peter Freyther ]
+  * Move forward toward a new release.
+
+  [ Harald Welte ]
+  * Update to upstream 0.1.0
+
+ -- Holger Hans Peter Freyther <holger@moiji-mobile.com>  Fri, 27 Oct 2017 20:00:39 +0200
+
+libosmo-netif (0.0.6) unstable; urgency=medium
+
+  * Drop libosmovty dependency.
+
+ -- Holger Hans Peter Freyther <holger@moiji-mobile.com>  Tue, 03 Nov 2015 09:36:32 +0100
+
+libosmo-netif (0.0.5) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Holger Hans Peter Freyther <holger@moiji-mobile.com>  Sun, 23 Aug 2015 18:01:53 +0200
+
+libosmo-netif (0.0.3) unstable; urgency=medium
+
+  * Bump API due the AMR header structure now being packed
+    and potentially having different storage requirements.
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Mon, 28 Apr 2014 20:50:18 +0200
+
+libosmo-netif (0.0.2-z6) unstable; urgency=low
+
+  * Upgrade with increased test coverage.
+  * More changes
+  * Fix use after free issue.
+  * Fix osmux_snprintf for multiple batched messages
+  * Clean-ups.
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Sat, 25 May 2013 09:42:30 +0200
+
+libosmo-netif (0.0.2-z1) testing; urgency=low
+
+  * Initial release.
+  * Post 0.0.2
+
+ -- Holger Hans Peter Freyther <holger@freyther.de>  Tue, 21 May 2013 18:53:08 +0200

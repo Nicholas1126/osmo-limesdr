@@ -1,0 +1,64 @@
+Source: osmo-msc
+Section: net
+Priority: extra
+Maintainer: Alexander Couzens <lynxis@fe80.eu>
+Build-Depends: debhelper (>=9),
+               dh-autoreconf,
+               autotools-dev,
+               autoconf,
+               automake,
+               libtool,
+               pkg-config,
+               libdbi-dev,
+               libsctp-dev,
+               libtalloc-dev,
+               libsmpp34-dev (>= 1.12),
+               libasn1c-dev (>= 0.9.28),
+               libosmocore-dev (>= 0.10.0),
+               libosmo-sccp-dev,
+               libosmo-sigtran-dev (>= 0.8.0),
+               libosmo-abis-dev,
+               libosmo-mgcp-client-dev (>= 1.1.0),
+               libosmo-gsup-client-dev (>= 0.2.1),
+               libosmo-netif-dev (>= 0.1.0),
+               libosmo-ranap-dev (>= 0.2.0)
+Standards-Version: 3.9.8
+Vcs-Git: git://git.osmocom.org/osmo-msc.git
+Vcs-Browser: https://git.osmocom.org/osmo-msc/
+Homepage: https://osmocom.org/projects/osmomsc
+
+Package: osmo-msc
+Architecture: any
+Multi-Arch: foreign
+Depends: ${misc:Depends}, ${shlibs:Depends}, libdbd-sqlite3
+Description: OsmoMSC: Osmocom's Mobile Switching Center for 2G and 3G circuit-switched mobile networks
+  The Mobile Switching Center (MSC) is the heart of 2G/3G
+  circuit-switched services.  It terminates the A-interface links from the
+  Base Station Controllers (BSC) and handles the MM and CC sub-layers of
+  the Layer 3 protocol from the phones (MS).
+  .
+  This Osmocom implementation of the MSC handles A interfaces via 3GPP
+  AoIP in an ASP role.  It furthermore implements IETF MGCP against an
+  external media gateway, such as OsmoMGW.  It does *not* implement MAP
+  towards a HLR, but the much simpler Osmocom GSUP protocol, which can
+  be translated to MAP if needed.
+
+Package: osmo-msc-dbg
+Section: debug
+Architecture: any
+Multi-Arch: same
+Depends: osmo-msc (= ${binary:Version}), ${misc:Depends}
+Description: OsmoMSC: Osmocom's Mobile Switching Center for 2G and 3G circuit-switched mobile networks
+  The Mobile Switching Center (MSC) is the heart of 2G/3G
+  circuit-switched services.  It terminates the A-interface links from the
+  Base Station Controllers (BSC) and handles the MM and CC sub-layers of
+  the Layer 3 protocol from the phones (MS).
+  .
+  This Osmocom implementation of the MSC handles A interfaces via 3GPP
+  AoIP in an ASP role.  It furthermore implements IETF MGCP against an
+  external media gateway, such as OsmoMGW.  It does *not* implement MAP
+  towards a HLR, but the much simpler Osmocom GSUP protocol, which can
+  be translated to MAP if needed.
+  .
+  This package contains the debug symbols for osmo-msc in order to
+  generate meaningful backtraces in bug-reports.

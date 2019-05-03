@@ -1,0 +1,39 @@
+\section{osmux\+\_\+in\+\_\+handle Struct Reference}
+\label{structosmux__in__handle}\index{osmux\+\_\+in\+\_\+handle@{osmux\+\_\+in\+\_\+handle}}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t {\bfseries osmux\+\_\+seq}\label{structosmux__in__handle_a1ba076a41ef9c3413665b7444c6521cc}
+
+\item 
+uint8\+\_\+t {\bfseries batch\+\_\+factor}\label{structosmux__in__handle_a19f745e91cf6cde79d37311775e08474}
+
+\item 
+uint16\+\_\+t {\bfseries batch\+\_\+size}\label{structosmux__in__handle_a368e53721d8272b6f9d62b398db0402d}
+
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>uint32\_t {\bfseries input\_rtp\_msgs}\\
+\>uint32\_t {\bfseries output\_osmux\_msgs}\\
+\>uint64\_t {\bfseries input\_rtp\_bytes}\\
+\>uint64\_t {\bfseries output\_osmux\_bytes}\\
+\} {\bfseries stats}\label{structosmux__in__handle_a37f3e33e1cd6b6fbead90d22e38193b2}
+\\
+
+\end{tabbing}\item 
+void($\ast$ {\bfseries deliver} )(struct msgb $\ast$msg, void $\ast$data)\label{structosmux__in__handle_aef1dba895e5ce6443082e3878c3704c8}
+
+\item 
+void $\ast$ {\bfseries data}\label{structosmux__in__handle_a5e956516034fe24c6e52b481d994c8c5}
+
+\item 
+char $\ast$ {\bfseries internal\+\_\+data}\label{structosmux__in__handle_a882fe396ba5bf4e9cef37bed4d9ded04}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/osmocom/netif/{\bf osmux.\+h}\end{DoxyCompactItemize}

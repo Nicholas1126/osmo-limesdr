@@ -1,0 +1,28 @@
+var annotated_dup =
+[
+    [ "amr_hdr", "structamr__hdr.html", null ],
+    [ "baudrate2termbits", "structbaudrate2termbits.html", "structbaudrate2termbits" ],
+    [ "ipa_head", "structipa__head.html", "structipa__head" ],
+    [ "ipa_head_ext", "structipa__head__ext.html", "structipa__head__ext" ],
+    [ "osmo_dgram", "structosmo__dgram.html", "structosmo__dgram" ],
+    [ "osmo_dgram_rx", "structosmo__dgram__rx.html", "structosmo__dgram__rx" ],
+    [ "osmo_dgram_tx", "structosmo__dgram__tx.html", "structosmo__dgram__tx" ],
+    [ "osmo_ipa_unit", "structosmo__ipa__unit.html", "structosmo__ipa__unit" ],
+    [ "osmo_jibuf", "structosmo__jibuf.html", "structosmo__jibuf" ],
+    [ "osmo_jibuf_msgb_cb", "structosmo__jibuf__msgb__cb.html", "structosmo__jibuf__msgb__cb" ],
+    [ "osmo_rs232", "structosmo__rs232.html", "structosmo__rs232" ],
+    [ "osmo_rtp_handle", "structosmo__rtp__handle.html", "structosmo__rtp__handle" ],
+    [ "osmo_stream_cli", "structosmo__stream__cli.html", "structosmo__stream__cli" ],
+    [ "osmo_stream_srv", "structosmo__stream__srv.html", "structosmo__stream__srv" ],
+    [ "osmo_stream_srv_link", "structosmo__stream__srv__link.html", "structosmo__stream__srv__link" ],
+    [ "osmux_batch", "structosmux__batch.html", "structosmux__batch" ],
+    [ "osmux_circuit", "structosmux__circuit.html", "structosmux__circuit" ],
+    [ "osmux_hdr", "structosmux__hdr.html", "structosmux__hdr" ],
+    [ "osmux_in_handle", "structosmux__in__handle.html", "structosmux__in__handle" ],
+    [ "osmux_input_state", "structosmux__input__state.html", "structosmux__input__state" ],
+    [ "osmux_out_handle", "structosmux__out__handle.html", "structosmux__out__handle" ],
+    [ "osmux_tx_handle", "structosmux__tx__handle.html", "structosmux__tx__handle" ],
+    [ "rtcp_hdr", "structrtcp__hdr.html", "structrtcp__hdr" ],
+    [ "rtp_hdr", "structrtp__hdr.html", "structrtp__hdr" ],
+    [ "rtp_x_hdr", "structrtp__x__hdr.html", "structrtp__x__hdr" ]
+];

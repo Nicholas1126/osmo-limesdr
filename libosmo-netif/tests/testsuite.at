@@ -1,0 +1,33 @@
+AT_INIT
+AT_BANNER([Regression tests.])
+
+AT_SETUP([stream_test])
+AT_KEYWORDS([stream_test])
+cat $abs_srcdir/stream/stream_test.ok > expout
+cat $abs_srcdir/stream/stream_test.err > experr
+AT_CHECK([$abs_top_builddir/tests/stream/stream_test], [0], [expout], [experr])
+AT_CLEANUP
+
+AT_SETUP([osmux_test])
+AT_KEYWORDS([osmux_test])
+cat $abs_srcdir/osmux/osmux_test.ok > expout
+AT_CHECK([$abs_top_builddir/tests/osmux/osmux_test], [0], [expout], [ignore])
+AT_CLEANUP
+
+AT_SETUP([osmux_test2])
+AT_KEYWORDS([osmux_test2])
+cat $abs_srcdir/osmux/osmux_test2.ok > expout
+AT_CHECK([$abs_top_builddir/tests/osmux/osmux_test2], [0], [expout], [ignore])
+AT_CLEANUP
+
+AT_SETUP([jibuf_test])
+AT_KEYWORDS([jibuf_test])
+cat $abs_srcdir/jibuf/jibuf_test.ok > expout
+AT_CHECK([$abs_top_builddir/tests/jibuf/jibuf_test], [0], [expout], [ignore])
+AT_CLEANUP
+
+AT_SETUP([amr_test])
+AT_KEYWORDS([amr_test])
+cat $abs_srcdir/amr/amr_test.ok > expout
+AT_CHECK([$abs_top_builddir/tests/amr/amr_test], [0], [expout], [ignore])
+AT_CLEANUP

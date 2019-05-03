@@ -1,0 +1,199 @@
+\section{osmo\+\_\+ss7\+\_\+instance Struct Reference}
+\label{structosmo__ss7__instance}\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+
+
+{\ttfamily \#include $<$osmo\+\_\+ss7.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct llist\+\_\+head {\bf list}
+\begin{DoxyCompactList}\small\item\em member of global list of instances \end{DoxyCompactList}\item 
+struct llist\+\_\+head {\bf linksets}
+\begin{DoxyCompactList}\small\item\em list of \doxyref{osmo\+\_\+ss7\+\_\+linkset}{p.}{structosmo__ss7__linkset} \end{DoxyCompactList}\item 
+struct llist\+\_\+head {\bf as\+\_\+list}
+\begin{DoxyCompactList}\small\item\em list of \doxyref{osmo\+\_\+ss7\+\_\+as}{p.}{structosmo__ss7__as} \end{DoxyCompactList}\item 
+struct llist\+\_\+head {\bf asp\+\_\+list}
+\begin{DoxyCompactList}\small\item\em list of \doxyref{osmo\+\_\+ss7\+\_\+asp}{p.}{structosmo__ss7__asp} \end{DoxyCompactList}\item 
+struct llist\+\_\+head {\bf rtable\+\_\+list}
+\begin{DoxyCompactList}\small\item\em list of \doxyref{osmo\+\_\+ss7\+\_\+route\+\_\+table}{p.}{structosmo__ss7__route__table} \end{DoxyCompactList}\item 
+struct llist\+\_\+head {\bf xua\+\_\+servers}
+\begin{DoxyCompactList}\small\item\em list of osmo\+\_\+xua\+\_\+servers \end{DoxyCompactList}\item 
+const struct {\bf osmo\+\_\+ss7\+\_\+user} $\ast$ {\bf user} [16]
+\item 
+struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$ {\bf rtable\+\_\+system}
+\item 
+struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$ {\bf sccp}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>uint32\_t {\bf id}\\
+\>char $\ast$ {\bf name}\\
+\>char $\ast$ {\bf description}\\
+\>uint32\_t {\bf primary\_pc}\\
+\>uint8\_t {\bf network\_indicator}\\
+\>struct {\bf osmo\_ss7\_pc\_fmt} {\bf pc\_fmt}\\
+\>bool {\bf permit\_dyn\_rkm\_alloc}\\
+\>struct llist\_head {\bf sccp\_address\_book}\\
+\} {\bf cfg}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!as\+\_\+list@{as\+\_\+list}}
+\index{as\+\_\+list@{as\+\_\+list}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{as\+\_\+list}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head osmo\+\_\+ss7\+\_\+instance\+::as\+\_\+list}\label{structosmo__ss7__instance_a71621534d17bb3a348a636f5e48275be}
+
+
+list of \doxyref{osmo\+\_\+ss7\+\_\+as}{p.}{structosmo__ss7__as} 
+
+
+
+Referenced by D\+E\+F\+U\+N(), dispatch\+\_\+to\+\_\+all\+\_\+as(), find\+\_\+as\+\_\+for\+\_\+asp(), find\+\_\+first\+\_\+as\+\_\+in\+\_\+asp(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+l\+\_\+rk\+\_\+id(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+name(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+proto(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+rctx(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+asp\+\_\+destroy(), osmo\+\_\+ss7\+\_\+instance\+\_\+destroy(), osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create(), write\+\_\+one\+\_\+cs7(), and xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp().
+
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!asp\+\_\+list@{asp\+\_\+list}}
+\index{asp\+\_\+list@{asp\+\_\+list}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{asp\+\_\+list}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head osmo\+\_\+ss7\+\_\+instance\+::asp\+\_\+list}\label{structosmo__ss7__instance_aaab8768d7411a0f10b3044740605d0d1}
+
+
+list of \doxyref{osmo\+\_\+ss7\+\_\+asp}{p.}{structosmo__ss7__asp} 
+
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+name(), osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+socket\+\_\+addr(), osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+instance\+\_\+destroy(), osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create(), and write\+\_\+one\+\_\+cs7().
+
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!cfg@{cfg}}
+\index{cfg@{cfg}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{cfg}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   osmo\+\_\+ss7\+\_\+instance\+::cfg}\label{structosmo__ss7__instance_ad570b7b1d4246ea38a1349bc0094cfa8}
+
+
+Referenced by \+\_\+osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+local(), D\+E\+F\+U\+N(), handle\+\_\+rkey\+\_\+reg(), osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance(), osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+ss7\+\_\+instance\+\_\+find(), osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+instance\+\_\+set\+\_\+pc\+\_\+fmt(), osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+local(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse\+\_\+mask\+\_\+or\+\_\+len(), osmo\+\_\+ss7\+\_\+route\+\_\+print(), sua2sccp\+\_\+tx\+\_\+m3ua(), vty\+\_\+show\+\_\+connection(), write\+\_\+one\+\_\+cs7(), and write\+\_\+sccp\+\_\+addressbook().
+
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!description@{description}}
+\index{description@{description}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{description}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ osmo\+\_\+ss7\+\_\+instance\+::description}\label{structosmo__ss7__instance_a955286b08bcbce6d8a98fbeb4abd2a3f}
+
+
+Referenced by D\+E\+F\+U\+N(), and write\+\_\+one\+\_\+cs7().
+
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!id@{id}}
+\index{id@{id}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{id}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t osmo\+\_\+ss7\+\_\+instance\+::id}\label{structosmo__ss7__instance_a97164a12e862adf6e546fe7d0a0094dd}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+ss7\+\_\+instance\+\_\+find(), osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create(), sua2sccp\+\_\+tx\+\_\+m3ua(), and write\+\_\+one\+\_\+cs7().
+
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!linksets@{linksets}}
+\index{linksets@{linksets}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{linksets}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head osmo\+\_\+ss7\+\_\+instance\+::linksets}\label{structosmo__ss7__instance_a43f30caeb11dd9ee2db8dd01db82cf18}
+
+
+list of \doxyref{osmo\+\_\+ss7\+\_\+linkset}{p.}{structosmo__ss7__linkset} 
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+instance\+\_\+destroy(), osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+by\+\_\+name(), and osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+or\+\_\+create().
+
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!list@{list}}
+\index{list@{list}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{list}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head osmo\+\_\+ss7\+\_\+instance\+::list}\label{structosmo__ss7__instance_ae6990daf69739d16de477871c314f7ff}
+
+
+member of global list of instances 
+
+
+
+Referenced by config\+\_\+write\+\_\+cs7(), osmo\+\_\+ss7\+\_\+bind\+\_\+all\+\_\+instances(), osmo\+\_\+ss7\+\_\+instance\+\_\+destroy(), osmo\+\_\+ss7\+\_\+instance\+\_\+find(), and osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create().
+
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!name@{name}}
+\index{name@{name}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ osmo\+\_\+ss7\+\_\+instance\+::name}\label{structosmo__ss7__instance_a479c06c5c5d516e38f627acb0c74c9bd}
+
+
+Referenced by D\+E\+F\+U\+N().
+
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!network\+\_\+indicator@{network\+\_\+indicator}}
+\index{network\+\_\+indicator@{network\+\_\+indicator}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{network\+\_\+indicator}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t osmo\+\_\+ss7\+\_\+instance\+::network\+\_\+indicator}\label{structosmo__ss7__instance_a9263d706bdeec64f33e564f719f22a42}
+
+
+Referenced by D\+E\+F\+U\+N(), sua2sccp\+\_\+tx\+\_\+m3ua(), and write\+\_\+one\+\_\+cs7().
+
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!pc\+\_\+fmt@{pc\+\_\+fmt}}
+\index{pc\+\_\+fmt@{pc\+\_\+fmt}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{pc\+\_\+fmt}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+pc\+\_\+fmt} osmo\+\_\+ss7\+\_\+instance\+::pc\+\_\+fmt}\label{structosmo__ss7__instance_a692118b712f5fd9af3e204a8c9bc7639}
+
+
+Referenced by \+\_\+osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), D\+E\+F\+U\+N(), osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+instance\+\_\+set\+\_\+pc\+\_\+fmt(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse\+\_\+mask\+\_\+or\+\_\+len(), osmo\+\_\+ss7\+\_\+route\+\_\+print(), and write\+\_\+one\+\_\+cs7().
+
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!permit\+\_\+dyn\+\_\+rkm\+\_\+alloc@{permit\+\_\+dyn\+\_\+rkm\+\_\+alloc}}
+\index{permit\+\_\+dyn\+\_\+rkm\+\_\+alloc@{permit\+\_\+dyn\+\_\+rkm\+\_\+alloc}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{permit\+\_\+dyn\+\_\+rkm\+\_\+alloc}]{\setlength{\rightskip}{0pt plus 5cm}bool osmo\+\_\+ss7\+\_\+instance\+::permit\+\_\+dyn\+\_\+rkm\+\_\+alloc}\label{structosmo__ss7__instance_ad3a52837b499cc72838803bff2e01773}
+
+
+Referenced by D\+E\+F\+U\+N(), handle\+\_\+rkey\+\_\+reg(), and write\+\_\+one\+\_\+cs7().
+
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!primary\+\_\+pc@{primary\+\_\+pc}}
+\index{primary\+\_\+pc@{primary\+\_\+pc}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{primary\+\_\+pc}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t osmo\+\_\+ss7\+\_\+instance\+::primary\+\_\+pc}\label{structosmo__ss7__instance_a6054de87f4ebeaab39498ac331cbcb16}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance(), osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+local(), sua2sccp\+\_\+tx\+\_\+m3ua(), vty\+\_\+show\+\_\+connection(), and write\+\_\+one\+\_\+cs7().
+
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!rtable\+\_\+list@{rtable\+\_\+list}}
+\index{rtable\+\_\+list@{rtable\+\_\+list}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{rtable\+\_\+list}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head osmo\+\_\+ss7\+\_\+instance\+::rtable\+\_\+list}\label{structosmo__ss7__instance_a7f25e04b2041d6da9d99f2261e5043e0}
+
+
+list of \doxyref{osmo\+\_\+ss7\+\_\+route\+\_\+table}{p.}{structosmo__ss7__route__table} 
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find(), osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find\+\_\+or\+\_\+create(), and write\+\_\+one\+\_\+cs7().
+
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!rtable\+\_\+system@{rtable\+\_\+system}}
+\index{rtable\+\_\+system@{rtable\+\_\+system}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{rtable\+\_\+system}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table}$\ast$ osmo\+\_\+ss7\+\_\+instance\+::rtable\+\_\+system}\label{structosmo__ss7__instance_a2e94e56bf133e07356fb9043619e0adb}
+
+
+Referenced by D\+E\+F\+U\+N(), handle\+\_\+rkey\+\_\+dereg(), handle\+\_\+rkey\+\_\+reg(), ipa\+\_\+asp\+\_\+fsm\+\_\+del\+\_\+route(), ipa\+\_\+asp\+\_\+fsm\+\_\+wait\+\_\+id\+\_\+ack2(), osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt(), osmo\+\_\+ss7\+\_\+as\+\_\+destroy(), osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy(), and osmo\+\_\+ss7\+\_\+route\+\_\+lookup().
+
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!sccp@{sccp}}
+\index{sccp@{sccp}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{sccp}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+instance}$\ast$ osmo\+\_\+ss7\+\_\+instance\+::sccp}\label{structosmo__ss7__instance_a099603daf11d411056449aae4cc1b9ab}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+instance\+\_\+destroy(), osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt(), osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+ss7\+\_\+ensure\+\_\+sccp(), sua\+\_\+rx\+\_\+cl(), sua\+\_\+rx\+\_\+co(), sua\+\_\+rx\+\_\+msg(), and write\+\_\+one\+\_\+cs7().
+
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!sccp\+\_\+address\+\_\+book@{sccp\+\_\+address\+\_\+book}}
+\index{sccp\+\_\+address\+\_\+book@{sccp\+\_\+address\+\_\+book}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{sccp\+\_\+address\+\_\+book}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head osmo\+\_\+ss7\+\_\+instance\+::sccp\+\_\+address\+\_\+book}\label{structosmo__ss7__instance_ae371eee5e3108f7c3499ab4fc2a15622}
+
+
+Referenced by addr\+\_\+entry\+\_\+by\+\_\+name\+\_\+local(), D\+E\+F\+U\+N(), osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create(), and write\+\_\+sccp\+\_\+addressbook().
+
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!user@{user}}
+\index{user@{user}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{user}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf osmo\+\_\+ss7\+\_\+user}$\ast$ osmo\+\_\+ss7\+\_\+instance\+::user[16]}\label{structosmo__ss7__instance_ac5078dd858636983ac1cbc803faa66f1}
+
+
+Referenced by D\+E\+F\+U\+N(), hmdt\+\_\+message\+\_\+for\+\_\+distribution(), osmo\+\_\+ss7\+\_\+mtp\+\_\+to\+\_\+user(), osmo\+\_\+ss7\+\_\+user\+\_\+register(), and osmo\+\_\+ss7\+\_\+user\+\_\+unregister().
+
+\index{osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}!xua\+\_\+servers@{xua\+\_\+servers}}
+\index{xua\+\_\+servers@{xua\+\_\+servers}!osmo\+\_\+ss7\+\_\+instance@{osmo\+\_\+ss7\+\_\+instance}}
+\subsubsection[{xua\+\_\+servers}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head osmo\+\_\+ss7\+\_\+instance\+::xua\+\_\+servers}\label{structosmo__ss7__instance_af027e28ef4df90b342f7800f90b35318}
+
+
+list of osmo\+\_\+xua\+\_\+servers 
+
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+ss7\+\_\+instance\+\_\+bind(), osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+find(), and write\+\_\+one\+\_\+cs7().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/osmocom/sigtran/{\bf osmo\+\_\+ss7.\+h}\end{DoxyCompactItemize}

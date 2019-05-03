@@ -1,0 +1,27 @@
+var structosmo__ss7__asp =
+[
+    [ "adm_state", "structosmo__ss7__asp.html#a721b077596da5c16170b5a50a6452364", null ],
+    [ "asp_id", "structosmo__ss7__asp.html#acf7207737db63ef287c893ca9639bedd", null ],
+    [ "asp_id_present", "structosmo__ss7__asp.html#aefda0037171dc256b81d657e8fafca35", null ],
+    [ "cfg", "structosmo__ss7__asp.html#aecabd459bb91b9ca0ce0c2b5ce0fa156", null ],
+    [ "client", "structosmo__ss7__asp.html#a68bd1b1d964f50bc5178b153c3bfa428", null ],
+    [ "description", "structosmo__ss7__asp.html#ae6756f8b340cc5401cc01117abd65d5a", null ],
+    [ "dyn_allocated", "structosmo__ss7__asp.html#aa3e35ffa1311df13ca199eb1b44f01fb", null ],
+    [ "fi", "structosmo__ss7__asp.html#a2f6909bb8e3fba221c926ba83edef871", null ],
+    [ "inst", "structosmo__ss7__asp.html#a3f82eb6c4f4771b9b7402febacb3dee9", null ],
+    [ "is_server", "structosmo__ss7__asp.html#a8b198be61903836850debc6666c50b20", null ],
+    [ "list", "structosmo__ss7__asp.html#a3a1fcf4663bb22bf1601f0f062ee5e2e", null ],
+    [ "lm", "structosmo__ss7__asp.html#a43ce6c282c13059668509e61771bc043", null ],
+    [ "lm_priv", "structosmo__ss7__asp.html#a3daa8531054ceba9eb7cc30b69d228f5", null ],
+    [ "local", "structosmo__ss7__asp.html#a76f253348dcd5e57f688111d22548704", null ],
+    [ "name", "structosmo__ss7__asp.html#aa8d55968e2d82fe0ea15541ff69e5252", null ],
+    [ "pending_msg", "structosmo__ss7__asp.html#ac7881b24983b84ba2354096235dde9a9", null ],
+    [ "proto", "structosmo__ss7__asp.html#a3d73399eab84b7b912973769312cd234", null ],
+    [ "qos_class", "structosmo__ss7__asp.html#ac6950f271554271fbe6979429cd272a6", null ],
+    [ "remote", "structosmo__ss7__asp.html#a2120aad2e6b360736811e05404d82065", null ],
+    [ "server", "structosmo__ss7__asp.html#a4d370f42fbe10786474ac188c165dddb", null ],
+    [ "siblings", "structosmo__ss7__asp.html#af6e5585499512a650a5a186db1d579a2", null ],
+    [ "simple_client_allocated", "structosmo__ss7__asp.html#a5b094dc96abd6c226ad2aa0e11601872", null ],
+    [ "sock_name", "structosmo__ss7__asp.html#a0edeffe083d3bdabee044fd94ed552bd", null ],
+    [ "xua_server", "structosmo__ss7__asp.html#a73c05ead0e9f27363c5365d288e563a3", null ]
+];

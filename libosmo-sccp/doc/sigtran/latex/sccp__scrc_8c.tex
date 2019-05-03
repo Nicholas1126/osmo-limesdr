@@ -1,0 +1,324 @@
+\section{src/sccp\+\_\+scrc.c File Reference}
+\label{sccp__scrc_8c}\index{src/sccp\+\_\+scrc.\+c@{src/sccp\+\_\+scrc.\+c}}
+{\ttfamily \#include $<$stdbool.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/logging.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/msgb.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sccp/sccp\+\_\+types.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/osmo\+\_\+ss7.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/sccp\+\_\+sap.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/sccp\+\_\+helpers.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/sua.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/mtp.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}sccp\+\_\+internal.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+internal.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool {\bf sua\+\_\+is\+\_\+connectionless} (struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static bool {\bf sua\+\_\+is\+\_\+cr} (struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static bool {\bf dpc\+\_\+accessible} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, uint32\+\_\+t pc)
+\item 
+static bool {\bf sccp\+\_\+available} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$addr)
+\item 
+static int {\bf sua2sccp\+\_\+tx\+\_\+m3ua} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$sua)
+\item 
+static int {\bf gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$called)
+\item 
+static int {\bf translate} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$called, struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$translated)
+\item 
+static int {\bf scrc\+\_\+local\+\_\+out\+\_\+common} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$called)
+\item 
+static int {\bf scrc\+\_\+node\+\_\+12} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$called)
+\item 
+static int {\bf scrc\+\_\+node\+\_\+2} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$called)
+\item 
+static int {\bf scrc\+\_\+node\+\_\+7} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$called)
+\item 
+static int {\bf scrc\+\_\+node\+\_\+4} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua, uint32\+\_\+t return\+\_\+cause)
+\item 
+static int {\bf scrc\+\_\+translate\+\_\+node\+\_\+9} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$called)
+\item 
+static int {\bf scrc\+\_\+node\+\_\+6} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$called)
+\item 
+int {\bf sccp\+\_\+scrc\+\_\+rx\+\_\+scoc\+\_\+conn\+\_\+msg} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+int {\bf sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+int {\bf scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}!dpc\+\_\+accessible@{dpc\+\_\+accessible}}
+\index{dpc\+\_\+accessible@{dpc\+\_\+accessible}!sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}}
+\subsubsection[{dpc\+\_\+accessible(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, uint32\+\_\+t pc)}]{\setlength{\rightskip}{0pt plus 5cm}static bool dpc\+\_\+accessible (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{uint32\+\_\+t}]{pc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__scrc_8c_a5d01d5e6c84311a0882e49ad38eea70d}
+
+
+Referenced by scrc\+\_\+node\+\_\+2().
+
+\index{sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}!gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua@{gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua}}
+\index{gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua@{gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua}!sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}}
+\subsubsection[{gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua, const struct osmo\+\_\+sccp\+\_\+addr $\ast$called)}]{\setlength{\rightskip}{0pt plus 5cm}static int gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{called}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__scrc_8c_a380d89325d9e54afdc145da6dec83494}
+
+
+References osmo\+\_\+ss7\+\_\+route\+::as, osmo\+\_\+ss7\+\_\+linkset\+::cfg, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+route\+::dest, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::dpc, osmo\+\_\+ss7\+\_\+route\+::linkset, xua\+\_\+msg\+::mtp, osmo\+\_\+ss7\+\_\+linkset\+::name, osmo\+\_\+sccp\+\_\+addr\+\_\+dump(), O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+I\+PA, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+M3\+UA, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+S\+UA, osmo\+\_\+ss7\+\_\+route\+\_\+lookup(), osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, osmo\+\_\+ss7\+\_\+as\+::proto, osmo\+\_\+sccp\+\_\+instance\+::ss7, sua2sccp\+\_\+tx\+\_\+m3ua(), and sua\+\_\+tx\+\_\+xua\+\_\+as().
+
+
+
+Referenced by scrc\+\_\+node\+\_\+12().
+
+\index{sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}!sccp\+\_\+available@{sccp\+\_\+available}}
+\index{sccp\+\_\+available@{sccp\+\_\+available}!sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}}
+\subsubsection[{sccp\+\_\+available(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, const struct osmo\+\_\+sccp\+\_\+addr $\ast$addr)}]{\setlength{\rightskip}{0pt plus 5cm}static bool sccp\+\_\+available (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{addr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__scrc_8c_abbfd31c616112bb9f9c7cdb90f133bb2}
+
+
+Referenced by scrc\+\_\+node\+\_\+2().
+
+\index{sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}!sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg@{sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg}}
+\index{sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg@{sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg}!sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}}
+\subsubsection[{sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{sccp__scrc_8c_a8dc48be976019be4ab89019aabcb3bbc}
+
+
+References xua\+\_\+msg\+::hdr, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT, osmo\+\_\+sccp\+\_\+addr\+::ri, scrc\+\_\+local\+\_\+out\+\_\+common(), scrc\+\_\+node\+\_\+12(), scrc\+\_\+node\+\_\+7(), sua\+\_\+addr\+\_\+parse(), S\+U\+A\+\_\+\+C\+L\+\_\+\+C\+L\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+A\+D\+DR, xua\+\_\+dialect\+\_\+sua, and xua\+\_\+msg\+\_\+dump().
+
+
+
+Referenced by sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), and xua\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send().
+
+\index{sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}!sccp\+\_\+scrc\+\_\+rx\+\_\+scoc\+\_\+conn\+\_\+msg@{sccp\+\_\+scrc\+\_\+rx\+\_\+scoc\+\_\+conn\+\_\+msg}}
+\index{sccp\+\_\+scrc\+\_\+rx\+\_\+scoc\+\_\+conn\+\_\+msg@{sccp\+\_\+scrc\+\_\+rx\+\_\+scoc\+\_\+conn\+\_\+msg}!sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}}
+\subsubsection[{sccp\+\_\+scrc\+\_\+rx\+\_\+scoc\+\_\+conn\+\_\+msg(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+scrc\+\_\+rx\+\_\+scoc\+\_\+conn\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{sccp__scrc_8c_a15a6de5f59a65101717acc2d1597d955}
+
+
+References xua\+\_\+msg\+::hdr, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type, scrc\+\_\+local\+\_\+out\+\_\+common(), scrc\+\_\+node\+\_\+2(), sua\+\_\+addr\+\_\+parse(), S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+RE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+A\+D\+DR, xua\+\_\+dialect\+\_\+sua, and xua\+\_\+msg\+\_\+dump().
+
+
+
+Referenced by sccp\+\_\+scoc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), tx\+\_\+coerr\+\_\+from\+\_\+xua(), tx\+\_\+relco\+\_\+from\+\_\+xua(), tx\+\_\+rlsd\+\_\+from\+\_\+xua\+\_\+twoway(), xua\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(), and xua\+\_\+gen\+\_\+relre\+\_\+and\+\_\+send().
+
+\index{sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}!scrc\+\_\+local\+\_\+out\+\_\+common@{scrc\+\_\+local\+\_\+out\+\_\+common}}
+\index{scrc\+\_\+local\+\_\+out\+\_\+common@{scrc\+\_\+local\+\_\+out\+\_\+common}!sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}}
+\subsubsection[{scrc\+\_\+local\+\_\+out\+\_\+common(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua, const struct osmo\+\_\+sccp\+\_\+addr $\ast$called)}]{\setlength{\rightskip}{0pt plus 5cm}static int scrc\+\_\+local\+\_\+out\+\_\+common (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{called}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__scrc_8c_a0835707585d940ad8f6148dfc0aa5ab6}
+
+
+References O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+local(), osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, scrc\+\_\+node\+\_\+12(), scrc\+\_\+node\+\_\+4(), scrc\+\_\+node\+\_\+6(), scrc\+\_\+translate\+\_\+node\+\_\+9(), and osmo\+\_\+sccp\+\_\+instance\+::ss7.
+
+
+
+Referenced by sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg(), sccp\+\_\+scrc\+\_\+rx\+\_\+scoc\+\_\+conn\+\_\+msg(), and translate().
+
+\index{sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}!scrc\+\_\+node\+\_\+12@{scrc\+\_\+node\+\_\+12}}
+\index{scrc\+\_\+node\+\_\+12@{scrc\+\_\+node\+\_\+12}!sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}}
+\subsubsection[{scrc\+\_\+node\+\_\+12(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua, const struct osmo\+\_\+sccp\+\_\+addr $\ast$called)}]{\setlength{\rightskip}{0pt plus 5cm}static int scrc\+\_\+node\+\_\+12 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{called}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__scrc_8c_a11671f4f6423431dc065740c55cd57da}
+
+
+References gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua().
+
+
+
+Referenced by sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg(), scrc\+\_\+local\+\_\+out\+\_\+common(), scrc\+\_\+node\+\_\+2(), and scrc\+\_\+node\+\_\+7().
+
+\index{sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}!scrc\+\_\+node\+\_\+2@{scrc\+\_\+node\+\_\+2}}
+\index{scrc\+\_\+node\+\_\+2@{scrc\+\_\+node\+\_\+2}!sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}}
+\subsubsection[{scrc\+\_\+node\+\_\+2(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua, const struct osmo\+\_\+sccp\+\_\+addr $\ast$called)}]{\setlength{\rightskip}{0pt plus 5cm}static int scrc\+\_\+node\+\_\+2 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{called}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__scrc_8c_a22f86d81524d915991479f85a35e9f03}
+
+
+References dpc\+\_\+accessible(), osmo\+\_\+sccp\+\_\+addr\+::pc, sccp\+\_\+available(), sccp\+\_\+scoc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), and scrc\+\_\+node\+\_\+12().
+
+
+
+Referenced by sccp\+\_\+scrc\+\_\+rx\+\_\+scoc\+\_\+conn\+\_\+msg().
+
+\index{sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}!scrc\+\_\+node\+\_\+4@{scrc\+\_\+node\+\_\+4}}
+\index{scrc\+\_\+node\+\_\+4@{scrc\+\_\+node\+\_\+4}!sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}}
+\subsubsection[{scrc\+\_\+node\+\_\+4(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua, uint32\+\_\+t return\+\_\+cause)}]{\setlength{\rightskip}{0pt plus 5cm}static int scrc\+\_\+node\+\_\+4 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{uint32\+\_\+t}]{return\+\_\+cause}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__scrc_8c_af39d4dd94b6c39f8f58d38d8fb2aa2fc}
+
+
+References sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), sccp\+\_\+scoc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), and sua\+\_\+is\+\_\+connectionless().
+
+
+
+Referenced by scrc\+\_\+local\+\_\+out\+\_\+common(), scrc\+\_\+node\+\_\+6(), scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua(), and scrc\+\_\+translate\+\_\+node\+\_\+9().
+
+\index{sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}!scrc\+\_\+node\+\_\+6@{scrc\+\_\+node\+\_\+6}}
+\index{scrc\+\_\+node\+\_\+6@{scrc\+\_\+node\+\_\+6}!sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}}
+\subsubsection[{scrc\+\_\+node\+\_\+6(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua, const struct osmo\+\_\+sccp\+\_\+addr $\ast$called)}]{\setlength{\rightskip}{0pt plus 5cm}static int scrc\+\_\+node\+\_\+6 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{called}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__scrc_8c_af08b87cb11a415196c1facbfba464ceb}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+::pc, sccp\+\_\+sclc\+\_\+rx\+\_\+from\+\_\+scrc(), sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), sccp\+\_\+scoc\+\_\+rx\+\_\+from\+\_\+scrc(), sccp\+\_\+scoc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), sccp\+\_\+user\+\_\+find(), scrc\+\_\+node\+\_\+4(), osmo\+\_\+sccp\+\_\+addr\+::ssn, and sua\+\_\+is\+\_\+connectionless().
+
+
+
+Referenced by scrc\+\_\+local\+\_\+out\+\_\+common(), and scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua().
+
+\index{sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}!scrc\+\_\+node\+\_\+7@{scrc\+\_\+node\+\_\+7}}
+\index{scrc\+\_\+node\+\_\+7@{scrc\+\_\+node\+\_\+7}!sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}}
+\subsubsection[{scrc\+\_\+node\+\_\+7(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua, const struct osmo\+\_\+sccp\+\_\+addr $\ast$called)}]{\setlength{\rightskip}{0pt plus 5cm}static int scrc\+\_\+node\+\_\+7 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{called}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__scrc_8c_a070ac248c0dfa5a3de10492361c0e138}
+
+
+References scrc\+\_\+node\+\_\+12(), and sua\+\_\+is\+\_\+connectionless().
+
+
+
+Referenced by sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg(), and scrc\+\_\+translate\+\_\+node\+\_\+9().
+
+\index{sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}!scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua@{scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua}}
+\index{scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua@{scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua}!sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}}
+\subsubsection[{scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}int scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{sccp__scrc_8c_a52d608a935f14519bcf883fc7858145e}
+
+
+References xua\+\_\+msg\+\_\+part\+::dat, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT, osmo\+\_\+sccp\+\_\+addr\+::ri, sccp\+\_\+scoc\+\_\+rx\+\_\+from\+\_\+scrc(), scrc\+\_\+node\+\_\+4(), scrc\+\_\+node\+\_\+6(), scrc\+\_\+translate\+\_\+node\+\_\+9(), sua\+\_\+addr\+\_\+parse(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+O\+\_\+\+C\+L\+A\+SS, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S7\+\_\+\+H\+O\+P\+\_\+\+C\+TR, sua\+\_\+is\+\_\+connectionless(), sua\+\_\+is\+\_\+cr(), xua\+\_\+dialect\+\_\+sua, xua\+\_\+msg\+\_\+dump(), xua\+\_\+msg\+\_\+find\+\_\+tag(), xua\+\_\+msg\+\_\+free(), xua\+\_\+msg\+\_\+get\+\_\+u32(), and xua\+\_\+msg\+\_\+part\+\_\+get\+\_\+u32().
+
+
+
+Referenced by mtp\+\_\+user\+\_\+prim\+\_\+cb(), sua\+\_\+rx\+\_\+cl(), and sua\+\_\+rx\+\_\+co().
+
+\index{sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}!scrc\+\_\+translate\+\_\+node\+\_\+9@{scrc\+\_\+translate\+\_\+node\+\_\+9}}
+\index{scrc\+\_\+translate\+\_\+node\+\_\+9@{scrc\+\_\+translate\+\_\+node\+\_\+9}!sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}}
+\subsubsection[{scrc\+\_\+translate\+\_\+node\+\_\+9(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua, const struct osmo\+\_\+sccp\+\_\+addr $\ast$called)}]{\setlength{\rightskip}{0pt plus 5cm}static int scrc\+\_\+translate\+\_\+node\+\_\+9 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{called}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__scrc_8c_a685df4cbe1dd977b0ec71a07befb2849}
+
+
+References O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+local(), osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::ri, sccp\+\_\+sclc\+\_\+rx\+\_\+from\+\_\+scrc(), sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), sccp\+\_\+scoc\+\_\+rx\+\_\+from\+\_\+scrc(), scrc\+\_\+node\+\_\+4(), scrc\+\_\+node\+\_\+7(), osmo\+\_\+sccp\+\_\+instance\+::ss7, sua\+\_\+is\+\_\+connectionless(), and translate().
+
+
+
+Referenced by scrc\+\_\+local\+\_\+out\+\_\+common(), and scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua().
+
+\index{sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}!sua2sccp\+\_\+tx\+\_\+m3ua@{sua2sccp\+\_\+tx\+\_\+m3ua}}
+\index{sua2sccp\+\_\+tx\+\_\+m3ua@{sua2sccp\+\_\+tx\+\_\+m3ua}!sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}}
+\subsubsection[{sua2sccp\+\_\+tx\+\_\+m3ua(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$sua)}]{\setlength{\rightskip}{0pt plus 5cm}static int sua2sccp\+\_\+tx\+\_\+m3ua (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{sua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__scrc_8c_a191c01e789000adc5dd92e5420b95fdf}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::dpc, osmo\+\_\+ss7\+\_\+instance\+::id, xua\+\_\+msg\+::mtp, M\+T\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER, M\+T\+P\+\_\+\+S\+I\+\_\+\+S\+C\+CP, M\+T\+P\+\_\+\+S\+IO, osmo\+\_\+ss7\+\_\+instance\+::network\+\_\+indicator, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::opc, osmo\+\_\+mtp\+\_\+prim\+::oph, O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+T\+R\+A\+N\+S\+F\+ER, osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+valid(), osmo\+\_\+ss7\+\_\+user\+\_\+mtp\+\_\+xfer\+\_\+req(), osmo\+\_\+sua\+\_\+to\+\_\+sccp(), osmo\+\_\+ss7\+\_\+instance\+::primary\+\_\+pc, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::sio, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::sls, osmo\+\_\+sccp\+\_\+instance\+::ss7, osmo\+\_\+mtp\+\_\+prim\+::transfer, and osmo\+\_\+mtp\+\_\+prim\+::u.
+
+
+
+Referenced by gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua().
+
+\index{sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}!sua\+\_\+is\+\_\+connectionless@{sua\+\_\+is\+\_\+connectionless}}
+\index{sua\+\_\+is\+\_\+connectionless@{sua\+\_\+is\+\_\+connectionless}!sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}}
+\subsubsection[{sua\+\_\+is\+\_\+connectionless(struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static bool sua\+\_\+is\+\_\+connectionless (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__scrc_8c_a72d8bf1f591dfbf56d014bb1e20f98df}
+
+
+References xua\+\_\+msg\+::hdr, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class, and S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+CL.
+
+
+
+Referenced by scrc\+\_\+node\+\_\+4(), scrc\+\_\+node\+\_\+6(), scrc\+\_\+node\+\_\+7(), scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua(), and scrc\+\_\+translate\+\_\+node\+\_\+9().
+
+\index{sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}!sua\+\_\+is\+\_\+cr@{sua\+\_\+is\+\_\+cr}}
+\index{sua\+\_\+is\+\_\+cr@{sua\+\_\+is\+\_\+cr}!sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}}
+\subsubsection[{sua\+\_\+is\+\_\+cr(struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static bool sua\+\_\+is\+\_\+cr (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__scrc_8c_af6c0c460544dac169d3c06f4e9106258}
+
+
+References xua\+\_\+msg\+::hdr, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+RE, and S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+CO.
+
+
+
+Referenced by scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua().
+
+\index{sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}!translate@{translate}}
+\index{translate@{translate}!sccp\+\_\+scrc.\+c@{sccp\+\_\+scrc.\+c}}
+\subsubsection[{translate(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, const struct osmo\+\_\+sccp\+\_\+addr $\ast$called, struct osmo\+\_\+sccp\+\_\+addr $\ast$translated)}]{\setlength{\rightskip}{0pt plus 5cm}static int translate (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{called, }
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{translated}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__scrc_8c_ad93e25e7428c37f208160752d1112422}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::inst, and scrc\+\_\+local\+\_\+out\+\_\+common().
+
+
+
+Referenced by scrc\+\_\+translate\+\_\+node\+\_\+9().
+

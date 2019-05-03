@@ -1,0 +1,2035 @@
+\section{src/osmo\+\_\+ss7.c File Reference}
+\label{osmo__ss7_8c}\index{src/osmo\+\_\+ss7.\+c@{src/osmo\+\_\+ss7.\+c}}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$inttypes.\+h$>$}\\*
+{\ttfamily \#include $<$netdb.\+h$>$}\\*
+{\ttfamily \#include $<$netinet/in.\+h$>$}\\*
+{\ttfamily \#include $<$netinet/sctp.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/osmo\+\_\+ss7.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/mtp\+\_\+sap.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/mtp.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/sua.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/m3ua.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/linuxlist.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/select.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/utils.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/talloc.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/logging.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/msgb.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/socket.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/netif/stream.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/netif/ipa.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}sccp\+\_\+internal.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+internal.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+asp\+\_\+fsm.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+as\+\_\+fsm.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf M\+A\+X\+\_\+\+P\+C\+\_\+\+S\+T\+R\+\_\+\+L\+EN}~32
+\item 
+\#define {\bf L\+O\+G\+S\+S7}(inst,  level,  fmt,  args...)~L\+O\+GP(D\+L\+S\+S7, level, \char`\"{}\%u\+: \char`\"{} fmt, inst ? (inst)-\/$>$cfg.\+id \+: 0, \#\# args)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf L\+L\+I\+S\+T\+\_\+\+H\+E\+AD} ({\bf osmo\+\_\+ss7\+\_\+instances})
+\item 
+static int {\bf asp\+\_\+proto\+\_\+to\+\_\+ip\+\_\+proto} (enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol} proto)
+\item 
+int {\bf osmo\+\_\+ss7\+\_\+find\+\_\+free\+\_\+rctx} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst)
+\item 
+static uint32\+\_\+t {\bf find\+\_\+free\+\_\+l\+\_\+rk\+\_\+id} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst)
+\item 
+static int {\bf strnappendchar} (char $\ast$str, char c, size\+\_\+t n)
+\item 
+static const char $\ast$ {\bf gen\+\_\+pc\+\_\+fmtstr} (const struct {\bf osmo\+\_\+ss7\+\_\+pc\+\_\+fmt} $\ast$pc\+\_\+fmt, unsigned int $\ast$num\+\_\+comp\+\_\+exp)
+\item 
+static unsigned int {\bf num\+\_\+pc\+\_\+comp\+\_\+exp} (const struct {\bf osmo\+\_\+ss7\+\_\+pc\+\_\+fmt} $\ast$pc\+\_\+fmt)
+\item 
+uint8\+\_\+t {\bf osmo\+\_\+ss7\+\_\+pc\+\_\+width} (const struct {\bf osmo\+\_\+ss7\+\_\+pc\+\_\+fmt} $\ast$pc\+\_\+fmt)
+\item 
+static unsigned int {\bf get\+\_\+pc\+\_\+comp\+\_\+shift} (const struct {\bf osmo\+\_\+ss7\+\_\+pc\+\_\+fmt} $\ast$pc\+\_\+fmt, unsigned int comp\+\_\+num)
+\item 
+static uint32\+\_\+t {\bf pc\+\_\+comp\+\_\+shift\+\_\+and\+\_\+mask} (const struct {\bf osmo\+\_\+ss7\+\_\+pc\+\_\+fmt} $\ast$pc\+\_\+fmt, unsigned int comp\+\_\+num, uint32\+\_\+t pc)
+\item 
+int {\bf osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, const char $\ast$str)
+\item 
+const char $\ast$ {\bf \+\_\+osmo\+\_\+ss7\+\_\+pointcode\+\_\+print} (char $\ast$buf, size\+\_\+t {\bf len}, const struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, uint32\+\_\+t pc)
+\item 
+const char $\ast$ {\bf osmo\+\_\+ss7\+\_\+pointcode\+\_\+print} (const struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, uint32\+\_\+t pc)
+\item 
+const char $\ast$ {\bf osmo\+\_\+ss7\+\_\+pointcode\+\_\+print2} (const struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, uint32\+\_\+t pc)
+\item 
+int {\bf osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse\+\_\+mask\+\_\+or\+\_\+len} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, const char $\ast$in)
+\item 
+int {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+port} (enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol} prot)
+\item 
+struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$ {\bf osmo\+\_\+ss7\+\_\+instance\+\_\+find} (uint32\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Find a S\+S7 Instance with given ID. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$ {\bf osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create} (void $\ast$ctx, uint32\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Find or create a S\+S7 Instance. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+ss7\+\_\+instance\+\_\+destroy} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst)
+\begin{DoxyCompactList}\small\item\em Destroy a S\+S7 Instance. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+ss7\+\_\+instance\+\_\+set\+\_\+pc\+\_\+fmt} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, uint8\+\_\+t c0, uint8\+\_\+t c1, uint8\+\_\+t c2)
+\begin{DoxyCompactList}\small\item\em Set the point code format used in given S\+S7 instance. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+ss7\+\_\+instance\+\_\+bind} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst)
+\begin{DoxyCompactList}\small\item\em bind all x\+UA servers belonging to an S\+S7 Instance \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+ss7\+\_\+bind\+\_\+all\+\_\+instances} ()
+\begin{DoxyCompactList}\small\item\em bind all x\+UA servers on each of the stored S\+S7 instances \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$ {\bf osmo\+\_\+ss7\+\_\+ensure\+\_\+sccp} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst)
+\begin{DoxyCompactList}\small\item\em Allocate an S\+C\+CP instance, if not present yet. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+ss7\+\_\+user\+\_\+register} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, uint8\+\_\+t service\+\_\+ind, struct {\bf osmo\+\_\+ss7\+\_\+user} $\ast$user)
+\begin{DoxyCompactList}\small\item\em Register a M\+TP user for a given service indicator. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+ss7\+\_\+user\+\_\+unregister} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, uint8\+\_\+t service\+\_\+ind, struct {\bf osmo\+\_\+ss7\+\_\+user} $\ast$user)
+\begin{DoxyCompactList}\small\item\em Unregister a M\+TP user for a given service indicator. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+ss7\+\_\+mtp\+\_\+to\+\_\+user} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, struct {\bf osmo\+\_\+mtp\+\_\+prim} $\ast$omp)
+\item 
+void {\bf osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy} (struct {\bf osmo\+\_\+ss7\+\_\+linkset} $\ast$lset)
+\begin{DoxyCompactList}\small\item\em Destroy a S\+S7 Linkset. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+ss7\+\_\+linkset} $\ast$ {\bf osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+by\+\_\+name} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, const char $\ast$name)
+\begin{DoxyCompactList}\small\item\em Find S\+S7 Linkset by given name. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+ss7\+\_\+linkset} $\ast$ {\bf osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+or\+\_\+create} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, const char $\ast$name, uint32\+\_\+t pc)
+\begin{DoxyCompactList}\small\item\em Find or allocate S\+S7 Linkset. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+ss7\+\_\+link\+\_\+destroy} (struct {\bf osmo\+\_\+ss7\+\_\+link} $\ast$link)
+\begin{DoxyCompactList}\small\item\em Destryo S\+S7 Link. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+ss7\+\_\+link} $\ast$ {\bf osmo\+\_\+ss7\+\_\+link\+\_\+find\+\_\+or\+\_\+create} (struct {\bf osmo\+\_\+ss7\+\_\+linkset} $\ast$lset, uint32\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Find or create S\+S7 Link with given ID in given Linkset. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$ {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, const char $\ast$name)
+\item 
+struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$ {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find\+\_\+or\+\_\+create} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, const char $\ast$name)
+\item 
+void {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+destroy} (struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$rtbl)
+\item 
+struct {\bf osmo\+\_\+ss7\+\_\+route} $\ast$ {\bf osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc} (struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$rtbl, uint32\+\_\+t {\bf dpc})
+\begin{DoxyCompactList}\small\item\em Find a S\+S7 route for given destination point code in given table. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+ss7\+\_\+route} $\ast$ {\bf osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc\+\_\+mask} (struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$rtbl, uint32\+\_\+t {\bf dpc}, uint32\+\_\+t mask)
+\begin{DoxyCompactList}\small\item\em Find a S\+S7 route for given destination point code + mask in given table. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+ss7\+\_\+route} $\ast$ {\bf osmo\+\_\+ss7\+\_\+route\+\_\+lookup} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, uint32\+\_\+t {\bf dpc})
+\begin{DoxyCompactList}\small\item\em Find a S\+S7 route for given destination point code in given S\+S7. \end{DoxyCompactList}\item 
+static void {\bf route\+\_\+insert\+\_\+sorted} (struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$rtbl, struct {\bf osmo\+\_\+ss7\+\_\+route} $\ast$cmp)
+\item 
+struct {\bf osmo\+\_\+ss7\+\_\+route} $\ast$ {\bf osmo\+\_\+ss7\+\_\+route\+\_\+create} (struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$rtbl, uint32\+\_\+t pc, uint32\+\_\+t mask, const char $\ast$linkset\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Create a new route in the given routing table. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+ss7\+\_\+route\+\_\+destroy} (struct {\bf osmo\+\_\+ss7\+\_\+route} $\ast$rt)
+\begin{DoxyCompactList}\small\item\em Destroy a given S\+S7 route. \end{DoxyCompactList}\item 
+static unsigned int {\bf count\+\_\+leading\+\_\+one\+\_\+bits} (uint32\+\_\+t inp, unsigned int nbits)
+\item 
+static int {\bf u32\+\_\+masklen} (uint32\+\_\+t mask, unsigned int nbits)
+\item 
+const char $\ast$ {\bf osmo\+\_\+ss7\+\_\+route\+\_\+print} (const struct {\bf osmo\+\_\+ss7\+\_\+route} $\ast$rt)
+\item 
+struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$ {\bf osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+name} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, const char $\ast$name)
+\begin{DoxyCompactList}\small\item\em Find Application Server by given name. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$ {\bf osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+rctx} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, uint32\+\_\+t rctx)
+\begin{DoxyCompactList}\small\item\em Find Application Server by given routing context. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$ {\bf osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+l\+\_\+rk\+\_\+id} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, uint32\+\_\+t l\+\_\+rk\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Find Application Server by given local routing key ID. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$ {\bf osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+proto} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol} proto)
+\begin{DoxyCompactList}\small\item\em Find Application Server (AS) by given protocol. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$ {\bf osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+or\+\_\+create} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, const char $\ast$name, enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol} proto)
+\begin{DoxyCompactList}\small\item\em Find or Create Application Server. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+ss7\+\_\+as\+\_\+add\+\_\+asp} (struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$as, const char $\ast$asp\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Add given A\+SP to given AS. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+ss7\+\_\+as\+\_\+del\+\_\+asp} (struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$as, const char $\ast$asp\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Delete given A\+SP from given AS. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+ss7\+\_\+as\+\_\+destroy} (struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$as)
+\begin{DoxyCompactList}\small\item\em Destroy given Application Server. \end{DoxyCompactList}\item 
+bool {\bf osmo\+\_\+ss7\+\_\+as\+\_\+has\+\_\+asp} (struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$as, struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp)
+\begin{DoxyCompactList}\small\item\em Determine if given AS contains A\+SP. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$ {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+name} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, const char $\ast$name)
+\item 
+static uint16\+\_\+t {\bf get\+\_\+in\+\_\+port} (struct sockaddr $\ast$sa)
+\item 
+static struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$ {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+socket\+\_\+addr} (int fd)
+\begin{DoxyCompactList}\small\item\em Find an A\+SP definition matching the local+remote I\+P/\+P\+O\+RT of given fd. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$ {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+proto} (struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$as, enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol} proto)
+\begin{DoxyCompactList}\small\item\em Find an A\+SP that matches the given protocol. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$ {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+or\+\_\+create} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, const char $\ast$name, uint16\+\_\+t remote\+\_\+port, uint16\+\_\+t local\+\_\+port, enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol} proto)
+\item 
+void {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+destroy} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp)
+\item 
+static int {\bf xua\+\_\+cli\+\_\+read\+\_\+cb} (struct osmo\+\_\+stream\+\_\+cli $\ast$conn)
+\item 
+static int {\bf ipa\+\_\+cli\+\_\+read\+\_\+cb} (struct osmo\+\_\+stream\+\_\+cli $\ast$conn)
+\item 
+static int {\bf xua\+\_\+cli\+\_\+connect\+\_\+cb} (struct osmo\+\_\+stream\+\_\+cli $\ast$cli)
+\item 
+int {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+restart} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp)
+\item 
+static int {\bf get\+\_\+logevel\+\_\+by\+\_\+sn\+\_\+type} (int sn\+\_\+type)
+\item 
+static void {\bf log\+\_\+sctp\+\_\+notification} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, const char $\ast$pfx, union sctp\+\_\+notification $\ast$notif)
+\item 
+static int {\bf ipa\+\_\+srv\+\_\+conn\+\_\+cb} (struct osmo\+\_\+stream\+\_\+srv $\ast$conn)
+\item 
+static int {\bf xua\+\_\+srv\+\_\+conn\+\_\+cb} (struct osmo\+\_\+stream\+\_\+srv $\ast$conn)
+\item 
+static void {\bf xua\+\_\+cli\+\_\+close} (struct osmo\+\_\+stream\+\_\+cli $\ast$cli)
+\item 
+static void {\bf xua\+\_\+cli\+\_\+close\+\_\+and\+\_\+reconnect} (struct osmo\+\_\+stream\+\_\+cli $\ast$cli)
+\item 
+static int {\bf xua\+\_\+srv\+\_\+conn\+\_\+closed\+\_\+cb} (struct osmo\+\_\+stream\+\_\+srv $\ast$srv)
+\item 
+static int {\bf xua\+\_\+accept\+\_\+cb} (struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$link, int fd)
+\item 
+int {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+send} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em send a fully encoded msgb via a given A\+SP \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+disconnect} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp)
+\item 
+struct {\bf osmo\+\_\+xua\+\_\+server} $\ast$ {\bf osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+find} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol} proto, uint16\+\_\+t local\+\_\+port)
+\item 
+struct {\bf osmo\+\_\+xua\+\_\+server} $\ast$ {\bf osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol} proto, uint16\+\_\+t local\+\_\+port, const char $\ast$local\+\_\+host)
+\begin{DoxyCompactList}\small\item\em create a new x\+UA server configured with given ip/port \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+bind} (struct {\bf osmo\+\_\+xua\+\_\+server} $\ast$xs)
+\begin{DoxyCompactList}\small\item\em Set the x\+UA server to bind/listen to the currently configured ip/port. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+set\+\_\+local\+\_\+host} (struct {\bf osmo\+\_\+xua\+\_\+server} $\ast$xs, const char $\ast$local\+\_\+host)
+\item 
+void {\bf osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+destroy} (struct {\bf osmo\+\_\+xua\+\_\+server} $\ast$xs)
+\item 
+bool {\bf osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+local} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, uint32\+\_\+t pc)
+\item 
+int {\bf osmo\+\_\+ss7\+\_\+init} (void)
+\item 
+int {\bf osmo\+\_\+ss7\+\_\+tmode\+\_\+to\+\_\+xua} (enum {\bf osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode} tmod)
+\item 
+enum {\bf osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode} {\bf osmo\+\_\+ss7\+\_\+tmode\+\_\+from\+\_\+xua} (uint32\+\_\+t in)
+\item 
+int {\bf ss7\+\_\+asp\+\_\+rx\+\_\+unknown} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, int ppid\+\_\+mux, struct msgb $\ast$msg)
+\item 
+void {\bf osmo\+\_\+ss7\+\_\+register\+\_\+rx\+\_\+unknown\+\_\+cb} ({\bf osmo\+\_\+ss7\+\_\+asp\+\_\+rx\+\_\+unknown\+\_\+cb} $\ast$cb)
+\begin{DoxyCompactList}\small\item\em Register a call-\/back function for unknown S\+C\+TP P\+P\+ID / I\+PA Stream ID. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static bool {\bf ss7\+\_\+initialized} = false
+\item 
+static int32\+\_\+t {\bf next\+\_\+rctx} = 1
+\item 
+static int32\+\_\+t {\bf next\+\_\+l\+\_\+rk\+\_\+id} = 1
+\item 
+struct value\+\_\+string {\bf osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode\+\_\+vals} [$\,$]
+\item 
+struct value\+\_\+string {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+vals} [$\,$]
+\item 
+static const struct {\bf osmo\+\_\+ss7\+\_\+pc\+\_\+fmt} {\bf default\+\_\+pc\+\_\+fmt}
+\item 
+static const uint16\+\_\+t {\bf prot2port} [$\,$]
+\item 
+static const struct value\+\_\+string {\bf sctp\+\_\+assoc\+\_\+chg\+\_\+vals} [$\,$]
+\item 
+static const struct value\+\_\+string {\bf sctp\+\_\+sn\+\_\+type\+\_\+vals} [$\,$]
+\item 
+static {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+rx\+\_\+unknown\+\_\+cb} $\ast$ {\bf g\+\_\+osmo\+\_\+ss7\+\_\+asp\+\_\+rx\+\_\+unknown\+\_\+cb}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!L\+O\+G\+S\+S7@{L\+O\+G\+S\+S7}}
+\index{L\+O\+G\+S\+S7@{L\+O\+G\+S\+S7}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{L\+O\+G\+S\+S7}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+O\+G\+S\+S7(
+\begin{DoxyParamCaption}
+\item[{}]{inst, }
+\item[{}]{level, }
+\item[{}]{fmt, }
+\item[{}]{args...}
+\end{DoxyParamCaption}
+)~L\+O\+GP(D\+L\+S\+S7, level, \char`\"{}\%u\+: \char`\"{} fmt, inst ? (inst)-\/$>$cfg.\+id \+: 0, \#\# args)}\label{osmo__ss7_8c_a46d3176ed944eb79d82cfa86d801aef0}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+as\+\_\+add\+\_\+asp(), osmo\+\_\+ss7\+\_\+as\+\_\+del\+\_\+asp(), osmo\+\_\+ss7\+\_\+as\+\_\+destroy(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+asp\+\_\+destroy(), osmo\+\_\+ss7\+\_\+asp\+\_\+restart(), osmo\+\_\+ss7\+\_\+bind\+\_\+all\+\_\+instances(), osmo\+\_\+ss7\+\_\+ensure\+\_\+sccp(), osmo\+\_\+ss7\+\_\+instance\+\_\+bind(), osmo\+\_\+ss7\+\_\+instance\+\_\+destroy(), osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+instance\+\_\+set\+\_\+pc\+\_\+fmt(), osmo\+\_\+ss7\+\_\+link\+\_\+destroy(), osmo\+\_\+ss7\+\_\+link\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy(), osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse(), osmo\+\_\+ss7\+\_\+route\+\_\+create(), and osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find\+\_\+or\+\_\+create().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!M\+A\+X\+\_\+\+P\+C\+\_\+\+S\+T\+R\+\_\+\+L\+EN@{M\+A\+X\+\_\+\+P\+C\+\_\+\+S\+T\+R\+\_\+\+L\+EN}}
+\index{M\+A\+X\+\_\+\+P\+C\+\_\+\+S\+T\+R\+\_\+\+L\+EN@{M\+A\+X\+\_\+\+P\+C\+\_\+\+S\+T\+R\+\_\+\+L\+EN}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{M\+A\+X\+\_\+\+P\+C\+\_\+\+S\+T\+R\+\_\+\+L\+EN}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+P\+C\+\_\+\+S\+T\+R\+\_\+\+L\+EN~32}\label{osmo__ss7_8c_aa23a2021f836728938fefac9cca3aec5}
+
+
+Referenced by gen\+\_\+pc\+\_\+fmtstr(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), and osmo\+\_\+ss7\+\_\+pointcode\+\_\+print2().
+
+
+
+\subsection{Function Documentation}
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!\+\_\+osmo\+\_\+ss7\+\_\+pointcode\+\_\+print@{\+\_\+osmo\+\_\+ss7\+\_\+pointcode\+\_\+print}}
+\index{\+\_\+osmo\+\_\+ss7\+\_\+pointcode\+\_\+print@{\+\_\+osmo\+\_\+ss7\+\_\+pointcode\+\_\+print}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{\+\_\+osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(char $\ast$buf, size\+\_\+t len, const struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, uint32\+\_\+t pc)}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \+\_\+osmo\+\_\+ss7\+\_\+pointcode\+\_\+print (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buf, }
+\item[{size\+\_\+t}]{len, }
+\item[{const struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{uint32\+\_\+t}]{pc}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a31745f863c4183c700c487bdaa3289af}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, default\+\_\+pc\+\_\+fmt, gen\+\_\+pc\+\_\+fmtstr(), num\+\_\+pc\+\_\+comp\+\_\+exp(), osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+valid(), pc\+\_\+comp\+\_\+shift\+\_\+and\+\_\+mask(), and osmo\+\_\+ss7\+\_\+instance\+::pc\+\_\+fmt.
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), and osmo\+\_\+ss7\+\_\+pointcode\+\_\+print2().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!asp\+\_\+proto\+\_\+to\+\_\+ip\+\_\+proto@{asp\+\_\+proto\+\_\+to\+\_\+ip\+\_\+proto}}
+\index{asp\+\_\+proto\+\_\+to\+\_\+ip\+\_\+proto@{asp\+\_\+proto\+\_\+to\+\_\+ip\+\_\+proto}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{asp\+\_\+proto\+\_\+to\+\_\+ip\+\_\+proto(enum osmo\+\_\+ss7\+\_\+asp\+\_\+protocol proto)}]{\setlength{\rightskip}{0pt plus 5cm}static int asp\+\_\+proto\+\_\+to\+\_\+ip\+\_\+proto (
+\begin{DoxyParamCaption}
+\item[{enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol}}]{proto}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_a68178dac90c05dd5be1c90319a9cba5c}
+
+
+References O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+I\+PA, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+M3\+UA, and O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+S\+UA.
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+asp\+\_\+restart(), and osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!count\+\_\+leading\+\_\+one\+\_\+bits@{count\+\_\+leading\+\_\+one\+\_\+bits}}
+\index{count\+\_\+leading\+\_\+one\+\_\+bits@{count\+\_\+leading\+\_\+one\+\_\+bits}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{count\+\_\+leading\+\_\+one\+\_\+bits(uint32\+\_\+t inp, unsigned int nbits)}]{\setlength{\rightskip}{0pt plus 5cm}static unsigned int count\+\_\+leading\+\_\+one\+\_\+bits (
+\begin{DoxyParamCaption}
+\item[{uint32\+\_\+t}]{inp, }
+\item[{unsigned int}]{nbits}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_a6f2fdcae0d3e5278f51ab44f674ab0eb}
+
+
+Referenced by u32\+\_\+masklen().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!find\+\_\+free\+\_\+l\+\_\+rk\+\_\+id@{find\+\_\+free\+\_\+l\+\_\+rk\+\_\+id}}
+\index{find\+\_\+free\+\_\+l\+\_\+rk\+\_\+id@{find\+\_\+free\+\_\+l\+\_\+rk\+\_\+id}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{find\+\_\+free\+\_\+l\+\_\+rk\+\_\+id(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst)}]{\setlength{\rightskip}{0pt plus 5cm}static uint32\+\_\+t find\+\_\+free\+\_\+l\+\_\+rk\+\_\+id (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_ac3283617c1add6cfe7c7b24c34cd2dd2}
+
+
+References next\+\_\+l\+\_\+rk\+\_\+id, and osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+l\+\_\+rk\+\_\+id().
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+or\+\_\+create().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!gen\+\_\+pc\+\_\+fmtstr@{gen\+\_\+pc\+\_\+fmtstr}}
+\index{gen\+\_\+pc\+\_\+fmtstr@{gen\+\_\+pc\+\_\+fmtstr}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{gen\+\_\+pc\+\_\+fmtstr(const struct osmo\+\_\+ss7\+\_\+pc\+\_\+fmt $\ast$pc\+\_\+fmt, unsigned int $\ast$num\+\_\+comp\+\_\+exp)}]{\setlength{\rightskip}{0pt plus 5cm}static const char$\ast$ gen\+\_\+pc\+\_\+fmtstr (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+ss7\+\_\+pc\+\_\+fmt} $\ast$}]{pc\+\_\+fmt, }
+\item[{unsigned int $\ast$}]{num\+\_\+comp\+\_\+exp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_a84bdb04295695aa8fe701c0178fe9b61}
+
+
+References osmo\+\_\+ss7\+\_\+pc\+\_\+fmt\+::component\+\_\+len, osmo\+\_\+ss7\+\_\+pc\+\_\+fmt\+::delimiter, M\+A\+X\+\_\+\+P\+C\+\_\+\+S\+T\+R\+\_\+\+L\+EN, and strnappendchar().
+
+
+
+Referenced by \+\_\+osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), and osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!get\+\_\+in\+\_\+port@{get\+\_\+in\+\_\+port}}
+\index{get\+\_\+in\+\_\+port@{get\+\_\+in\+\_\+port}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{get\+\_\+in\+\_\+port(struct sockaddr $\ast$sa)}]{\setlength{\rightskip}{0pt plus 5cm}static uint16\+\_\+t get\+\_\+in\+\_\+port (
+\begin{DoxyParamCaption}
+\item[{struct sockaddr $\ast$}]{sa}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_a1f18cc9a880d46df3c5db7b760fdc305}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+socket\+\_\+addr().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!get\+\_\+logevel\+\_\+by\+\_\+sn\+\_\+type@{get\+\_\+logevel\+\_\+by\+\_\+sn\+\_\+type}}
+\index{get\+\_\+logevel\+\_\+by\+\_\+sn\+\_\+type@{get\+\_\+logevel\+\_\+by\+\_\+sn\+\_\+type}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{get\+\_\+logevel\+\_\+by\+\_\+sn\+\_\+type(int sn\+\_\+type)}]{\setlength{\rightskip}{0pt plus 5cm}static int get\+\_\+logevel\+\_\+by\+\_\+sn\+\_\+type (
+\begin{DoxyParamCaption}
+\item[{int}]{sn\+\_\+type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_adf98277fedb099f019d3f59d8b0e96c8}
+
+
+Referenced by log\+\_\+sctp\+\_\+notification().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!get\+\_\+pc\+\_\+comp\+\_\+shift@{get\+\_\+pc\+\_\+comp\+\_\+shift}}
+\index{get\+\_\+pc\+\_\+comp\+\_\+shift@{get\+\_\+pc\+\_\+comp\+\_\+shift}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{get\+\_\+pc\+\_\+comp\+\_\+shift(const struct osmo\+\_\+ss7\+\_\+pc\+\_\+fmt $\ast$pc\+\_\+fmt, unsigned int comp\+\_\+num)}]{\setlength{\rightskip}{0pt plus 5cm}static unsigned int get\+\_\+pc\+\_\+comp\+\_\+shift (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+ss7\+\_\+pc\+\_\+fmt} $\ast$}]{pc\+\_\+fmt, }
+\item[{unsigned int}]{comp\+\_\+num}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_ae2dc16490ad0d3a263aa80160bc36828}
+
+
+References osmo\+\_\+ss7\+\_\+pc\+\_\+fmt\+::component\+\_\+len, and osmo\+\_\+ss7\+\_\+pc\+\_\+width().
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse(), and pc\+\_\+comp\+\_\+shift\+\_\+and\+\_\+mask().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!ipa\+\_\+cli\+\_\+read\+\_\+cb@{ipa\+\_\+cli\+\_\+read\+\_\+cb}}
+\index{ipa\+\_\+cli\+\_\+read\+\_\+cb@{ipa\+\_\+cli\+\_\+read\+\_\+cb}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{ipa\+\_\+cli\+\_\+read\+\_\+cb(struct osmo\+\_\+stream\+\_\+cli $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}static int ipa\+\_\+cli\+\_\+read\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+stream\+\_\+cli $\ast$}]{conn}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_aca0ca16b7197a37d803008607d3e7cd5}
+
+
+References ipa\+\_\+rx\+\_\+msg(), L\+O\+G\+P\+A\+SP, osmo\+\_\+ss7\+\_\+asp\+::pending\+\_\+msg, and xua\+\_\+cli\+\_\+close\+\_\+and\+\_\+reconnect().
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+asp\+\_\+destroy(), and osmo\+\_\+ss7\+\_\+asp\+\_\+restart().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!ipa\+\_\+srv\+\_\+conn\+\_\+cb@{ipa\+\_\+srv\+\_\+conn\+\_\+cb}}
+\index{ipa\+\_\+srv\+\_\+conn\+\_\+cb@{ipa\+\_\+srv\+\_\+conn\+\_\+cb}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{ipa\+\_\+srv\+\_\+conn\+\_\+cb(struct osmo\+\_\+stream\+\_\+srv $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}static int ipa\+\_\+srv\+\_\+conn\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+stream\+\_\+srv $\ast$}]{conn}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_a4c61dbd6adb30240082c47dd9b842af1}
+
+
+References ipa\+\_\+rx\+\_\+msg(), L\+O\+G\+P\+A\+SP, and osmo\+\_\+ss7\+\_\+asp\+::pending\+\_\+msg.
+
+
+
+Referenced by xua\+\_\+accept\+\_\+cb().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!L\+L\+I\+S\+T\+\_\+\+H\+E\+AD@{L\+L\+I\+S\+T\+\_\+\+H\+E\+AD}}
+\index{L\+L\+I\+S\+T\+\_\+\+H\+E\+AD@{L\+L\+I\+S\+T\+\_\+\+H\+E\+AD}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{L\+L\+I\+S\+T\+\_\+\+H\+E\+A\+D(osmo\+\_\+ss7\+\_\+instances)}]{\setlength{\rightskip}{0pt plus 5cm}L\+L\+I\+S\+T\+\_\+\+H\+E\+AD (
+\begin{DoxyParamCaption}
+\item[{{\bf osmo\+\_\+ss7\+\_\+instances}}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a9f0ebdc6d2b270403d8616275fa12314}
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!log\+\_\+sctp\+\_\+notification@{log\+\_\+sctp\+\_\+notification}}
+\index{log\+\_\+sctp\+\_\+notification@{log\+\_\+sctp\+\_\+notification}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{log\+\_\+sctp\+\_\+notification(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, const char $\ast$pfx, union sctp\+\_\+notification $\ast$notif)}]{\setlength{\rightskip}{0pt plus 5cm}static void log\+\_\+sctp\+\_\+notification (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{const char $\ast$}]{pfx, }
+\item[{union sctp\+\_\+notification $\ast$}]{notif}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_ad36aebefc2d00d1122549c69a37b413a}
+
+
+References get\+\_\+logevel\+\_\+by\+\_\+sn\+\_\+type(), L\+O\+G\+P\+A\+SP, sctp\+\_\+assoc\+\_\+chg\+\_\+vals, and sctp\+\_\+sn\+\_\+type\+\_\+vals.
+
+
+
+Referenced by xua\+\_\+cli\+\_\+read\+\_\+cb(), and xua\+\_\+srv\+\_\+conn\+\_\+cb().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!num\+\_\+pc\+\_\+comp\+\_\+exp@{num\+\_\+pc\+\_\+comp\+\_\+exp}}
+\index{num\+\_\+pc\+\_\+comp\+\_\+exp@{num\+\_\+pc\+\_\+comp\+\_\+exp}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{num\+\_\+pc\+\_\+comp\+\_\+exp(const struct osmo\+\_\+ss7\+\_\+pc\+\_\+fmt $\ast$pc\+\_\+fmt)}]{\setlength{\rightskip}{0pt plus 5cm}static unsigned int num\+\_\+pc\+\_\+comp\+\_\+exp (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+ss7\+\_\+pc\+\_\+fmt} $\ast$}]{pc\+\_\+fmt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_abf3c0ef5eb29ad67de6ea862d7e2cfed}
+
+
+References osmo\+\_\+ss7\+\_\+pc\+\_\+fmt\+::component\+\_\+len.
+
+
+
+Referenced by \+\_\+osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), and osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+as\+\_\+add\+\_\+asp@{osmo\+\_\+ss7\+\_\+as\+\_\+add\+\_\+asp}}
+\index{osmo\+\_\+ss7\+\_\+as\+\_\+add\+\_\+asp@{osmo\+\_\+ss7\+\_\+as\+\_\+add\+\_\+asp}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+as\+\_\+add\+\_\+asp(struct osmo\+\_\+ss7\+\_\+as $\ast$as, const char $\ast$asp\+\_\+name)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+as\+\_\+add\+\_\+asp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$}]{as, }
+\item[{const char $\ast$}]{asp\+\_\+name}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a01392ccbfd2fd93d962dcd7bd8037526}
+
+
+Add given A\+SP to given AS. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em as} & Application Server to which asp is added \\
+\hline
+\mbox{\tt in}  & {\em asp} & Application Server Process to be added to as \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative in case of error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::asps, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+as\+::inst, L\+O\+G\+S\+S7, osmo\+\_\+ss7\+\_\+as\+::name, osmo\+\_\+ss7\+\_\+asp\+::name, osmo\+\_\+ss7\+\_\+as\+\_\+has\+\_\+asp(), osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+name(), and ss7\+\_\+initialized.
+
+
+
+Referenced by D\+E\+F\+U\+N(), handle\+\_\+rkey\+\_\+reg(), ipa\+\_\+asp\+\_\+fsm\+\_\+wait\+\_\+id\+\_\+resp(), osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), and osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+as\+\_\+del\+\_\+asp@{osmo\+\_\+ss7\+\_\+as\+\_\+del\+\_\+asp}}
+\index{osmo\+\_\+ss7\+\_\+as\+\_\+del\+\_\+asp@{osmo\+\_\+ss7\+\_\+as\+\_\+del\+\_\+asp}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+as\+\_\+del\+\_\+asp(struct osmo\+\_\+ss7\+\_\+as $\ast$as, const char $\ast$asp\+\_\+name)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+as\+\_\+del\+\_\+asp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$}]{as, }
+\item[{const char $\ast$}]{asp\+\_\+name}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_aca9bfa652d15609a904653398e17c5e9}
+
+
+Delete given A\+SP from given AS. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em as} & Application Server from which asp is deleted \\
+\hline
+\mbox{\tt in}  & {\em asp} & Application Server Process to delete from as \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative in case of error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::asps, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+as\+::inst, L\+O\+G\+S\+S7, osmo\+\_\+ss7\+\_\+as\+::name, osmo\+\_\+ss7\+\_\+asp\+::name, osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+name(), and ss7\+\_\+initialized.
+
+
+
+Referenced by D\+E\+F\+U\+N(), and handle\+\_\+rkey\+\_\+dereg().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+as\+\_\+destroy@{osmo\+\_\+ss7\+\_\+as\+\_\+destroy}}
+\index{osmo\+\_\+ss7\+\_\+as\+\_\+destroy@{osmo\+\_\+ss7\+\_\+as\+\_\+destroy}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+as\+\_\+destroy(struct osmo\+\_\+ss7\+\_\+as $\ast$as)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+ss7\+\_\+as\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$}]{as}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_afe830a3d827c8c9ff36bf04e0428ad79}
+
+
+Destroy given Application Server. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em as} & Application Server to destroy \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+ss7\+\_\+route\+::as, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+route\+::dest, osmo\+\_\+ss7\+\_\+as\+::fi, osmo\+\_\+ss7\+\_\+as\+::inst, osmo\+\_\+ss7\+\_\+route\+::list, osmo\+\_\+ss7\+\_\+as\+::list, L\+O\+G\+S\+S7, osmo\+\_\+ss7\+\_\+as\+::name, osmo\+\_\+ss7\+\_\+route\+\_\+destroy(), osmo\+\_\+ss7\+\_\+route\+\_\+table\+::routes, osmo\+\_\+ss7\+\_\+instance\+::rtable\+\_\+system, and ss7\+\_\+initialized.
+
+
+
+Referenced by D\+E\+F\+U\+N(), handle\+\_\+rkey\+\_\+dereg(), handle\+\_\+rkey\+\_\+reg(), osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt(), osmo\+\_\+ss7\+\_\+instance\+\_\+destroy(), and xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+l\+\_\+rk\+\_\+id@{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+l\+\_\+rk\+\_\+id}}
+\index{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+l\+\_\+rk\+\_\+id@{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+l\+\_\+rk\+\_\+id}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+l\+\_\+rk\+\_\+id(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, uint32\+\_\+t l\+\_\+rk\+\_\+id)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+as}$\ast$ osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+l\+\_\+rk\+\_\+id (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{uint32\+\_\+t}]{l\+\_\+rk\+\_\+id}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a56ae45e9be46eeb7b2f6db004737aefd}
+
+
+Find Application Server by given local routing key ID. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+S7 Instance on which we operate \\
+\hline
+\mbox{\tt in}  & {\em l\+\_\+rk\+\_\+id} & Local Routing Key ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to Application Server on success; N\+U\+LL otherwise 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::as\+\_\+list, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::l\+\_\+rk\+\_\+id, osmo\+\_\+ss7\+\_\+as\+::list, osmo\+\_\+ss7\+\_\+as\+::routing\+\_\+key, and ss7\+\_\+initialized.
+
+
+
+Referenced by find\+\_\+free\+\_\+l\+\_\+rk\+\_\+id(), and handle\+\_\+reg\+\_\+conf().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+name@{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+name}}
+\index{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+name@{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+name}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+name(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, const char $\ast$name)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+as}$\ast$ osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_aab3eea89500c0e7960c0608f806409a9}
+
+
+Find Application Server by given name. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+S7 Instance on which we operate \\
+\hline
+\mbox{\tt in}  & {\em name} & Name of AS \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to Application Server on success; N\+U\+LL otherwise 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::as\+\_\+list, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+as\+::list, osmo\+\_\+ss7\+\_\+as\+::name, and ss7\+\_\+initialized.
+
+
+
+Referenced by D\+E\+F\+U\+N(), ipa\+\_\+asp\+\_\+fsm\+\_\+wait\+\_\+id\+\_\+resp(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+or\+\_\+create(), and osmo\+\_\+ss7\+\_\+route\+\_\+create().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+proto@{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+proto}}
+\index{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+proto@{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+proto}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+proto(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, enum osmo\+\_\+ss7\+\_\+asp\+\_\+protocol proto)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+as}$\ast$ osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+proto (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol}}]{proto}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_ae7729babf0f8612dcceb3ee077b49b5c}
+
+
+Find Application Server (AS) by given protocol. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+S7 Instance on which we operate \\
+\hline
+\mbox{\tt in}  & {\em proto} & Protocol identifier that must match \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to AS on success; N\+U\+LL otherwise If an AS has an A\+SP also matching the given protocol, that AS is preferred. If there are multiple matches, return the first matching AS. 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::as\+\_\+list, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+as\+::list, osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+proto(), osmo\+\_\+ss7\+\_\+as\+::proto, and ss7\+\_\+initialized.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+rctx@{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+rctx}}
+\index{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+rctx@{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+rctx}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+rctx(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, uint32\+\_\+t rctx)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+as}$\ast$ osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+rctx (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{uint32\+\_\+t}]{rctx}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_aaa292dcf6bbb38806bbe050d7937c239}
+
+
+Find Application Server by given routing context. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+S7 Instance on which we operate \\
+\hline
+\mbox{\tt in}  & {\em rctx} & Routing Context \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to Application Server on success; N\+U\+LL otherwise 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::as\+\_\+list, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::context, osmo\+\_\+ss7\+\_\+as\+::list, osmo\+\_\+ss7\+\_\+as\+::routing\+\_\+key, and ss7\+\_\+initialized.
+
+
+
+Referenced by handle\+\_\+rkey\+\_\+dereg(), handle\+\_\+rkey\+\_\+reg(), ipa\+\_\+asp\+\_\+fsm\+\_\+del\+\_\+route(), ipa\+\_\+asp\+\_\+fsm\+\_\+wait\+\_\+id\+\_\+ack2(), m3ua\+\_\+rx\+\_\+xfer(), osmo\+\_\+ss7\+\_\+find\+\_\+free\+\_\+rctx(), and xua\+\_\+asp\+\_\+fsm\+\_\+inactive().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+or\+\_\+create@{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+or\+\_\+create}}
+\index{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+or\+\_\+create@{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+or\+\_\+create}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+or\+\_\+create(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, const char $\ast$name, enum osmo\+\_\+ss7\+\_\+asp\+\_\+protocol proto)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+as}$\ast$ osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+or\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{const char $\ast$}]{name, }
+\item[{enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol}}]{proto}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_aa2d0463df2c24a4a56958ba59ae89506}
+
+
+Find or Create Application Server. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+S7 Instance on which we operate \\
+\hline
+\mbox{\tt in}  & {\em name} & Name of Application Server \\
+\hline
+\mbox{\tt in}  & {\em proto} & Protocol of Application Server \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to Application Server on suuccess; N\+U\+LL otherwise 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::as\+\_\+list, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+as\+::fi, find\+\_\+free\+\_\+l\+\_\+rk\+\_\+id(), osmo\+\_\+ss7\+\_\+as\+::inst, osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::l\+\_\+rk\+\_\+id, osmo\+\_\+ss7\+\_\+as\+::list, L\+O\+G\+S\+S7, osmo\+\_\+ss7\+\_\+as\+::mode, osmo\+\_\+ss7\+\_\+as\+::name, osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+name(), O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+\_\+\+T\+M\+O\+D\+\_\+\+L\+O\+A\+D\+S\+H\+A\+RE, osmo\+\_\+ss7\+\_\+as\+::proto, osmo\+\_\+ss7\+\_\+as\+::recovery\+\_\+timeout\+\_\+msec, osmo\+\_\+ss7\+\_\+as\+::routing\+\_\+key, ss7\+\_\+initialized, and xua\+\_\+as\+\_\+fsm\+\_\+start().
+
+
+
+Referenced by D\+E\+F\+U\+N(), handle\+\_\+rkey\+\_\+reg(), osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), and osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+as\+\_\+has\+\_\+asp@{osmo\+\_\+ss7\+\_\+as\+\_\+has\+\_\+asp}}
+\index{osmo\+\_\+ss7\+\_\+as\+\_\+has\+\_\+asp@{osmo\+\_\+ss7\+\_\+as\+\_\+has\+\_\+asp}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+as\+\_\+has\+\_\+asp(struct osmo\+\_\+ss7\+\_\+as $\ast$as, struct osmo\+\_\+ss7\+\_\+asp $\ast$asp)}]{\setlength{\rightskip}{0pt plus 5cm}bool osmo\+\_\+ss7\+\_\+as\+\_\+has\+\_\+asp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$}]{as, }
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a9a749b5a06c74245d580baa13d613cf4}
+
+
+Determine if given AS contains A\+SP. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em as} & Application Server in which to look for asp \\
+\hline
+\mbox{\tt in}  & {\em asp} & Application Server Process to look for in as \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true in case asp is part of as; false otherwise 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::asps, osmo\+\_\+ss7\+\_\+as\+::cfg, and ss7\+\_\+initialized.
+
+
+
+Referenced by dispatch\+\_\+to\+\_\+all\+\_\+as(), find\+\_\+as\+\_\+for\+\_\+asp(), handle\+\_\+rkey\+\_\+dereg(), m3ua\+\_\+rx\+\_\+xfer(), osmo\+\_\+ss7\+\_\+as\+\_\+add\+\_\+asp(), and xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+asp\+\_\+destroy@{osmo\+\_\+ss7\+\_\+asp\+\_\+destroy}}
+\index{osmo\+\_\+ss7\+\_\+asp\+\_\+destroy@{osmo\+\_\+ss7\+\_\+asp\+\_\+destroy}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+asp\+\_\+destroy(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+ss7\+\_\+asp\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a6fce9d43401870a21aafb2b62936b321}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::as\+\_\+list, osmo\+\_\+ss7\+\_\+as\+::asps, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::client, osmo\+\_\+ss7\+\_\+asp\+::fi, osmo\+\_\+ss7\+\_\+asp\+::inst, ipa\+\_\+cli\+\_\+read\+\_\+cb(), osmo\+\_\+ss7\+\_\+as\+::list, osmo\+\_\+ss7\+\_\+asp\+::list, L\+O\+G\+S\+S7, osmo\+\_\+ss7\+\_\+asp\+::name, osmo\+\_\+ss7\+\_\+asp\+::server, osmo\+\_\+ss7\+\_\+asp\+::siblings, ss7\+\_\+initialized, xua\+\_\+cli\+\_\+connect\+\_\+cb(), xua\+\_\+cli\+\_\+read\+\_\+cb(), and osmo\+\_\+ss7\+\_\+asp\+::xua\+\_\+server.
+
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+ss7\+\_\+instance\+\_\+destroy(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+destroy(), and xua\+\_\+srv\+\_\+conn\+\_\+closed\+\_\+cb().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+asp\+\_\+disconnect@{osmo\+\_\+ss7\+\_\+asp\+\_\+disconnect}}
+\index{osmo\+\_\+ss7\+\_\+asp\+\_\+disconnect@{osmo\+\_\+ss7\+\_\+asp\+\_\+disconnect}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+asp\+\_\+disconnect(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+ss7\+\_\+asp\+\_\+disconnect (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_af24d6e5d1494620c9a340ff2bb68416c}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::client, osmo\+\_\+ss7\+\_\+asp\+::server, and xua\+\_\+cli\+\_\+close\+\_\+and\+\_\+reconnect().
+
+
+
+Referenced by ipa\+\_\+asp\+\_\+fsm\+\_\+timer\+\_\+cb(), ipa\+\_\+asp\+\_\+fsm\+\_\+wait\+\_\+id\+\_\+resp(), and ipa\+\_\+pong\+\_\+timer\+\_\+cb().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+name@{osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+name}}
+\index{osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+name@{osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+name}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+name(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, const char $\ast$name)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+asp}$\ast$ osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_aa7458bf949df3ffe66be4420d03957ee}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::asp\+\_\+list, osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::list, osmo\+\_\+ss7\+\_\+asp\+::name, and ss7\+\_\+initialized.
+
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+ss7\+\_\+as\+\_\+add\+\_\+asp(), osmo\+\_\+ss7\+\_\+as\+\_\+del\+\_\+asp(), and osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+or\+\_\+create().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+proto@{osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+proto}}
+\index{osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+proto@{osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+proto}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+proto(struct osmo\+\_\+ss7\+\_\+as $\ast$as, enum osmo\+\_\+ss7\+\_\+asp\+\_\+protocol proto)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+asp}$\ast$ osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+proto (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$}]{as, }
+\item[{enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol}}]{proto}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a38c9ff8592910185e233f65eced46dcf}
+
+
+Find an A\+SP that matches the given protocol. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em as} & Application Server in which to look for asp \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+S\+S7 A\+SP in case a matching one is found; N\+U\+LL otherwise 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::asps, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::cfg, and osmo\+\_\+ss7\+\_\+asp\+::proto.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), and osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+proto().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+socket\+\_\+addr@{osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+socket\+\_\+addr}}
+\index{osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+socket\+\_\+addr@{osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+socket\+\_\+addr}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+socket\+\_\+addr(int fd)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf osmo\+\_\+ss7\+\_\+asp}$\ast$ osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+socket\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_a7dd2c1e11fd5a374603cce253631d595}
+
+
+Find an A\+SP definition matching the local+remote I\+P/\+P\+O\+RT of given fd. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em fd} & socket descriptor of given socket \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+S\+S7 A\+SP in case a matching one is found; N\+U\+LL otherwise 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::asp\+\_\+list, osmo\+\_\+ss7\+\_\+asp\+::cfg, get\+\_\+in\+\_\+port(), osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::host, osmo\+\_\+ss7\+\_\+asp\+::list, osmo\+\_\+ss7\+\_\+asp\+::local, osmo\+\_\+ss7\+\_\+instances, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::port, osmo\+\_\+ss7\+\_\+asp\+::remote, and ss7\+\_\+initialized.
+
+
+
+Referenced by xua\+\_\+accept\+\_\+cb().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+or\+\_\+create@{osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+or\+\_\+create}}
+\index{osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+or\+\_\+create@{osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+or\+\_\+create}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+or\+\_\+create(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, const char $\ast$name, uint16\+\_\+t remote\+\_\+port, uint16\+\_\+t local\+\_\+port, enum osmo\+\_\+ss7\+\_\+asp\+\_\+protocol proto)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+asp}$\ast$ osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+or\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{const char $\ast$}]{name, }
+\item[{uint16\+\_\+t}]{remote\+\_\+port, }
+\item[{uint16\+\_\+t}]{local\+\_\+port, }
+\item[{enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol}}]{proto}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_ab6024e45329a1d925739f537e1785510}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::asp\+\_\+list, osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::inst, osmo\+\_\+ss7\+\_\+asp\+::list, osmo\+\_\+ss7\+\_\+asp\+::local, osmo\+\_\+ss7\+\_\+asp\+::name, osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+name(), O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+S\+UA, osmo\+\_\+ss7\+\_\+ensure\+\_\+sccp(), osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::port, osmo\+\_\+ss7\+\_\+asp\+::proto, osmo\+\_\+ss7\+\_\+asp\+::remote, and ss7\+\_\+initialized.
+
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt(), and xua\+\_\+accept\+\_\+cb().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+port@{osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+port}}
+\index{osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+port@{osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+port}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+port(enum osmo\+\_\+ss7\+\_\+asp\+\_\+protocol prot)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+port (
+\begin{DoxyParamCaption}
+\item[{enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol}}]{prot}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a6d09b26e33e8838594e0374976769f6e}
+
+
+References prot2port.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt(), osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id(), and osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+name().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+asp\+\_\+restart@{osmo\+\_\+ss7\+\_\+asp\+\_\+restart}}
+\index{osmo\+\_\+ss7\+\_\+asp\+\_\+restart@{osmo\+\_\+ss7\+\_\+asp\+\_\+restart}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+asp\+\_\+restart(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+asp\+\_\+restart (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a8d3670d7e36042c95611f9bfa0a3b597}
+
+
+References asp\+\_\+proto\+\_\+to\+\_\+ip\+\_\+proto(), osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::client, osmo\+\_\+ss7\+\_\+asp\+::fi, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::host, osmo\+\_\+ss7\+\_\+asp\+::inst, ipa\+\_\+cli\+\_\+read\+\_\+cb(), osmo\+\_\+ss7\+\_\+asp\+::is\+\_\+server, osmo\+\_\+ss7\+\_\+asp\+::local, L\+O\+G\+S\+S7, osmo\+\_\+ss7\+\_\+asp\+::name, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+I\+PA, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::port, osmo\+\_\+ss7\+\_\+asp\+::proto, osmo\+\_\+ss7\+\_\+asp\+::remote, osmo\+\_\+ss7\+\_\+asp\+::server, ss7\+\_\+initialized, xua\+\_\+asp\+\_\+fsm\+\_\+start(), X\+U\+A\+\_\+\+A\+S\+P\+F\+S\+M\+\_\+\+R\+O\+L\+E\+\_\+\+A\+SP, X\+U\+A\+\_\+\+A\+S\+P\+F\+S\+M\+\_\+\+R\+O\+L\+E\+\_\+\+SG, xua\+\_\+cli\+\_\+connect\+\_\+cb(), and xua\+\_\+cli\+\_\+read\+\_\+cb().
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt(), osmo\+\_\+ss7\+\_\+vty\+\_\+go\+\_\+parent(), restart\+\_\+asp(), and xua\+\_\+accept\+\_\+cb().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+asp\+\_\+send@{osmo\+\_\+ss7\+\_\+asp\+\_\+send}}
+\index{osmo\+\_\+ss7\+\_\+asp\+\_\+send@{osmo\+\_\+ss7\+\_\+asp\+\_\+send}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+asp\+\_\+send(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+asp\+\_\+send (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a4bbbb5047fd067deb34846c6dab99c1f}
+
+
+send a fully encoded msgb via a given A\+SP 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em asp} & Application Server Process through which to send \\
+\hline
+\mbox{\tt in}  & {\em msg} & message buffer to transmit. Ownership transferred. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative in case of error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::client, osmo\+\_\+ss7\+\_\+asp\+::is\+\_\+server, L\+O\+G\+P\+A\+SP, M3\+U\+A\+\_\+\+P\+P\+ID, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+I\+PA, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+M3\+UA, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+S\+UA, osmo\+\_\+ss7\+\_\+asp\+::proto, osmo\+\_\+ss7\+\_\+asp\+::server, ss7\+\_\+initialized, and S\+U\+A\+\_\+\+P\+P\+ID.
+
+
+
+Referenced by asp\+\_\+notify\+\_\+all\+\_\+as(), ipa\+\_\+asp\+\_\+fsm\+\_\+wait\+\_\+id\+\_\+get(), m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+req(), m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req(), m3ua\+\_\+tx\+\_\+xua\+\_\+asp(), peer\+\_\+send(), peer\+\_\+send\+\_\+error(), sua\+\_\+tx\+\_\+xua\+\_\+asp(), xua\+\_\+as\+\_\+transmit\+\_\+msg(), xua\+\_\+rkm\+\_\+send\+\_\+dereg\+\_\+req(), and xua\+\_\+rkm\+\_\+send\+\_\+reg\+\_\+req().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+bind\+\_\+all\+\_\+instances@{osmo\+\_\+ss7\+\_\+bind\+\_\+all\+\_\+instances}}
+\index{osmo\+\_\+ss7\+\_\+bind\+\_\+all\+\_\+instances@{osmo\+\_\+ss7\+\_\+bind\+\_\+all\+\_\+instances}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+bind\+\_\+all\+\_\+instances()}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+bind\+\_\+all\+\_\+instances (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_ae6cb35b6dec84166a640ac9e7c98c78a}
+
+
+bind all x\+UA servers on each of the stored S\+S7 instances 
+
+\begin{DoxyReturn}{Returns}
+0 on success; negative value on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::list, L\+O\+G\+S\+S7, osmo\+\_\+ss7\+\_\+instance\+\_\+bind(), osmo\+\_\+ss7\+\_\+instances, and ss7\+\_\+initialized.
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+ensure\+\_\+sccp@{osmo\+\_\+ss7\+\_\+ensure\+\_\+sccp}}
+\index{osmo\+\_\+ss7\+\_\+ensure\+\_\+sccp@{osmo\+\_\+ss7\+\_\+ensure\+\_\+sccp}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+ensure\+\_\+sccp(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+instance}$\ast$ osmo\+\_\+ss7\+\_\+ensure\+\_\+sccp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a76f74ee255e5a1c871d2285707c4d19c}
+
+
+Allocate an S\+C\+CP instance, if not present yet. 
+
+\begin{DoxyReturn}{Returns}
+inst-\/$>$sccp. 
+\end{DoxyReturn}
+
+
+References L\+O\+G\+S\+S7, osmo\+\_\+sccp\+\_\+instance\+\_\+create(), and osmo\+\_\+ss7\+\_\+instance\+::sccp.
+
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+or\+\_\+create(), and osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+find\+\_\+free\+\_\+rctx@{osmo\+\_\+ss7\+\_\+find\+\_\+free\+\_\+rctx}}
+\index{osmo\+\_\+ss7\+\_\+find\+\_\+free\+\_\+rctx@{osmo\+\_\+ss7\+\_\+find\+\_\+free\+\_\+rctx}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+find\+\_\+free\+\_\+rctx(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+find\+\_\+free\+\_\+rctx (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_ad995eb65a7ba20e8d134033669126231}
+
+
+References next\+\_\+rctx, and osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+rctx().
+
+
+
+Referenced by handle\+\_\+rkey\+\_\+reg().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+init@{osmo\+\_\+ss7\+\_\+init}}
+\index{osmo\+\_\+ss7\+\_\+init@{osmo\+\_\+ss7\+\_\+init}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+init(void)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_aa0eea948b1e7bbb0764ecc89e5b2a124}
+
+
+References ipa\+\_\+asp\+\_\+fsm, sccp\+\_\+scoc\+\_\+fsm, ss7\+\_\+initialized, xua\+\_\+as\+\_\+fsm, xua\+\_\+asp\+\_\+fsm, and xua\+\_\+default\+\_\+lm\+\_\+fsm.
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+instance\+\_\+bind@{osmo\+\_\+ss7\+\_\+instance\+\_\+bind}}
+\index{osmo\+\_\+ss7\+\_\+instance\+\_\+bind@{osmo\+\_\+ss7\+\_\+instance\+\_\+bind}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+instance\+\_\+bind(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+instance\+\_\+bind (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_af6d12bb8d4116820dcd994e1844b3daa}
+
+
+bind all x\+UA servers belonging to an S\+S7 Instance 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+S7 Instance to apply the socket binding (and start listening) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative value on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+xua\+\_\+server\+::cfg, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::host, osmo\+\_\+xua\+\_\+server\+::list, osmo\+\_\+xua\+\_\+server\+::local, L\+O\+G\+S\+S7, osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+bind(), osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::port, and osmo\+\_\+ss7\+\_\+instance\+::xua\+\_\+servers.
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+bind\+\_\+all\+\_\+instances().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+instance\+\_\+destroy@{osmo\+\_\+ss7\+\_\+instance\+\_\+destroy}}
+\index{osmo\+\_\+ss7\+\_\+instance\+\_\+destroy@{osmo\+\_\+ss7\+\_\+instance\+\_\+destroy}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+instance\+\_\+destroy(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+ss7\+\_\+instance\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a55d7a596847108913e0e9e03dbf1a933}
+
+
+Destroy a S\+S7 Instance. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+S7 Instance to be destroyed \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::as\+\_\+list, osmo\+\_\+ss7\+\_\+instance\+::asp\+\_\+list, osmo\+\_\+ss7\+\_\+instance\+::linksets, osmo\+\_\+ss7\+\_\+instance\+::list, osmo\+\_\+ss7\+\_\+asp\+::list, L\+O\+G\+S\+S7, osmo\+\_\+ss7\+\_\+as\+\_\+destroy(), osmo\+\_\+ss7\+\_\+asp\+\_\+destroy(), osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy(), and ss7\+\_\+initialized.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), and osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+instance\+\_\+find@{osmo\+\_\+ss7\+\_\+instance\+\_\+find}}
+\index{osmo\+\_\+ss7\+\_\+instance\+\_\+find@{osmo\+\_\+ss7\+\_\+instance\+\_\+find}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+instance\+\_\+find(uint32\+\_\+t id)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+instance}$\ast$ osmo\+\_\+ss7\+\_\+instance\+\_\+find (
+\begin{DoxyParamCaption}
+\item[{uint32\+\_\+t}]{id}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_acd3841d0e56f61f00dbfd2bffeeb9351}
+
+
+Find a S\+S7 Instance with given ID. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em id} & ID for which to search \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxyref{osmo\+\_\+ss7\+\_\+instance}{p.}{structosmo__ss7__instance} on success; N\+U\+LL on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+instance\+::id, osmo\+\_\+ss7\+\_\+instance\+::list, osmo\+\_\+ss7\+\_\+instances, and ss7\+\_\+initialized.
+
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), and osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create@{osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create}}
+\index{osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create@{osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create(void $\ast$ctx, uint32\+\_\+t id)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+instance}$\ast$ osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ctx, }
+\item[{uint32\+\_\+t}]{id}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a7b6d881b636f81a9ed0419f1f17727f6}
+
+
+Find or create a S\+S7 Instance. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ctx} & talloc allocation context to use for allocations \\
+\hline
+\mbox{\tt in}  & {\em id} & ID of S\+S7 Instance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxyref{osmo\+\_\+ss7\+\_\+instance}{p.}{structosmo__ss7__instance} on success; N\+U\+LL on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::as\+\_\+list, osmo\+\_\+ss7\+\_\+instance\+::asp\+\_\+list, osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+pc\+\_\+fmt\+::component\+\_\+len, osmo\+\_\+ss7\+\_\+pc\+\_\+fmt\+::delimiter, osmo\+\_\+ss7\+\_\+instance\+::id, osmo\+\_\+ss7\+\_\+instance\+::linksets, osmo\+\_\+ss7\+\_\+instance\+::list, L\+O\+G\+S\+S7, osmo\+\_\+ss7\+\_\+instance\+\_\+find(), osmo\+\_\+ss7\+\_\+instances, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+P\+C\+\_\+\+I\+N\+V\+A\+L\+ID, osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+instance\+::pc\+\_\+fmt, osmo\+\_\+ss7\+\_\+instance\+::primary\+\_\+pc, osmo\+\_\+ss7\+\_\+instance\+::rtable\+\_\+list, osmo\+\_\+ss7\+\_\+instance\+::rtable\+\_\+system, osmo\+\_\+ss7\+\_\+instance\+::sccp\+\_\+address\+\_\+book, ss7\+\_\+initialized, and osmo\+\_\+ss7\+\_\+instance\+::xua\+\_\+servers.
+
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), and osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+instance\+\_\+set\+\_\+pc\+\_\+fmt@{osmo\+\_\+ss7\+\_\+instance\+\_\+set\+\_\+pc\+\_\+fmt}}
+\index{osmo\+\_\+ss7\+\_\+instance\+\_\+set\+\_\+pc\+\_\+fmt@{osmo\+\_\+ss7\+\_\+instance\+\_\+set\+\_\+pc\+\_\+fmt}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+instance\+\_\+set\+\_\+pc\+\_\+fmt(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, uint8\+\_\+t c0, uint8\+\_\+t c1, uint8\+\_\+t c2)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+instance\+\_\+set\+\_\+pc\+\_\+fmt (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{uint8\+\_\+t}]{c0, }
+\item[{uint8\+\_\+t}]{c1, }
+\item[{uint8\+\_\+t}]{c2}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_adc19747b6de70d033959ee3cf5d26bdf}
+
+
+Set the point code format used in given S\+S7 instance. 
+
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+pc\+\_\+fmt\+::component\+\_\+len, L\+O\+G\+S\+S7, and osmo\+\_\+ss7\+\_\+instance\+::pc\+\_\+fmt.
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+link\+\_\+destroy@{osmo\+\_\+ss7\+\_\+link\+\_\+destroy}}
+\index{osmo\+\_\+ss7\+\_\+link\+\_\+destroy@{osmo\+\_\+ss7\+\_\+link\+\_\+destroy}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+link\+\_\+destroy(struct osmo\+\_\+ss7\+\_\+link $\ast$link)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+ss7\+\_\+link\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+link} $\ast$}]{link}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a876684805361a41edbf929ffff212f53}
+
+
+Destryo S\+S7 Link. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em link} & S\+S7 Link to be destroyed \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+ss7\+\_\+link\+::cfg, osmo\+\_\+ss7\+\_\+linkset\+::cfg, osmo\+\_\+ss7\+\_\+link\+::id, osmo\+\_\+ss7\+\_\+linkset\+::inst, osmo\+\_\+ss7\+\_\+linkset\+::links, osmo\+\_\+ss7\+\_\+link\+::linkset, L\+O\+G\+S\+S7, osmo\+\_\+ss7\+\_\+linkset\+::name, and ss7\+\_\+initialized.
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+link\+\_\+find\+\_\+or\+\_\+create@{osmo\+\_\+ss7\+\_\+link\+\_\+find\+\_\+or\+\_\+create}}
+\index{osmo\+\_\+ss7\+\_\+link\+\_\+find\+\_\+or\+\_\+create@{osmo\+\_\+ss7\+\_\+link\+\_\+find\+\_\+or\+\_\+create}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+link\+\_\+find\+\_\+or\+\_\+create(struct osmo\+\_\+ss7\+\_\+linkset $\ast$lset, uint32\+\_\+t id)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+link}$\ast$ osmo\+\_\+ss7\+\_\+link\+\_\+find\+\_\+or\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+linkset} $\ast$}]{lset, }
+\item[{uint32\+\_\+t}]{id}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a8b0b03e356521984e7a23ddb70a30a3b}
+
+
+Find or create S\+S7 Link with given ID in given Linkset. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em lset} & S\+S7 Linkset on which we operate \\
+\hline
+\mbox{\tt in}  & {\em id} & Link number within Linkset \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to S\+S7 Link on success; N\+U\+LL on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+link\+::cfg, osmo\+\_\+ss7\+\_\+linkset\+::cfg, osmo\+\_\+ss7\+\_\+link\+::id, osmo\+\_\+ss7\+\_\+linkset\+::inst, osmo\+\_\+ss7\+\_\+linkset\+::links, osmo\+\_\+ss7\+\_\+link\+::linkset, L\+O\+G\+S\+S7, osmo\+\_\+ss7\+\_\+linkset\+::name, and ss7\+\_\+initialized.
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy@{osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy}}
+\index{osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy@{osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy(struct osmo\+\_\+ss7\+\_\+linkset $\ast$lset)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+linkset} $\ast$}]{lset}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_abf73f9c25c19c4b7e7ff671a0ffffca6}
+
+
+Destroy a S\+S7 Linkset. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em lset} & Linkset to be destroyed \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+ss7\+\_\+linkset\+::cfg, osmo\+\_\+ss7\+\_\+route\+::dest, osmo\+\_\+ss7\+\_\+linkset\+::inst, osmo\+\_\+ss7\+\_\+linkset\+::links, osmo\+\_\+ss7\+\_\+route\+::linkset, osmo\+\_\+ss7\+\_\+linkset\+::list, osmo\+\_\+ss7\+\_\+route\+::list, L\+O\+G\+S\+S7, osmo\+\_\+ss7\+\_\+linkset\+::name, osmo\+\_\+ss7\+\_\+link\+\_\+destroy(), osmo\+\_\+ss7\+\_\+route\+\_\+destroy(), osmo\+\_\+ss7\+\_\+route\+\_\+table\+::routes, osmo\+\_\+ss7\+\_\+instance\+::rtable\+\_\+system, and ss7\+\_\+initialized.
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+instance\+\_\+destroy().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+by\+\_\+name@{osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+by\+\_\+name}}
+\index{osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+by\+\_\+name@{osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+by\+\_\+name}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+by\+\_\+name(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, const char $\ast$name)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+linkset}$\ast$ osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+by\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_aea6f3f676f45f38a2f733ec0529b4484}
+
+
+Find S\+S7 Linkset by given name. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+S7 Instance in which to look \\
+\hline
+\mbox{\tt in}  & {\em name} & Name of S\+S7 Linkset \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to linkset on success; N\+U\+LL on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+linkset\+::cfg, osmo\+\_\+ss7\+\_\+instance\+::linksets, osmo\+\_\+ss7\+\_\+linkset\+::list, osmo\+\_\+ss7\+\_\+linkset\+::name, and ss7\+\_\+initialized.
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+or\+\_\+create(), and osmo\+\_\+ss7\+\_\+route\+\_\+create().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+or\+\_\+create@{osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+or\+\_\+create}}
+\index{osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+or\+\_\+create@{osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+or\+\_\+create}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+or\+\_\+create(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, const char $\ast$name, uint32\+\_\+t pc)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+linkset}$\ast$ osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+or\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{const char $\ast$}]{name, }
+\item[{uint32\+\_\+t}]{pc}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a9ee19875896f2831d48a924cec1956e6}
+
+
+Find or allocate S\+S7 Linkset. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+S7 Instance in which we operate \\
+\hline
+\mbox{\tt in}  & {\em name} & Name of S\+S7 Linkset \\
+\hline
+\mbox{\tt in}  & {\em pc} & Adjacent Pointcode \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to Linkset on success; N\+U\+LL on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+linkset\+::adjacent\+\_\+pc, osmo\+\_\+ss7\+\_\+linkset\+::cfg, osmo\+\_\+ss7\+\_\+linkset\+::inst, osmo\+\_\+ss7\+\_\+instance\+::linksets, osmo\+\_\+ss7\+\_\+linkset\+::list, L\+O\+G\+S\+S7, osmo\+\_\+ss7\+\_\+linkset\+::name, osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+by\+\_\+name(), and ss7\+\_\+initialized.
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+mtp\+\_\+to\+\_\+user@{osmo\+\_\+ss7\+\_\+mtp\+\_\+to\+\_\+user}}
+\index{osmo\+\_\+ss7\+\_\+mtp\+\_\+to\+\_\+user@{osmo\+\_\+ss7\+\_\+mtp\+\_\+to\+\_\+user}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+mtp\+\_\+to\+\_\+user(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, struct osmo\+\_\+mtp\+\_\+prim $\ast$omp)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+mtp\+\_\+to\+\_\+user (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf osmo\+\_\+mtp\+\_\+prim} $\ast$}]{omp}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a4f143ec50e7ae5bfdf6ff1cf5ada7b75}
+
+
+References M\+T\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER, osmo\+\_\+ss7\+\_\+user\+::name, osmo\+\_\+mtp\+\_\+prim\+::oph, O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+T\+R\+A\+N\+S\+F\+ER, osmo\+\_\+ss7\+\_\+user\+::prim\+\_\+cb, osmo\+\_\+ss7\+\_\+user\+::priv, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::sio, osmo\+\_\+mtp\+\_\+prim\+::transfer, osmo\+\_\+mtp\+\_\+prim\+::u, and osmo\+\_\+ss7\+\_\+instance\+::user.
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+local@{osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+local}}
+\index{osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+local@{osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+local}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+local(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, uint32\+\_\+t pc)}]{\setlength{\rightskip}{0pt plus 5cm}bool osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+local (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{uint32\+\_\+t}]{pc}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_ae5e0610394ffcbdbd4be7006ab04205e}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+valid(), osmo\+\_\+ss7\+\_\+instance\+::primary\+\_\+pc, and ss7\+\_\+initialized.
+
+
+
+Referenced by m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2(), sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), scrc\+\_\+local\+\_\+out\+\_\+common(), and scrc\+\_\+translate\+\_\+node\+\_\+9().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+pc\+\_\+width@{osmo\+\_\+ss7\+\_\+pc\+\_\+width}}
+\index{osmo\+\_\+ss7\+\_\+pc\+\_\+width@{osmo\+\_\+ss7\+\_\+pc\+\_\+width}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+pc\+\_\+width(const struct osmo\+\_\+ss7\+\_\+pc\+\_\+fmt $\ast$pc\+\_\+fmt)}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t osmo\+\_\+ss7\+\_\+pc\+\_\+width (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+ss7\+\_\+pc\+\_\+fmt} $\ast$}]{pc\+\_\+fmt}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a9cc83a7969a30ca6748f27cf0b442e5e}
+
+
+References osmo\+\_\+ss7\+\_\+pc\+\_\+fmt\+::component\+\_\+len.
+
+
+
+Referenced by get\+\_\+pc\+\_\+comp\+\_\+shift(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse\+\_\+mask\+\_\+or\+\_\+len(), and osmo\+\_\+ss7\+\_\+route\+\_\+print().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse@{osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse}}
+\index{osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse@{osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, const char $\ast$str)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{const char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a5c8b8efb97b4c3651223fffb5ad07e42}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+pc\+\_\+fmt\+::component\+\_\+len, default\+\_\+pc\+\_\+fmt, gen\+\_\+pc\+\_\+fmtstr(), get\+\_\+pc\+\_\+comp\+\_\+shift(), L\+O\+G\+S\+S7, num\+\_\+pc\+\_\+comp\+\_\+exp(), and osmo\+\_\+ss7\+\_\+instance\+::pc\+\_\+fmt.
+
+
+
+Referenced by \+\_\+rout\+\_\+key(), D\+E\+F\+U\+N(), and osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse\+\_\+mask\+\_\+or\+\_\+len().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse\+\_\+mask\+\_\+or\+\_\+len@{osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse\+\_\+mask\+\_\+or\+\_\+len}}
+\index{osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse\+\_\+mask\+\_\+or\+\_\+len@{osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse\+\_\+mask\+\_\+or\+\_\+len}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse\+\_\+mask\+\_\+or\+\_\+len(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, const char $\ast$in)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse\+\_\+mask\+\_\+or\+\_\+len (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{const char $\ast$}]{in}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a20d09e0dbfb82c1b496fa63c11c1ee28}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+pc\+\_\+width(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse(), and osmo\+\_\+ss7\+\_\+instance\+::pc\+\_\+fmt.
+
+
+
+Referenced by D\+E\+F\+U\+N().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+pointcode\+\_\+print@{osmo\+\_\+ss7\+\_\+pointcode\+\_\+print}}
+\index{osmo\+\_\+ss7\+\_\+pointcode\+\_\+print@{osmo\+\_\+ss7\+\_\+pointcode\+\_\+print}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(const struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, uint32\+\_\+t pc)}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ osmo\+\_\+ss7\+\_\+pointcode\+\_\+print (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{uint32\+\_\+t}]{pc}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_aced2f480635c40bdfbdc7b03687f0743}
+
+
+References \+\_\+osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), and M\+A\+X\+\_\+\+P\+C\+\_\+\+S\+T\+R\+\_\+\+L\+EN.
+
+
+
+Referenced by D\+E\+F\+U\+N(), handle\+\_\+rkey\+\_\+dereg(), handle\+\_\+rkey\+\_\+reg(), hmrt\+\_\+message\+\_\+for\+\_\+routing(), m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2(), m3ua\+\_\+rx\+\_\+xfer(), osmo\+\_\+sccp\+\_\+addr\+\_\+name(), osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+sccp\+\_\+user\+\_\+unbind(), osmo\+\_\+ss7\+\_\+route\+\_\+create(), osmo\+\_\+ss7\+\_\+route\+\_\+name(), osmo\+\_\+ss7\+\_\+route\+\_\+print(), sccp\+\_\+scoc\+\_\+rx\+\_\+inval\+\_\+opc(), sccp\+\_\+user\+\_\+bind\+\_\+pc(), show\+\_\+user(), vty\+\_\+show\+\_\+connection(), write\+\_\+one\+\_\+as(), write\+\_\+one\+\_\+cs7(), write\+\_\+one\+\_\+rtable(), and write\+\_\+sccp\+\_\+addressbook().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+pointcode\+\_\+print2@{osmo\+\_\+ss7\+\_\+pointcode\+\_\+print2}}
+\index{osmo\+\_\+ss7\+\_\+pointcode\+\_\+print2@{osmo\+\_\+ss7\+\_\+pointcode\+\_\+print2}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+pointcode\+\_\+print2(const struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, uint32\+\_\+t pc)}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ osmo\+\_\+ss7\+\_\+pointcode\+\_\+print2 (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{uint32\+\_\+t}]{pc}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a11f1c4d0b61f5445352c6adeb39b8e3b}
+
+
+References \+\_\+osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), and M\+A\+X\+\_\+\+P\+C\+\_\+\+S\+T\+R\+\_\+\+L\+EN.
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+xfer(), osmo\+\_\+ss7\+\_\+route\+\_\+name(), osmo\+\_\+ss7\+\_\+route\+\_\+print(), sccp\+\_\+scoc\+\_\+rx\+\_\+inval\+\_\+opc(), and write\+\_\+one\+\_\+rtable().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+register\+\_\+rx\+\_\+unknown\+\_\+cb@{osmo\+\_\+ss7\+\_\+register\+\_\+rx\+\_\+unknown\+\_\+cb}}
+\index{osmo\+\_\+ss7\+\_\+register\+\_\+rx\+\_\+unknown\+\_\+cb@{osmo\+\_\+ss7\+\_\+register\+\_\+rx\+\_\+unknown\+\_\+cb}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+register\+\_\+rx\+\_\+unknown\+\_\+cb(osmo\+\_\+ss7\+\_\+asp\+\_\+rx\+\_\+unknown\+\_\+cb $\ast$cb)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+ss7\+\_\+register\+\_\+rx\+\_\+unknown\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{{\bf osmo\+\_\+ss7\+\_\+asp\+\_\+rx\+\_\+unknown\+\_\+cb} $\ast$}]{cb}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_aa24cea8083d06097c1655a38a36e0a17}
+
+
+Register a call-\/back function for unknown S\+C\+TP P\+P\+ID / I\+PA Stream ID. 
+
+
+
+References g\+\_\+osmo\+\_\+ss7\+\_\+asp\+\_\+rx\+\_\+unknown\+\_\+cb.
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+route\+\_\+create@{osmo\+\_\+ss7\+\_\+route\+\_\+create}}
+\index{osmo\+\_\+ss7\+\_\+route\+\_\+create@{osmo\+\_\+ss7\+\_\+route\+\_\+create}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+route\+\_\+create(struct osmo\+\_\+ss7\+\_\+route\+\_\+table $\ast$rtbl, uint32\+\_\+t pc, uint32\+\_\+t mask, const char $\ast$linkset\+\_\+name)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+route}$\ast$ osmo\+\_\+ss7\+\_\+route\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$}]{rtbl, }
+\item[{uint32\+\_\+t}]{pc, }
+\item[{uint32\+\_\+t}]{mask, }
+\item[{const char $\ast$}]{linkset\+\_\+name}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_ac6a50b765c1da6b429d18dbbbd5886db}
+
+
+Create a new route in the given routing table. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em rtbl} & Routing Table in which the route is to be created \\
+\hline
+\mbox{\tt in}  & {\em pc} & Point Code of the destination of the route \\
+\hline
+\mbox{\tt in}  & {\em mask} & Mask of the destination Point Code pc \\
+\hline
+\mbox{\tt in}  & {\em linkset\+\_\+name} & string name of the linkset to be used \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+caller-\/allocated + initialized route, N\+U\+LL on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+route\+::as, osmo\+\_\+ss7\+\_\+linkset\+::cfg, osmo\+\_\+ss7\+\_\+route\+::cfg, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+route\+::dest, osmo\+\_\+ss7\+\_\+route\+\_\+table\+::inst, osmo\+\_\+ss7\+\_\+route\+::linkset, osmo\+\_\+ss7\+\_\+route\+::linkset\+\_\+name, L\+O\+G\+S\+S7, osmo\+\_\+ss7\+\_\+route\+::mask, osmo\+\_\+ss7\+\_\+linkset\+::name, osmo\+\_\+ss7\+\_\+as\+::name, osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+name(), osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+by\+\_\+name(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+ss7\+\_\+route\+::pc, route\+\_\+insert\+\_\+sorted(), osmo\+\_\+ss7\+\_\+route\+::rtable, and ss7\+\_\+initialized.
+
+
+
+Referenced by D\+E\+F\+U\+N(), handle\+\_\+rkey\+\_\+reg(), ipa\+\_\+asp\+\_\+fsm\+\_\+wait\+\_\+id\+\_\+ack2(), osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), and osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+route\+\_\+destroy@{osmo\+\_\+ss7\+\_\+route\+\_\+destroy}}
+\index{osmo\+\_\+ss7\+\_\+route\+\_\+destroy@{osmo\+\_\+ss7\+\_\+route\+\_\+destroy}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+route\+\_\+destroy(struct osmo\+\_\+ss7\+\_\+route $\ast$rt)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+ss7\+\_\+route\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+route} $\ast$}]{rt}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a2e5f54771a9bb3a14a5aea6b19d99922}
+
+
+Destroy a given S\+S7 route. 
+
+
+
+References osmo\+\_\+ss7\+\_\+route\+::list, and ss7\+\_\+initialized.
+
+
+
+Referenced by D\+E\+F\+U\+N(), handle\+\_\+rkey\+\_\+dereg(), handle\+\_\+rkey\+\_\+reg(), ipa\+\_\+asp\+\_\+fsm\+\_\+del\+\_\+route(), osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id(), osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt(), osmo\+\_\+ss7\+\_\+as\+\_\+destroy(), and osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc@{osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc}}
+\index{osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc@{osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc(struct osmo\+\_\+ss7\+\_\+route\+\_\+table $\ast$rtbl, uint32\+\_\+t dpc)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+route}$\ast$ osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$}]{rtbl, }
+\item[{uint32\+\_\+t}]{dpc}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_ab5fcd843ecef8c59397b5576a669c87d}
+
+
+Find a S\+S7 route for given destination point code in given table. 
+
+
+
+References osmo\+\_\+ss7\+\_\+route\+::cfg, osmo\+\_\+ss7\+\_\+route\+::list, osmo\+\_\+ss7\+\_\+route\+::mask, osmo\+\_\+ss7\+\_\+route\+::pc, osmo\+\_\+ss7\+\_\+route\+\_\+table\+::routes, and ss7\+\_\+initialized.
+
+
+
+Referenced by handle\+\_\+rkey\+\_\+dereg(), and osmo\+\_\+ss7\+\_\+route\+\_\+lookup().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc\+\_\+mask@{osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc\+\_\+mask}}
+\index{osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc\+\_\+mask@{osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc\+\_\+mask}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc\+\_\+mask(struct osmo\+\_\+ss7\+\_\+route\+\_\+table $\ast$rtbl, uint32\+\_\+t dpc, uint32\+\_\+t mask)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+route}$\ast$ osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc\+\_\+mask (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$}]{rtbl, }
+\item[{uint32\+\_\+t}]{dpc, }
+\item[{uint32\+\_\+t}]{mask}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_ab9df59dfb9eb0da0c24f47f6017903fa}
+
+
+Find a S\+S7 route for given destination point code + mask in given table. 
+
+
+
+References osmo\+\_\+ss7\+\_\+route\+::cfg, osmo\+\_\+ss7\+\_\+route\+::list, osmo\+\_\+ss7\+\_\+route\+::mask, osmo\+\_\+ss7\+\_\+route\+::pc, osmo\+\_\+ss7\+\_\+route\+\_\+table\+::routes, and ss7\+\_\+initialized.
+
+
+
+Referenced by D\+E\+F\+U\+N(), ipa\+\_\+asp\+\_\+fsm\+\_\+del\+\_\+route(), and osmo\+\_\+sccp\+\_\+simple\+\_\+client\+\_\+on\+\_\+ss7\+\_\+id().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+route\+\_\+lookup@{osmo\+\_\+ss7\+\_\+route\+\_\+lookup}}
+\index{osmo\+\_\+ss7\+\_\+route\+\_\+lookup@{osmo\+\_\+ss7\+\_\+route\+\_\+lookup}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+route\+\_\+lookup(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, uint32\+\_\+t dpc)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+route}$\ast$ osmo\+\_\+ss7\+\_\+route\+\_\+lookup (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{uint32\+\_\+t}]{dpc}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_afffa83964e0e553761063635d9b47d93}
+
+
+Find a S\+S7 route for given destination point code in given S\+S7. 
+
+
+
+References osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc(), osmo\+\_\+ss7\+\_\+instance\+::rtable\+\_\+system, and ss7\+\_\+initialized.
+
+
+
+Referenced by gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua(), and hmrt\+\_\+message\+\_\+for\+\_\+routing().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+route\+\_\+print@{osmo\+\_\+ss7\+\_\+route\+\_\+print}}
+\index{osmo\+\_\+ss7\+\_\+route\+\_\+print@{osmo\+\_\+ss7\+\_\+route\+\_\+print}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+route\+\_\+print(const struct osmo\+\_\+ss7\+\_\+route $\ast$rt)}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ osmo\+\_\+ss7\+\_\+route\+\_\+print (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+ss7\+\_\+route} $\ast$}]{rt}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_ac78fd36af77d7da021e0b524386a0f91}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::cfg, osmo\+\_\+ss7\+\_\+route\+::cfg, osmo\+\_\+ss7\+\_\+route\+\_\+table\+::inst, osmo\+\_\+ss7\+\_\+route\+::mask, osmo\+\_\+ss7\+\_\+pc\+\_\+width(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print2(), osmo\+\_\+ss7\+\_\+route\+::pc, osmo\+\_\+ss7\+\_\+instance\+::pc\+\_\+fmt, osmo\+\_\+ss7\+\_\+route\+::rtable, and u32\+\_\+masklen().
+
+
+
+Referenced by vty\+\_\+dump\+\_\+rtable().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+destroy@{osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+destroy}}
+\index{osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+destroy@{osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+destroy}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+destroy(struct osmo\+\_\+ss7\+\_\+route\+\_\+table $\ast$rtbl)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$}]{rtbl}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_aa75722ad470c3d8981b765df9a3f5e97}
+
+
+References osmo\+\_\+ss7\+\_\+route\+\_\+table\+::list.
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find@{osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find}}
+\index{osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find@{osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, const char $\ast$name)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table}$\ast$ osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a48db4af978f592bf1ec847aab78234f6}
+
+
+References osmo\+\_\+ss7\+\_\+route\+\_\+table\+::cfg, osmo\+\_\+ss7\+\_\+route\+\_\+table\+::list, osmo\+\_\+ss7\+\_\+route\+\_\+table\+::name, osmo\+\_\+ss7\+\_\+instance\+::rtable\+\_\+list, and ss7\+\_\+initialized.
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find\+\_\+or\+\_\+create().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find\+\_\+or\+\_\+create@{osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find\+\_\+or\+\_\+create}}
+\index{osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find\+\_\+or\+\_\+create@{osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find\+\_\+or\+\_\+create}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find\+\_\+or\+\_\+create(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, const char $\ast$name)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table}$\ast$ osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find\+\_\+or\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a9559e23d2267140ec6c35729234ced23}
+
+
+References osmo\+\_\+ss7\+\_\+route\+\_\+table\+::cfg, osmo\+\_\+ss7\+\_\+route\+\_\+table\+::inst, osmo\+\_\+ss7\+\_\+route\+\_\+table\+::list, L\+O\+G\+S\+S7, osmo\+\_\+ss7\+\_\+route\+\_\+table\+::name, osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find(), osmo\+\_\+ss7\+\_\+route\+\_\+table\+::routes, osmo\+\_\+ss7\+\_\+instance\+::rtable\+\_\+list, and ss7\+\_\+initialized.
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+tmode\+\_\+from\+\_\+xua@{osmo\+\_\+ss7\+\_\+tmode\+\_\+from\+\_\+xua}}
+\index{osmo\+\_\+ss7\+\_\+tmode\+\_\+from\+\_\+xua@{osmo\+\_\+ss7\+\_\+tmode\+\_\+from\+\_\+xua}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+tmode\+\_\+from\+\_\+xua(uint32\+\_\+t in)}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode} osmo\+\_\+ss7\+\_\+tmode\+\_\+from\+\_\+xua (
+\begin{DoxyParamCaption}
+\item[{uint32\+\_\+t}]{in}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_af325ee0eb2ff3e3df09cc7e49b6bb6b9}
+
+
+References M3\+U\+A\+\_\+\+T\+M\+O\+D\+\_\+\+B\+C\+A\+ST, M3\+U\+A\+\_\+\+T\+M\+O\+D\+\_\+\+L\+O\+A\+D\+S\+H\+A\+RE, M3\+U\+A\+\_\+\+T\+M\+O\+D\+\_\+\+O\+V\+E\+R\+R\+I\+DE, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+\_\+\+T\+M\+O\+D\+\_\+\+B\+C\+A\+ST, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+\_\+\+T\+M\+O\+D\+\_\+\+L\+O\+A\+D\+S\+H\+A\+RE, and O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+\_\+\+T\+M\+O\+D\+\_\+\+O\+V\+E\+R\+R\+I\+DE.
+
+
+
+Referenced by handle\+\_\+rkey\+\_\+reg().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+tmode\+\_\+to\+\_\+xua@{osmo\+\_\+ss7\+\_\+tmode\+\_\+to\+\_\+xua}}
+\index{osmo\+\_\+ss7\+\_\+tmode\+\_\+to\+\_\+xua@{osmo\+\_\+ss7\+\_\+tmode\+\_\+to\+\_\+xua}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+tmode\+\_\+to\+\_\+xua(enum osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode tmod)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+tmode\+\_\+to\+\_\+xua (
+\begin{DoxyParamCaption}
+\item[{enum {\bf osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode}}]{tmod}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a41c5d0c1bcae4257834073d3c109f12c}
+
+
+References M3\+U\+A\+\_\+\+T\+M\+O\+D\+\_\+\+B\+C\+A\+ST, M3\+U\+A\+\_\+\+T\+M\+O\+D\+\_\+\+L\+O\+A\+D\+S\+H\+A\+RE, M3\+U\+A\+\_\+\+T\+M\+O\+D\+\_\+\+O\+V\+E\+R\+R\+I\+DE, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+\_\+\+T\+M\+O\+D\+\_\+\+B\+C\+A\+ST, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+\_\+\+T\+M\+O\+D\+\_\+\+L\+O\+A\+D\+S\+H\+A\+RE, and O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+\_\+\+T\+M\+O\+D\+\_\+\+O\+V\+E\+R\+R\+I\+DE.
+
+
+
+Referenced by xua\+\_\+rkm\+\_\+send\+\_\+reg\+\_\+req().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+user\+\_\+register@{osmo\+\_\+ss7\+\_\+user\+\_\+register}}
+\index{osmo\+\_\+ss7\+\_\+user\+\_\+register@{osmo\+\_\+ss7\+\_\+user\+\_\+register}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+user\+\_\+register(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, uint8\+\_\+t service\+\_\+ind, struct osmo\+\_\+ss7\+\_\+user $\ast$user)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+user\+\_\+register (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{uint8\+\_\+t}]{service\+\_\+ind, }
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+user} $\ast$}]{user}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a22d4d3245ada246e0d50da10c9281d28}
+
+
+Register a M\+TP user for a given service indicator. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+S7 instance for which we register the user \\
+\hline
+\mbox{\tt in}  & {\em service\+\_\+ind} & Service (I\+S\+UP, S\+C\+CP, ...) \\
+\hline
+\mbox{\tt in}  & {\em user} & S\+S7 user (including primitive call-\/back) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+user\+::inst, osmo\+\_\+ss7\+\_\+user\+::name, osmo\+\_\+ss7\+\_\+user\+::priv, and osmo\+\_\+ss7\+\_\+instance\+::user.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+instance\+\_\+create().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+user\+\_\+unregister@{osmo\+\_\+ss7\+\_\+user\+\_\+unregister}}
+\index{osmo\+\_\+ss7\+\_\+user\+\_\+unregister@{osmo\+\_\+ss7\+\_\+user\+\_\+unregister}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+user\+\_\+unregister(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, uint8\+\_\+t service\+\_\+ind, struct osmo\+\_\+ss7\+\_\+user $\ast$user)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+user\+\_\+unregister (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{uint8\+\_\+t}]{service\+\_\+ind, }
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+user} $\ast$}]{user}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a47b75b30c8c07818f2c67a28a3dc74c9}
+
+
+Unregister a M\+TP user for a given service indicator. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+S7 instance for which we register the user \\
+\hline
+\mbox{\tt in}  & {\em service\+\_\+ind} & Service (I\+S\+UP, S\+C\+CP, ...) \\
+\hline
+\mbox{\tt in}  & {\em user} & (optional) S\+S7 user. If present, we will not unregister other users \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+user\+::inst, and osmo\+\_\+ss7\+\_\+instance\+::user.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+instance\+\_\+destroy().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+bind@{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+bind}}
+\index{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+bind@{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+bind}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+bind(struct osmo\+\_\+xua\+\_\+server $\ast$xs)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+bind (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+xua\+\_\+server} $\ast$}]{xs}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_abf0d6146779911d066a27685e262133f}
+
+
+Set the x\+UA server to bind/listen to the currently configured ip/port. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em xs} & x\+UA server to operate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, negative value on error. 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+xua\+\_\+server\+::cfg, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::host, osmo\+\_\+xua\+\_\+server\+::local, osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+vals, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::port, osmo\+\_\+xua\+\_\+server\+::proto, and osmo\+\_\+xua\+\_\+server\+::server.
+
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id(), and osmo\+\_\+ss7\+\_\+instance\+\_\+bind().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create@{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create}}
+\index{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create@{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, enum osmo\+\_\+ss7\+\_\+asp\+\_\+protocol proto, uint16\+\_\+t local\+\_\+port, const char $\ast$local\+\_\+host)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+xua\+\_\+server}$\ast$ osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol}}]{proto, }
+\item[{uint16\+\_\+t}]{local\+\_\+port, }
+\item[{const char $\ast$}]{local\+\_\+host}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a92f4ef281565a355bf55e35396d9ead7}
+
+
+create a new x\+UA server configured with given ip/port 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ctx} & talloc allocation context \\
+\hline
+\mbox{\tt in}  & {\em proto} & protocol (x\+UA variant) to use \\
+\hline
+\mbox{\tt in}  & {\em local\+\_\+port} & local S\+C\+TP port to bind/listen to \\
+\hline
+\mbox{\tt in}  & {\em local\+\_\+host} & local IP address to bind/listen to (optional) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+callee-\/allocated \doxyref{osmo\+\_\+xua\+\_\+server}{p.}{structosmo__xua__server} in case of success 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+xua\+\_\+server\+::asp\+\_\+list, asp\+\_\+proto\+\_\+to\+\_\+ip\+\_\+proto(), osmo\+\_\+xua\+\_\+server\+::cfg, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::host, osmo\+\_\+xua\+\_\+server\+::inst, osmo\+\_\+xua\+\_\+server\+::list, osmo\+\_\+xua\+\_\+server\+::local, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+S\+UA, osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+vals, osmo\+\_\+ss7\+\_\+ensure\+\_\+sccp(), osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::port, osmo\+\_\+xua\+\_\+server\+::proto, osmo\+\_\+xua\+\_\+server\+::server, ss7\+\_\+initialized, xua\+\_\+accept\+\_\+cb(), and osmo\+\_\+ss7\+\_\+instance\+::xua\+\_\+servers.
+
+
+
+Referenced by D\+E\+F\+U\+N(), and osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+destroy@{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+destroy}}
+\index{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+destroy@{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+destroy}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+destroy(struct osmo\+\_\+xua\+\_\+server $\ast$xs)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+xua\+\_\+server} $\ast$}]{xs}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a27173446ba8d82c930840a6e3a8202d4}
+
+
+References osmo\+\_\+xua\+\_\+server\+::asp\+\_\+list, osmo\+\_\+xua\+\_\+server\+::list, osmo\+\_\+ss7\+\_\+asp\+\_\+destroy(), osmo\+\_\+xua\+\_\+server\+::server, and osmo\+\_\+ss7\+\_\+asp\+::siblings.
+
+
+
+Referenced by D\+E\+F\+U\+N(), and osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+on\+\_\+ss7\+\_\+id().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+find@{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+find}}
+\index{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+find@{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+find}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+find(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, enum osmo\+\_\+ss7\+\_\+asp\+\_\+protocol proto, uint16\+\_\+t local\+\_\+port)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+xua\+\_\+server}$\ast$ osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+find (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{enum {\bf osmo\+\_\+ss7\+\_\+asp\+\_\+protocol}}]{proto, }
+\item[{uint16\+\_\+t}]{local\+\_\+port}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_adeb2d43828fbd3f5eef853a9742001eb}
+
+
+References osmo\+\_\+xua\+\_\+server\+::cfg, osmo\+\_\+xua\+\_\+server\+::list, osmo\+\_\+xua\+\_\+server\+::local, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::port, osmo\+\_\+xua\+\_\+server\+::proto, ss7\+\_\+initialized, and osmo\+\_\+ss7\+\_\+instance\+::xua\+\_\+servers.
+
+
+
+Referenced by D\+E\+F\+U\+N().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+set\+\_\+local\+\_\+host@{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+set\+\_\+local\+\_\+host}}
+\index{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+set\+\_\+local\+\_\+host@{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+set\+\_\+local\+\_\+host}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+set\+\_\+local\+\_\+host(struct osmo\+\_\+xua\+\_\+server $\ast$xs, const char $\ast$local\+\_\+host)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+set\+\_\+local\+\_\+host (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+xua\+\_\+server} $\ast$}]{xs, }
+\item[{const char $\ast$}]{local\+\_\+host}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_ae97d2ba8d01c1819acad4f085c846bf8}
+
+
+References osmo\+\_\+xua\+\_\+server\+::cfg, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::host, osmo\+\_\+xua\+\_\+server\+::local, osmo\+\_\+xua\+\_\+server\+::server, and ss7\+\_\+initialized.
+
+
+
+Referenced by D\+E\+F\+U\+N().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!pc\+\_\+comp\+\_\+shift\+\_\+and\+\_\+mask@{pc\+\_\+comp\+\_\+shift\+\_\+and\+\_\+mask}}
+\index{pc\+\_\+comp\+\_\+shift\+\_\+and\+\_\+mask@{pc\+\_\+comp\+\_\+shift\+\_\+and\+\_\+mask}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{pc\+\_\+comp\+\_\+shift\+\_\+and\+\_\+mask(const struct osmo\+\_\+ss7\+\_\+pc\+\_\+fmt $\ast$pc\+\_\+fmt, unsigned int comp\+\_\+num, uint32\+\_\+t pc)}]{\setlength{\rightskip}{0pt plus 5cm}static uint32\+\_\+t pc\+\_\+comp\+\_\+shift\+\_\+and\+\_\+mask (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+ss7\+\_\+pc\+\_\+fmt} $\ast$}]{pc\+\_\+fmt, }
+\item[{unsigned int}]{comp\+\_\+num, }
+\item[{uint32\+\_\+t}]{pc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_a505d8cbb59e414f24d56a83a29799a42}
+
+
+References osmo\+\_\+ss7\+\_\+pc\+\_\+fmt\+::component\+\_\+len, and get\+\_\+pc\+\_\+comp\+\_\+shift().
+
+
+
+Referenced by \+\_\+osmo\+\_\+ss7\+\_\+pointcode\+\_\+print().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!route\+\_\+insert\+\_\+sorted@{route\+\_\+insert\+\_\+sorted}}
+\index{route\+\_\+insert\+\_\+sorted@{route\+\_\+insert\+\_\+sorted}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{route\+\_\+insert\+\_\+sorted(struct osmo\+\_\+ss7\+\_\+route\+\_\+table $\ast$rtbl, struct osmo\+\_\+ss7\+\_\+route $\ast$cmp)}]{\setlength{\rightskip}{0pt plus 5cm}static void route\+\_\+insert\+\_\+sorted (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$}]{rtbl, }
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+route} $\ast$}]{cmp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_ad0a6fd14ffd12426244051823c5af2d2}
+
+
+References osmo\+\_\+ss7\+\_\+route\+::cfg, osmo\+\_\+ss7\+\_\+route\+::list, osmo\+\_\+ss7\+\_\+route\+::mask, and osmo\+\_\+ss7\+\_\+route\+\_\+table\+::routes.
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+route\+\_\+create().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!ss7\+\_\+asp\+\_\+rx\+\_\+unknown@{ss7\+\_\+asp\+\_\+rx\+\_\+unknown}}
+\index{ss7\+\_\+asp\+\_\+rx\+\_\+unknown@{ss7\+\_\+asp\+\_\+rx\+\_\+unknown}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{ss7\+\_\+asp\+\_\+rx\+\_\+unknown(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, int ppid\+\_\+mux, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int ss7\+\_\+asp\+\_\+rx\+\_\+unknown (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{int}]{ppid\+\_\+mux, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7_8c_a5985c0ec7dc547dd06de3f9be8b8be9b}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, g\+\_\+osmo\+\_\+ss7\+\_\+asp\+\_\+rx\+\_\+unknown\+\_\+cb, L\+O\+G\+P\+A\+SP, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+I\+PA, and osmo\+\_\+ss7\+\_\+asp\+::proto.
+
+
+
+Referenced by ipa\+\_\+rx\+\_\+msg(), xua\+\_\+cli\+\_\+read\+\_\+cb(), and xua\+\_\+srv\+\_\+conn\+\_\+cb().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!strnappendchar@{strnappendchar}}
+\index{strnappendchar@{strnappendchar}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{strnappendchar(char $\ast$str, char c, size\+\_\+t n)}]{\setlength{\rightskip}{0pt plus 5cm}static int strnappendchar (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str, }
+\item[{char}]{c, }
+\item[{size\+\_\+t}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_afadad76c76c0630eed4b7a10b68f2b7c}
+
+
+Referenced by gen\+\_\+pc\+\_\+fmtstr().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!u32\+\_\+masklen@{u32\+\_\+masklen}}
+\index{u32\+\_\+masklen@{u32\+\_\+masklen}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{u32\+\_\+masklen(uint32\+\_\+t mask, unsigned int nbits)}]{\setlength{\rightskip}{0pt plus 5cm}static int u32\+\_\+masklen (
+\begin{DoxyParamCaption}
+\item[{uint32\+\_\+t}]{mask, }
+\item[{unsigned int}]{nbits}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_a70c376cdc3ffe5d124ae90fd86f9c491}
+
+
+References count\+\_\+leading\+\_\+one\+\_\+bits().
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+route\+\_\+print().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!xua\+\_\+accept\+\_\+cb@{xua\+\_\+accept\+\_\+cb}}
+\index{xua\+\_\+accept\+\_\+cb@{xua\+\_\+accept\+\_\+cb}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{xua\+\_\+accept\+\_\+cb(struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$link, int fd)}]{\setlength{\rightskip}{0pt plus 5cm}static int xua\+\_\+accept\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+stream\+\_\+srv\+\_\+link $\ast$}]{link, }
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_ac53c7d59ea8e1bb4b855ac893ff7e407}
+
+
+References osmo\+\_\+xua\+\_\+server\+::accept\+\_\+dyn\+\_\+reg, osmo\+\_\+xua\+\_\+server\+::asp\+\_\+list, osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+xua\+\_\+server\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::dyn\+\_\+allocated, osmo\+\_\+ss7\+\_\+asp\+::fi, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::host, osmo\+\_\+xua\+\_\+server\+::inst, ipa\+\_\+srv\+\_\+conn\+\_\+cb(), osmo\+\_\+ss7\+\_\+asp\+::is\+\_\+server, osmo\+\_\+ss7\+\_\+asp\+::name, osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+socket\+\_\+addr(), osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+or\+\_\+create(), O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+I\+PA, osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+vals, osmo\+\_\+ss7\+\_\+asp\+\_\+restart(), O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+E\+S\+T\+A\+B\+L\+I\+SH, osmo\+\_\+ss7\+\_\+asp\+\_\+peer\+::port, osmo\+\_\+xua\+\_\+server\+::proto, osmo\+\_\+ss7\+\_\+asp\+::remote, osmo\+\_\+ss7\+\_\+asp\+::server, osmo\+\_\+ss7\+\_\+asp\+::siblings, osmo\+\_\+ss7\+\_\+asp\+::sock\+\_\+name, X\+U\+A\+\_\+\+A\+S\+P\+\_\+\+E\+\_\+\+S\+C\+T\+P\+\_\+\+E\+S\+T\+\_\+\+I\+ND, xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim\+\_\+simple(), osmo\+\_\+ss7\+\_\+asp\+::xua\+\_\+server, xua\+\_\+srv\+\_\+conn\+\_\+cb(), and xua\+\_\+srv\+\_\+conn\+\_\+closed\+\_\+cb().
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!xua\+\_\+cli\+\_\+close@{xua\+\_\+cli\+\_\+close}}
+\index{xua\+\_\+cli\+\_\+close@{xua\+\_\+cli\+\_\+close}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{xua\+\_\+cli\+\_\+close(struct osmo\+\_\+stream\+\_\+cli $\ast$cli)}]{\setlength{\rightskip}{0pt plus 5cm}static void xua\+\_\+cli\+\_\+close (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+stream\+\_\+cli $\ast$}]{cli}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_a8cfeba359fa19e36513d6f987f76869c}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::fi, O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+R\+E\+L\+E\+A\+SE, X\+U\+A\+\_\+\+A\+S\+P\+\_\+\+E\+\_\+\+S\+C\+T\+P\+\_\+\+C\+O\+M\+M\+\_\+\+D\+O\+W\+N\+\_\+\+I\+ND, and xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim\+\_\+simple().
+
+
+
+Referenced by xua\+\_\+cli\+\_\+close\+\_\+and\+\_\+reconnect().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!xua\+\_\+cli\+\_\+close\+\_\+and\+\_\+reconnect@{xua\+\_\+cli\+\_\+close\+\_\+and\+\_\+reconnect}}
+\index{xua\+\_\+cli\+\_\+close\+\_\+and\+\_\+reconnect@{xua\+\_\+cli\+\_\+close\+\_\+and\+\_\+reconnect}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{xua\+\_\+cli\+\_\+close\+\_\+and\+\_\+reconnect(struct osmo\+\_\+stream\+\_\+cli $\ast$cli)}]{\setlength{\rightskip}{0pt plus 5cm}static void xua\+\_\+cli\+\_\+close\+\_\+and\+\_\+reconnect (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+stream\+\_\+cli $\ast$}]{cli}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_a87fbc102a39bb0668ce8acabc58d0ed9}
+
+
+References xua\+\_\+cli\+\_\+close().
+
+
+
+Referenced by ipa\+\_\+cli\+\_\+read\+\_\+cb(), osmo\+\_\+ss7\+\_\+asp\+\_\+disconnect(), and xua\+\_\+cli\+\_\+read\+\_\+cb().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!xua\+\_\+cli\+\_\+connect\+\_\+cb@{xua\+\_\+cli\+\_\+connect\+\_\+cb}}
+\index{xua\+\_\+cli\+\_\+connect\+\_\+cb@{xua\+\_\+cli\+\_\+connect\+\_\+cb}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{xua\+\_\+cli\+\_\+connect\+\_\+cb(struct osmo\+\_\+stream\+\_\+cli $\ast$cli)}]{\setlength{\rightskip}{0pt plus 5cm}static int xua\+\_\+cli\+\_\+connect\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+stream\+\_\+cli $\ast$}]{cli}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_a052cc4afcd029eccc55a29fef5aa8dbd}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::fi, osmo\+\_\+ss7\+\_\+asp\+::lm, L\+O\+G\+P\+A\+SP, O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+E\+S\+T\+A\+B\+L\+I\+SH, osmo\+\_\+xua\+\_\+layer\+\_\+manager\+::prim\+\_\+cb, osmo\+\_\+ss7\+\_\+asp\+::sock\+\_\+name, X\+U\+A\+\_\+\+A\+S\+P\+\_\+\+E\+\_\+\+M\+\_\+\+A\+S\+P\+\_\+\+U\+P\+\_\+\+R\+EQ, and xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim\+\_\+simple().
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+asp\+\_\+destroy(), and osmo\+\_\+ss7\+\_\+asp\+\_\+restart().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!xua\+\_\+cli\+\_\+read\+\_\+cb@{xua\+\_\+cli\+\_\+read\+\_\+cb}}
+\index{xua\+\_\+cli\+\_\+read\+\_\+cb@{xua\+\_\+cli\+\_\+read\+\_\+cb}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{xua\+\_\+cli\+\_\+read\+\_\+cb(struct osmo\+\_\+stream\+\_\+cli $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}static int xua\+\_\+cli\+\_\+read\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+stream\+\_\+cli $\ast$}]{conn}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_ae7fb0824836c89ea2699714bca37bb87}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, log\+\_\+sctp\+\_\+notification(), L\+O\+G\+P\+A\+SP, m3ua\+\_\+msgb\+\_\+alloc(), M3\+U\+A\+\_\+\+P\+P\+ID, m3ua\+\_\+rx\+\_\+msg(), O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+M3\+UA, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+S\+UA, O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+R\+E\+S\+T\+A\+RT, osmo\+\_\+ss7\+\_\+asp\+::proto, ss7\+\_\+asp\+\_\+rx\+\_\+unknown(), S\+U\+A\+\_\+\+P\+P\+ID, sua\+\_\+rx\+\_\+msg(), xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim\+\_\+simple(), and xua\+\_\+cli\+\_\+close\+\_\+and\+\_\+reconnect().
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+asp\+\_\+destroy(), and osmo\+\_\+ss7\+\_\+asp\+\_\+restart().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!xua\+\_\+srv\+\_\+conn\+\_\+cb@{xua\+\_\+srv\+\_\+conn\+\_\+cb}}
+\index{xua\+\_\+srv\+\_\+conn\+\_\+cb@{xua\+\_\+srv\+\_\+conn\+\_\+cb}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{xua\+\_\+srv\+\_\+conn\+\_\+cb(struct osmo\+\_\+stream\+\_\+srv $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}static int xua\+\_\+srv\+\_\+conn\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+stream\+\_\+srv $\ast$}]{conn}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_ae695ced3821b31caa4630388cb2b6b40}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, log\+\_\+sctp\+\_\+notification(), L\+O\+G\+P\+A\+SP, m3ua\+\_\+msgb\+\_\+alloc(), M3\+U\+A\+\_\+\+P\+P\+ID, m3ua\+\_\+rx\+\_\+msg(), O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+M3\+UA, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+S\+UA, O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+R\+E\+S\+T\+A\+RT, osmo\+\_\+ss7\+\_\+asp\+::proto, ss7\+\_\+asp\+\_\+rx\+\_\+unknown(), S\+U\+A\+\_\+\+P\+P\+ID, sua\+\_\+rx\+\_\+msg(), and xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim\+\_\+simple().
+
+
+
+Referenced by xua\+\_\+accept\+\_\+cb().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!xua\+\_\+srv\+\_\+conn\+\_\+closed\+\_\+cb@{xua\+\_\+srv\+\_\+conn\+\_\+closed\+\_\+cb}}
+\index{xua\+\_\+srv\+\_\+conn\+\_\+closed\+\_\+cb@{xua\+\_\+srv\+\_\+conn\+\_\+closed\+\_\+cb}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{xua\+\_\+srv\+\_\+conn\+\_\+closed\+\_\+cb(struct osmo\+\_\+stream\+\_\+srv $\ast$srv)}]{\setlength{\rightskip}{0pt plus 5cm}static int xua\+\_\+srv\+\_\+conn\+\_\+closed\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+stream\+\_\+srv $\ast$}]{srv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_aea079f36c54edf123ffa5bbf5ac2f900}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::dyn\+\_\+allocated, osmo\+\_\+ss7\+\_\+asp\+::fi, osmo\+\_\+ss7\+\_\+asp\+::name, osmo\+\_\+ss7\+\_\+asp\+\_\+destroy(), O\+S\+M\+O\+\_\+\+X\+L\+M\+\_\+\+P\+R\+I\+M\+\_\+\+M\+\_\+\+S\+C\+T\+P\+\_\+\+R\+E\+L\+E\+A\+SE, osmo\+\_\+ss7\+\_\+asp\+::server, X\+U\+A\+\_\+\+A\+S\+P\+\_\+\+E\+\_\+\+S\+C\+T\+P\+\_\+\+C\+O\+M\+M\+\_\+\+D\+O\+W\+N\+\_\+\+I\+ND, xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim\+\_\+simple(), and xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp().
+
+
+
+Referenced by xua\+\_\+accept\+\_\+cb().
+
+
+
+\subsection{Variable Documentation}
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!default\+\_\+pc\+\_\+fmt@{default\+\_\+pc\+\_\+fmt}}
+\index{default\+\_\+pc\+\_\+fmt@{default\+\_\+pc\+\_\+fmt}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{default\+\_\+pc\+\_\+fmt}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf osmo\+\_\+ss7\+\_\+pc\+\_\+fmt} default\+\_\+pc\+\_\+fmt\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_a7e710ac37bf4c2d56a17e65086ec9684}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        .delimiter = \textcolor{charliteral}{'.'},
+        .component\_len = \{ 3, 8, 3\},
+\}
+\end{DoxyCode}
+
+
+Referenced by \+\_\+osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), and osmo\+\_\+ss7\+\_\+pointcode\+\_\+parse().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!g\+\_\+osmo\+\_\+ss7\+\_\+asp\+\_\+rx\+\_\+unknown\+\_\+cb@{g\+\_\+osmo\+\_\+ss7\+\_\+asp\+\_\+rx\+\_\+unknown\+\_\+cb}}
+\index{g\+\_\+osmo\+\_\+ss7\+\_\+asp\+\_\+rx\+\_\+unknown\+\_\+cb@{g\+\_\+osmo\+\_\+ss7\+\_\+asp\+\_\+rx\+\_\+unknown\+\_\+cb}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{g\+\_\+osmo\+\_\+ss7\+\_\+asp\+\_\+rx\+\_\+unknown\+\_\+cb}]{\setlength{\rightskip}{0pt plus 5cm}{\bf osmo\+\_\+ss7\+\_\+asp\+\_\+rx\+\_\+unknown\+\_\+cb}$\ast$ g\+\_\+osmo\+\_\+ss7\+\_\+asp\+\_\+rx\+\_\+unknown\+\_\+cb\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_ac4a2dc86a8a839e40620d701d4346d91}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+register\+\_\+rx\+\_\+unknown\+\_\+cb(), and ss7\+\_\+asp\+\_\+rx\+\_\+unknown().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!next\+\_\+l\+\_\+rk\+\_\+id@{next\+\_\+l\+\_\+rk\+\_\+id}}
+\index{next\+\_\+l\+\_\+rk\+\_\+id@{next\+\_\+l\+\_\+rk\+\_\+id}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{next\+\_\+l\+\_\+rk\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}int32\+\_\+t next\+\_\+l\+\_\+rk\+\_\+id = 1\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_a82b1fae92faad2df658d676f19203112}
+
+
+Referenced by find\+\_\+free\+\_\+l\+\_\+rk\+\_\+id().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!next\+\_\+rctx@{next\+\_\+rctx}}
+\index{next\+\_\+rctx@{next\+\_\+rctx}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{next\+\_\+rctx}]{\setlength{\rightskip}{0pt plus 5cm}int32\+\_\+t next\+\_\+rctx = 1\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_ac371d9ef3ce4d17cd66e9f4446879ffc}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+find\+\_\+free\+\_\+rctx().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode\+\_\+vals@{osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode\+\_\+vals}}
+\index{osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode\+\_\+vals@{osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode\+\_\+vals}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode\+\_\+vals}]{\setlength{\rightskip}{0pt plus 5cm}struct value\+\_\+string osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode\+\_\+vals[$\,$]}\label{osmo__ss7_8c_a41be4c98feb2b819cbc41e9f378ef8e2}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ OSMO_SS7_AS_TMOD_BCAST,       \textcolor{stringliteral}{"broadcast"} \},
+        \{ OSMO_SS7_AS_TMOD_LOADSHARE,   \textcolor{stringliteral}{"loadshare"} \},
+        \{ OSMO_SS7_AS_TMOD_ROUNDROBIN,  \textcolor{stringliteral}{"round-robin"} \},
+        \{ OSMO_SS7_AS_TMOD_OVERRIDE,    \textcolor{stringliteral}{"override"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+
+
+Referenced by D\+E\+F\+U\+N(), and osmo\+\_\+ss7\+\_\+as\+\_\+traffic\+\_\+mode\+\_\+name().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+vals@{osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+vals}}
+\index{osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+vals@{osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+vals}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+vals}]{\setlength{\rightskip}{0pt plus 5cm}struct value\+\_\+string osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+vals[$\,$]}\label{osmo__ss7_8c_a41380c47cdda3f98c55d1a93e6071a6b}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ OSMO_SS7_ASP_PROT_NONE,       \textcolor{stringliteral}{"none"} \},
+        \{ OSMO_SS7_ASP_PROT_SUA,        \textcolor{stringliteral}{"sua"} \},
+        \{ OSMO_SS7_ASP_PROT_M3UA,       \textcolor{stringliteral}{"m3ua"} \},
+        \{ OSMO_SS7_ASP_PROT_IPA,        \textcolor{stringliteral}{"ipa"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+name(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+bind(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create(), parse\+\_\+asp\+\_\+proto(), vty\+\_\+dump\+\_\+xua\+\_\+server(), write\+\_\+one\+\_\+xua(), and xua\+\_\+accept\+\_\+cb().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!prot2port@{prot2port}}
+\index{prot2port@{prot2port}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{prot2port}]{\setlength{\rightskip}{0pt plus 5cm}const uint16\+\_\+t prot2port[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_aa65cb0e6b9446cda8df60956ed12573f}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        [OSMO_SS7_ASP_PROT_NONE] = 0,
+        [OSMO_SS7_ASP_PROT_SUA] = SUA_PORT,
+        [OSMO_SS7_ASP_PROT_M3UA] = M3UA_PORT,
+        [OSMO_SS7_ASP_PROT_IPA] = 5000,
+\}
+\end{DoxyCode}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+port().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!sctp\+\_\+assoc\+\_\+chg\+\_\+vals@{sctp\+\_\+assoc\+\_\+chg\+\_\+vals}}
+\index{sctp\+\_\+assoc\+\_\+chg\+\_\+vals@{sctp\+\_\+assoc\+\_\+chg\+\_\+vals}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{sctp\+\_\+assoc\+\_\+chg\+\_\+vals}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string sctp\+\_\+assoc\+\_\+chg\+\_\+vals[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_aab192f18e52b0713791a4c478b1a0b3e}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ SCTP\_COMM\_UP,         \textcolor{stringliteral}{"COMM\_UP"} \},
+        \{ SCTP\_COMM\_LOST,       \textcolor{stringliteral}{"COMM\_LOST"} \},
+        \{ SCTP\_RESTART,         \textcolor{stringliteral}{"RESTART"} \},
+        \{ SCTP\_SHUTDOWN\_COMP,   \textcolor{stringliteral}{"SHUTDOWN\_COMP"} \},
+        \{ SCTP\_CANT\_STR\_ASSOC,  \textcolor{stringliteral}{"CANT\_STR\_ASSOC"} \},
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+
+
+Referenced by log\+\_\+sctp\+\_\+notification().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!sctp\+\_\+sn\+\_\+type\+\_\+vals@{sctp\+\_\+sn\+\_\+type\+\_\+vals}}
+\index{sctp\+\_\+sn\+\_\+type\+\_\+vals@{sctp\+\_\+sn\+\_\+type\+\_\+vals}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{sctp\+\_\+sn\+\_\+type\+\_\+vals}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string sctp\+\_\+sn\+\_\+type\+\_\+vals[$\,$]\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_acc80e73ebc20e38134e53f24817c859e}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{ SCTP\_ASSOC\_CHANGE,            \textcolor{stringliteral}{"ASSOC\_CHANGE"} \},
+        \{ SCTP\_PEER\_ADDR\_CHANGE,        \textcolor{stringliteral}{"PEER\_ADDR\_CHANGE"} \},
+        \{ SCTP\_SHUTDOWN\_EVENT,          \textcolor{stringliteral}{"SHUTDOWN\_EVENT"} \},
+        \{ SCTP\_SEND\_FAILED,             \textcolor{stringliteral}{"SEND\_FAILED"} \},
+        \{ SCTP\_REMOTE\_ERROR,            \textcolor{stringliteral}{"REMOTE\_ERROR"} \},
+        \{ SCTP\_PARTIAL\_DELIVERY\_EVENT,  \textcolor{stringliteral}{"PARTIAL\_DELIVERY\_EVENT"} \},
+        \{ SCTP\_ADAPTATION\_INDICATION,   \textcolor{stringliteral}{"ADAPTATION\_INDICATION"} \},
+
+
+
+
+
+
+        \{ 0, NULL \}
+\}
+\end{DoxyCode}
+
+
+Referenced by log\+\_\+sctp\+\_\+notification().
+
+\index{osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}!ss7\+\_\+initialized@{ss7\+\_\+initialized}}
+\index{ss7\+\_\+initialized@{ss7\+\_\+initialized}!osmo\+\_\+ss7.\+c@{osmo\+\_\+ss7.\+c}}
+\subsubsection[{ss7\+\_\+initialized}]{\setlength{\rightskip}{0pt plus 5cm}bool ss7\+\_\+initialized = false\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7_8c_a78806f653f55e3d87d93650a55b5f70a}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+as\+\_\+add\+\_\+asp(), osmo\+\_\+ss7\+\_\+as\+\_\+del\+\_\+asp(), osmo\+\_\+ss7\+\_\+as\+\_\+destroy(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+l\+\_\+rk\+\_\+id(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+name(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+proto(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+by\+\_\+rctx(), osmo\+\_\+ss7\+\_\+as\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+as\+\_\+has\+\_\+asp(), osmo\+\_\+ss7\+\_\+asp\+\_\+destroy(), osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+name(), osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+by\+\_\+socket\+\_\+addr(), osmo\+\_\+ss7\+\_\+asp\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+asp\+\_\+restart(), osmo\+\_\+ss7\+\_\+asp\+\_\+send(), osmo\+\_\+ss7\+\_\+bind\+\_\+all\+\_\+instances(), osmo\+\_\+ss7\+\_\+init(), osmo\+\_\+ss7\+\_\+instance\+\_\+destroy(), osmo\+\_\+ss7\+\_\+instance\+\_\+find(), osmo\+\_\+ss7\+\_\+instance\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+link\+\_\+destroy(), osmo\+\_\+ss7\+\_\+link\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy(), osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+by\+\_\+name(), osmo\+\_\+ss7\+\_\+linkset\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+local(), osmo\+\_\+ss7\+\_\+route\+\_\+create(), osmo\+\_\+ss7\+\_\+route\+\_\+destroy(), osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc(), osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc\+\_\+mask(), osmo\+\_\+ss7\+\_\+route\+\_\+lookup(), osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find(), osmo\+\_\+ss7\+\_\+route\+\_\+table\+\_\+find\+\_\+or\+\_\+create(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+create(), osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+find(), and osmo\+\_\+ss7\+\_\+xua\+\_\+server\+\_\+set\+\_\+local\+\_\+host().
+

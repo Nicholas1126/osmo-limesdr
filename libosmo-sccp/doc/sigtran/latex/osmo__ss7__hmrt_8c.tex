@@ -1,0 +1,203 @@
+\section{src/osmo\+\_\+ss7\+\_\+hmrt.c File Reference}
+\label{osmo__ss7__hmrt_8c}\index{src/osmo\+\_\+ss7\+\_\+hmrt.\+c@{src/osmo\+\_\+ss7\+\_\+hmrt.\+c}}
+{\ttfamily \#include $<$stdbool.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/linuxlist.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/logging.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/mtp\+\_\+sap.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/osmo\+\_\+ss7.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/m3ua.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+internal.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf A\+P\+P\+E\+ND}(fmt,  args...)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+mtp\+\_\+prim} $\ast$ {\bf m3ua\+\_\+to\+\_\+xfer\+\_\+ind} (struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static struct {\bf xua\+\_\+msg} $\ast$ {\bf mtp\+\_\+prim\+\_\+to\+\_\+m3ua} (struct {\bf osmo\+\_\+mtp\+\_\+prim} $\ast$prim)
+\item 
+static int {\bf deliver\+\_\+to\+\_\+mtp\+\_\+user} (const struct {\bf osmo\+\_\+ss7\+\_\+user} $\ast$osu, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf hmdt\+\_\+message\+\_\+for\+\_\+distribution} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+const char $\ast$ {\bf osmo\+\_\+ss7\+\_\+route\+\_\+name} (struct {\bf osmo\+\_\+ss7\+\_\+route} $\ast$rt, bool list\+\_\+asps)
+\begin{DoxyCompactList}\small\item\em Return human readable representation of the route, in a static buffer. \end{DoxyCompactList}\item 
+static int {\bf hmrt\+\_\+message\+\_\+for\+\_\+routing} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+int {\bf m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+int {\bf osmo\+\_\+ss7\+\_\+user\+\_\+mtp\+\_\+xfer\+\_\+req} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, struct {\bf osmo\+\_\+mtp\+\_\+prim} $\ast$omp)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}!A\+P\+P\+E\+ND@{A\+P\+P\+E\+ND}}
+\index{A\+P\+P\+E\+ND@{A\+P\+P\+E\+ND}!osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}}
+\subsubsection[{A\+P\+P\+E\+ND}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+P\+P\+E\+ND(
+\begin{DoxyParamCaption}
+\item[{}]{fmt, }
+\item[{}]{args...}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__hmrt_8c_aaf3c0165fafdc4ddccf246d5625c660d}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+                l = snprintf(pos, \textcolor{keyword}{sizeof}(buf) - (pos - buf), fmt, ## args); \(\backslash\)
+                pos += l; \(\backslash\)
+                if (pos - buf >= \textcolor{keyword}{sizeof}(buf) ) \(\backslash\)
+                        goto out; \(\backslash\)
+        \} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+route\+\_\+name().
+
+
+
+\subsection{Function Documentation}
+\index{osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}!deliver\+\_\+to\+\_\+mtp\+\_\+user@{deliver\+\_\+to\+\_\+mtp\+\_\+user}}
+\index{deliver\+\_\+to\+\_\+mtp\+\_\+user@{deliver\+\_\+to\+\_\+mtp\+\_\+user}!osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}}
+\subsubsection[{deliver\+\_\+to\+\_\+mtp\+\_\+user(const struct osmo\+\_\+ss7\+\_\+user $\ast$osu, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int deliver\+\_\+to\+\_\+mtp\+\_\+user (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+ss7\+\_\+user} $\ast$}]{osu, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__hmrt_8c_ab0f4b1309a8a2006635950c46ddd3b06}
+
+
+References m3ua\+\_\+to\+\_\+xfer\+\_\+ind(), xua\+\_\+msg\+::mtp, osmo\+\_\+mtp\+\_\+prim\+::oph, osmo\+\_\+ss7\+\_\+user\+::prim\+\_\+cb, osmo\+\_\+ss7\+\_\+user\+::priv, osmo\+\_\+mtp\+\_\+prim\+::transfer, and osmo\+\_\+mtp\+\_\+prim\+::u.
+
+
+
+Referenced by hmdt\+\_\+message\+\_\+for\+\_\+distribution().
+
+\index{osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}!hmdt\+\_\+message\+\_\+for\+\_\+distribution@{hmdt\+\_\+message\+\_\+for\+\_\+distribution}}
+\index{hmdt\+\_\+message\+\_\+for\+\_\+distribution@{hmdt\+\_\+message\+\_\+for\+\_\+distribution}!osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}}
+\subsubsection[{hmdt\+\_\+message\+\_\+for\+\_\+distribution(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int hmdt\+\_\+message\+\_\+for\+\_\+distribution (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__hmrt_8c_a3c2df3b0f156f7bd46317990d8136d97}
+
+
+References data\+\_\+hdr\+\_\+from\+\_\+m3ua(), deliver\+\_\+to\+\_\+mtp\+\_\+user(), xua\+\_\+msg\+::hdr, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+S\+NM, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+X\+F\+ER, M3\+U\+A\+\_\+\+X\+F\+E\+R\+\_\+\+D\+A\+TA, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type, m3ua\+\_\+data\+\_\+hdr\+::si, and osmo\+\_\+ss7\+\_\+instance\+::user.
+
+
+
+Referenced by m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2().
+
+\index{osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}!hmrt\+\_\+message\+\_\+for\+\_\+routing@{hmrt\+\_\+message\+\_\+for\+\_\+routing}}
+\index{hmrt\+\_\+message\+\_\+for\+\_\+routing@{hmrt\+\_\+message\+\_\+for\+\_\+routing}!osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}}
+\subsubsection[{hmrt\+\_\+message\+\_\+for\+\_\+routing(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int hmrt\+\_\+message\+\_\+for\+\_\+routing (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__hmrt_8c_a33ede64db537fe1d5a39e6d9c2f07c8b}
+
+
+References osmo\+\_\+ss7\+\_\+route\+::as, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+route\+::dest, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::dpc, dpc, ipa\+\_\+tx\+\_\+xua\+\_\+as(), osmo\+\_\+ss7\+\_\+route\+::linkset, m3ua\+\_\+tx\+\_\+xua\+\_\+as(), xua\+\_\+msg\+::mtp, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+I\+PA, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+M3\+UA, osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+ss7\+\_\+route\+\_\+lookup(), osmo\+\_\+ss7\+\_\+route\+\_\+name(), and osmo\+\_\+ss7\+\_\+as\+::proto.
+
+
+
+Referenced by m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2().
+
+\index{osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}!m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2@{m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2}}
+\index{m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2@{m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2}!osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}}
+\subsubsection[{m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}int m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__hmrt_8c_a8bc0dfc719354cd380bb206d25c33c6a}
+
+
+References osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::dpc, dpc, hmdt\+\_\+message\+\_\+for\+\_\+distribution(), hmrt\+\_\+message\+\_\+for\+\_\+routing(), xua\+\_\+msg\+::mtp, osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+local(), and osmo\+\_\+ss7\+\_\+pointcode\+\_\+print().
+
+
+
+Referenced by ipa\+\_\+rx\+\_\+msg\+\_\+sccp(), m3ua\+\_\+rx\+\_\+xfer(), and osmo\+\_\+ss7\+\_\+user\+\_\+mtp\+\_\+xfer\+\_\+req().
+
+\index{osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}!m3ua\+\_\+to\+\_\+xfer\+\_\+ind@{m3ua\+\_\+to\+\_\+xfer\+\_\+ind}}
+\index{m3ua\+\_\+to\+\_\+xfer\+\_\+ind@{m3ua\+\_\+to\+\_\+xfer\+\_\+ind}!osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}}
+\subsubsection[{m3ua\+\_\+to\+\_\+xfer\+\_\+ind(struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+mtp\+\_\+prim}$\ast$ m3ua\+\_\+to\+\_\+xfer\+\_\+ind (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__hmrt_8c_af932d2ab56e706ac86fe0bd6f2c3a4d7}
+
+
+References xua\+\_\+msg\+\_\+part\+::dat, xua\+\_\+msg\+\_\+part\+::len, m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param(), M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+\_\+\+D\+A\+TA, m3ua\+\_\+msgb\+\_\+alloc(), M\+T\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER, osmo\+\_\+mtp\+\_\+prim\+::oph, O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+T\+R\+A\+N\+S\+F\+ER, osmo\+\_\+mtp\+\_\+prim\+::transfer, osmo\+\_\+mtp\+\_\+prim\+::u, and xua\+\_\+msg\+\_\+find\+\_\+tag().
+
+
+
+Referenced by deliver\+\_\+to\+\_\+mtp\+\_\+user().
+
+\index{osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}!mtp\+\_\+prim\+\_\+to\+\_\+m3ua@{mtp\+\_\+prim\+\_\+to\+\_\+m3ua}}
+\index{mtp\+\_\+prim\+\_\+to\+\_\+m3ua@{mtp\+\_\+prim\+\_\+to\+\_\+m3ua}!osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}}
+\subsubsection[{mtp\+\_\+prim\+\_\+to\+\_\+m3ua(struct osmo\+\_\+mtp\+\_\+prim $\ast$prim)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf xua\+\_\+msg}$\ast$ mtp\+\_\+prim\+\_\+to\+\_\+m3ua (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+mtp\+\_\+prim} $\ast$}]{prim}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{osmo__ss7__hmrt_8c_ad193b380beb0c625be71e8a3c2823d19}
+
+
+References m3ua\+\_\+xfer\+\_\+from\+\_\+data(), mtp\+\_\+xfer\+\_\+param\+\_\+to\+\_\+m3ua\+\_\+dh(), osmo\+\_\+mtp\+\_\+prim\+::oph, osmo\+\_\+mtp\+\_\+prim\+::transfer, and osmo\+\_\+mtp\+\_\+prim\+::u.
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+user\+\_\+mtp\+\_\+xfer\+\_\+req().
+
+\index{osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}!osmo\+\_\+ss7\+\_\+route\+\_\+name@{osmo\+\_\+ss7\+\_\+route\+\_\+name}}
+\index{osmo\+\_\+ss7\+\_\+route\+\_\+name@{osmo\+\_\+ss7\+\_\+route\+\_\+name}!osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+route\+\_\+name(struct osmo\+\_\+ss7\+\_\+route $\ast$rt, bool list\+\_\+asps)}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ osmo\+\_\+ss7\+\_\+route\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+route} $\ast$}]{rt, }
+\item[{bool}]{list\+\_\+asps}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__hmrt_8c_ac966231057ff7ab04224ffee73abfc4a}
+
+
+Return human readable representation of the route, in a static buffer. 
+
+This uses both \doxyref{osmo\+\_\+ss7\+\_\+pointcode\+\_\+print()}{p.}{osmo__ss7_8h_aced2f480635c40bdfbdc7b03687f0743} and \doxyref{osmo\+\_\+ss7\+\_\+pointcode\+\_\+print2()}{p.}{osmo__ss7_8h_a11f1c4d0b61f5445352c6adeb39b8e3b}, so pairing \doxyref{osmo\+\_\+ss7\+\_\+route\+\_\+name()}{p.}{osmo__ss7__hmrt_8c_ac966231057ff7ab04224ffee73abfc4a} with \doxyref{osmo\+\_\+ss7\+\_\+pointcode\+\_\+print()}{p.}{osmo__ss7_8h_aced2f480635c40bdfbdc7b03687f0743} in the same printf statement is likely to conflict. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em rt} & The route information to print, or N\+U\+LL. \\
+\hline
+\mbox{\tt in}  & {\em list\+\_\+asps} & If true, append info for all A\+S\+Ps for the route\textquotesingle{}s AS. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A string constant or static buffer. 
+\end{DoxyReturn}
+
+
+References A\+P\+P\+E\+ND, osmo\+\_\+ss7\+\_\+route\+::as, osmo\+\_\+ss7\+\_\+as\+::asps, osmo\+\_\+ss7\+\_\+linkset\+::cfg, osmo\+\_\+ss7\+\_\+route\+::cfg, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::cfg, osmo\+\_\+ss7\+\_\+route\+::dest, osmo\+\_\+ss7\+\_\+route\+\_\+table\+::inst, osmo\+\_\+ss7\+\_\+route\+::linkset, osmo\+\_\+ss7\+\_\+route\+::mask, osmo\+\_\+ss7\+\_\+linkset\+::name, osmo\+\_\+ss7\+\_\+as\+::name, osmo\+\_\+ss7\+\_\+asp\+::name, osmo\+\_\+ss7\+\_\+asp\+\_\+protocol\+\_\+name(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print2(), osmo\+\_\+ss7\+\_\+route\+::pc, osmo\+\_\+ss7\+\_\+as\+::proto, osmo\+\_\+ss7\+\_\+route\+::rtable, and osmo\+\_\+ss7\+\_\+asp\+::sock\+\_\+name.
+
+
+
+Referenced by hmrt\+\_\+message\+\_\+for\+\_\+routing().
+
+\index{osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}!osmo\+\_\+ss7\+\_\+user\+\_\+mtp\+\_\+xfer\+\_\+req@{osmo\+\_\+ss7\+\_\+user\+\_\+mtp\+\_\+xfer\+\_\+req}}
+\index{osmo\+\_\+ss7\+\_\+user\+\_\+mtp\+\_\+xfer\+\_\+req@{osmo\+\_\+ss7\+\_\+user\+\_\+mtp\+\_\+xfer\+\_\+req}!osmo\+\_\+ss7\+\_\+hmrt.\+c@{osmo\+\_\+ss7\+\_\+hmrt.\+c}}
+\subsubsection[{osmo\+\_\+ss7\+\_\+user\+\_\+mtp\+\_\+xfer\+\_\+req(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, struct osmo\+\_\+mtp\+\_\+prim $\ast$omp)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+ss7\+\_\+user\+\_\+mtp\+\_\+xfer\+\_\+req (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf osmo\+\_\+mtp\+\_\+prim} $\ast$}]{omp}
+\end{DoxyParamCaption}
+)}\label{osmo__ss7__hmrt_8c_a6e0fa32ebbd3aeba25b800146a76bbc7}
+
+
+References m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2(), xua\+\_\+msg\+::mtp, mtp\+\_\+prim\+\_\+to\+\_\+m3ua(), M\+T\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER, osmo\+\_\+mtp\+\_\+prim\+::oph, O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+T\+R\+A\+N\+S\+F\+ER, osmo\+\_\+mtp\+\_\+prim\+::transfer, osmo\+\_\+mtp\+\_\+prim\+::u, and xua\+\_\+msg\+\_\+free().
+
+
+
+Referenced by sua2sccp\+\_\+tx\+\_\+m3ua().
+

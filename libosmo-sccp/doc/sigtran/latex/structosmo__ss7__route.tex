@@ -1,0 +1,145 @@
+\section{osmo\+\_\+ss7\+\_\+route Struct Reference}
+\label{structosmo__ss7__route}\index{osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}}
+
+
+{\ttfamily \#include $<$osmo\+\_\+ss7.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct llist\+\_\+head {\bf list}
+\begin{DoxyCompactList}\small\item\em member in \doxyref{osmo\+\_\+ss7\+\_\+route\+\_\+table\+::routes}{p.}{structosmo__ss7__route__table_a246c737898e3dfde373e11ebbab736b1} \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table} $\ast$ {\bf rtable}
+\begin{DoxyCompactList}\small\item\em \doxyref{osmo\+\_\+ss7\+\_\+route\+\_\+table}{p.}{structosmo__ss7__route__table} to which we belong \end{DoxyCompactList}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>struct {\bf osmo\_ss7\_linkset} $\ast$ {\bf linkset}\\
+\>\>{\em pointer to linkset (destination) of route }\\
+\>struct {\bf osmo\_ss7\_as} $\ast$ {\bf as}\\
+\>\>{\em pointer to Application Server }\\
+\} {\bf dest}\\
+
+\end{tabbing}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>uint32\_t {\bf pc}\\
+\>uint32\_t {\bf mask}\\
+\>char $\ast$ {\bf linkset\_name}\\
+\>\>{\em human-\/specified linkset name }\\
+\>uint32\_t {\bf priority}\\
+\>\>{\em lower priority is higher }\\
+\>uint8\_t {\bf qos\_class}\\
+\} {\bf cfg}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}!as@{as}}
+\index{as@{as}!osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}}
+\subsubsection[{as}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+as}$\ast$ osmo\+\_\+ss7\+\_\+route\+::as}\label{structosmo__ss7__route_a12adaba7137144d6b28a459a2671b93d}
+
+
+pointer to Application Server 
+
+
+
+Referenced by gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua(), handle\+\_\+rkey\+\_\+reg(), hmrt\+\_\+message\+\_\+for\+\_\+routing(), ipa\+\_\+asp\+\_\+fsm\+\_\+del\+\_\+route(), osmo\+\_\+ss7\+\_\+as\+\_\+destroy(), osmo\+\_\+ss7\+\_\+route\+\_\+create(), and osmo\+\_\+ss7\+\_\+route\+\_\+name().
+
+\index{osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}!cfg@{cfg}}
+\index{cfg@{cfg}!osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}}
+\subsubsection[{cfg}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   osmo\+\_\+ss7\+\_\+route\+::cfg}\label{structosmo__ss7__route_a7ac896fdae56f08f2cf5167e2737d57d}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+ss7\+\_\+route\+\_\+create(), osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc(), osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc\+\_\+mask(), osmo\+\_\+ss7\+\_\+route\+\_\+name(), osmo\+\_\+ss7\+\_\+route\+\_\+print(), route\+\_\+insert\+\_\+sorted(), vty\+\_\+dump\+\_\+rtable(), and write\+\_\+one\+\_\+rtable().
+
+\index{osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}!dest@{dest}}
+\index{dest@{dest}!osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}}
+\subsubsection[{dest}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   osmo\+\_\+ss7\+\_\+route\+::dest}\label{structosmo__ss7__route_a3d4da7a716c0af81decbfba205eca0af}
+
+
+Referenced by gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua(), hmrt\+\_\+message\+\_\+for\+\_\+routing(), ipa\+\_\+asp\+\_\+fsm\+\_\+del\+\_\+route(), osmo\+\_\+ss7\+\_\+as\+\_\+destroy(), osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy(), osmo\+\_\+ss7\+\_\+route\+\_\+create(), and osmo\+\_\+ss7\+\_\+route\+\_\+name().
+
+\index{osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}!linkset@{linkset}}
+\index{linkset@{linkset}!osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}}
+\subsubsection[{linkset}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+linkset}$\ast$ osmo\+\_\+ss7\+\_\+route\+::linkset}\label{structosmo__ss7__route_aac7e1db8fc58e75e72fa3b9b588600c5}
+
+
+pointer to linkset (destination) of route 
+
+
+
+Referenced by gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua(), hmrt\+\_\+message\+\_\+for\+\_\+routing(), osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy(), osmo\+\_\+ss7\+\_\+route\+\_\+create(), and osmo\+\_\+ss7\+\_\+route\+\_\+name().
+
+\index{osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}!linkset\+\_\+name@{linkset\+\_\+name}}
+\index{linkset\+\_\+name@{linkset\+\_\+name}!osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}}
+\subsubsection[{linkset\+\_\+name}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ osmo\+\_\+ss7\+\_\+route\+::linkset\+\_\+name}\label{structosmo__ss7__route_ad850f4e7d7b0dc4f913f09b075e8156c}
+
+
+human-\/specified linkset name 
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+route\+\_\+create(), vty\+\_\+dump\+\_\+rtable(), and write\+\_\+one\+\_\+rtable().
+
+\index{osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}!list@{list}}
+\index{list@{list}!osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}}
+\subsubsection[{list}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head osmo\+\_\+ss7\+\_\+route\+::list}\label{structosmo__ss7__route_a7e381694c493bd6aa2d02661638419c0}
+
+
+member in \doxyref{osmo\+\_\+ss7\+\_\+route\+\_\+table\+::routes}{p.}{structosmo__ss7__route__table_a246c737898e3dfde373e11ebbab736b1} 
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+as\+\_\+destroy(), osmo\+\_\+ss7\+\_\+linkset\+\_\+destroy(), osmo\+\_\+ss7\+\_\+route\+\_\+destroy(), osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc(), osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc\+\_\+mask(), route\+\_\+insert\+\_\+sorted(), vty\+\_\+dump\+\_\+rtable(), and write\+\_\+one\+\_\+rtable().
+
+\index{osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}!mask@{mask}}
+\index{mask@{mask}!osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}}
+\subsubsection[{mask}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t osmo\+\_\+ss7\+\_\+route\+::mask}\label{structosmo__ss7__route_a676570081e6b364c20335d126e5a0939}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+ss7\+\_\+route\+\_\+create(), osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc(), osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc\+\_\+mask(), osmo\+\_\+ss7\+\_\+route\+\_\+name(), osmo\+\_\+ss7\+\_\+route\+\_\+print(), route\+\_\+insert\+\_\+sorted(), and write\+\_\+one\+\_\+rtable().
+
+\index{osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}!pc@{pc}}
+\index{pc@{pc}!osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}}
+\subsubsection[{pc}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t osmo\+\_\+ss7\+\_\+route\+::pc}\label{structosmo__ss7__route_a4084966cee281d59199c05b13f3e76da}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+route\+\_\+create(), osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc(), osmo\+\_\+ss7\+\_\+route\+\_\+find\+\_\+dpc\+\_\+mask(), osmo\+\_\+ss7\+\_\+route\+\_\+name(), osmo\+\_\+ss7\+\_\+route\+\_\+print(), and write\+\_\+one\+\_\+rtable().
+
+\index{osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}!priority@{priority}}
+\index{priority@{priority}!osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}}
+\subsubsection[{priority}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t osmo\+\_\+ss7\+\_\+route\+::priority}\label{structosmo__ss7__route_ac3e27ca8e14b0a144cc0fb2cc8efb2c4}
+
+
+lower priority is higher 
+
+
+
+Referenced by D\+E\+F\+U\+N(), vty\+\_\+dump\+\_\+rtable(), and write\+\_\+one\+\_\+rtable().
+
+\index{osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}!qos\+\_\+class@{qos\+\_\+class}}
+\index{qos\+\_\+class@{qos\+\_\+class}!osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}}
+\subsubsection[{qos\+\_\+class}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t osmo\+\_\+ss7\+\_\+route\+::qos\+\_\+class}\label{structosmo__ss7__route_a3fbf4b2c78c5afefeb8ba7e9cc7496d4}
+
+
+Referenced by D\+E\+F\+U\+N(), and write\+\_\+one\+\_\+rtable().
+
+\index{osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}!rtable@{rtable}}
+\index{rtable@{rtable}!osmo\+\_\+ss7\+\_\+route@{osmo\+\_\+ss7\+\_\+route}}
+\subsubsection[{rtable}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+route\+\_\+table}$\ast$ osmo\+\_\+ss7\+\_\+route\+::rtable}\label{structosmo__ss7__route_a6f3a624fe10db9ed7e60c620e353dd77}
+
+
+\doxyref{osmo\+\_\+ss7\+\_\+route\+\_\+table}{p.}{structosmo__ss7__route__table} to which we belong 
+
+
+
+Referenced by osmo\+\_\+ss7\+\_\+route\+\_\+create(), osmo\+\_\+ss7\+\_\+route\+\_\+name(), and osmo\+\_\+ss7\+\_\+route\+\_\+print().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/osmocom/sigtran/{\bf osmo\+\_\+ss7.\+h}\end{DoxyCompactItemize}

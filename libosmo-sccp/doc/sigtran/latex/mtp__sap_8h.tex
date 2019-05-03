@@ -1,0 +1,90 @@
+\section{include/osmocom/sigtran/mtp\+\_\+sap.h File Reference}
+\label{mtp__sap_8h}\index{include/osmocom/sigtran/mtp\+\_\+sap.\+h@{include/osmocom/sigtran/mtp\+\_\+sap.\+h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/prim.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/sigtran\+\_\+sap.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+mtp\+\_\+transfer\+\_\+param}
+\item 
+struct {\bf osmo\+\_\+mtp\+\_\+pause\+\_\+param}
+\item 
+struct {\bf osmo\+\_\+mtp\+\_\+resume\+\_\+param}
+\item 
+struct {\bf osmo\+\_\+mtp\+\_\+status\+\_\+param}
+\item 
+struct {\bf osmo\+\_\+mtp\+\_\+prim}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf M\+T\+P\+\_\+\+S\+IO}(service,  net\+\_\+ind)~(((net\+\_\+ind \& 0x3) $<$$<$ 6) $\vert$ (service \& 0x\+F))
+\item 
+\#define {\bf msgb\+\_\+mtp\+\_\+prim}(msg)~((struct {\bf osmo\+\_\+mtp\+\_\+prim} $\ast$)(msg)-\/$>$l1h)
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf osmo\+\_\+mtp\+\_\+prim\+\_\+type} \{ {\bf O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+T\+R\+A\+N\+S\+F\+ER}, 
+{\bf O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+P\+A\+U\+SE}, 
+{\bf O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+R\+E\+S\+U\+ME}, 
+{\bf O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+S\+T\+A\+T\+US}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ {\bf osmo\+\_\+mtp\+\_\+prim\+\_\+name} (struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{mtp\+\_\+sap.\+h@{mtp\+\_\+sap.\+h}!msgb\+\_\+mtp\+\_\+prim@{msgb\+\_\+mtp\+\_\+prim}}
+\index{msgb\+\_\+mtp\+\_\+prim@{msgb\+\_\+mtp\+\_\+prim}!mtp\+\_\+sap.\+h@{mtp\+\_\+sap.\+h}}
+\subsubsection[{msgb\+\_\+mtp\+\_\+prim}]{\setlength{\rightskip}{0pt plus 5cm}\#define msgb\+\_\+mtp\+\_\+prim(
+\begin{DoxyParamCaption}
+\item[{}]{msg}
+\end{DoxyParamCaption}
+)~((struct {\bf osmo\+\_\+mtp\+\_\+prim} $\ast$)(msg)-\/$>$l1h)}\label{mtp__sap_8h_a463c0a286464fef0cdeb0e29b3c1cf18}
+\index{mtp\+\_\+sap.\+h@{mtp\+\_\+sap.\+h}!M\+T\+P\+\_\+\+S\+IO@{M\+T\+P\+\_\+\+S\+IO}}
+\index{M\+T\+P\+\_\+\+S\+IO@{M\+T\+P\+\_\+\+S\+IO}!mtp\+\_\+sap.\+h@{mtp\+\_\+sap.\+h}}
+\subsubsection[{M\+T\+P\+\_\+\+S\+IO}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+T\+P\+\_\+\+S\+IO(
+\begin{DoxyParamCaption}
+\item[{}]{service, }
+\item[{}]{net\+\_\+ind}
+\end{DoxyParamCaption}
+)~(((net\+\_\+ind \& 0x3) $<$$<$ 6) $\vert$ (service \& 0x\+F))}\label{mtp__sap_8h_a955b021ad7245dc7ada3779bfd1c6d62}
+
+
+Referenced by sua2sccp\+\_\+tx\+\_\+m3ua().
+
+
+
+\subsection{Enumeration Type Documentation}
+\index{mtp\+\_\+sap.\+h@{mtp\+\_\+sap.\+h}!osmo\+\_\+mtp\+\_\+prim\+\_\+type@{osmo\+\_\+mtp\+\_\+prim\+\_\+type}}
+\index{osmo\+\_\+mtp\+\_\+prim\+\_\+type@{osmo\+\_\+mtp\+\_\+prim\+\_\+type}!mtp\+\_\+sap.\+h@{mtp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+mtp\+\_\+prim\+\_\+type}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf osmo\+\_\+mtp\+\_\+prim\+\_\+type}}\label{mtp__sap_8h_ac292c93d961c40235b9771772a327f80}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+T\+R\+A\+N\+S\+F\+ER@{O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+T\+R\+A\+N\+S\+F\+ER}!mtp\+\_\+sap.\+h@{mtp\+\_\+sap.\+h}}\index{mtp\+\_\+sap.\+h@{mtp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+T\+R\+A\+N\+S\+F\+ER@{O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+T\+R\+A\+N\+S\+F\+ER}}\item[{\em 
+O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+T\+R\+A\+N\+S\+F\+ER\label{mtp__sap_8h_ac292c93d961c40235b9771772a327f80a85539b3d6cb98c30acb29daf4d5e1acc}
+}]\index{O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+P\+A\+U\+SE@{O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+P\+A\+U\+SE}!mtp\+\_\+sap.\+h@{mtp\+\_\+sap.\+h}}\index{mtp\+\_\+sap.\+h@{mtp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+P\+A\+U\+SE@{O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+P\+A\+U\+SE}}\item[{\em 
+O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+P\+A\+U\+SE\label{mtp__sap_8h_ac292c93d961c40235b9771772a327f80a93bb547c492a35dac5a47396a920cd65}
+}]\index{O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+R\+E\+S\+U\+ME@{O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+R\+E\+S\+U\+ME}!mtp\+\_\+sap.\+h@{mtp\+\_\+sap.\+h}}\index{mtp\+\_\+sap.\+h@{mtp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+R\+E\+S\+U\+ME@{O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+R\+E\+S\+U\+ME}}\item[{\em 
+O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+R\+E\+S\+U\+ME\label{mtp__sap_8h_ac292c93d961c40235b9771772a327f80a7ba9a90fbdc8edcf206aeae92e56ac1c}
+}]\index{O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+S\+T\+A\+T\+US@{O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+S\+T\+A\+T\+US}!mtp\+\_\+sap.\+h@{mtp\+\_\+sap.\+h}}\index{mtp\+\_\+sap.\+h@{mtp\+\_\+sap.\+h}!O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+S\+T\+A\+T\+US@{O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+S\+T\+A\+T\+US}}\item[{\em 
+O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+S\+T\+A\+T\+US\label{mtp__sap_8h_ac292c93d961c40235b9771772a327f80af3c2b7a95643d9f6b408c2b305b88307}
+}]\end{description}
+\end{Desc}
+
+
+\subsection{Function Documentation}
+\index{mtp\+\_\+sap.\+h@{mtp\+\_\+sap.\+h}!osmo\+\_\+mtp\+\_\+prim\+\_\+name@{osmo\+\_\+mtp\+\_\+prim\+\_\+name}}
+\index{osmo\+\_\+mtp\+\_\+prim\+\_\+name@{osmo\+\_\+mtp\+\_\+prim\+\_\+name}!mtp\+\_\+sap.\+h@{mtp\+\_\+sap.\+h}}
+\subsubsection[{osmo\+\_\+mtp\+\_\+prim\+\_\+name(struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ osmo\+\_\+mtp\+\_\+prim\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{struct osmo\+\_\+prim\+\_\+hdr $\ast$}]{oph}
+\end{DoxyParamCaption}
+)}\label{mtp__sap_8h_afca3be7cda41063fde7e6bb7ea9b0b1e}

@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+DEBIAN  := $(shell dpkg-parsechangelog | grep ^Version: | cut -d' ' -f2)
+DEBVERS := $(shell echo '$(DEBIAN)' | cut -d- -f1)
+VERSION := $(shell echo '$(DEBVERS)' | sed -e 's/[+-].*//' -e 's/~//g')
+
+# This has to be exported to make some magic below work.
+#export DH_OPTIONS
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+%:
+	dh $@ --with autoreconf
+
+override_dh_strip:
+	dh_strip -posmo-ggsn --dbg-package=osmo-ggsn-dbg
+	dh_strip -plibgtp4 --dbg-package=libgtp-dbg
+
+override_dh_auto_configure:
+	dh_auto_configure -- --with-systemdsystemunitdir=/lib/systemd/system

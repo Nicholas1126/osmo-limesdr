@@ -1,0 +1,132 @@
+\section{src/mtp\+\_\+pcap.c File Reference}
+\label{mtp__pcap_8c}\index{src/mtp\+\_\+pcap.\+c@{src/mtp\+\_\+pcap.\+c}}
+{\ttfamily \#include $<$osmocom/mtp/mtp\+\_\+pcap.\+h$>$}\\*
+{\ttfamily \#include $<$sys/time.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf pcap\+\_\+hdr}
+\item 
+struct {\bf pcaprec\+\_\+hdr}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf static\+\_\+assert}(exp,  name)~typedef int dummy\#\#name [(exp) ? 1 \+: -\/1];
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf pcap\+\_\+hdr} {\bf \+\_\+\+\_\+attribute\+\_\+\+\_\+} ((packed))
+\item 
+int {\bf mtp\+\_\+pcap\+\_\+write\+\_\+header} (int fd)
+\item 
+int {\bf mtp\+\_\+pcap\+\_\+write\+\_\+msu} (int fd, const uint8\+\_\+t $\ast${\bf data}, int length)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t {\bf magic\+\_\+number}
+\item 
+uint16\+\_\+t {\bf version\+\_\+major}
+\item 
+uint16\+\_\+t {\bf version\+\_\+minor}
+\item 
+int32\+\_\+t {\bf thiszone}
+\item 
+uint32\+\_\+t {\bf sigfigs}
+\item 
+uint32\+\_\+t {\bf snaplen}
+\item 
+uint32\+\_\+t {\bf network}
+\item 
+uint32\+\_\+t {\bf ts\+\_\+sec}
+\item 
+uint32\+\_\+t {\bf ts\+\_\+usec}
+\item 
+uint32\+\_\+t {\bf incl\+\_\+len}
+\item 
+uint32\+\_\+t {\bf orig\+\_\+len}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}!static\+\_\+assert@{static\+\_\+assert}}
+\index{static\+\_\+assert@{static\+\_\+assert}!mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}}
+\subsubsection[{static\+\_\+assert}]{\setlength{\rightskip}{0pt plus 5cm}\#define static\+\_\+assert(
+\begin{DoxyParamCaption}
+\item[{}]{exp, }
+\item[{}]{name}
+\end{DoxyParamCaption}
+)~typedef int dummy\#\#name [(exp) ? 1 \+: -\/1];}\label{mtp__pcap_8c_a78cd309b77fa81cce0db18ab58286998}
+
+
+\subsection{Function Documentation}
+\index{mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}!\+\_\+\+\_\+attribute\+\_\+\+\_\+@{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+attribute\+\_\+\+\_\+@{\+\_\+\+\_\+attribute\+\_\+\+\_\+}!mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}}
+\subsubsection[{\+\_\+\+\_\+attribute\+\_\+\+\_\+((packed))}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf pcap\+\_\+hdr} \+\_\+\+\_\+attribute\+\_\+\+\_\+ (
+\begin{DoxyParamCaption}
+\item[{(packed)}]{}
+\end{DoxyParamCaption}
+)}\label{mtp__pcap_8c_a65818cb5fbd175e46b033ab9743def50}
+\index{mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}!mtp\+\_\+pcap\+\_\+write\+\_\+header@{mtp\+\_\+pcap\+\_\+write\+\_\+header}}
+\index{mtp\+\_\+pcap\+\_\+write\+\_\+header@{mtp\+\_\+pcap\+\_\+write\+\_\+header}!mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}}
+\subsubsection[{mtp\+\_\+pcap\+\_\+write\+\_\+header(int fd)}]{\setlength{\rightskip}{0pt plus 5cm}int mtp\+\_\+pcap\+\_\+write\+\_\+header (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}\label{mtp__pcap_8c_a16c01a18801be490efe5eb7969ca45ee}
+
+
+References pcap\+\_\+hdr\+::magic\+\_\+number.
+
+\index{mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}!mtp\+\_\+pcap\+\_\+write\+\_\+msu@{mtp\+\_\+pcap\+\_\+write\+\_\+msu}}
+\index{mtp\+\_\+pcap\+\_\+write\+\_\+msu@{mtp\+\_\+pcap\+\_\+write\+\_\+msu}!mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}}
+\subsubsection[{mtp\+\_\+pcap\+\_\+write\+\_\+msu(int fd, const uint8\+\_\+t $\ast$data, int length)}]{\setlength{\rightskip}{0pt plus 5cm}int mtp\+\_\+pcap\+\_\+write\+\_\+msu (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{const uint8\+\_\+t $\ast$}]{data, }
+\item[{int}]{length}
+\end{DoxyParamCaption}
+)}\label{mtp__pcap_8c_a72520b353fc64f15cab5dfa2c2326e00}
+
+
+References pcaprec\+\_\+hdr\+::ts\+\_\+sec, and pcaprec\+\_\+hdr\+::ts\+\_\+usec.
+
+
+
+\subsection{Variable Documentation}
+\index{mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}!incl\+\_\+len@{incl\+\_\+len}}
+\index{incl\+\_\+len@{incl\+\_\+len}!mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}}
+\subsubsection[{incl\+\_\+len}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t incl\+\_\+len}\label{mtp__pcap_8c_af7ebd1acc88da8d5c4018a9b96e4a231}
+\index{mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}!magic\+\_\+number@{magic\+\_\+number}}
+\index{magic\+\_\+number@{magic\+\_\+number}!mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}}
+\subsubsection[{magic\+\_\+number}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t magic\+\_\+number}\label{mtp__pcap_8c_a45eaf7e07ea0226c1328ee7d4a5f7948}
+\index{mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}!network@{network}}
+\index{network@{network}!mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}}
+\subsubsection[{network}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t network}\label{mtp__pcap_8c_ae29355b72ee4e48dcf249e0fede0155e}
+\index{mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}!orig\+\_\+len@{orig\+\_\+len}}
+\index{orig\+\_\+len@{orig\+\_\+len}!mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}}
+\subsubsection[{orig\+\_\+len}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t orig\+\_\+len}\label{mtp__pcap_8c_a6a2f0b2b8c5d6c756e4de119c5fe2fad}
+\index{mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}!sigfigs@{sigfigs}}
+\index{sigfigs@{sigfigs}!mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}}
+\subsubsection[{sigfigs}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t sigfigs}\label{mtp__pcap_8c_a73f44d04516e34b9edbbf936f10cb81d}
+\index{mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}!snaplen@{snaplen}}
+\index{snaplen@{snaplen}!mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}}
+\subsubsection[{snaplen}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t snaplen}\label{mtp__pcap_8c_ac2fbfe5646126df83713fb2d42428ed8}
+\index{mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}!thiszone@{thiszone}}
+\index{thiszone@{thiszone}!mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}}
+\subsubsection[{thiszone}]{\setlength{\rightskip}{0pt plus 5cm}int32\+\_\+t thiszone}\label{mtp__pcap_8c_aeb4fa0ab3357f30ebf3be827f6757958}
+\index{mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}!ts\+\_\+sec@{ts\+\_\+sec}}
+\index{ts\+\_\+sec@{ts\+\_\+sec}!mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}}
+\subsubsection[{ts\+\_\+sec}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t ts\+\_\+sec}\label{mtp__pcap_8c_ae1a4b5cc6cf9132afe4b4d20650bf61b}
+\index{mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}!ts\+\_\+usec@{ts\+\_\+usec}}
+\index{ts\+\_\+usec@{ts\+\_\+usec}!mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}}
+\subsubsection[{ts\+\_\+usec}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t ts\+\_\+usec}\label{mtp__pcap_8c_a166096819938ab066cf826f69c9b59df}
+\index{mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}!version\+\_\+major@{version\+\_\+major}}
+\index{version\+\_\+major@{version\+\_\+major}!mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}}
+\subsubsection[{version\+\_\+major}]{\setlength{\rightskip}{0pt plus 5cm}uint16\+\_\+t version\+\_\+major}\label{mtp__pcap_8c_ae45ca4ea27a897d2c46eb088e6b139f8}
+\index{mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}!version\+\_\+minor@{version\+\_\+minor}}
+\index{version\+\_\+minor@{version\+\_\+minor}!mtp\+\_\+pcap.\+c@{mtp\+\_\+pcap.\+c}}
+\subsubsection[{version\+\_\+minor}]{\setlength{\rightskip}{0pt plus 5cm}uint16\+\_\+t version\+\_\+minor}\label{mtp__pcap_8c_a166f22ce4b25488997425405d2a6e42d}

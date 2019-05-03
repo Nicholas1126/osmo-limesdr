@@ -1,0 +1,69 @@
+Source: osmo-sgsn
+Section: net
+Priority: extra
+Maintainer: Alexander Couzens <lynxis@fe80.eu>
+Build-Depends: debhelper (>=9),
+               dh-autoreconf,
+               dh-systemd (>= 1.5),
+               autotools-dev,
+               autoconf,
+               automake,
+               libtool,
+               pkg-config,
+               libasn1c-dev,
+               libtalloc-dev,
+               libc-ares-dev,
+               libgtp-dev,
+               libosmocore-dev,
+               libosmo-abis-dev,
+               libosmo-ranap-dev,
+               libosmo-sccp-dev,
+               libosmo-sigtran-dev,
+               libosmo-netif-dev,
+               libosmo-gsup-client-dev
+Standards-Version: 3.9.8
+Vcs-Git: git://git.osmocom.org/osmo-sgsn.git
+Vcs-Browser: https://git.osmocom.org/osmo-sgsn
+Homepage: https://projects.osmocom.org/projects/osmo-sgsn
+
+
+Package: osmo-sgsn
+Architecture: any
+Multi-Arch: foreign
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: OsmoSGSN: Osmocom's Serving GPRS Support Node for 2G and 3G packet-switched mobile networks 
+
+Package: osmo-sgsn-dbg
+Section: debug
+Architecture: any
+Multi-Arch: same
+Depends: osmo-sgsn (= ${binary:Version}), ${misc:Depends}
+Description: OsmoSGSN: Osmocom's Serving GPRS Support Node for 2G and 3G packet-switched mobile networks 
+
+Package: osmo-gtphub
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Osmocom GTP Hub: Proxy for GTP traffic between multiple SGSNs and GGSNs
+
+Package: osmo-gtphub-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: osmo-gtphub (= ${binary:Version}), ${misc:Depends}
+Description: Debug symbols for Osmocom GTP Hub
+
+Package: osmo-gbproxy
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Recommends: osmo-sgsn
+Description: Osmocom GPRS Gb Interface Proxy
+ The purpose of the Gb proxy is to aggregate the Gb links of multiple
+ BSS's and present them in one Gb link to the SGSN.
+
+Package: osmo-gbproxy-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: osmo-gbproxy (= ${binary:Version}), ${misc:Depends}
+Description: Debug symbols for Osmocom GPRS Gb Interface Proxy

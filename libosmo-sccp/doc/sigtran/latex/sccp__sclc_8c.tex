@@ -1,0 +1,231 @@
+\section{src/sccp\+\_\+sclc.c File Reference}
+\label{sccp__sclc_8c}\index{src/sccp\+\_\+sclc.\+c@{src/sccp\+\_\+sclc.\+c}}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/utils.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/linuxlist.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/logging.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/timer.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/fsm.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/sccp\+\_\+sap.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/sua.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sccp/sccp\+\_\+types.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+internal.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}sccp\+\_\+internal.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static struct {\bf xua\+\_\+msg} $\ast$ {\bf xua\+\_\+gen\+\_\+msg\+\_\+cl} (uint32\+\_\+t event, struct {\bf osmo\+\_\+scu\+\_\+prim} $\ast$prim, int {\bf msg\+\_\+type})
+\item 
+static int {\bf xua\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, uint32\+\_\+t event, struct {\bf osmo\+\_\+scu\+\_\+prim} $\ast$prim, int {\bf msg\+\_\+type})
+\item 
+int {\bf sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)
+\begin{DoxyCompactList}\small\item\em Main entrance function for primitives from S\+C\+CP User. \end{DoxyCompactList}\item 
+int {\bf sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)
+\begin{DoxyCompactList}\small\item\em Main entrance function for primitives from S\+C\+CP User. \end{DoxyCompactList}\item 
+static int {\bf sclc\+\_\+rx\+\_\+cldt} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf sclc\+\_\+rx\+\_\+cldr} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+int {\bf sccp\+\_\+sclc\+\_\+rx\+\_\+from\+\_\+scrc} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua)
+\begin{DoxyCompactList}\small\item\em S\+C\+RC -\/$>$ S\+C\+LC (connectionless message) \end{DoxyCompactList}\item 
+static struct {\bf xua\+\_\+msg} $\ast$ {\bf gen\+\_\+ret\+\_\+msg} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, const struct {\bf xua\+\_\+msg} $\ast$xua\+\_\+in, uint32\+\_\+t ret\+\_\+cause)
+\item 
+void {\bf sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail} (struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua\+\_\+in, uint32\+\_\+t cause)
+\begin{DoxyCompactList}\small\item\em S\+C\+RC -\/$>$ S\+C\+LC (Routing Failure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}!gen\+\_\+ret\+\_\+msg@{gen\+\_\+ret\+\_\+msg}}
+\index{gen\+\_\+ret\+\_\+msg@{gen\+\_\+ret\+\_\+msg}!sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}}
+\subsubsection[{gen\+\_\+ret\+\_\+msg(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, const struct xua\+\_\+msg $\ast$xua\+\_\+in, uint32\+\_\+t ret\+\_\+cause)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf xua\+\_\+msg}$\ast$ gen\+\_\+ret\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{const struct {\bf xua\+\_\+msg} $\ast$}]{xua\+\_\+in, }
+\item[{uint32\+\_\+t}]{ret\+\_\+cause}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__sclc_8c_a87efb2845a3d5748b236a6366d52f5c7}
+
+
+References xua\+\_\+msg\+::hdr, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, osmo\+\_\+sccp\+\_\+addr\+::ri, osmo\+\_\+sccp\+\_\+instance\+::route\+\_\+ctx, sua\+\_\+addr\+\_\+parse(), S\+U\+A\+\_\+\+C\+A\+U\+S\+E\+\_\+\+T\+\_\+\+R\+E\+T\+U\+RN, S\+U\+A\+\_\+\+C\+L\+\_\+\+C\+L\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+C\+A\+U\+SE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+C\+O\+R\+R\+\_\+\+ID, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+A\+TA, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+I\+M\+P\+O\+R\+T\+A\+N\+CE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+M\+S\+G\+\_\+\+P\+R\+IO, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+E\+G\+M\+E\+N\+T\+A\+T\+I\+ON, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+CL, X\+U\+A\+\_\+\+H\+DR, xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr(), xua\+\_\+msg\+\_\+add\+\_\+u32(), xua\+\_\+msg\+\_\+alloc(), xua\+\_\+msg\+\_\+copy\+\_\+part(), and xua\+\_\+msg\+\_\+free\+\_\+tag().
+
+
+
+Referenced by sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail().
+
+\index{sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}!sccp\+\_\+sclc\+\_\+rx\+\_\+from\+\_\+scrc@{sccp\+\_\+sclc\+\_\+rx\+\_\+from\+\_\+scrc}}
+\index{sccp\+\_\+sclc\+\_\+rx\+\_\+from\+\_\+scrc@{sccp\+\_\+sclc\+\_\+rx\+\_\+from\+\_\+scrc}!sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}}
+\subsubsection[{sccp\+\_\+sclc\+\_\+rx\+\_\+from\+\_\+scrc(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+sclc\+\_\+rx\+\_\+from\+\_\+scrc (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{sccp__sclc_8c_a839b843770fe7a81ec460ace5ddfe7d0}
+
+
+S\+C\+RC -\/$>$ S\+C\+LC (connectionless message) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+C\+CP Instance in which we operate \\
+\hline
+\mbox{\tt in}  & {\em xua} & S\+UA connectionless message \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative on error 
+\end{DoxyReturn}
+
+
+References xua\+\_\+msg\+::hdr, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type, sclc\+\_\+rx\+\_\+cldr(), sclc\+\_\+rx\+\_\+cldt(), S\+U\+A\+\_\+\+C\+L\+\_\+\+C\+L\+DR, S\+U\+A\+\_\+\+C\+L\+\_\+\+C\+L\+DT, S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+CL, xua\+\_\+dialect\+\_\+sua, and xua\+\_\+hdr\+\_\+dump().
+
+
+
+Referenced by scrc\+\_\+node\+\_\+6(), and scrc\+\_\+translate\+\_\+node\+\_\+9().
+
+\index{sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}!sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail@{sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail}}
+\index{sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail@{sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail}!sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}}
+\subsubsection[{sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua\+\_\+in, uint32\+\_\+t cause)}]{\setlength{\rightskip}{0pt plus 5cm}void sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua\+\_\+in, }
+\item[{uint32\+\_\+t}]{cause}
+\end{DoxyParamCaption}
+)}\label{sccp__sclc_8c_a7e7ee1fb7b747a510580b90125b5b865}
+
+
+S\+C\+RC -\/$>$ S\+C\+LC (Routing Failure. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em inst} & S\+C\+CP Instance in which we operate \\
+\hline
+\mbox{\tt in}  & {\em xua\+\_\+in} & Message that failed to be routed \\
+\hline
+\mbox{\tt in}  & {\em cause} & S\+C\+CP Return Cause \\
+\hline
+\end{DoxyParams}
+
+
+References gen\+\_\+ret\+\_\+msg(), xua\+\_\+msg\+::hdr, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type, xua\+\_\+msg\+::mtp, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::opc, osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+local(), sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg(), sclc\+\_\+rx\+\_\+cldr(), osmo\+\_\+sccp\+\_\+instance\+::ss7, S\+U\+A\+\_\+\+C\+L\+\_\+\+C\+L\+DR, S\+U\+A\+\_\+\+C\+L\+\_\+\+C\+L\+DT, and xua\+\_\+msg\+\_\+free().
+
+
+
+Referenced by scrc\+\_\+node\+\_\+4(), scrc\+\_\+node\+\_\+6(), and scrc\+\_\+translate\+\_\+node\+\_\+9().
+
+\index{sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}!sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down@{sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down}}
+\index{sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down@{sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down}!sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}}
+\subsubsection[{sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{struct osmo\+\_\+prim\+\_\+hdr $\ast$}]{oph}
+\end{DoxyParamCaption}
+)}\label{sccp__sclc_8c_a5a395d329728106701783c2a6a1c965c}
+
+
+Main entrance function for primitives from S\+C\+CP User. 
+
+Implies a msgb\+\_\+free(oph-\/$>$msg), otherwise the same as \doxyref{sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree()}{p.}{sccp__sclc_8c_a60bc93a2c2c73fd5ff578713e0f1bde5}. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em scu} & S\+C\+CP User who is sending the primitive \\
+\hline
+ & {\em } & \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+scu\+\_\+prim\+::oph, and sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree().
+
+\index{sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}!sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree@{sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree}}
+\index{sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree@{sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree}!sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}}
+\subsubsection[{sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, struct osmo\+\_\+prim\+\_\+hdr $\ast$oph)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{struct osmo\+\_\+prim\+\_\+hdr $\ast$}]{oph}
+\end{DoxyParamCaption}
+)}\label{sccp__sclc_8c_a60bc93a2c2c73fd5ff578713e0f1bde5}
+
+
+Main entrance function for primitives from S\+C\+CP User. 
+
+The caller is required to free oph-\/$>$msg, otherwise the same as \doxyref{sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down()}{p.}{sccp__sclc_8c_a5a395d329728106701783c2a6a1c965c}. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em scu} & S\+C\+CP User who is sending the primitive \\
+\hline
+ & {\em } & \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+scu\+\_\+prim\+::oph, O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+U\+N\+I\+T\+D\+A\+TA, osmo\+\_\+scu\+\_\+prim\+\_\+name(), S\+U\+A\+\_\+\+C\+L\+\_\+\+C\+L\+DT, and xua\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send().
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree(), and sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down().
+
+\index{sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}!sclc\+\_\+rx\+\_\+cldr@{sclc\+\_\+rx\+\_\+cldr}}
+\index{sclc\+\_\+rx\+\_\+cldr@{sclc\+\_\+rx\+\_\+cldr}!sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}}
+\subsubsection[{sclc\+\_\+rx\+\_\+cldr(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int sclc\+\_\+rx\+\_\+cldr (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__sclc_8c_afc57e5178424a9a1b9f558d9ef1ff853}
+
+
+References osmo\+\_\+scu\+\_\+notice\+\_\+param\+::called\+\_\+addr, osmo\+\_\+scu\+\_\+notice\+\_\+param\+::calling\+\_\+addr, osmo\+\_\+scu\+\_\+notice\+\_\+param\+::cause, xua\+\_\+msg\+\_\+part\+::dat, osmo\+\_\+scu\+\_\+notice\+\_\+param\+::importance, xua\+\_\+msg\+\_\+part\+::len, osmo\+\_\+scu\+\_\+prim\+::notice, osmo\+\_\+scu\+\_\+prim\+::oph, O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+N\+O\+T\+I\+CE, osmo\+\_\+sccp\+\_\+addr\+::pc, sccp\+\_\+msgb\+\_\+alloc(), S\+C\+C\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER, sccp\+\_\+user\+\_\+find(), sccp\+\_\+user\+\_\+prim\+\_\+up(), osmo\+\_\+sccp\+\_\+addr\+::ssn, sua\+\_\+addr\+\_\+parse(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+C\+A\+U\+SE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+A\+TA, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+I\+M\+P\+O\+R\+T\+A\+N\+CE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+A\+D\+DR, osmo\+\_\+scu\+\_\+prim\+::u, xua\+\_\+msg\+\_\+find\+\_\+tag(), and xua\+\_\+msg\+\_\+get\+\_\+u32().
+
+
+
+Referenced by sccp\+\_\+sclc\+\_\+rx\+\_\+from\+\_\+scrc(), and sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail().
+
+\index{sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}!sclc\+\_\+rx\+\_\+cldt@{sclc\+\_\+rx\+\_\+cldt}}
+\index{sclc\+\_\+rx\+\_\+cldt@{sclc\+\_\+rx\+\_\+cldt}!sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}}
+\subsubsection[{sclc\+\_\+rx\+\_\+cldt(struct osmo\+\_\+sccp\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int sclc\+\_\+rx\+\_\+cldt (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__sclc_8c_a5e92adc1773c13bc44cf792c80d82bac}
+
+
+References osmo\+\_\+scu\+\_\+unitdata\+\_\+param\+::called\+\_\+addr, osmo\+\_\+scu\+\_\+unitdata\+\_\+param\+::calling\+\_\+addr, xua\+\_\+msg\+\_\+part\+::dat, osmo\+\_\+scu\+\_\+unitdata\+\_\+param\+::importance, osmo\+\_\+scu\+\_\+unitdata\+\_\+param\+::in\+\_\+sequence\+\_\+control, xua\+\_\+msg\+\_\+part\+::len, osmo\+\_\+scu\+\_\+prim\+::oph, O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+U\+N\+I\+T\+D\+A\+TA, osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+scu\+\_\+unitdata\+\_\+param\+::return\+\_\+option, sccp\+\_\+msgb\+\_\+alloc(), S\+C\+C\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER, sccp\+\_\+user\+\_\+find(), sccp\+\_\+user\+\_\+prim\+\_\+up(), osmo\+\_\+sccp\+\_\+addr\+::ssn, sua\+\_\+addr\+\_\+parse(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+A\+TA, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+I\+M\+P\+O\+R\+T\+A\+N\+CE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+O\+\_\+\+C\+L\+A\+SS, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+E\+Q\+\_\+\+C\+T\+RL, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+A\+D\+DR, osmo\+\_\+scu\+\_\+prim\+::u, osmo\+\_\+scu\+\_\+prim\+::unitdata, xua\+\_\+msg\+\_\+find\+\_\+tag(), and xua\+\_\+msg\+\_\+get\+\_\+u32().
+
+
+
+Referenced by sccp\+\_\+sclc\+\_\+rx\+\_\+from\+\_\+scrc().
+
+\index{sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}!xua\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send@{xua\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send}}
+\index{xua\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send@{xua\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send}!sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}}
+\subsubsection[{xua\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, uint32\+\_\+t event, struct osmo\+\_\+scu\+\_\+prim $\ast$prim, int msg\+\_\+type)}]{\setlength{\rightskip}{0pt plus 5cm}static int xua\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{uint32\+\_\+t}]{event, }
+\item[{struct {\bf osmo\+\_\+scu\+\_\+prim} $\ast$}]{prim, }
+\item[{int}]{msg\+\_\+type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__sclc_8c_a39def419d82898a0282820ec19e76961}
+
+
+References osmo\+\_\+sccp\+\_\+user\+::inst, sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg(), xua\+\_\+gen\+\_\+msg\+\_\+cl(), and xua\+\_\+msg\+\_\+free().
+
+
+
+Referenced by sccp\+\_\+sclc\+\_\+user\+\_\+sap\+\_\+down\+\_\+nofree().
+
+\index{sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}!xua\+\_\+gen\+\_\+msg\+\_\+cl@{xua\+\_\+gen\+\_\+msg\+\_\+cl}}
+\index{xua\+\_\+gen\+\_\+msg\+\_\+cl@{xua\+\_\+gen\+\_\+msg\+\_\+cl}!sccp\+\_\+sclc.\+c@{sccp\+\_\+sclc.\+c}}
+\subsubsection[{xua\+\_\+gen\+\_\+msg\+\_\+cl(uint32\+\_\+t event, struct osmo\+\_\+scu\+\_\+prim $\ast$prim, int msg\+\_\+type)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf xua\+\_\+msg}$\ast$ xua\+\_\+gen\+\_\+msg\+\_\+cl (
+\begin{DoxyParamCaption}
+\item[{uint32\+\_\+t}]{event, }
+\item[{struct {\bf osmo\+\_\+scu\+\_\+prim} $\ast$}]{prim, }
+\item[{int}]{msg\+\_\+type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp__sclc_8c_acddc262ae135e1c25a9993e5caab0f8a}
+
+
+References osmo\+\_\+scu\+\_\+unitdata\+\_\+param\+::called\+\_\+addr, osmo\+\_\+scu\+\_\+unitdata\+\_\+param\+::calling\+\_\+addr, xua\+\_\+msg\+::hdr, osmo\+\_\+scu\+\_\+unitdata\+\_\+param\+::in\+\_\+sequence\+\_\+control, osmo\+\_\+scu\+\_\+prim\+::oph, S\+U\+A\+\_\+\+C\+L\+\_\+\+C\+L\+DT, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+A\+TA, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+O\+\_\+\+C\+L\+A\+SS, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+E\+Q\+\_\+\+C\+T\+RL, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+CL, osmo\+\_\+scu\+\_\+prim\+::u, osmo\+\_\+scu\+\_\+prim\+::unitdata, X\+U\+A\+\_\+\+H\+DR, xua\+\_\+msg\+\_\+add\+\_\+data(), xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr(), xua\+\_\+msg\+\_\+add\+\_\+u32(), xua\+\_\+msg\+\_\+alloc(), and xua\+\_\+msg\+\_\+free().
+
+
+
+Referenced by xua\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send().
+

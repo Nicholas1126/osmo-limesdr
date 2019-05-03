@@ -1,0 +1,98 @@
+\section{osmo\+\_\+sccp\+\_\+instance Struct Reference}
+\label{structosmo__sccp__instance}\index{osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}}
+
+
+{\ttfamily \#include $<$sccp\+\_\+internal.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct llist\+\_\+head {\bf list}
+\item 
+struct llist\+\_\+head {\bf connections}
+\item 
+struct llist\+\_\+head {\bf users}
+\item 
+uint32\+\_\+t {\bf route\+\_\+ctx}
+\item 
+uint32\+\_\+t {\bf next\+\_\+id}
+\item 
+struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$ {\bf ss7}
+\item 
+void $\ast$ {\bf priv}
+\item 
+struct {\bf osmo\+\_\+ss7\+\_\+user} {\bf ss7\+\_\+user}
+\item 
+struct {\bf osmo\+\_\+sccp\+\_\+timer\+\_\+val} {\bf timers} [{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+T\+I\+M\+E\+R\+S\+\_\+\+C\+O\+U\+NT}]
+\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}!connections@{connections}}
+\index{connections@{connections}!osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}}
+\subsubsection[{connections}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head osmo\+\_\+sccp\+\_\+instance\+::connections}\label{structosmo__sccp__instance_a09865284d107aa16445eadcf5f19f3c4}
+
+
+Referenced by conn\+\_\+create\+\_\+id(), conn\+\_\+find\+\_\+by\+\_\+id(), osmo\+\_\+sccp\+\_\+instance\+\_\+create(), sccp\+\_\+scoc\+\_\+flush\+\_\+connections(), and sccp\+\_\+scoc\+\_\+show\+\_\+connections().
+
+\index{osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}!list@{list}}
+\index{list@{list}!osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}}
+\subsubsection[{list}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head osmo\+\_\+sccp\+\_\+instance\+::list}\label{structosmo__sccp__instance_a3c16c2124bd10128d2894348783bb5df}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+instance\+\_\+create(), and osmo\+\_\+sccp\+\_\+instance\+\_\+destroy().
+
+\index{osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}!next\+\_\+id@{next\+\_\+id}}
+\index{next\+\_\+id@{next\+\_\+id}!osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}}
+\subsubsection[{next\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t osmo\+\_\+sccp\+\_\+instance\+::next\+\_\+id}\label{structosmo__sccp__instance_a052a407c54d9b116bb355b7d1f5589b2}
+
+
+Referenced by conn\+\_\+create().
+
+\index{osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}!priv@{priv}}
+\index{priv@{priv}!osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}}
+\subsubsection[{priv}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ osmo\+\_\+sccp\+\_\+instance\+::priv}\label{structosmo__sccp__instance_a9eb8afc487b7255b57a3fc1c64984718}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+instance\+\_\+create().
+
+\index{osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}!route\+\_\+ctx@{route\+\_\+ctx}}
+\index{route\+\_\+ctx@{route\+\_\+ctx}!osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}}
+\subsubsection[{route\+\_\+ctx}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t osmo\+\_\+sccp\+\_\+instance\+::route\+\_\+ctx}\label{structosmo__sccp__instance_a128f6b3e66eedb77e576f009efdcc20f}
+
+
+Referenced by gen\+\_\+coref\+\_\+without\+\_\+conn(), gen\+\_\+ret\+\_\+msg(), tx\+\_\+rlsd\+\_\+from\+\_\+xua\+\_\+twoway(), xua\+\_\+gen\+\_\+msg\+\_\+co(), and xua\+\_\+gen\+\_\+relre().
+
+\index{osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}!ss7@{ss7}}
+\index{ss7@{ss7}!osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}}
+\subsubsection[{ss7}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+instance}$\ast$ osmo\+\_\+sccp\+\_\+instance\+::ss7}\label{structosmo__sccp__instance_a3c065fc49cb0617c9b7d7f0b5c01c6b9}
+
+
+Referenced by gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua(), osmo\+\_\+sccp\+\_\+get\+\_\+ss7(), osmo\+\_\+sccp\+\_\+inst\+\_\+addr\+\_\+name(), osmo\+\_\+sccp\+\_\+instance\+\_\+create(), osmo\+\_\+sccp\+\_\+instance\+\_\+destroy(), osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance(), osmo\+\_\+sccp\+\_\+simple\+\_\+server\+\_\+add\+\_\+clnt(), osmo\+\_\+sccp\+\_\+user\+\_\+name(), osmo\+\_\+sccp\+\_\+user\+\_\+unbind(), sccp\+\_\+sclc\+\_\+rx\+\_\+scrc\+\_\+rout\+\_\+fail(), sccp\+\_\+scoc\+\_\+rx\+\_\+inval\+\_\+opc(), sccp\+\_\+user\+\_\+bind\+\_\+pc(), scrc\+\_\+local\+\_\+out\+\_\+common(), scrc\+\_\+translate\+\_\+node\+\_\+9(), show\+\_\+user(), sua2sccp\+\_\+tx\+\_\+m3ua(), and vty\+\_\+show\+\_\+connection().
+
+\index{osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}!ss7\+\_\+user@{ss7\+\_\+user}}
+\index{ss7\+\_\+user@{ss7\+\_\+user}!osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}}
+\subsubsection[{ss7\+\_\+user}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+user} osmo\+\_\+sccp\+\_\+instance\+::ss7\+\_\+user}\label{structosmo__sccp__instance_aba449483a0ab1ec8a6674735d215c7c8}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+instance\+\_\+create(), and osmo\+\_\+sccp\+\_\+instance\+\_\+destroy().
+
+\index{osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}!timers@{timers}}
+\index{timers@{timers}!osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}}
+\subsubsection[{timers}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+sccp\+\_\+timer\+\_\+val} osmo\+\_\+sccp\+\_\+instance\+::timers[{\bf O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+T\+I\+M\+E\+R\+S\+\_\+\+C\+O\+U\+NT}]}\label{structosmo__sccp__instance_a433533654d1919c1a63a24f39f892761}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+timer\+\_\+get(), and write\+\_\+sccp\+\_\+timers().
+
+\index{osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}!users@{users}}
+\index{users@{users}!osmo\+\_\+sccp\+\_\+instance@{osmo\+\_\+sccp\+\_\+instance}}
+\subsubsection[{users}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head osmo\+\_\+sccp\+\_\+instance\+::users}\label{structosmo__sccp__instance_ad699d0e360f777f69c41f83660d8d46d}
+
+
+Referenced by D\+E\+F\+U\+N(), osmo\+\_\+sccp\+\_\+instance\+\_\+create(), osmo\+\_\+sccp\+\_\+instance\+\_\+destroy(), sccp\+\_\+user\+\_\+bind\+\_\+pc(), and sccp\+\_\+user\+\_\+find().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/{\bf sccp\+\_\+internal.\+h}\end{DoxyCompactItemize}

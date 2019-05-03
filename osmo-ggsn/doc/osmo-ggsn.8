@@ -1,0 +1,173 @@
+
+.\" * OsmoGGSN - Gateway GPRS Support Node
+.\" * Copyright (C) 2002, 2003 Mondru AB.
+.\" * 
+.\" * The contents of this file may be used under the terms of the GNU
+.\" * General Public License Version 2, provided that the above copyright
+.\" * notice and this permission notice is included in all copies or
+.\" * substantial portions of the software.
+.\" * 
+.\" * The initial developer of the original code is
+.\" * Jens Jakobsen <jj@openggsn.org>
+.\" * 
+.\" * Contributor(s):
+.\" * 
+.\" Manual page for osmo-ggsn
+.\" SH section heading
+.\" SS subsection heading
+.\" LP paragraph
+.\" IP indented paragraph
+.\" TP hanging label
+
+.TH osmo-ggsn 8 "August 2017"
+.SH NAME
+osmo-ggsn \- Gateway GPRS Support Node.
+.SH SYNOPSIS
+.B osmo-ggsn
+\-\-help
+
+.B osmo-ggsn
+\-\-version
+
+.B osmo-ggsn
+[
+.BI \-\-help
+] [
+.BI \-\-daemonize
+] [
+.BI \-\-config-file " file"
+] [
+.BI \-\-version
+]
+.SH DESCRIPTION
+.B osmo-ggsn
+is part of the 
+.B OsmoGGSN
+project, and implements a Gateway GPRS Support Node. It is used by
+mobile operators as the interface between the Internet and the rest of
+the mobile network infrastructure.
+
+The GPRS functionality and protocols has been standardised by the
+Third Generation Partnership Project (3GPP). According to the 3GPP
+specifications a GGSN has two interfaces: The Gn/Gp interface and the
+Gi interface.
+
+The Gn/Gp interface can be seen as the downlink interface of the
+GGSN. It is used for communicating with the Serving GPRS Support Node
+(SGSN) which again interfaces to the radio access network. The Gn/Gp
+interface uses the GPRS tunneling protocol (GTP). User data packets
+(typically IP packets) are tunneled over GTP, which again uses UDP
+over IP.
+
+The other interface can be thought of as the uplink interface, and
+interfaces the GGSN to an external data network. Gi is most often an
+interface to the Internet.
+.B osmo-ggsn
+uses the 
+.B TUN/TAP driver
+for the Gi interface. A tun network interface is established when the
+.B osmo-ggsn
+is started.
+
+.B osmo-ggsn 
+will accept incoming connections from mobile stations through the
+radio access network and the SGSN. When a connection request is
+received the ggsn will allocate a dynamic IP address for the mobile
+station, and allow the mobile station to access the Gi
+interface. Connections are terminated by either the mobile station or
+the SGSN. Runtime errors are reported using the Osmocom logging
+framework.
+
+Typically 
+.B osmo-ggsn
+will be deployed with two Ethernet interfaces. One for the Gn/Gp
+interface, and one for the Gi interface. Policy routing and firewall
+rules should be used in order to separate Gi traffic from Gn/Gp
+traffic.
+
+.SH OPTIONS
+.TP
+.BI --help
+Print help and exit.
+
+.TP
+.BI --version
+Print version and exit.
+
+.TP
+.BI --daemonize
+Run in background as a daemon (default = off)
+
+.TP
+.BI --config-file " file"
+Read configuration 
+.I file
+(default = ./openggsn.cfg)
+
+.SH FILES
+.I ./osmo-ggsn.cfg
+.RS
+The configuration file for
+.B osmo-ggsn.
+.RE
+.I /var/run/osmo-ggsn.pid
+.RS
+Process ID file.
+.RE
+.I /var/lib/osmo-ggsn
+.RS
+Directory holding nonvolatile data.
+.RE
+
+.SH BUGS
+Report all bugs to the OsmoGGSN bug tracking list at 
+.I https://osmocom.org/projects/openggsn
+
+.B osmo-ggsn
+has very limited management support. Currently both SNMP as well as
+billing mechanisms are missing.
+
+
+.SH "SEE ALSO"
+.BR sgsnemu (8)
+
+.SH NOTES 
+.LP
+
+Besides the long options documented in this man page
+.B osmo-ggsn
+also accepts a number of short options with the same functionality. Use
+.B osmo-ggsn --help
+for a full list of all the available options.
+
+The TUN/TAP driver is required for proper operation of
+.B osmo-ggsn. 
+For linux kernels later than 2.4.7 the TUN/TAP driver is included in the kernel, but typically needs to be loaded manually with
+.B modprobe tun.
+For automatic loading the line
+.B alias char-major-10-200 tun
+can be added to
+.B /etc/modules.conf.
+For other platforms see
+.I http://vtun.sourceforge.net/tun/
+for information on how to install and configure the tun driver.
+
+.B osmo-ggsn 
+uses the GPRS Tunneling Protocol (GTP) as specified by the Third
+Generation Partnership Project (3GPP). 3GPP protocols specifications
+can be found at
+.I http://www.3gpp.org
+
+.SH COPYRIGHT
+
+Copyright (C) 2002, 2003 by Mondru AB.
+Copyright (C) 2017 Harald Welte
+
+The contents of this file may be used under the terms of the GNU
+General Public License Version 2, provided that the above copyright
+notice and this permission notice is included in all copies or
+substantial portions of the software.
+
+.SH AUTHORS
+Jens Jakobsen <jj@openggsn.org>
+Harald Welte <laforge@gnumonks.org>

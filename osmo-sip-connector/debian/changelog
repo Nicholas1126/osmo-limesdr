@@ -1,0 +1,144 @@
+osmo-sip-connector (1.2.0) unstable; urgency=medium
+
+  [ Keith ]
+  * Logging: Log mncc_names in mncc_data()
+  * Add Cause to DISCONNECT and RELEASE Requests
+  * Add SIP <-> MNCC Cause Map
+  * Implement Cause Mapping
+  * Logging: Add debug logging for status/causes
+  * Cosmetic: correct spelling error in logging
+  * Log using GSM48 Cause Value strings
+  * Logging: Further use of osmo_mncc_name() in logging
+
+  [ Harald Welte ]
+  * debian/rules: Don't overwrite .tarball-version
+
+  [ Keith Whyte ]
+  * Logging: Log RTP IP in dotted quad format.
+  * Use htonl, not ntohl before inet_ntoa()
+  * Allow GSM340_PLAN_UNKNOWN on MNCC originated leg.
+
+  [ Pau Espin Pedrol ]
+  * mncc: Fix missing conditional clause
+  * configure.ac: Introduce --enable-werror option
+  * jenkins.sh: Use --enable-werror option
+  * debian: Use osmo-sip-connector.service from contrib
+  * Install systemd services with autotools
+  * Install sample cfg file to /etc/osmocom
+
+  [ Oliver Smith ]
+  * Fix typo in -h: s/hekp/help
+  * cosmetic: call.h: spaces -> tabs for consistency
+  * vty: make 'show calls summary' more userfriendly
+  * Add --version cmdline option
+  * build manuals moved here from osmo-gsm-manuals.git
+  * Fix DISTCHECK_CONFIGURE_FLAGS override
+  * contrib/jenkins.sh: build and publish manuals
+  * contrib: fix makedistcheck with disabled systemd
+
+  [ Daniel Willmann ]
+  * Fix mncc socket name
+  * Add VTY reference for osmo-sip-connector
+  * Add manual for OsmoSIPConnector
+  * osmo-sip-connector: Explicitly note OsmoMSC config with external MNCC
+
+  [ Neels Hofmeyr ]
+  * configure.ac: add --enable-sanitize
+  * Importing history from osmo-gsm-manuals.git
+  * sip-connector: update vty reference
+
+  [ Vadim Yanitskiy ]
+  * OsmoSIPConnector: fix: avoid OsmoMGW/OsmoSIPcon confusion
+
+  [ Philipp Maier ]
+  * running: Add note about DTMF support
+
+ -- Harald Welte <laforge@gnumonks.org>  Mon, 21 Jan 2019 18:54:09 +0100
+
+osmo-sip-connector (1.1.1) unstable; urgency=medium
+
+  [ Neels Hofmeyr ]
+  * vty: skip installing cmds now always installed by default
+
+  [ Harald Welte ]
+  * mncc.c: Ensure proper string buffer NUL termination
+  * debian/control: Fix URLs for homepage / git
+  * comments
+  * mncc: use 'const' to denote read-only input buffer/message
+  * Call the program "OsmoSIPcon" (also in vty)
+  * osmoappdesc: Fix VTY prompt to use OsmoSIPcon, not old OsmoMNCC
+  * sip: Register log callback function with sofia-sip
+  * use osmo_init_logging2() to avoid allocating from NULL context
+
+  [ Pau Espin Pedrol ]
+  * contrib: Add systemd service file
+  * contrib: jenkins.sh: Disable doxygen in libosmocore build
+
+ -- Pau Espin Pedrol <pespin@sysmocom.de>  Sun, 06 May 2018 17:45:55 +0200
+
+osmo-sip-connector (1.1.0) unstable; urgency=medium
+
+  [ Holger Hans Peter Freyther ]
+  * coverity: Address two issues found by coverity
+  * debian: Add dh-autoreconf required by the debian packaging
+  * app/mncc: Add "use-imsi" to allow calling by IMSI
+  * mncc: Only copy 15 chars to leave the last one as NULL
+  * mncc: Have all release go through a local method
+  * mncc: Reject hold requests for now
+  * mncc: Use snprintf correctly create format specifier
+  * vty: Add simple VTY output for current calls
+  * vty: Fix the number of documented arguments
+  * sip/call/mncc: Move source/dest into the call structure
+  * vty: Add extended show calls command with all information
+  * mncc: Use strcpy for these routines and not memcpy
+  * vty: Add VTY command about the state of the mncc connection
+  * jenkins: Add first CI script for the SIP connector
+  * distcheck/tests: Add the referenced osmoappdesc.py for testing
+  * distcheck: Package the logging.h file as well
+  * jenkins: Try to enable the vty tests as well
+  * jenkins: Use separate check invocation tor un the tests
+  * jenkins: Make it find the libosmocore library as well
+  * sip: Start the application even if sofia-sip is broken
+  * sip: Treat SIP 183 as progress too
+  * evpoll: Use {} in the middle of the if/else if/else block
+  * evpoll: Always initialize revents for the output
+  * evpoll: Don't try to be more smart than g_poll
+  * contrib: Add Dockerfile to build and configure a FreeSWITCH
+  * call: Fix call release handling on mncc connection loss
+  * mncc: Fix use after free on mncc socket disconnection
+  * evpoll: Add workaround for usage of IP_RECVERR in sofia-sip
+  * dtmf: Start handling the DTMF MNCC messages and respond
+  * testpbx: Enable GSM and AMR as codecs to actually be relevant
+  * sip: Actually honor the remote port of the pbx
+  * testpbx: Add another number that will just play a ringback
+  * dtmf: Forward DTMF from MNCC to SIP
+  * mncc: Enable in-band signalling for early media
+  * mncc/sip: Attempt to parse the media from session in progress
+
+  [ Neels Hofmeyr ]
+  * log VTY telnet bind only once
+  * build: be robust against install-sh files above the root dir
+  * configure: check for pkg-config presence
+  * jenkins.sh: use osmo-build-dep.sh, log test failures
+  * jenkins: add value_string termination check
+  * vty: install default commands for SIP,MNCC,APP_NODE
+  * jenkins: use osmo-clean-workspace.sh before and after build
+
+  [ Max ]
+  * Add git review config
+  * Use release helper from libosmocore
+  * Fix build after recent libosmocore update
+
+  [ Keith ]
+  * sdp.c Send octet-align in fmtp
+
+  [ Harald Welte ]
+  * Fix git-version-gen
+
+ -- Harald Welte <laforge@gnumonks.org>  Sat, 28 Oct 2017 18:14:38 +0200
+
+osmo-sip-connector (1) UNRELEASED; urgency=medium
+
+  * Initial release.
+
+ -- Holger Hans Peter Freyther <holger@moiji-mobile.com>  Thu, 31 Mar 2016 18:33:30 +0200

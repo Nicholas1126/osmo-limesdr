@@ -1,0 +1,1097 @@
+\section{src/sccp.c File Reference}
+\label{sccp_8c}\index{src/sccp.\+c@{src/sccp.\+c}}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/msgb.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/talloc.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/logging.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/gsm/tlv.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sccp/sccp.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf sccp\+\_\+system}
+\item 
+struct {\bf sccp\+\_\+data\+\_\+callback}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE}~4096
+\item 
+\#define {\bf S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM}~128
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static {\bf L\+L\+I\+S\+T\+\_\+\+H\+E\+AD} (sccp\+\_\+connections)
+\item 
+static {\bf L\+L\+I\+S\+T\+\_\+\+H\+E\+AD} (sccp\+\_\+callbacks)
+\item 
+static struct {\bf sccp\+\_\+data\+\_\+callback} $\ast$ {\bf \+\_\+find\+\_\+ssn} (uint8\+\_\+t ssn)
+\item 
+static void {\bf \+\_\+send\+\_\+msg} (struct {\bf sccp\+\_\+connection} $\ast$conn, struct msgb $\ast$msg, void $\ast$ctx)
+\item 
+static int {\bf copy\+\_\+address} (struct sccp\+\_\+address $\ast$addr, uint8\+\_\+t offset, struct msgb $\ast$msgb)
+\item 
+static int {\bf \+\_\+sccp\+\_\+parse\+\_\+optional\+\_\+data} (const int offset, struct msgb $\ast$msgb, struct sccp\+\_\+optional\+\_\+data $\ast${\bf data})
+\item 
+int {\bf \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+request} (struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)
+\item 
+int {\bf \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+released} (struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)
+\item 
+int {\bf \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+refused} (struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)
+\item 
+int {\bf \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+confirm} (struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)
+\item 
+int {\bf \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+release\+\_\+complete} (struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)
+\item 
+int {\bf \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+dt1} (struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)
+\item 
+int {\bf \+\_\+sccp\+\_\+parse\+\_\+udt} (struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)
+\item 
+static int {\bf \+\_\+sccp\+\_\+parse\+\_\+it} (struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)
+\item 
+static int {\bf \+\_\+sccp\+\_\+parse\+\_\+err} (struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)
+\item 
+int {\bf sccp\+\_\+create\+\_\+sccp\+\_\+addr} (struct msgb $\ast$msg, const struct sockaddr\+\_\+sccp $\ast$sock)
+\item 
+struct msgb $\ast$ {\bf sccp\+\_\+create\+\_\+udt} (int class, const struct sockaddr\+\_\+sccp $\ast$in, const struct sockaddr\+\_\+sccp $\ast$out, uint8\+\_\+t $\ast$in\+\_\+data, int {\bf len})
+\item 
+static int {\bf \+\_\+sccp\+\_\+send\+\_\+data} (int class, const struct sockaddr\+\_\+sccp $\ast$in, const struct sockaddr\+\_\+sccp $\ast$out, struct msgb $\ast$payload, void $\ast$ctx)
+\item 
+static int {\bf \+\_\+sccp\+\_\+handle\+\_\+read} (struct msgb $\ast$msgb)
+\item 
+static int {\bf source\+\_\+local\+\_\+reference\+\_\+is\+\_\+free} (struct sccp\+\_\+source\+\_\+reference $\ast$reference)
+\item 
+static int {\bf destination\+\_\+local\+\_\+reference\+\_\+is\+\_\+free} (struct sccp\+\_\+source\+\_\+reference $\ast$reference)
+\item 
+static int {\bf assign\+\_\+source\+\_\+local\+\_\+reference} (struct {\bf sccp\+\_\+connection} $\ast$connection)
+\item 
+static void {\bf \+\_\+sccp\+\_\+set\+\_\+connection\+\_\+state} (struct {\bf sccp\+\_\+connection} $\ast$connection, int new\+\_\+state)
+\item 
+struct msgb $\ast$ {\bf sccp\+\_\+create\+\_\+refuse} (struct sccp\+\_\+source\+\_\+reference $\ast$src\+\_\+ref, int cause, uint8\+\_\+t $\ast$inp, int length)
+\item 
+static int {\bf \+\_\+sccp\+\_\+send\+\_\+refuse} (struct sccp\+\_\+source\+\_\+reference $\ast$src\+\_\+ref, int cause, void $\ast$ctx)
+\item 
+struct msgb $\ast$ {\bf sccp\+\_\+create\+\_\+cc} (struct sccp\+\_\+source\+\_\+reference $\ast$src\+\_\+ref, struct sccp\+\_\+source\+\_\+reference $\ast$dst\+\_\+ref)
+\item 
+static int {\bf \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+confirm} (struct {\bf sccp\+\_\+connection} $\ast$connection)
+\item 
+struct msgb $\ast$ {\bf sccp\+\_\+create\+\_\+cr} (const struct sccp\+\_\+source\+\_\+reference $\ast$src\+\_\+ref, const struct sockaddr\+\_\+sccp $\ast$called, const uint8\+\_\+t $\ast$l3\+\_\+data, size\+\_\+t l3\+\_\+length)
+\item 
+static int {\bf \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+request} (struct {\bf sccp\+\_\+connection} $\ast$connection, const struct sockaddr\+\_\+sccp $\ast$called, struct msgb $\ast$msg)
+\item 
+struct msgb $\ast$ {\bf sccp\+\_\+create\+\_\+dt1} (struct sccp\+\_\+source\+\_\+reference $\ast$dst\+\_\+ref, uint8\+\_\+t $\ast$inp\+\_\+data, uint8\+\_\+t {\bf len})
+\item 
+static int {\bf \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+data} (struct {\bf sccp\+\_\+connection} $\ast$conn, struct msgb $\ast$\+\_\+data)
+\item 
+static int {\bf \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+it} (struct {\bf sccp\+\_\+connection} $\ast$conn)
+\item 
+struct msgb $\ast$ {\bf sccp\+\_\+create\+\_\+rlsd} (struct sccp\+\_\+source\+\_\+reference $\ast$src\+\_\+ref, struct sccp\+\_\+source\+\_\+reference $\ast$dst\+\_\+ref, int cause)
+\item 
+static int {\bf \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+released} (struct {\bf sccp\+\_\+connection} $\ast$conn, int cause)
+\item 
+static int {\bf \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request} (struct msgb $\ast$msgb, void $\ast$ctx)
+\item 
+static int {\bf \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+release\+\_\+complete} (struct msgb $\ast$msgb)
+\item 
+static int {\bf \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+dt1} (struct msgb $\ast$msgb)
+\item 
+static int {\bf \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+release\+\_\+complete} (struct {\bf sccp\+\_\+connection} $\ast$connection)
+\item 
+static int {\bf \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+released} (struct msgb $\ast$msgb)
+\item 
+static int {\bf \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+refused} (struct msgb $\ast$msgb)
+\item 
+static int {\bf \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+confirm} (struct msgb $\ast$msgb)
+\item 
+int {\bf sccp\+\_\+system\+\_\+init} (void($\ast$outgoing)(struct {\bf sccp\+\_\+connection} $\ast$conn, struct msgb $\ast${\bf data}, void $\ast$, void $\ast$), void $\ast$ctx)
+\item 
+int {\bf sccp\+\_\+system\+\_\+incoming} (struct msgb $\ast$msgb)
+\item 
+int {\bf sccp\+\_\+system\+\_\+incoming\+\_\+ctx} (struct msgb $\ast$msgb, void $\ast$ctx)
+\item 
+int {\bf sccp\+\_\+connection\+\_\+write} (struct {\bf sccp\+\_\+connection} $\ast$connection, struct msgb $\ast${\bf data})
+\item 
+int {\bf sccp\+\_\+connection\+\_\+send\+\_\+it} (struct {\bf sccp\+\_\+connection} $\ast$connection)
+\item 
+int {\bf sccp\+\_\+connection\+\_\+close} (struct {\bf sccp\+\_\+connection} $\ast$connection, int cause)
+\item 
+int {\bf sccp\+\_\+connection\+\_\+free} (struct {\bf sccp\+\_\+connection} $\ast$connection)
+\item 
+int {\bf sccp\+\_\+connection\+\_\+force\+\_\+free} (struct {\bf sccp\+\_\+connection} $\ast$con)
+\item 
+struct {\bf sccp\+\_\+connection} $\ast$ {\bf sccp\+\_\+connection\+\_\+socket} (void)
+\item 
+int {\bf sccp\+\_\+connection\+\_\+connect} (struct {\bf sccp\+\_\+connection} $\ast$conn, const struct sockaddr\+\_\+sccp $\ast$local, struct msgb $\ast${\bf data})
+\item 
+int {\bf sccp\+\_\+connection\+\_\+set\+\_\+incoming} (const struct sockaddr\+\_\+sccp $\ast$sock, int($\ast$accept\+\_\+cb)(struct {\bf sccp\+\_\+connection} $\ast$, void $\ast$), void $\ast$context)
+\item 
+int {\bf sccp\+\_\+write} (struct msgb $\ast${\bf data}, const struct sockaddr\+\_\+sccp $\ast$in, const struct sockaddr\+\_\+sccp $\ast$out, int class, void $\ast$ctx)
+\item 
+int {\bf sccp\+\_\+set\+\_\+read} (const struct sockaddr\+\_\+sccp $\ast$sock, int($\ast$read\+\_\+cb)(struct msgb $\ast$, unsigned int, void $\ast$), void $\ast$context)
+\item 
+{\bf osmo\+\_\+static\+\_\+assert} (sizeof(struct sccp\+\_\+source\+\_\+reference)$<$=sizeof(uint32\+\_\+t), enough\+\_\+space)
+\item 
+uint32\+\_\+t {\bf sccp\+\_\+src\+\_\+ref\+\_\+to\+\_\+int} (struct sccp\+\_\+source\+\_\+reference $\ast$ref)
+\item 
+struct sccp\+\_\+source\+\_\+reference {\bf sccp\+\_\+src\+\_\+ref\+\_\+from\+\_\+int} (uint32\+\_\+t int\+\_\+ref)
+\item 
+int {\bf sccp\+\_\+determine\+\_\+msg\+\_\+type} (struct msgb $\ast$msg)
+\item 
+int {\bf sccp\+\_\+parse\+\_\+header} (struct msgb $\ast$msg, struct sccp\+\_\+parse\+\_\+result $\ast$result)
+\item 
+static {\bf \+\_\+\+\_\+attribute\+\_\+\+\_\+} ((constructor))
+\item 
+static {\bf \+\_\+\+\_\+attribute\+\_\+\+\_\+} ((destructor))
+\item 
+void {\bf sccp\+\_\+set\+\_\+log\+\_\+area} (int log\+\_\+area)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static int {\bf D\+S\+C\+CP} = 0
+\item 
+static void $\ast$ {\bf tall\+\_\+sccp\+\_\+ctx}
+\item 
+const struct sockaddr\+\_\+sccp {\bf sccp\+\_\+ssn\+\_\+bssap}
+\item 
+static struct {\bf sccp\+\_\+system} {\bf sccp\+\_\+system}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{sccp.\+c@{sccp.\+c}!S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM@{S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM}}
+\index{S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM@{S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM~128}\label{sccp_8c_a93c1b4187877d6a16a64487da38aa772}
+
+
+Referenced by \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+it(), \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+release\+\_\+complete(), sccp\+\_\+create\+\_\+cc(), sccp\+\_\+create\+\_\+cr(), sccp\+\_\+create\+\_\+dt1(), sccp\+\_\+create\+\_\+refuse(), sccp\+\_\+create\+\_\+rlsd(), and sccp\+\_\+create\+\_\+udt().
+
+\index{sccp.\+c@{sccp.\+c}!S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE@{S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE}}
+\index{S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE@{S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE~4096}\label{sccp_8c_a95dfedb93a29d464768e61be0054b120}
+
+
+Referenced by \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+it(), \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+release\+\_\+complete(), sccp\+\_\+create\+\_\+cc(), sccp\+\_\+create\+\_\+cr(), sccp\+\_\+create\+\_\+dt1(), sccp\+\_\+create\+\_\+refuse(), sccp\+\_\+create\+\_\+rlsd(), and sccp\+\_\+create\+\_\+udt().
+
+
+
+\subsection{Function Documentation}
+\index{sccp.\+c@{sccp.\+c}!\+\_\+\+\_\+attribute\+\_\+\+\_\+@{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+attribute\+\_\+\+\_\+@{\+\_\+\+\_\+attribute\+\_\+\+\_\+}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+\+\_\+attribute\+\_\+\+\_\+((constructor))}]{\setlength{\rightskip}{0pt plus 5cm}static \+\_\+\+\_\+attribute\+\_\+\+\_\+ (
+\begin{DoxyParamCaption}
+\item[{(constructor)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_a9ed16867a9394d9ccf1132194edae298}
+
+
+References tall\+\_\+sccp\+\_\+ctx.
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+\+\_\+attribute\+\_\+\+\_\+@{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+attribute\+\_\+\+\_\+@{\+\_\+\+\_\+attribute\+\_\+\+\_\+}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+\+\_\+attribute\+\_\+\+\_\+((destructor))}]{\setlength{\rightskip}{0pt plus 5cm}static \+\_\+\+\_\+attribute\+\_\+\+\_\+ (
+\begin{DoxyParamCaption}
+\item[{(destructor)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_a7f400e70d869030323eab6b41ab8e833}
+
+
+References tall\+\_\+sccp\+\_\+ctx.
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+find\+\_\+ssn@{\+\_\+find\+\_\+ssn}}
+\index{\+\_\+find\+\_\+ssn@{\+\_\+find\+\_\+ssn}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+find\+\_\+ssn(uint8\+\_\+t ssn)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf sccp\+\_\+data\+\_\+callback}$\ast$ \+\_\+find\+\_\+ssn (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t}]{ssn}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_ad37028f7759ef1c1ee278f1678a1d6fa}
+
+
+References sccp\+\_\+data\+\_\+callback\+::callback, D\+S\+C\+CP, sccp\+\_\+data\+\_\+callback\+::ssn, and tall\+\_\+sccp\+\_\+ctx.
+
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request(), \+\_\+sccp\+\_\+handle\+\_\+read(), sccp\+\_\+connection\+\_\+set\+\_\+incoming(), and sccp\+\_\+set\+\_\+read().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+confirm@{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+confirm}}
+\index{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+confirm@{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+confirm}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+confirm(struct msgb $\ast$msgb)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+confirm (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_a40fc584f4feac9f209e4cff3355944f3}
+
+
+References \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+confirm(), \+\_\+sccp\+\_\+set\+\_\+connection\+\_\+state(), D\+S\+C\+CP, sccp\+\_\+connection\+::incoming, and sccp\+\_\+connection\+::list.
+
+
+
+Referenced by sccp\+\_\+system\+\_\+incoming\+\_\+ctx().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+dt1@{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+dt1}}
+\index{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+dt1@{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+dt1}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+dt1(struct msgb $\ast$msgb)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+dt1 (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_adf65f28d874b150ec5198fa6cd59ee0c}
+
+
+References \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+dt1(), D\+S\+C\+CP, and sccp\+\_\+connection\+::list.
+
+
+
+Referenced by sccp\+\_\+system\+\_\+incoming\+\_\+ctx().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+refused@{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+refused}}
+\index{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+refused@{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+refused}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+refused(struct msgb $\ast$msgb)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+refused (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_a944c864ceb54f33977f266ae3acb1256}
+
+
+References \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+refused(), \+\_\+sccp\+\_\+set\+\_\+connection\+\_\+state(), D\+S\+C\+CP, sccp\+\_\+connection\+::incoming, and sccp\+\_\+connection\+::list.
+
+
+
+Referenced by sccp\+\_\+system\+\_\+incoming\+\_\+ctx().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+release\+\_\+complete@{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+release\+\_\+complete}}
+\index{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+release\+\_\+complete@{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+release\+\_\+complete}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+release\+\_\+complete(struct msgb $\ast$msgb)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+release\+\_\+complete (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_a182cf8b9734d615a5b41c4ab63ed2909}
+
+
+References \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+release\+\_\+complete(), \+\_\+sccp\+\_\+set\+\_\+connection\+\_\+state(), D\+S\+C\+CP, and sccp\+\_\+connection\+::list.
+
+
+
+Referenced by sccp\+\_\+system\+\_\+incoming\+\_\+ctx().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+released@{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+released}}
+\index{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+released@{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+released}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+released(struct msgb $\ast$msgb)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+released (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_a1e16250489074ed16b75663f85730f02}
+
+
+References \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+released(), \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+release\+\_\+complete(), D\+S\+C\+CP, and sccp\+\_\+connection\+::list.
+
+
+
+Referenced by sccp\+\_\+system\+\_\+incoming\+\_\+ctx().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request@{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request}}
+\index{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request@{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request(struct msgb $\ast$msgb, void $\ast$ctx)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb, }
+\item[{void $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_afeebaa122a97bdf426d1120dc7b11d66}
+
+
+References \+\_\+find\+\_\+ssn(), \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+request(), \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+confirm(), \+\_\+sccp\+\_\+send\+\_\+refuse(), \+\_\+sccp\+\_\+set\+\_\+connection\+\_\+state(), sccp\+\_\+data\+\_\+callback\+::accept\+\_\+cb, sccp\+\_\+data\+\_\+callback\+::accept\+\_\+context, destination\+\_\+local\+\_\+reference\+\_\+is\+\_\+free(), D\+S\+C\+CP, sccp\+\_\+connection\+::incoming, sccp\+\_\+connection\+::list, and tall\+\_\+sccp\+\_\+ctx.
+
+
+
+Referenced by sccp\+\_\+system\+\_\+incoming\+\_\+ctx().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+handle\+\_\+read@{\+\_\+sccp\+\_\+handle\+\_\+read}}
+\index{\+\_\+sccp\+\_\+handle\+\_\+read@{\+\_\+sccp\+\_\+handle\+\_\+read}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+handle\+\_\+read(struct msgb $\ast$msgb)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+handle\+\_\+read (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_ad55dbd13b090bd850b912243aac88d41}
+
+
+References \+\_\+find\+\_\+ssn(), \+\_\+sccp\+\_\+parse\+\_\+udt(), D\+S\+C\+CP, sccp\+\_\+data\+\_\+callback\+::read\+\_\+cb, and sccp\+\_\+data\+\_\+callback\+::read\+\_\+context.
+
+
+
+Referenced by sccp\+\_\+system\+\_\+incoming\+\_\+ctx().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+confirm@{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+confirm}}
+\index{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+confirm@{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+confirm}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+confirm(struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)}]{\setlength{\rightskip}{0pt plus 5cm}int \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+confirm (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb, }
+\item[{struct sccp\+\_\+parse\+\_\+result $\ast$}]{result}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a8bad77b1220e3a3407054429eb02e416}
+
+
+References \+\_\+sccp\+\_\+parse\+\_\+optional\+\_\+data(), and D\+S\+C\+CP.
+
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+confirm(), and sccp\+\_\+parse\+\_\+header().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+dt1@{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+dt1}}
+\index{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+dt1@{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+dt1}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+dt1(struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)}]{\setlength{\rightskip}{0pt plus 5cm}int \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+dt1 (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb, }
+\item[{struct sccp\+\_\+parse\+\_\+result $\ast$}]{result}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a11c066ebd35e029f7c379e486a69cca4}
+
+
+References D\+S\+C\+CP.
+
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+dt1(), and sccp\+\_\+parse\+\_\+header().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+refused@{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+refused}}
+\index{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+refused@{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+refused}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+refused(struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)}]{\setlength{\rightskip}{0pt plus 5cm}int \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+refused (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb, }
+\item[{struct sccp\+\_\+parse\+\_\+result $\ast$}]{result}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a0775d29bff293a4f5ae4bab635d72ac4}
+
+
+References \+\_\+sccp\+\_\+parse\+\_\+optional\+\_\+data(), and D\+S\+C\+CP.
+
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+refused(), and sccp\+\_\+parse\+\_\+header().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+release\+\_\+complete@{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+release\+\_\+complete}}
+\index{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+release\+\_\+complete@{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+release\+\_\+complete}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+release\+\_\+complete(struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)}]{\setlength{\rightskip}{0pt plus 5cm}int \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+release\+\_\+complete (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb, }
+\item[{struct sccp\+\_\+parse\+\_\+result $\ast$}]{result}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a89dbef364aee48b29a8f39b38eef79c1}
+
+
+References D\+S\+C\+CP.
+
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+release\+\_\+complete(), and sccp\+\_\+parse\+\_\+header().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+released@{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+released}}
+\index{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+released@{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+released}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+released(struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)}]{\setlength{\rightskip}{0pt plus 5cm}int \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+released (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb, }
+\item[{struct sccp\+\_\+parse\+\_\+result $\ast$}]{result}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a648c2ab7821eadd9f240fdb8346f60b1}
+
+
+References \+\_\+sccp\+\_\+parse\+\_\+optional\+\_\+data(), and D\+S\+C\+CP.
+
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+released(), and sccp\+\_\+parse\+\_\+header().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+request@{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+request}}
+\index{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+request@{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+request}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+request(struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)}]{\setlength{\rightskip}{0pt plus 5cm}int \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+request (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb, }
+\item[{struct sccp\+\_\+parse\+\_\+result $\ast$}]{result}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_abb02b43c02ec68eecfb60d45e6bea3a6}
+
+
+References \+\_\+sccp\+\_\+parse\+\_\+optional\+\_\+data(), copy\+\_\+address(), and D\+S\+C\+CP.
+
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request(), and sccp\+\_\+parse\+\_\+header().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+parse\+\_\+err@{\+\_\+sccp\+\_\+parse\+\_\+err}}
+\index{\+\_\+sccp\+\_\+parse\+\_\+err@{\+\_\+sccp\+\_\+parse\+\_\+err}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+parse\+\_\+err(struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+parse\+\_\+err (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb, }
+\item[{struct sccp\+\_\+parse\+\_\+result $\ast$}]{result}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_a631c01f0934d85cb9cd38a02b8ecb35b}
+
+
+References D\+S\+C\+CP.
+
+
+
+Referenced by sccp\+\_\+parse\+\_\+header().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+parse\+\_\+it@{\+\_\+sccp\+\_\+parse\+\_\+it}}
+\index{\+\_\+sccp\+\_\+parse\+\_\+it@{\+\_\+sccp\+\_\+parse\+\_\+it}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+parse\+\_\+it(struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+parse\+\_\+it (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb, }
+\item[{struct sccp\+\_\+parse\+\_\+result $\ast$}]{result}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_ab27ade0b853143cae69bb1bba134e16c}
+
+
+References D\+S\+C\+CP.
+
+
+
+Referenced by sccp\+\_\+parse\+\_\+header().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+parse\+\_\+optional\+\_\+data@{\+\_\+sccp\+\_\+parse\+\_\+optional\+\_\+data}}
+\index{\+\_\+sccp\+\_\+parse\+\_\+optional\+\_\+data@{\+\_\+sccp\+\_\+parse\+\_\+optional\+\_\+data}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+parse\+\_\+optional\+\_\+data(const int offset, struct msgb $\ast$msgb, struct sccp\+\_\+optional\+\_\+data $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+parse\+\_\+optional\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{const int}]{offset, }
+\item[{struct msgb $\ast$}]{msgb, }
+\item[{struct sccp\+\_\+optional\+\_\+data $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_aa369d3b395a8d326212332aeae984692}
+
+
+References D\+S\+C\+CP.
+
+
+
+Referenced by \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+confirm(), \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+refused(), \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+released(), and \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+request().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+parse\+\_\+udt@{\+\_\+sccp\+\_\+parse\+\_\+udt}}
+\index{\+\_\+sccp\+\_\+parse\+\_\+udt@{\+\_\+sccp\+\_\+parse\+\_\+udt}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+parse\+\_\+udt(struct msgb $\ast$msgb, struct sccp\+\_\+parse\+\_\+result $\ast$result)}]{\setlength{\rightskip}{0pt plus 5cm}int \+\_\+sccp\+\_\+parse\+\_\+udt (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb, }
+\item[{struct sccp\+\_\+parse\+\_\+result $\ast$}]{result}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a88522cd9a68fceda6bf8af3e4fe5cea2}
+
+
+References copy\+\_\+address(), and D\+S\+C\+CP.
+
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+read(), and sccp\+\_\+parse\+\_\+header().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+confirm@{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+confirm}}
+\index{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+confirm@{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+confirm}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+confirm(struct sccp\+\_\+connection $\ast$connection)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+confirm (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sccp\+\_\+connection} $\ast$}]{connection}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_a420f9cb73eb4ea5fff69a25f7e614932}
+
+
+References \+\_\+sccp\+\_\+set\+\_\+connection\+\_\+state(), \+\_\+send\+\_\+msg(), assign\+\_\+source\+\_\+local\+\_\+reference(), and sccp\+\_\+create\+\_\+cc().
+
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+data@{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+data}}
+\index{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+data@{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+data}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+data(struct sccp\+\_\+connection $\ast$conn, struct msgb $\ast$\+\_\+data)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sccp\+\_\+connection} $\ast$}]{conn, }
+\item[{struct msgb $\ast$}]{\+\_\+data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_a0c08f6f6ec98557b8c4c7fc1b7fe551e}
+
+
+References \+\_\+send\+\_\+msg(), D\+S\+C\+CP, and sccp\+\_\+create\+\_\+dt1().
+
+
+
+Referenced by sccp\+\_\+connection\+\_\+write().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+it@{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+it}}
+\index{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+it@{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+it}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+it(struct sccp\+\_\+connection $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+it (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sccp\+\_\+connection} $\ast$}]{conn}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_a6d485664ab42e2791e428453f1194b5f}
+
+
+References \+\_\+send\+\_\+msg(), S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM, and S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE.
+
+
+
+Referenced by sccp\+\_\+connection\+\_\+send\+\_\+it().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+release\+\_\+complete@{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+release\+\_\+complete}}
+\index{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+release\+\_\+complete@{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+release\+\_\+complete}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+release\+\_\+complete(struct sccp\+\_\+connection $\ast$connection)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+release\+\_\+complete (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sccp\+\_\+connection} $\ast$}]{connection}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_acf7425b57816315588b0196c1f9a691d}
+
+
+References \+\_\+sccp\+\_\+set\+\_\+connection\+\_\+state(), \+\_\+send\+\_\+msg(), sccp\+\_\+connection\+::list, S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM, and S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE.
+
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+released().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+released@{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+released}}
+\index{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+released@{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+released}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+released(struct sccp\+\_\+connection $\ast$conn, int cause)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+released (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sccp\+\_\+connection} $\ast$}]{conn, }
+\item[{int}]{cause}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_a028316bde5fb56963ac90660b1b990ed}
+
+
+References \+\_\+sccp\+\_\+set\+\_\+connection\+\_\+state(), \+\_\+send\+\_\+msg(), and sccp\+\_\+create\+\_\+rlsd().
+
+
+
+Referenced by sccp\+\_\+connection\+\_\+close().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+request@{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+request}}
+\index{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+request@{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+request}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+send\+\_\+connection\+\_\+request(struct sccp\+\_\+connection $\ast$connection, const struct sockaddr\+\_\+sccp $\ast$called, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+request (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sccp\+\_\+connection} $\ast$}]{connection, }
+\item[{const struct sockaddr\+\_\+sccp $\ast$}]{called, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_a365da14a4888638c974fe26b8ae14e64}
+
+
+References \+\_\+sccp\+\_\+set\+\_\+connection\+\_\+state(), \+\_\+send\+\_\+msg(), assign\+\_\+source\+\_\+local\+\_\+reference(), D\+S\+C\+CP, sccp\+\_\+connection\+::list, and sccp\+\_\+create\+\_\+cr().
+
+
+
+Referenced by sccp\+\_\+connection\+\_\+connect().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+send\+\_\+data@{\+\_\+sccp\+\_\+send\+\_\+data}}
+\index{\+\_\+sccp\+\_\+send\+\_\+data@{\+\_\+sccp\+\_\+send\+\_\+data}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+send\+\_\+data(int class, const struct sockaddr\+\_\+sccp $\ast$in, const struct sockaddr\+\_\+sccp $\ast$out, struct msgb $\ast$payload, void $\ast$ctx)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+send\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{int}]{class, }
+\item[{const struct sockaddr\+\_\+sccp $\ast$}]{in, }
+\item[{const struct sockaddr\+\_\+sccp $\ast$}]{out, }
+\item[{struct msgb $\ast$}]{payload, }
+\item[{void $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_ab8c542ab7afa69373b974d7af00ae935}
+
+
+References \+\_\+send\+\_\+msg(), and sccp\+\_\+create\+\_\+udt().
+
+
+
+Referenced by sccp\+\_\+write().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+send\+\_\+refuse@{\+\_\+sccp\+\_\+send\+\_\+refuse}}
+\index{\+\_\+sccp\+\_\+send\+\_\+refuse@{\+\_\+sccp\+\_\+send\+\_\+refuse}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+send\+\_\+refuse(struct sccp\+\_\+source\+\_\+reference $\ast$src\+\_\+ref, int cause, void $\ast$ctx)}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+sccp\+\_\+send\+\_\+refuse (
+\begin{DoxyParamCaption}
+\item[{struct sccp\+\_\+source\+\_\+reference $\ast$}]{src\+\_\+ref, }
+\item[{int}]{cause, }
+\item[{void $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_ab1160682098c2bb858a9805ff53d9557}
+
+
+References \+\_\+send\+\_\+msg(), and sccp\+\_\+create\+\_\+refuse().
+
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+sccp\+\_\+set\+\_\+connection\+\_\+state@{\+\_\+sccp\+\_\+set\+\_\+connection\+\_\+state}}
+\index{\+\_\+sccp\+\_\+set\+\_\+connection\+\_\+state@{\+\_\+sccp\+\_\+set\+\_\+connection\+\_\+state}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+sccp\+\_\+set\+\_\+connection\+\_\+state(struct sccp\+\_\+connection $\ast$connection, int new\+\_\+state)}]{\setlength{\rightskip}{0pt plus 5cm}static void \+\_\+sccp\+\_\+set\+\_\+connection\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sccp\+\_\+connection} $\ast$}]{connection, }
+\item[{int}]{new\+\_\+state}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_ad719848035225c855cfbeb4d705475a2}
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+confirm(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+refused(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+release\+\_\+complete(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request(), \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+confirm(), \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+release\+\_\+complete(), \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+released(), and \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+request().
+
+\index{sccp.\+c@{sccp.\+c}!\+\_\+send\+\_\+msg@{\+\_\+send\+\_\+msg}}
+\index{\+\_\+send\+\_\+msg@{\+\_\+send\+\_\+msg}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{\+\_\+send\+\_\+msg(struct sccp\+\_\+connection $\ast$conn, struct msgb $\ast$msg, void $\ast$ctx)}]{\setlength{\rightskip}{0pt plus 5cm}static void \+\_\+send\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sccp\+\_\+connection} $\ast$}]{conn, }
+\item[{struct msgb $\ast$}]{msg, }
+\item[{void $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_a9f24e1392e1e695cc8b813b230983807}
+
+
+References sccp\+\_\+system\+::write\+\_\+context, and sccp\+\_\+system\+::write\+\_\+data.
+
+
+
+Referenced by \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+confirm(), \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+data(), \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+it(), \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+release\+\_\+complete(), \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+released(), \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+request(), \+\_\+sccp\+\_\+send\+\_\+data(), and \+\_\+sccp\+\_\+send\+\_\+refuse().
+
+\index{sccp.\+c@{sccp.\+c}!assign\+\_\+source\+\_\+local\+\_\+reference@{assign\+\_\+source\+\_\+local\+\_\+reference}}
+\index{assign\+\_\+source\+\_\+local\+\_\+reference@{assign\+\_\+source\+\_\+local\+\_\+reference}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{assign\+\_\+source\+\_\+local\+\_\+reference(struct sccp\+\_\+connection $\ast$connection)}]{\setlength{\rightskip}{0pt plus 5cm}static int assign\+\_\+source\+\_\+local\+\_\+reference (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sccp\+\_\+connection} $\ast$}]{connection}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_a23f3d91d576c49836aef9bd1a8aec8e8}
+
+
+References D\+S\+C\+CP, and source\+\_\+local\+\_\+reference\+\_\+is\+\_\+free().
+
+
+
+Referenced by \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+confirm(), and \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+request().
+
+\index{sccp.\+c@{sccp.\+c}!copy\+\_\+address@{copy\+\_\+address}}
+\index{copy\+\_\+address@{copy\+\_\+address}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{copy\+\_\+address(struct sccp\+\_\+address $\ast$addr, uint8\+\_\+t offset, struct msgb $\ast$msgb)}]{\setlength{\rightskip}{0pt plus 5cm}static int copy\+\_\+address (
+\begin{DoxyParamCaption}
+\item[{struct sccp\+\_\+address $\ast$}]{addr, }
+\item[{uint8\+\_\+t}]{offset, }
+\item[{struct msgb $\ast$}]{msgb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_abef8b5bbf898e9e46e4e5091ee05e2ae}
+
+
+References D\+S\+C\+CP.
+
+
+
+Referenced by \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+request(), and \+\_\+sccp\+\_\+parse\+\_\+udt().
+
+\index{sccp.\+c@{sccp.\+c}!destination\+\_\+local\+\_\+reference\+\_\+is\+\_\+free@{destination\+\_\+local\+\_\+reference\+\_\+is\+\_\+free}}
+\index{destination\+\_\+local\+\_\+reference\+\_\+is\+\_\+free@{destination\+\_\+local\+\_\+reference\+\_\+is\+\_\+free}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{destination\+\_\+local\+\_\+reference\+\_\+is\+\_\+free(struct sccp\+\_\+source\+\_\+reference $\ast$reference)}]{\setlength{\rightskip}{0pt plus 5cm}static int destination\+\_\+local\+\_\+reference\+\_\+is\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{struct sccp\+\_\+source\+\_\+reference $\ast$}]{reference}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_aa859763e4aa0250ba0e5b09f683a5af8}
+
+
+References sccp\+\_\+connection\+::list.
+
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request().
+
+\index{sccp.\+c@{sccp.\+c}!L\+L\+I\+S\+T\+\_\+\+H\+E\+AD@{L\+L\+I\+S\+T\+\_\+\+H\+E\+AD}}
+\index{L\+L\+I\+S\+T\+\_\+\+H\+E\+AD@{L\+L\+I\+S\+T\+\_\+\+H\+E\+AD}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{L\+L\+I\+S\+T\+\_\+\+H\+E\+A\+D(sccp\+\_\+connections)}]{\setlength{\rightskip}{0pt plus 5cm}static L\+L\+I\+S\+T\+\_\+\+H\+E\+AD (
+\begin{DoxyParamCaption}
+\item[{sccp\+\_\+connections}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_addaf5dcd2714433aeae393bff659e9b1}
+\index{sccp.\+c@{sccp.\+c}!L\+L\+I\+S\+T\+\_\+\+H\+E\+AD@{L\+L\+I\+S\+T\+\_\+\+H\+E\+AD}}
+\index{L\+L\+I\+S\+T\+\_\+\+H\+E\+AD@{L\+L\+I\+S\+T\+\_\+\+H\+E\+AD}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{L\+L\+I\+S\+T\+\_\+\+H\+E\+A\+D(sccp\+\_\+callbacks)}]{\setlength{\rightskip}{0pt plus 5cm}static L\+L\+I\+S\+T\+\_\+\+H\+E\+AD (
+\begin{DoxyParamCaption}
+\item[{sccp\+\_\+callbacks}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_aef7b7284a7c90ea2a3ff2b0816c1aa9a}
+\index{sccp.\+c@{sccp.\+c}!osmo\+\_\+static\+\_\+assert@{osmo\+\_\+static\+\_\+assert}}
+\index{osmo\+\_\+static\+\_\+assert@{osmo\+\_\+static\+\_\+assert}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{osmo\+\_\+static\+\_\+assert(sizeof(struct sccp\+\_\+source\+\_\+reference)$<$=sizeof(uint32\+\_\+t), enough\+\_\+space)}]{\setlength{\rightskip}{0pt plus 5cm}osmo\+\_\+static\+\_\+assert (
+\begin{DoxyParamCaption}
+\item[{sizeof(struct sccp\+\_\+source\+\_\+reference)$<$=sizeof(uint32\+\_\+t)}]{, }
+\item[{enough\+\_\+space}]{}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a0b41189236e3b375da78a2806b82307f}
+
+
+Referenced by sccp\+\_\+set\+\_\+read().
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+connection\+\_\+close@{sccp\+\_\+connection\+\_\+close}}
+\index{sccp\+\_\+connection\+\_\+close@{sccp\+\_\+connection\+\_\+close}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+connection\+\_\+close(struct sccp\+\_\+connection $\ast$connection, int cause)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+connection\+\_\+close (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sccp\+\_\+connection} $\ast$}]{connection, }
+\item[{int}]{cause}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a3580d82b7e274b2dd55b55f25cec92b7}
+
+
+References \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+released(), and D\+S\+C\+CP.
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+connection\+\_\+connect@{sccp\+\_\+connection\+\_\+connect}}
+\index{sccp\+\_\+connection\+\_\+connect@{sccp\+\_\+connection\+\_\+connect}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+connection\+\_\+connect(struct sccp\+\_\+connection $\ast$conn, const struct sockaddr\+\_\+sccp $\ast$local, struct msgb $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+connection\+\_\+connect (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sccp\+\_\+connection} $\ast$}]{conn, }
+\item[{const struct sockaddr\+\_\+sccp $\ast$}]{local, }
+\item[{struct msgb $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_aaf16caca45f0150cbad61c0cdb40c27a}
+
+
+References \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+request().
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+connection\+\_\+force\+\_\+free@{sccp\+\_\+connection\+\_\+force\+\_\+free}}
+\index{sccp\+\_\+connection\+\_\+force\+\_\+free@{sccp\+\_\+connection\+\_\+force\+\_\+free}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+connection\+\_\+force\+\_\+free(struct sccp\+\_\+connection $\ast$con)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+connection\+\_\+force\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sccp\+\_\+connection} $\ast$}]{con}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a4febdceb7bc1397829429670c678d52c}
+
+
+References sccp\+\_\+connection\+::list, and sccp\+\_\+connection\+\_\+free().
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+connection\+\_\+free@{sccp\+\_\+connection\+\_\+free}}
+\index{sccp\+\_\+connection\+\_\+free@{sccp\+\_\+connection\+\_\+free}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+connection\+\_\+free(struct sccp\+\_\+connection $\ast$connection)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+connection\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sccp\+\_\+connection} $\ast$}]{connection}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_ac7b76d5cf9c442c22c9c6ab3b31d2c14}
+
+
+References D\+S\+C\+CP.
+
+
+
+Referenced by sccp\+\_\+connection\+\_\+force\+\_\+free().
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+connection\+\_\+send\+\_\+it@{sccp\+\_\+connection\+\_\+send\+\_\+it}}
+\index{sccp\+\_\+connection\+\_\+send\+\_\+it@{sccp\+\_\+connection\+\_\+send\+\_\+it}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+connection\+\_\+send\+\_\+it(struct sccp\+\_\+connection $\ast$connection)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+connection\+\_\+send\+\_\+it (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sccp\+\_\+connection} $\ast$}]{connection}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a8f936980e5be74da6c7d34a79cc304e8}
+
+
+References \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+it(), and D\+S\+C\+CP.
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+connection\+\_\+set\+\_\+incoming@{sccp\+\_\+connection\+\_\+set\+\_\+incoming}}
+\index{sccp\+\_\+connection\+\_\+set\+\_\+incoming@{sccp\+\_\+connection\+\_\+set\+\_\+incoming}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+connection\+\_\+set\+\_\+incoming(const struct sockaddr\+\_\+sccp $\ast$sock, int($\ast$accept\+\_\+cb)(struct sccp\+\_\+connection $\ast$, void $\ast$), void $\ast$context)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+connection\+\_\+set\+\_\+incoming (
+\begin{DoxyParamCaption}
+\item[{const struct sockaddr\+\_\+sccp $\ast$}]{sock, }
+\item[{int($\ast$)(struct {\bf sccp\+\_\+connection} $\ast$, void $\ast$)}]{accept\+\_\+cb, }
+\item[{void $\ast$}]{context}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_afae246de0fa1621fb6695c85d6f8af92}
+
+
+References \+\_\+find\+\_\+ssn(), sccp\+\_\+data\+\_\+callback\+::accept\+\_\+cb, and sccp\+\_\+data\+\_\+callback\+::accept\+\_\+context.
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+connection\+\_\+socket@{sccp\+\_\+connection\+\_\+socket}}
+\index{sccp\+\_\+connection\+\_\+socket@{sccp\+\_\+connection\+\_\+socket}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+connection\+\_\+socket(void)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf sccp\+\_\+connection}$\ast$ sccp\+\_\+connection\+\_\+socket (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_af3f281b30f52ee258a388c21fc8b2261}
+
+
+References tall\+\_\+sccp\+\_\+ctx.
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+connection\+\_\+write@{sccp\+\_\+connection\+\_\+write}}
+\index{sccp\+\_\+connection\+\_\+write@{sccp\+\_\+connection\+\_\+write}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+connection\+\_\+write(struct sccp\+\_\+connection $\ast$connection, struct msgb $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+connection\+\_\+write (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sccp\+\_\+connection} $\ast$}]{connection, }
+\item[{struct msgb $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a22d2f5065e5560cadd1d798a1d4773a1}
+
+
+References \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+data(), and D\+S\+C\+CP.
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+create\+\_\+cc@{sccp\+\_\+create\+\_\+cc}}
+\index{sccp\+\_\+create\+\_\+cc@{sccp\+\_\+create\+\_\+cc}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+create\+\_\+cc(struct sccp\+\_\+source\+\_\+reference $\ast$src\+\_\+ref, struct sccp\+\_\+source\+\_\+reference $\ast$dst\+\_\+ref)}]{\setlength{\rightskip}{0pt plus 5cm}struct msgb$\ast$ sccp\+\_\+create\+\_\+cc (
+\begin{DoxyParamCaption}
+\item[{struct sccp\+\_\+source\+\_\+reference $\ast$}]{src\+\_\+ref, }
+\item[{struct sccp\+\_\+source\+\_\+reference $\ast$}]{dst\+\_\+ref}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a3438d0e32943a2af52f0172a4fd71744}
+
+
+References D\+S\+C\+CP, S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM, and S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE.
+
+
+
+Referenced by \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+confirm().
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+create\+\_\+cr@{sccp\+\_\+create\+\_\+cr}}
+\index{sccp\+\_\+create\+\_\+cr@{sccp\+\_\+create\+\_\+cr}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+create\+\_\+cr(const struct sccp\+\_\+source\+\_\+reference $\ast$src\+\_\+ref, const struct sockaddr\+\_\+sccp $\ast$called, const uint8\+\_\+t $\ast$l3\+\_\+data, size\+\_\+t l3\+\_\+length)}]{\setlength{\rightskip}{0pt plus 5cm}struct msgb$\ast$ sccp\+\_\+create\+\_\+cr (
+\begin{DoxyParamCaption}
+\item[{const struct sccp\+\_\+source\+\_\+reference $\ast$}]{src\+\_\+ref, }
+\item[{const struct sockaddr\+\_\+sccp $\ast$}]{called, }
+\item[{const uint8\+\_\+t $\ast$}]{l3\+\_\+data, }
+\item[{size\+\_\+t}]{l3\+\_\+length}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_ac6f94e47aa3da6027f76a106346576a3}
+
+
+References data, D\+S\+C\+CP, sccp\+\_\+create\+\_\+sccp\+\_\+addr(), S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM, and S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE.
+
+
+
+Referenced by \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+request().
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+create\+\_\+dt1@{sccp\+\_\+create\+\_\+dt1}}
+\index{sccp\+\_\+create\+\_\+dt1@{sccp\+\_\+create\+\_\+dt1}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+create\+\_\+dt1(struct sccp\+\_\+source\+\_\+reference $\ast$dst\+\_\+ref, uint8\+\_\+t $\ast$inp\+\_\+data, uint8\+\_\+t len)}]{\setlength{\rightskip}{0pt plus 5cm}struct msgb$\ast$ sccp\+\_\+create\+\_\+dt1 (
+\begin{DoxyParamCaption}
+\item[{struct sccp\+\_\+source\+\_\+reference $\ast$}]{dst\+\_\+ref, }
+\item[{uint8\+\_\+t $\ast$}]{inp\+\_\+data, }
+\item[{uint8\+\_\+t}]{len}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a07ead5caba575af3fd23cc3747f35e99}
+
+
+References data, D\+S\+C\+CP, len, S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM, and S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE.
+
+
+
+Referenced by \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+data().
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+create\+\_\+refuse@{sccp\+\_\+create\+\_\+refuse}}
+\index{sccp\+\_\+create\+\_\+refuse@{sccp\+\_\+create\+\_\+refuse}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+create\+\_\+refuse(struct sccp\+\_\+source\+\_\+reference $\ast$src\+\_\+ref, int cause, uint8\+\_\+t $\ast$inp, int length)}]{\setlength{\rightskip}{0pt plus 5cm}struct msgb$\ast$ sccp\+\_\+create\+\_\+refuse (
+\begin{DoxyParamCaption}
+\item[{struct sccp\+\_\+source\+\_\+reference $\ast$}]{src\+\_\+ref, }
+\item[{int}]{cause, }
+\item[{uint8\+\_\+t $\ast$}]{inp, }
+\item[{int}]{length}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a431491880d3422c2ed1899d1b860edd1}
+
+
+References data, D\+S\+C\+CP, S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM, and S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE.
+
+
+
+Referenced by \+\_\+sccp\+\_\+send\+\_\+refuse().
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+create\+\_\+rlsd@{sccp\+\_\+create\+\_\+rlsd}}
+\index{sccp\+\_\+create\+\_\+rlsd@{sccp\+\_\+create\+\_\+rlsd}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+create\+\_\+rlsd(struct sccp\+\_\+source\+\_\+reference $\ast$src\+\_\+ref, struct sccp\+\_\+source\+\_\+reference $\ast$dst\+\_\+ref, int cause)}]{\setlength{\rightskip}{0pt plus 5cm}struct msgb$\ast$ sccp\+\_\+create\+\_\+rlsd (
+\begin{DoxyParamCaption}
+\item[{struct sccp\+\_\+source\+\_\+reference $\ast$}]{src\+\_\+ref, }
+\item[{struct sccp\+\_\+source\+\_\+reference $\ast$}]{dst\+\_\+ref, }
+\item[{int}]{cause}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a21fedd190c04e28c920dda9ee8a8a238}
+
+
+References data, D\+S\+C\+CP, S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM, and S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE.
+
+
+
+Referenced by \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+released().
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+create\+\_\+sccp\+\_\+addr@{sccp\+\_\+create\+\_\+sccp\+\_\+addr}}
+\index{sccp\+\_\+create\+\_\+sccp\+\_\+addr@{sccp\+\_\+create\+\_\+sccp\+\_\+addr}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+create\+\_\+sccp\+\_\+addr(struct msgb $\ast$msg, const struct sockaddr\+\_\+sccp $\ast$sock)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+create\+\_\+sccp\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{const struct sockaddr\+\_\+sccp $\ast$}]{sock}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a90220387b107ad5b44233e17cf18c4e7}
+
+
+References len.
+
+
+
+Referenced by sccp\+\_\+create\+\_\+cr(), and sccp\+\_\+create\+\_\+udt().
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+create\+\_\+udt@{sccp\+\_\+create\+\_\+udt}}
+\index{sccp\+\_\+create\+\_\+udt@{sccp\+\_\+create\+\_\+udt}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+create\+\_\+udt(int class, const struct sockaddr\+\_\+sccp $\ast$in, const struct sockaddr\+\_\+sccp $\ast$out, uint8\+\_\+t $\ast$in\+\_\+data, int len)}]{\setlength{\rightskip}{0pt plus 5cm}struct msgb$\ast$ sccp\+\_\+create\+\_\+udt (
+\begin{DoxyParamCaption}
+\item[{int}]{class, }
+\item[{const struct sockaddr\+\_\+sccp $\ast$}]{in, }
+\item[{const struct sockaddr\+\_\+sccp $\ast$}]{out, }
+\item[{uint8\+\_\+t $\ast$}]{in\+\_\+data, }
+\item[{int}]{len}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a64605b523479af1e0ba1691670ffec51}
+
+
+References data, D\+S\+C\+CP, len, sccp\+\_\+create\+\_\+sccp\+\_\+addr(), S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM, and S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE.
+
+
+
+Referenced by \+\_\+sccp\+\_\+send\+\_\+data().
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+determine\+\_\+msg\+\_\+type@{sccp\+\_\+determine\+\_\+msg\+\_\+type}}
+\index{sccp\+\_\+determine\+\_\+msg\+\_\+type@{sccp\+\_\+determine\+\_\+msg\+\_\+type}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+determine\+\_\+msg\+\_\+type(struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+determine\+\_\+msg\+\_\+type (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a9acbb077f0ff8b0d603eb6aa800633dd}
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+parse\+\_\+header@{sccp\+\_\+parse\+\_\+header}}
+\index{sccp\+\_\+parse\+\_\+header@{sccp\+\_\+parse\+\_\+header}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+parse\+\_\+header(struct msgb $\ast$msg, struct sccp\+\_\+parse\+\_\+result $\ast$result)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+parse\+\_\+header (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct sccp\+\_\+parse\+\_\+result $\ast$}]{result}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_ad7b91b6f65924d292703bc4d2c159b3f}
+
+
+References \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+confirm(), \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+dt1(), \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+refused(), \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+release\+\_\+complete(), \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+released(), \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+request(), \+\_\+sccp\+\_\+parse\+\_\+err(), \+\_\+sccp\+\_\+parse\+\_\+it(), \+\_\+sccp\+\_\+parse\+\_\+udt(), and D\+S\+C\+CP.
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+set\+\_\+log\+\_\+area@{sccp\+\_\+set\+\_\+log\+\_\+area}}
+\index{sccp\+\_\+set\+\_\+log\+\_\+area@{sccp\+\_\+set\+\_\+log\+\_\+area}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+set\+\_\+log\+\_\+area(int log\+\_\+area)}]{\setlength{\rightskip}{0pt plus 5cm}void sccp\+\_\+set\+\_\+log\+\_\+area (
+\begin{DoxyParamCaption}
+\item[{int}]{log\+\_\+area}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_aea49fbb16eacfcb6e19764cec421e5dd}
+
+
+References D\+S\+C\+CP.
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+set\+\_\+read@{sccp\+\_\+set\+\_\+read}}
+\index{sccp\+\_\+set\+\_\+read@{sccp\+\_\+set\+\_\+read}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+set\+\_\+read(const struct sockaddr\+\_\+sccp $\ast$sock, int($\ast$read\+\_\+cb)(struct msgb $\ast$, unsigned int, void $\ast$), void $\ast$context)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+set\+\_\+read (
+\begin{DoxyParamCaption}
+\item[{const struct sockaddr\+\_\+sccp $\ast$}]{sock, }
+\item[{int($\ast$)(struct msgb $\ast$, unsigned int, void $\ast$)}]{read\+\_\+cb, }
+\item[{void $\ast$}]{context}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_aca90e9f8e0b0f1d89b13d7d8619f8da3}
+
+
+References \+\_\+find\+\_\+ssn(), osmo\+\_\+static\+\_\+assert(), sccp\+\_\+data\+\_\+callback\+::read\+\_\+cb, and sccp\+\_\+data\+\_\+callback\+::read\+\_\+context.
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+src\+\_\+ref\+\_\+from\+\_\+int@{sccp\+\_\+src\+\_\+ref\+\_\+from\+\_\+int}}
+\index{sccp\+\_\+src\+\_\+ref\+\_\+from\+\_\+int@{sccp\+\_\+src\+\_\+ref\+\_\+from\+\_\+int}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+src\+\_\+ref\+\_\+from\+\_\+int(uint32\+\_\+t int\+\_\+ref)}]{\setlength{\rightskip}{0pt plus 5cm}struct sccp\+\_\+source\+\_\+reference sccp\+\_\+src\+\_\+ref\+\_\+from\+\_\+int (
+\begin{DoxyParamCaption}
+\item[{uint32\+\_\+t}]{int\+\_\+ref}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a2267785692a639f7e2cdeeb695a8109e}
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+src\+\_\+ref\+\_\+to\+\_\+int@{sccp\+\_\+src\+\_\+ref\+\_\+to\+\_\+int}}
+\index{sccp\+\_\+src\+\_\+ref\+\_\+to\+\_\+int@{sccp\+\_\+src\+\_\+ref\+\_\+to\+\_\+int}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+src\+\_\+ref\+\_\+to\+\_\+int(struct sccp\+\_\+source\+\_\+reference $\ast$ref)}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t sccp\+\_\+src\+\_\+ref\+\_\+to\+\_\+int (
+\begin{DoxyParamCaption}
+\item[{struct sccp\+\_\+source\+\_\+reference $\ast$}]{ref}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a74f4729a1ea90a51a4bd0e93ad3112f5}
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+system\+\_\+incoming@{sccp\+\_\+system\+\_\+incoming}}
+\index{sccp\+\_\+system\+\_\+incoming@{sccp\+\_\+system\+\_\+incoming}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+system\+\_\+incoming(struct msgb $\ast$msgb)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+system\+\_\+incoming (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a21fee5e1bc4d9e0e6b68b5cb1c9b890e}
+
+
+References sccp\+\_\+system\+\_\+incoming\+\_\+ctx().
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+system\+\_\+incoming\+\_\+ctx@{sccp\+\_\+system\+\_\+incoming\+\_\+ctx}}
+\index{sccp\+\_\+system\+\_\+incoming\+\_\+ctx@{sccp\+\_\+system\+\_\+incoming\+\_\+ctx}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+system\+\_\+incoming\+\_\+ctx(struct msgb $\ast$msgb, void $\ast$ctx)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+system\+\_\+incoming\+\_\+ctx (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msgb, }
+\item[{void $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_acb7c01b1270cee844414f859acb1e738}
+
+
+References \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+confirm(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+dt1(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+refused(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+release\+\_\+complete(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+released(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request(), \+\_\+sccp\+\_\+handle\+\_\+read(), and D\+S\+C\+CP.
+
+
+
+Referenced by sccp\+\_\+system\+\_\+incoming().
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+system\+\_\+init@{sccp\+\_\+system\+\_\+init}}
+\index{sccp\+\_\+system\+\_\+init@{sccp\+\_\+system\+\_\+init}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+system\+\_\+init(void($\ast$outgoing)(struct sccp\+\_\+connection $\ast$conn, struct msgb $\ast$data, void $\ast$, void $\ast$), void $\ast$ctx)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+system\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{void($\ast$)(struct {\bf sccp\+\_\+connection} $\ast$conn, struct msgb $\ast${\bf data}, void $\ast$, void $\ast$)}]{outgoing, }
+\item[{void $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a56a235e7ab6f880b9b7af319bbc7d977}
+
+
+References sccp\+\_\+system\+::write\+\_\+context, and sccp\+\_\+system\+::write\+\_\+data.
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+write@{sccp\+\_\+write}}
+\index{sccp\+\_\+write@{sccp\+\_\+write}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+write(struct msgb $\ast$data, const struct sockaddr\+\_\+sccp $\ast$in, const struct sockaddr\+\_\+sccp $\ast$out, int class, void $\ast$ctx)}]{\setlength{\rightskip}{0pt plus 5cm}int sccp\+\_\+write (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{data, }
+\item[{const struct sockaddr\+\_\+sccp $\ast$}]{in, }
+\item[{const struct sockaddr\+\_\+sccp $\ast$}]{out, }
+\item[{int}]{class, }
+\item[{void $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)}\label{sccp_8c_a8d2bbed17a2ae6f9d8785f7d3f0594c8}
+
+
+References \+\_\+sccp\+\_\+send\+\_\+data().
+
+\index{sccp.\+c@{sccp.\+c}!source\+\_\+local\+\_\+reference\+\_\+is\+\_\+free@{source\+\_\+local\+\_\+reference\+\_\+is\+\_\+free}}
+\index{source\+\_\+local\+\_\+reference\+\_\+is\+\_\+free@{source\+\_\+local\+\_\+reference\+\_\+is\+\_\+free}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{source\+\_\+local\+\_\+reference\+\_\+is\+\_\+free(struct sccp\+\_\+source\+\_\+reference $\ast$reference)}]{\setlength{\rightskip}{0pt plus 5cm}static int source\+\_\+local\+\_\+reference\+\_\+is\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{struct sccp\+\_\+source\+\_\+reference $\ast$}]{reference}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_a64830893ca9393f7ce13dd6647001218}
+
+
+References sccp\+\_\+connection\+::list.
+
+
+
+Referenced by assign\+\_\+source\+\_\+local\+\_\+reference().
+
+
+
+\subsection{Variable Documentation}
+\index{sccp.\+c@{sccp.\+c}!D\+S\+C\+CP@{D\+S\+C\+CP}}
+\index{D\+S\+C\+CP@{D\+S\+C\+CP}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{D\+S\+C\+CP}]{\setlength{\rightskip}{0pt plus 5cm}int D\+S\+C\+CP = 0\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_a76289a1eaad826ce833ea29955728e6b}
+
+
+Referenced by \+\_\+find\+\_\+ssn(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+confirm(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+dt1(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+refused(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+release\+\_\+complete(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+released(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request(), \+\_\+sccp\+\_\+handle\+\_\+read(), \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+confirm(), \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+dt1(), \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+refused(), \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+release\+\_\+complete(), \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+released(), \+\_\+sccp\+\_\+parse\+\_\+connection\+\_\+request(), \+\_\+sccp\+\_\+parse\+\_\+err(), \+\_\+sccp\+\_\+parse\+\_\+it(), \+\_\+sccp\+\_\+parse\+\_\+optional\+\_\+data(), \+\_\+sccp\+\_\+parse\+\_\+udt(), \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+data(), \+\_\+sccp\+\_\+send\+\_\+connection\+\_\+request(), assign\+\_\+source\+\_\+local\+\_\+reference(), copy\+\_\+address(), sccp\+\_\+connection\+\_\+close(), sccp\+\_\+connection\+\_\+free(), sccp\+\_\+connection\+\_\+send\+\_\+it(), sccp\+\_\+connection\+\_\+write(), sccp\+\_\+create\+\_\+cc(), sccp\+\_\+create\+\_\+cr(), sccp\+\_\+create\+\_\+dt1(), sccp\+\_\+create\+\_\+refuse(), sccp\+\_\+create\+\_\+rlsd(), sccp\+\_\+create\+\_\+udt(), sccp\+\_\+parse\+\_\+header(), sccp\+\_\+set\+\_\+log\+\_\+area(), and sccp\+\_\+system\+\_\+incoming\+\_\+ctx().
+
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+ssn\+\_\+bssap@{sccp\+\_\+ssn\+\_\+bssap}}
+\index{sccp\+\_\+ssn\+\_\+bssap@{sccp\+\_\+ssn\+\_\+bssap}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+ssn\+\_\+bssap}]{\setlength{\rightskip}{0pt plus 5cm}const struct sockaddr\+\_\+sccp sccp\+\_\+ssn\+\_\+bssap}\label{sccp_8c_a4eeacfdb01f87cf6d5a676c97f3fa251}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        .sccp\_family    = 0,
+        .sccp\_ssn       = SCCP\_SSN\_BSSAP,
+\}
+\end{DoxyCode}
+\index{sccp.\+c@{sccp.\+c}!sccp\+\_\+system@{sccp\+\_\+system}}
+\index{sccp\+\_\+system@{sccp\+\_\+system}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{sccp\+\_\+system}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf sccp\+\_\+system} {\bf sccp\+\_\+system}\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_a11325c39ad2233d6ee92cf75ab9cb543}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        .write\_data = NULL,
+\}
+\end{DoxyCode}
+\index{sccp.\+c@{sccp.\+c}!tall\+\_\+sccp\+\_\+ctx@{tall\+\_\+sccp\+\_\+ctx}}
+\index{tall\+\_\+sccp\+\_\+ctx@{tall\+\_\+sccp\+\_\+ctx}!sccp.\+c@{sccp.\+c}}
+\subsubsection[{tall\+\_\+sccp\+\_\+ctx}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ tall\+\_\+sccp\+\_\+ctx\hspace{0.3cm}{\ttfamily [static]}}\label{sccp_8c_adb3ceca4a0faa4e6732101477fa4a5b3}
+
+
+Referenced by \+\_\+\+\_\+attribute\+\_\+\+\_\+(), \+\_\+find\+\_\+ssn(), \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request(), and sccp\+\_\+connection\+\_\+socket().
+

@@ -1,0 +1,291 @@
+\section{include/osmocom/sigtran/sccp\+\_\+helpers.h File Reference}
+\label{sccp__helpers_8h}\index{include/osmocom/sigtran/sccp\+\_\+helpers.\+h@{include/osmocom/sigtran/sccp\+\_\+helpers.\+h}}
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/msgb.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/sccp\+\_\+sap.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$calling\+\_\+addr, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$called\+\_\+addr, const uint8\+\_\+t $\ast${\bf data}, unsigned int {\bf len})
+\item 
+int {\bf osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata\+\_\+msg} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$calling\+\_\+addr, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$called\+\_\+addr, struct msgb $\ast$msg)
+\item 
+void {\bf osmo\+\_\+sccp\+\_\+make\+\_\+addr\+\_\+pc\+\_\+ssn} (struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$addr, uint32\+\_\+t pc, uint32\+\_\+t ssn)
+\item 
+void {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+set\+\_\+ssn} (struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$addr, uint32\+\_\+t ssn)
+\item 
+int {\bf osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata\+\_\+ranap} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, uint32\+\_\+t src\+\_\+point\+\_\+code, uint32\+\_\+t dst\+\_\+point\+\_\+code, const uint8\+\_\+t $\ast${\bf data}, unsigned int {\bf len})
+\item 
+int {\bf osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, uint32\+\_\+t conn\+\_\+id, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$calling\+\_\+addr, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$called\+\_\+addr, const uint8\+\_\+t $\ast${\bf data}, unsigned int {\bf len})
+\item 
+int {\bf osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req\+\_\+msg} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, uint32\+\_\+t conn\+\_\+id, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$calling\+\_\+addr, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$called\+\_\+addr, struct msgb $\ast$msg)
+\item 
+int {\bf osmo\+\_\+sccp\+\_\+tx\+\_\+data} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, uint32\+\_\+t conn\+\_\+id, const uint8\+\_\+t $\ast${\bf data}, unsigned int {\bf len})
+\item 
+int {\bf osmo\+\_\+sccp\+\_\+tx\+\_\+data\+\_\+msg} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, uint32\+\_\+t conn\+\_\+id, struct msgb $\ast$msg)
+\item 
+int {\bf osmo\+\_\+sccp\+\_\+tx\+\_\+disconn} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, uint32\+\_\+t conn\+\_\+id, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$resp\+\_\+addr, uint32\+\_\+t cause)
+\item 
+int {\bf osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp\+\_\+msg} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, uint32\+\_\+t conn\+\_\+id, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$resp\+\_\+addr, struct msgb $\ast$msg)
+\item 
+int {\bf osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp} (struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$scu, uint32\+\_\+t conn\+\_\+id, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$resp\+\_\+addr, const uint8\+\_\+t $\ast${\bf data}, unsigned int {\bf len})
+\item 
+char $\ast$ {\bf osmo\+\_\+sccp\+\_\+gt\+\_\+dump} (const struct {\bf osmo\+\_\+sccp\+\_\+gt} $\ast$gt)
+\item 
+char $\ast$ {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+dump} (const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$addr)
+\item 
+char $\ast$ {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+name} (const struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$ss7, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$addr)
+\item 
+char $\ast$ {\bf osmo\+\_\+sccp\+\_\+inst\+\_\+addr\+\_\+name} (const struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$sccp, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$addr)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}!osmo\+\_\+sccp\+\_\+addr\+\_\+dump@{osmo\+\_\+sccp\+\_\+addr\+\_\+dump}}
+\index{osmo\+\_\+sccp\+\_\+addr\+\_\+dump@{osmo\+\_\+sccp\+\_\+addr\+\_\+dump}!sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+addr\+\_\+dump(const struct osmo\+\_\+sccp\+\_\+addr $\ast$addr)}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ osmo\+\_\+sccp\+\_\+addr\+\_\+dump (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{addr}
+\end{DoxyParamCaption}
+)}\label{sccp__helpers_8h_a6302a7ff3060e02a56c919b9579a1f40}
+
+
+References append\+\_\+to\+\_\+buf(), osmo\+\_\+sccp\+\_\+addr\+::gt, osmo\+\_\+sccp\+\_\+gt\+::gti, osmo\+\_\+sccp\+\_\+addr\+::ip, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, osmo\+\_\+sccp\+\_\+gt\+\_\+dump(), O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+O\+\_\+\+GT, osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, osmo\+\_\+sccp\+\_\+addr\+::ri, osmo\+\_\+sccp\+\_\+addr\+::ssn, and osmo\+\_\+sccp\+\_\+addr\+::v4.
+
+
+
+Referenced by gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua(), and sccp\+\_\+addr\+\_\+to\+\_\+sua().
+
+\index{sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}!osmo\+\_\+sccp\+\_\+addr\+\_\+name@{osmo\+\_\+sccp\+\_\+addr\+\_\+name}}
+\index{osmo\+\_\+sccp\+\_\+addr\+\_\+name@{osmo\+\_\+sccp\+\_\+addr\+\_\+name}!sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+addr\+\_\+name(const struct osmo\+\_\+ss7\+\_\+instance $\ast$ss7, const struct osmo\+\_\+sccp\+\_\+addr $\ast$addr)}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ osmo\+\_\+sccp\+\_\+addr\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{ss7, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{addr}
+\end{DoxyParamCaption}
+)}\label{sccp__helpers_8h_a8d9ad80fd2ce4f316b061543cbab5573}
+
+
+References append\+\_\+to\+\_\+buf(), osmo\+\_\+sccp\+\_\+addr\+::gt, osmo\+\_\+sccp\+\_\+gt\+::gti, osmo\+\_\+sccp\+\_\+addr\+::ip, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, osmo\+\_\+sccp\+\_\+gt\+\_\+dump(), osmo\+\_\+sccp\+\_\+gti\+\_\+name(), O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+O\+\_\+\+GT, osmo\+\_\+sccp\+\_\+routing\+\_\+ind\+\_\+name(), osmo\+\_\+sccp\+\_\+ssn\+\_\+name(), osmo\+\_\+ss7\+\_\+pointcode\+\_\+print(), osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, osmo\+\_\+sccp\+\_\+addr\+::ri, osmo\+\_\+sccp\+\_\+addr\+::ssn, and osmo\+\_\+sccp\+\_\+addr\+::v4.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+inst\+\_\+addr\+\_\+name(), and osmo\+\_\+sccp\+\_\+user\+\_\+name().
+
+\index{sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}!osmo\+\_\+sccp\+\_\+addr\+\_\+set\+\_\+ssn@{osmo\+\_\+sccp\+\_\+addr\+\_\+set\+\_\+ssn}}
+\index{osmo\+\_\+sccp\+\_\+addr\+\_\+set\+\_\+ssn@{osmo\+\_\+sccp\+\_\+addr\+\_\+set\+\_\+ssn}!sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+addr\+\_\+set\+\_\+ssn(struct osmo\+\_\+sccp\+\_\+addr $\ast$addr, uint32\+\_\+t ssn)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+sccp\+\_\+addr\+\_\+set\+\_\+ssn (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{addr, }
+\item[{uint32\+\_\+t}]{ssn}
+\end{DoxyParamCaption}
+)}\label{sccp__helpers_8h_aa24244813931cee7680517c416545249}
+
+
+References O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, osmo\+\_\+sccp\+\_\+addr\+::presence, and osmo\+\_\+sccp\+\_\+addr\+::ssn.
+
+\index{sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}!osmo\+\_\+sccp\+\_\+gt\+\_\+dump@{osmo\+\_\+sccp\+\_\+gt\+\_\+dump}}
+\index{osmo\+\_\+sccp\+\_\+gt\+\_\+dump@{osmo\+\_\+sccp\+\_\+gt\+\_\+dump}!sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+gt\+\_\+dump(const struct osmo\+\_\+sccp\+\_\+gt $\ast$gt)}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ osmo\+\_\+sccp\+\_\+gt\+\_\+dump (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+gt} $\ast$}]{gt}
+\end{DoxyParamCaption}
+)}\label{sccp__helpers_8h_a3aa56ce8386473c318202bfeb2897fe1}
+
+
+References append\+\_\+to\+\_\+buf(), osmo\+\_\+sccp\+\_\+gt\+::digits, osmo\+\_\+sccp\+\_\+gt\+::gti, osmo\+\_\+sccp\+\_\+gt\+::nai, osmo\+\_\+sccp\+\_\+gt\+::npi, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+A\+I\+\_\+\+O\+N\+LY, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+O\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+NC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+N\+C\+\_\+\+N\+AI, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+O\+N\+LY, and osmo\+\_\+sccp\+\_\+gt\+::tt.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+addr\+\_\+dump(), and osmo\+\_\+sccp\+\_\+addr\+\_\+name().
+
+\index{sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}!osmo\+\_\+sccp\+\_\+inst\+\_\+addr\+\_\+name@{osmo\+\_\+sccp\+\_\+inst\+\_\+addr\+\_\+name}}
+\index{osmo\+\_\+sccp\+\_\+inst\+\_\+addr\+\_\+name@{osmo\+\_\+sccp\+\_\+inst\+\_\+addr\+\_\+name}!sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+inst\+\_\+addr\+\_\+name(const struct osmo\+\_\+sccp\+\_\+instance $\ast$sccp, const struct osmo\+\_\+sccp\+\_\+addr $\ast$addr)}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ osmo\+\_\+sccp\+\_\+inst\+\_\+addr\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+instance} $\ast$}]{sccp, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{addr}
+\end{DoxyParamCaption}
+)}\label{sccp__helpers_8h_a51f8231c4f0e2b186f3df7b601590d1e}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+name(), and osmo\+\_\+sccp\+\_\+instance\+::ss7.
+
+\index{sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}!osmo\+\_\+sccp\+\_\+make\+\_\+addr\+\_\+pc\+\_\+ssn@{osmo\+\_\+sccp\+\_\+make\+\_\+addr\+\_\+pc\+\_\+ssn}}
+\index{osmo\+\_\+sccp\+\_\+make\+\_\+addr\+\_\+pc\+\_\+ssn@{osmo\+\_\+sccp\+\_\+make\+\_\+addr\+\_\+pc\+\_\+ssn}!sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+make\+\_\+addr\+\_\+pc\+\_\+ssn(struct osmo\+\_\+sccp\+\_\+addr $\ast$addr, uint32\+\_\+t pc, uint32\+\_\+t ssn)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+sccp\+\_\+make\+\_\+addr\+\_\+pc\+\_\+ssn (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{addr, }
+\item[{uint32\+\_\+t}]{pc, }
+\item[{uint32\+\_\+t}]{ssn}
+\end{DoxyParamCaption}
+)}\label{sccp__helpers_8h_ac8f009d259929b14eb0e8c7979cd4298}
+
+
+References O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, and osmo\+\_\+sccp\+\_\+addr\+::ssn.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+local\+\_\+addr\+\_\+by\+\_\+instance(), osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata\+\_\+ranap(), and osmo\+\_\+sccp\+\_\+user\+\_\+name().
+
+\index{sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}!osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req@{osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req}}
+\index{osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req@{osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req}!sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, uint32\+\_\+t conn\+\_\+id, const struct osmo\+\_\+sccp\+\_\+addr $\ast$calling\+\_\+addr, const struct osmo\+\_\+sccp\+\_\+addr $\ast$called\+\_\+addr, const uint8\+\_\+t $\ast$data, unsigned int len)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{uint32\+\_\+t}]{conn\+\_\+id, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{calling\+\_\+addr, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{called\+\_\+addr, }
+\item[{const uint8\+\_\+t $\ast$}]{data, }
+\item[{unsigned int}]{len}
+\end{DoxyParamCaption}
+)}\label{sccp__helpers_8h_a245f3f0445502d9b33271a6d6f28dc47}
+
+
+References osmo\+\_\+scu\+\_\+connect\+\_\+param\+::called\+\_\+addr, osmo\+\_\+scu\+\_\+connect\+\_\+param\+::calling\+\_\+addr, osmo\+\_\+scu\+\_\+connect\+\_\+param\+::conn\+\_\+id, osmo\+\_\+scu\+\_\+prim\+::connect, osmo\+\_\+scu\+\_\+prim\+::oph, osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down(), O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+C\+O\+N\+N\+E\+CT, osmo\+\_\+scu\+\_\+connect\+\_\+param\+::sccp\+\_\+class, S\+C\+C\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER, scu\+\_\+msgb\+\_\+alloc(), and osmo\+\_\+scu\+\_\+prim\+::u.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req\+\_\+msg().
+
+\index{sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}!osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req\+\_\+msg@{osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req\+\_\+msg}}
+\index{osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req\+\_\+msg@{osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req\+\_\+msg}!sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req\+\_\+msg(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, uint32\+\_\+t conn\+\_\+id, const struct osmo\+\_\+sccp\+\_\+addr $\ast$calling\+\_\+addr, const struct osmo\+\_\+sccp\+\_\+addr $\ast$called\+\_\+addr, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{uint32\+\_\+t}]{conn\+\_\+id, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{calling\+\_\+addr, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{called\+\_\+addr, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{sccp__helpers_8h_a30c0e71745643ff8f0491efe618817f7}
+
+
+References osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+req().
+
+\index{sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}!osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp@{osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp}}
+\index{osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp@{osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp}!sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, uint32\+\_\+t conn\+\_\+id, const struct osmo\+\_\+sccp\+\_\+addr $\ast$resp\+\_\+addr, const uint8\+\_\+t $\ast$data, unsigned int len)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{uint32\+\_\+t}]{conn\+\_\+id, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{resp\+\_\+addr, }
+\item[{const uint8\+\_\+t $\ast$}]{data, }
+\item[{unsigned int}]{len}
+\end{DoxyParamCaption}
+)}\label{sccp__helpers_8h_ab759daefc5601b48da2da33495c1daf6}
+
+
+References osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp\+\_\+msg(), and scu\+\_\+msgb\+\_\+alloc().
+
+\index{sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}!osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp\+\_\+msg@{osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp\+\_\+msg}}
+\index{osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp\+\_\+msg@{osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp\+\_\+msg}!sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp\+\_\+msg(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, uint32\+\_\+t conn\+\_\+id, const struct osmo\+\_\+sccp\+\_\+addr $\ast$resp\+\_\+addr, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{uint32\+\_\+t}]{conn\+\_\+id, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{resp\+\_\+addr, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{sccp__helpers_8h_a919104dbb9bbd1ef246afbd8e855e8fa}
+
+
+References osmo\+\_\+scu\+\_\+connect\+\_\+param\+::conn\+\_\+id, osmo\+\_\+scu\+\_\+prim\+::connect, osmo\+\_\+scu\+\_\+prim\+::oph, osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down(), O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+C\+O\+N\+N\+E\+CT, osmo\+\_\+scu\+\_\+connect\+\_\+param\+::responding\+\_\+addr, osmo\+\_\+scu\+\_\+connect\+\_\+param\+::sccp\+\_\+class, S\+C\+C\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER, and osmo\+\_\+scu\+\_\+prim\+::u.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+tx\+\_\+conn\+\_\+resp().
+
+\index{sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}!osmo\+\_\+sccp\+\_\+tx\+\_\+data@{osmo\+\_\+sccp\+\_\+tx\+\_\+data}}
+\index{osmo\+\_\+sccp\+\_\+tx\+\_\+data@{osmo\+\_\+sccp\+\_\+tx\+\_\+data}!sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+tx\+\_\+data(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, uint32\+\_\+t conn\+\_\+id, const uint8\+\_\+t $\ast$data, unsigned int len)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+tx\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{uint32\+\_\+t}]{conn\+\_\+id, }
+\item[{const uint8\+\_\+t $\ast$}]{data, }
+\item[{unsigned int}]{len}
+\end{DoxyParamCaption}
+)}\label{sccp__helpers_8h_aa0c732538c060f34f775168cd8a0ec58}
+
+
+References osmo\+\_\+scu\+\_\+data\+\_\+param\+::conn\+\_\+id, osmo\+\_\+scu\+\_\+prim\+::data, osmo\+\_\+scu\+\_\+prim\+::oph, osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down(), O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+D\+A\+TA, S\+C\+C\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER, scu\+\_\+msgb\+\_\+alloc(), and osmo\+\_\+scu\+\_\+prim\+::u.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+tx\+\_\+data\+\_\+msg().
+
+\index{sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}!osmo\+\_\+sccp\+\_\+tx\+\_\+data\+\_\+msg@{osmo\+\_\+sccp\+\_\+tx\+\_\+data\+\_\+msg}}
+\index{osmo\+\_\+sccp\+\_\+tx\+\_\+data\+\_\+msg@{osmo\+\_\+sccp\+\_\+tx\+\_\+data\+\_\+msg}!sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+tx\+\_\+data\+\_\+msg(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, uint32\+\_\+t conn\+\_\+id, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+tx\+\_\+data\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{uint32\+\_\+t}]{conn\+\_\+id, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{sccp__helpers_8h_abfedf879748d0aa1d4603f495d9ae97b}
+
+
+References osmo\+\_\+sccp\+\_\+tx\+\_\+data().
+
+\index{sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}!osmo\+\_\+sccp\+\_\+tx\+\_\+disconn@{osmo\+\_\+sccp\+\_\+tx\+\_\+disconn}}
+\index{osmo\+\_\+sccp\+\_\+tx\+\_\+disconn@{osmo\+\_\+sccp\+\_\+tx\+\_\+disconn}!sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+tx\+\_\+disconn(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, uint32\+\_\+t conn\+\_\+id, const struct osmo\+\_\+sccp\+\_\+addr $\ast$resp\+\_\+addr, uint32\+\_\+t cause)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+tx\+\_\+disconn (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{uint32\+\_\+t}]{conn\+\_\+id, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{resp\+\_\+addr, }
+\item[{uint32\+\_\+t}]{cause}
+\end{DoxyParamCaption}
+)}\label{sccp__helpers_8h_a6541f7fe03f96f167390d0f05c743d2b}
+
+
+References osmo\+\_\+scu\+\_\+disconn\+\_\+param\+::cause, osmo\+\_\+scu\+\_\+disconn\+\_\+param\+::conn\+\_\+id, osmo\+\_\+scu\+\_\+prim\+::disconnect, osmo\+\_\+scu\+\_\+prim\+::oph, osmo\+\_\+scu\+\_\+disconn\+\_\+param\+::originator, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+O\+R\+I\+G\+\_\+\+N\+S\+\_\+\+U\+S\+ER, osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down(), O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT, osmo\+\_\+scu\+\_\+disconn\+\_\+param\+::responding\+\_\+addr, S\+C\+C\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER, scu\+\_\+msgb\+\_\+alloc(), and osmo\+\_\+scu\+\_\+prim\+::u.
+
+\index{sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}!osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata@{osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata}}
+\index{osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata@{osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata}!sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, const struct osmo\+\_\+sccp\+\_\+addr $\ast$calling\+\_\+addr, const struct osmo\+\_\+sccp\+\_\+addr $\ast$called\+\_\+addr, const uint8\+\_\+t $\ast$data, unsigned int len)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{calling\+\_\+addr, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{called\+\_\+addr, }
+\item[{const uint8\+\_\+t $\ast$}]{data, }
+\item[{unsigned int}]{len}
+\end{DoxyParamCaption}
+)}\label{sccp__helpers_8h_a68c4b3103d25667d67c3c1b7baf98a29}
+
+
+References osmo\+\_\+scu\+\_\+unitdata\+\_\+param\+::called\+\_\+addr, osmo\+\_\+scu\+\_\+unitdata\+\_\+param\+::calling\+\_\+addr, osmo\+\_\+scu\+\_\+prim\+::oph, osmo\+\_\+sccp\+\_\+user\+\_\+sap\+\_\+down(), O\+S\+M\+O\+\_\+\+S\+C\+U\+\_\+\+P\+R\+I\+M\+\_\+\+N\+\_\+\+U\+N\+I\+T\+D\+A\+TA, S\+C\+C\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER, scu\+\_\+msgb\+\_\+alloc(), osmo\+\_\+scu\+\_\+prim\+::u, and osmo\+\_\+scu\+\_\+prim\+::unitdata.
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata\+\_\+msg(), and osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata\+\_\+ranap().
+
+\index{sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}!osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata\+\_\+msg@{osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata\+\_\+msg}}
+\index{osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata\+\_\+msg@{osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata\+\_\+msg}!sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata\+\_\+msg(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, const struct osmo\+\_\+sccp\+\_\+addr $\ast$calling\+\_\+addr, const struct osmo\+\_\+sccp\+\_\+addr $\ast$called\+\_\+addr, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{calling\+\_\+addr, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{called\+\_\+addr, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{sccp__helpers_8h_acdc87693cfcae27aa7fb7cca60515a3d}
+
+
+References osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata().
+
+\index{sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}!osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata\+\_\+ranap@{osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata\+\_\+ranap}}
+\index{osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata\+\_\+ranap@{osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata\+\_\+ranap}!sccp\+\_\+helpers.\+h@{sccp\+\_\+helpers.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata\+\_\+ranap(struct osmo\+\_\+sccp\+\_\+user $\ast$scu, uint32\+\_\+t src\+\_\+point\+\_\+code, uint32\+\_\+t dst\+\_\+point\+\_\+code, const uint8\+\_\+t $\ast$data, unsigned int len)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata\+\_\+ranap (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+user} $\ast$}]{scu, }
+\item[{uint32\+\_\+t}]{src\+\_\+point\+\_\+code, }
+\item[{uint32\+\_\+t}]{dst\+\_\+point\+\_\+code, }
+\item[{const uint8\+\_\+t $\ast$}]{data, }
+\item[{unsigned int}]{len}
+\end{DoxyParamCaption}
+)}\label{sccp__helpers_8h_ae28c5d64e2e20ba290b484a7a3a24b29}
+
+
+References osmo\+\_\+sccp\+\_\+make\+\_\+addr\+\_\+pc\+\_\+ssn(), O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+S\+S\+N\+\_\+\+R\+A\+N\+AP, and osmo\+\_\+sccp\+\_\+tx\+\_\+unitdata().
+

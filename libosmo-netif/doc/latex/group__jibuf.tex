@@ -1,0 +1,296 @@
+\section{Osmocom Jitter Buffer}
+\label{group__jibuf}\index{Osmocom Jitter Buffer@{Osmocom Jitter Buffer}}
+\subsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file {\bf jibuf.\+h}
+\begin{DoxyCompactList}\small\item\em Osmocom Jitter Buffer helpers. \end{DoxyCompactList}\item 
+file {\bf jibuf.\+c}
+\begin{DoxyCompactList}\small\item\em Osmocom Jitter Buffer helpers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+jibuf}
+\begin{DoxyCompactList}\small\item\em A structure representing a single instance of a jitter buffer. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+jibuf\+\_\+msgb\+\_\+cb}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+P\+KT}~160\label{group__jibuf_gab5ac139064984962fc39032f24689759}
+
+\item 
+\#define {\bfseries S\+A\+M\+P\+L\+E\+\_\+\+R\+A\+TE}~8000\label{group__jibuf_ga4b76a0c2859cfd819a343a780070ee2b}
+
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+I\+N\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+MS}~60\label{group__jibuf_gab8733cbd19aa79e877887c282ef4bb82}
+
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+A\+X\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+MS}~200\label{group__jibuf_ga83fc4d5185ca8ff1c8a36ad787773365}
+
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+R\+E\+F\+E\+R\+E\+N\+C\+E\+\_\+\+T\+S\+\_\+\+F\+R\+EQ}~60\label{group__jibuf_ga98f5365acdbe187488dc29d4bf1b2f38}
+
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+R\+E\+C\+A\+L\+C\+\_\+\+F\+R\+EQ}~40\label{group__jibuf_ga919ae3c1b4ed76e5efe2c0c6e52403f7}
+
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+A\+L\+L\+O\+W\+E\+D\+\_\+\+P\+K\+T\+\_\+\+D\+R\+OP}~3\label{group__jibuf_ga8002117af96e70c6095b090a03db296e}
+
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+A\+L\+L\+O\+W\+E\+D\+\_\+\+P\+K\+T\+\_\+\+C\+O\+N\+S\+E\+C\+U\+T\+I\+V\+E\+\_\+\+D\+R\+OP}~1\label{group__jibuf_ga3617ccbb8af0b78b0864f845100b9abb}
+
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+I\+N\+C\+\_\+\+S\+T\+EP}~20\label{group__jibuf_gab6b74faca0c45f42852f275276487352}
+
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+D\+E\+C\+\_\+\+S\+T\+EP}~5\label{group__jibuf_ga92faab8b2e1de77527e20fc0394f9561}
+
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+S\+K\+E\+W\+\_\+\+W\+E\+I\+G\+HT}~((double)1/32)\label{group__jibuf_ga71209ad037c242e1a2ff468a945facf6}
+
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+M\+S\+G\+B\+\_\+\+CB}(\+\_\+\+\_\+msgb)~((struct {\bf osmo\+\_\+jibuf\+\_\+msgb\+\_\+cb} $\ast$)\&((\+\_\+\+\_\+msgb)-\/$>$cb[0]))\label{group__jibuf_gaf07d4d998deea1decf33caa52a18ff40}
+
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void($\ast$ {\bfseries osmo\+\_\+jibuf\+\_\+dequeue\+\_\+cb}) (struct msgb $\ast$msg, void $\ast$data)\label{group__jibuf_ga78eb735a1f6c3dd8b6478ded3db60652}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+jibuf} $\ast$ {\bf osmo\+\_\+jibuf\+\_\+alloc} (void $\ast$talloc\+\_\+ctx)
+\begin{DoxyCompactList}\small\item\em Allocate a new jitter buffer instance. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+jibuf\+\_\+delete} (struct {\bf osmo\+\_\+jibuf} $\ast$jb)
+\begin{DoxyCompactList}\small\item\em Destroy a previously allocated jitter buffer instance. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+jibuf\+\_\+enqueue} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Try to enqueue a packet into the jitter buffer. \end{DoxyCompactList}\item 
+bool {\bf osmo\+\_\+jibuf\+\_\+empty} (struct {\bf osmo\+\_\+jibuf} $\ast$jb)
+\begin{DoxyCompactList}\small\item\em Check whether the jitter buffer instance has packets queued or not. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+jibuf\+\_\+set\+\_\+min\+\_\+delay} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, uint32\+\_\+t min\+\_\+delay)
+\begin{DoxyCompactList}\small\item\em Set minimum buffer size for the jitter buffer. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+jibuf\+\_\+set\+\_\+max\+\_\+delay} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, uint32\+\_\+t max\+\_\+delay)
+\begin{DoxyCompactList}\small\item\em Set maximum buffer size for the jitter buffer. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+jibuf\+\_\+enable\+\_\+skew\+\_\+compensation} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, bool enable)
+\begin{DoxyCompactList}\small\item\em Toggle use of skew detection and compensation mechanism. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+jibuf\+\_\+set\+\_\+dequeue\+\_\+cb} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, osmo\+\_\+jibuf\+\_\+dequeue\+\_\+cb dequeue\+\_\+cb, void $\ast$cb\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Set dequeue callback for the jitter buffer. \end{DoxyCompactList}\item 
+static void {\bfseries ms2timeval} (struct timeval $\ast$ts, uint32\+\_\+t ms)\label{group__jibuf_ga22ad99a583ea1ce64649e66927e35b58}
+
+\item 
+static uint32\+\_\+t {\bfseries timeval2ms} (const struct timeval $\ast$ts)\label{group__jibuf_ga929b4c3096040e2edbe1c3fcc24f2801}
+
+\item 
+static int {\bfseries clock\+\_\+gettime\+\_\+timeval} (clockid\+\_\+t clk\+\_\+id, struct timeval $\ast$tp)\label{group__jibuf_ga13c93b0cf89cb3735793eb5744d9a2f0}
+
+\item 
+static struct timeval $\ast$ {\bfseries msgb\+\_\+scheduled\+\_\+ts} (const struct msgb $\ast$msg)\label{group__jibuf_gaec17630d5fd1f9edf79d80bf6891d1b0}
+
+\item 
+static void {\bfseries llist\+\_\+add\+\_\+sorted} (struct msgb $\ast$msg, struct llist\+\_\+head $\ast$msg\+\_\+list)\label{group__jibuf_gae8e8e82a07be4b565d621999c5c6df93}
+
+\item 
+static void {\bfseries enqueue\+\_\+pkt} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, struct msgb $\ast$msg, bool is\+\_\+syncpoint)\label{group__jibuf_ga7f8028cbd2f9a2f177a5f1ce146e1e0f}
+
+\item 
+static bool {\bfseries msg\+\_\+get\+\_\+marker} (struct msgb $\ast$msg)\label{group__jibuf_gac04feb6a6a10ab18535b5b298749d2a7}
+
+\item 
+static uint16\+\_\+t {\bfseries msg\+\_\+get\+\_\+sequence} (struct msgb $\ast$msg)\label{group__jibuf_ga567cebefb1fc599c620ae932ffd55c77}
+
+\item 
+static uint32\+\_\+t {\bfseries msg\+\_\+get\+\_\+timestamp} (struct msgb $\ast$msg)\label{group__jibuf_ga0541c14d964074796f1d181a6306c15c}
+
+\item 
+static int32\+\_\+t {\bfseries samples2ms} (int32\+\_\+t samples)\label{group__jibuf_ga96cb770599d21f38099c1925dc6414b7}
+
+\item 
+static int {\bfseries calc\+\_\+pkt\+\_\+rel\+\_\+delay} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, struct msgb $\ast$msg)\label{group__jibuf_gacf7444e6e5f9f632425686578e0a8665}
+
+\item 
+static bool {\bfseries msg\+\_\+is\+\_\+in\+\_\+sequence} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, struct msgb $\ast$msg)\label{group__jibuf_ga9616ede3a77dcf5b9b92afb49fb84b0c}
+
+\item 
+static bool {\bfseries msg\+\_\+is\+\_\+syncpoint} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, struct msgb $\ast$msg)\label{group__jibuf_ga13ff8fac8aa58f0fb78b57b9aed543bd}
+
+\item 
+static void {\bfseries msg\+\_\+set\+\_\+as\+\_\+reference} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, struct msgb $\ast$msg)\label{group__jibuf_ga80e283f02b6ee070797086248b5a3ead}
+
+\item 
+static void {\bfseries dequeue\+\_\+msg} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, struct msgb $\ast$msg)\label{group__jibuf_gaf792656565ee3b2bf2ee251291c3ac9c}
+
+\item 
+static void {\bfseries timer\+\_\+expired} (void $\ast$data)\label{group__jibuf_gac7e6f4d0a197dd16d127f23c65afde57}
+
+\item 
+static void {\bfseries recalc\+\_\+clock\+\_\+skew} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, int32\+\_\+t rel\+\_\+delay)\label{group__jibuf_ga039443c7bc682dc3ab6403fdd1ca1be2}
+
+\item 
+static void {\bfseries recalc\+\_\+threshold\+\_\+delay} (struct {\bf osmo\+\_\+jibuf} $\ast$jb)\label{group__jibuf_ga18e8f5a8c921b9bd3f684187add832cd}
+
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+jibuf} {\bfseries \+\_\+\+\_\+attribute\+\_\+\+\_\+}\label{group__jibuf_ga1c12dad616e7250646df9c6163c65f6c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+\subsection{Function Documentation}
+\index{Osmocom Jitter Buffer@{Osmocom Jitter Buffer}!osmo\+\_\+jibuf\+\_\+alloc@{osmo\+\_\+jibuf\+\_\+alloc}}
+\index{osmo\+\_\+jibuf\+\_\+alloc@{osmo\+\_\+jibuf\+\_\+alloc}!Osmocom Jitter Buffer@{Osmocom Jitter Buffer}}
+\subsubsection[{osmo\+\_\+jibuf\+\_\+alloc(void $\ast$talloc\+\_\+ctx)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+jibuf} $\ast$ osmo\+\_\+jibuf\+\_\+alloc (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{talloc\+\_\+ctx}
+\end{DoxyParamCaption}
+)}\label{group__jibuf_ga20592f230f9d1233752fd318996f2c9d}
+
+
+Allocate a new jitter buffer instance. 
+
+\begin{DoxyReturn}{Returns}
+the new allocated instance 
+\end{DoxyReturn}
+\index{Osmocom Jitter Buffer@{Osmocom Jitter Buffer}!osmo\+\_\+jibuf\+\_\+delete@{osmo\+\_\+jibuf\+\_\+delete}}
+\index{osmo\+\_\+jibuf\+\_\+delete@{osmo\+\_\+jibuf\+\_\+delete}!Osmocom Jitter Buffer@{Osmocom Jitter Buffer}}
+\subsubsection[{osmo\+\_\+jibuf\+\_\+delete(struct osmo\+\_\+jibuf $\ast$jb)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+jibuf\+\_\+delete (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+jibuf} $\ast$}]{jb}
+\end{DoxyParamCaption}
+)}\label{group__jibuf_gacdac7beaf3d97543718ddfa33123fb7e}
+
+
+Destroy a previously allocated jitter buffer instance. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em jb} & Previously allocated (non-\/null) jitter buffer instance\\
+\hline
+\end{DoxyParams}
+All the queued packets are dequeued before deleting the instance. \index{Osmocom Jitter Buffer@{Osmocom Jitter Buffer}!osmo\+\_\+jibuf\+\_\+empty@{osmo\+\_\+jibuf\+\_\+empty}}
+\index{osmo\+\_\+jibuf\+\_\+empty@{osmo\+\_\+jibuf\+\_\+empty}!Osmocom Jitter Buffer@{Osmocom Jitter Buffer}}
+\subsubsection[{osmo\+\_\+jibuf\+\_\+empty(struct osmo\+\_\+jibuf $\ast$jb)}]{\setlength{\rightskip}{0pt plus 5cm}bool osmo\+\_\+jibuf\+\_\+empty (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+jibuf} $\ast$}]{jb}
+\end{DoxyParamCaption}
+)}\label{group__jibuf_gae73a3b805b83f453339adeee9cdfaba4}
+
+
+Check whether the jitter buffer instance has packets queued or not. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em jb} & jitter buffer instance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the queue is empty, false otherwise. 
+\end{DoxyReturn}
+\index{Osmocom Jitter Buffer@{Osmocom Jitter Buffer}!osmo\+\_\+jibuf\+\_\+enable\+\_\+skew\+\_\+compensation@{osmo\+\_\+jibuf\+\_\+enable\+\_\+skew\+\_\+compensation}}
+\index{osmo\+\_\+jibuf\+\_\+enable\+\_\+skew\+\_\+compensation@{osmo\+\_\+jibuf\+\_\+enable\+\_\+skew\+\_\+compensation}!Osmocom Jitter Buffer@{Osmocom Jitter Buffer}}
+\subsubsection[{osmo\+\_\+jibuf\+\_\+enable\+\_\+skew\+\_\+compensation(struct osmo\+\_\+jibuf $\ast$jb, bool enable)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+jibuf\+\_\+enable\+\_\+skew\+\_\+compensation (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+jibuf} $\ast$}]{jb, }
+\item[{bool}]{enable}
+\end{DoxyParamCaption}
+)}\label{group__jibuf_ga096e87b2dbdade72c35d51a51fe57839}
+
+
+Toggle use of skew detection and compensation mechanism. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em jb} & jitter buffer instance \\
+\hline
+\mbox{\tt in}  & {\em enable} & Whether to enable or not (default) the skew estimation and compensation mechanism\\
+\hline
+\end{DoxyParams}
+When this function is called, the estimated skew is reset. \index{Osmocom Jitter Buffer@{Osmocom Jitter Buffer}!osmo\+\_\+jibuf\+\_\+enqueue@{osmo\+\_\+jibuf\+\_\+enqueue}}
+\index{osmo\+\_\+jibuf\+\_\+enqueue@{osmo\+\_\+jibuf\+\_\+enqueue}!Osmocom Jitter Buffer@{Osmocom Jitter Buffer}}
+\subsubsection[{osmo\+\_\+jibuf\+\_\+enqueue(struct osmo\+\_\+jibuf $\ast$jb, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+jibuf\+\_\+enqueue (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+jibuf} $\ast$}]{jb, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{group__jibuf_ga522165ddc51578436ae2d26691fa7ec0}
+
+
+Try to enqueue a packet into the jitter buffer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em jb} & jitter buffer instance \\
+\hline
+\mbox{\tt in}  & {\em msg} & msgb to enqueue, containing an R\+TP packet \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+$<$0 if the packet was dropped, 0 otherwise
+\end{DoxyReturn}
+This function calculates the delay for the enqueued packet. If the delay is bigger than the current buffer size, the function returns -\/1 and the caller owns the packet again and can free it if required. If the packet is enqueued, 0 is returned and the exact same packet (ownership transfer, no copy is made) will be available again through the dequeue\+\_\+cb() when the queue timer for this packet expires. \index{Osmocom Jitter Buffer@{Osmocom Jitter Buffer}!osmo\+\_\+jibuf\+\_\+set\+\_\+dequeue\+\_\+cb@{osmo\+\_\+jibuf\+\_\+set\+\_\+dequeue\+\_\+cb}}
+\index{osmo\+\_\+jibuf\+\_\+set\+\_\+dequeue\+\_\+cb@{osmo\+\_\+jibuf\+\_\+set\+\_\+dequeue\+\_\+cb}!Osmocom Jitter Buffer@{Osmocom Jitter Buffer}}
+\subsubsection[{osmo\+\_\+jibuf\+\_\+set\+\_\+dequeue\+\_\+cb(struct osmo\+\_\+jibuf $\ast$jb, osmo\+\_\+jibuf\+\_\+dequeue\+\_\+cb dequeue\+\_\+cb, void $\ast$cb\+\_\+data)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+jibuf\+\_\+set\+\_\+dequeue\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+jibuf} $\ast$}]{jb, }
+\item[{osmo\+\_\+jibuf\+\_\+dequeue\+\_\+cb}]{dequeue\+\_\+cb, }
+\item[{void $\ast$}]{cb\+\_\+data}
+\end{DoxyParamCaption}
+)}\label{group__jibuf_ga3a8213fe8bed42d649fcb1c8d13e23d8}
+
+
+Set dequeue callback for the jitter buffer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em jb} & jitter buffer instance \\
+\hline
+\mbox{\tt in}  & {\em dequeue\+\_\+cb} & function pointer to call back when the dequeue timer for a given packet expires \\
+\hline
+\mbox{\tt in}  & {\em cb\+\_\+data} & data pointer to be passed to dequeue\+\_\+cb together with the msgb. \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Jitter Buffer@{Osmocom Jitter Buffer}!osmo\+\_\+jibuf\+\_\+set\+\_\+max\+\_\+delay@{osmo\+\_\+jibuf\+\_\+set\+\_\+max\+\_\+delay}}
+\index{osmo\+\_\+jibuf\+\_\+set\+\_\+max\+\_\+delay@{osmo\+\_\+jibuf\+\_\+set\+\_\+max\+\_\+delay}!Osmocom Jitter Buffer@{Osmocom Jitter Buffer}}
+\subsubsection[{osmo\+\_\+jibuf\+\_\+set\+\_\+max\+\_\+delay(struct osmo\+\_\+jibuf $\ast$jb, uint32\+\_\+t max\+\_\+delay)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+jibuf\+\_\+set\+\_\+max\+\_\+delay (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+jibuf} $\ast$}]{jb, }
+\item[{uint32\+\_\+t}]{max\+\_\+delay}
+\end{DoxyParamCaption}
+)}\label{group__jibuf_ga5e84571c3348525b6ad647a22cd2581d}
+
+
+Set maximum buffer size for the jitter buffer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em jb} & jitter buffer instance \\
+\hline
+\mbox{\tt in}  & {\em max\+\_\+delay} & Maximum buffer size, as in maximum delay in milliseconds \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Jitter Buffer@{Osmocom Jitter Buffer}!osmo\+\_\+jibuf\+\_\+set\+\_\+min\+\_\+delay@{osmo\+\_\+jibuf\+\_\+set\+\_\+min\+\_\+delay}}
+\index{osmo\+\_\+jibuf\+\_\+set\+\_\+min\+\_\+delay@{osmo\+\_\+jibuf\+\_\+set\+\_\+min\+\_\+delay}!Osmocom Jitter Buffer@{Osmocom Jitter Buffer}}
+\subsubsection[{osmo\+\_\+jibuf\+\_\+set\+\_\+min\+\_\+delay(struct osmo\+\_\+jibuf $\ast$jb, uint32\+\_\+t min\+\_\+delay)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+jibuf\+\_\+set\+\_\+min\+\_\+delay (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+jibuf} $\ast$}]{jb, }
+\item[{uint32\+\_\+t}]{min\+\_\+delay}
+\end{DoxyParamCaption}
+)}\label{group__jibuf_gabcd63f39049bc4d6b3541a674b78963d}
+
+
+Set minimum buffer size for the jitter buffer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em jb} & jitter buffer instance \\
+\hline
+\mbox{\tt in}  & {\em min\+\_\+delay} & Minimum buffer size, as in minimum delay in milliseconds \\
+\hline
+\end{DoxyParams}

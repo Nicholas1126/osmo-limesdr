@@ -1,0 +1,301 @@
+\section{Osmocom Multiplex Protocol}
+\label{group__osmux}\index{Osmocom Multiplex Protocol@{Osmocom Multiplex Protocol}}
+\subsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file {\bf osmux.\+h}
+\item 
+file {\bf osmux.\+c}
+\begin{DoxyCompactList}\small\item\em Osmocom multiplex protocol helpers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmux\+\_\+hdr}
+\item 
+struct {\bf osmux\+\_\+in\+\_\+handle}
+\item 
+struct {\bf osmux\+\_\+out\+\_\+handle}
+\item 
+struct {\bf osmux\+\_\+batch}
+\item 
+struct {\bf osmux\+\_\+circuit}
+\item 
+struct {\bf osmux\+\_\+input\+\_\+state}
+\item 
+struct {\bf osmux\+\_\+tx\+\_\+handle}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries O\+S\+M\+U\+X\+\_\+\+F\+T\+\_\+\+S\+I\+G\+N\+AL}~0\label{group__osmux_ga56541848fbbf5c529d7983685cbe1222}
+
+\item 
+\#define {\bfseries O\+S\+M\+U\+X\+\_\+\+F\+T\+\_\+\+V\+O\+I\+C\+E\+\_\+\+A\+MR}~1\label{group__osmux_gae48ff00bdb503143c58d74c08e3ea4c6}
+
+\item 
+\#define {\bfseries O\+S\+M\+U\+X\+\_\+\+F\+T\+\_\+\+D\+U\+M\+MY}~2\label{group__osmux_ga08d783f0644a0f44c9e39bb851a0d2a9}
+
+\item 
+\#define {\bfseries O\+S\+M\+U\+X\+\_\+\+M\+A\+X\+\_\+\+C\+O\+N\+C\+U\+R\+R\+E\+N\+T\+\_\+\+C\+A\+L\+LS}~8\label{group__osmux_ga97865ddcdfb9cf8d39653cf704e154c4}
+
+\item 
+\#define {\bfseries O\+S\+M\+U\+X\+\_\+\+B\+A\+T\+C\+H\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+AX}~1472\label{group__osmux_gafcc9ef25a29d641a31523dfeb627d20b}
+
+\item 
+\#define {\bfseries D\+E\+L\+T\+A\+\_\+\+R\+T\+P\+\_\+\+M\+SG}~20000\label{group__osmux_gaf5909a93287ea334985b9d1735ad0b60}
+
+\item 
+\#define {\bfseries D\+E\+L\+T\+A\+\_\+\+R\+T\+P\+\_\+\+T\+I\+M\+E\+S\+T\+A\+MP}~160\label{group__osmux_gaeac1d5817fbc8473765723ddad171dc5}
+
+\item 
+\#define {\bfseries S\+N\+P\+R\+I\+N\+T\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}(ret,  remain,  offset)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmux\+\_\+hdr} {\bfseries \+\_\+\+\_\+attribute\+\_\+\+\_\+} ((packed))\label{group__osmux_gab731e55b448e102a7f0937d575442929}
+
+\item 
+static uint8\+\_\+t $\ast$ {\bfseries osmux\+\_\+get\+\_\+payload} (struct {\bf osmux\+\_\+hdr} $\ast$osmuxh)\label{group__osmux_ga6d16616cb76c2eb9db17a4cee638f80c}
+
+\item 
+int {\bf osmux\+\_\+snprintf} (char $\ast$buf, size\+\_\+t size, struct msgb $\ast$msg)
+\item 
+void {\bfseries osmux\+\_\+xfrm\+\_\+input\+\_\+init} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h)\label{group__osmux_ga2a993ac6099e6ffc086c61b6ac81e43f}
+
+\item 
+void {\bfseries osmux\+\_\+xfrm\+\_\+input\+\_\+fini} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h)\label{group__osmux_gafade2203059a2eaad659b15b5245a075}
+
+\item 
+int {\bfseries osmux\+\_\+xfrm\+\_\+input\+\_\+open\+\_\+circuit} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h, int ccid, int dummy)\label{group__osmux_ga8976891414ad18103efb8829b4b2844a}
+
+\item 
+void {\bfseries osmux\+\_\+xfrm\+\_\+input\+\_\+close\+\_\+circuit} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h, int ccid)\label{group__osmux_ga2c12c883c9dd7abd80b47802ef991b32}
+
+\item 
+int {\bf osmux\+\_\+xfrm\+\_\+input} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h, struct msgb $\ast$msg, int ccid)
+\item 
+void {\bfseries osmux\+\_\+xfrm\+\_\+input\+\_\+deliver} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h)\label{group__osmux_gafad3a85e58f396db7544ac0138df7974}
+
+\item 
+void {\bfseries osmux\+\_\+xfrm\+\_\+output\+\_\+init} (struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$h, uint32\+\_\+t rtp\+\_\+ssrc)\label{group__osmux_gaad1ddab26314d7c91867f203b13c9563}
+
+\item 
+void {\bf osmux\+\_\+xfrm\+\_\+output\+\_\+set\+\_\+tx\+\_\+cb} (struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$h, void($\ast$tx\+\_\+cb)(struct msgb $\ast$msg, void $\ast$data), void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Set transmission callback to call when a generated R\+TP packet is to be transmitted. \end{DoxyCompactList}\item 
+int {\bfseries osmux\+\_\+xfrm\+\_\+output} (struct {\bf osmux\+\_\+hdr} $\ast$osmuxh, struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$h, struct llist\+\_\+head $\ast$list) O\+S\+M\+O\+\_\+\+D\+E\+P\+R\+E\+C\+A\+T\+ED(\char`\"{}Use {\bf osmux\+\_\+xfrm\+\_\+output\+\_\+sched}() instead\char`\"{})\label{group__osmux_ga6f81282beee813c320ac2a31663c8fa6}
+
+\item 
+int {\bf osmux\+\_\+xfrm\+\_\+output\+\_\+sched} (struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$h, struct {\bf osmux\+\_\+hdr} $\ast$osmuxh)
+\begin{DoxyCompactList}\small\item\em Generate R\+TP packets from osmux frame A\+MR payload set and schedule them for transmission at appropiate time. \end{DoxyCompactList}\item 
+void {\bf osmux\+\_\+xfrm\+\_\+output\+\_\+flush} (struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$h)
+\begin{DoxyCompactList}\small\item\em Flush all scheduled R\+TP packets still pending to be transmitted. \end{DoxyCompactList}\item 
+struct {\bf osmux\+\_\+hdr} $\ast$ {\bfseries osmux\+\_\+xfrm\+\_\+output\+\_\+pull} (struct msgb $\ast$msg)\label{group__osmux_ga613c43d4166a4985718f8e4f7216efcc}
+
+\item 
+void {\bfseries osmux\+\_\+tx\+\_\+sched} (struct llist\+\_\+head $\ast$list, void($\ast$tx\+\_\+cb)(struct msgb $\ast$msg, void $\ast$data), void $\ast$data) O\+S\+M\+O\+\_\+\+D\+E\+P\+R\+E\+C\+A\+T\+ED(\char`\"{}Use {\bf osmux\+\_\+xfrm\+\_\+output\+\_\+set\+\_\+tx\+\_\+cb}() instead\char`\"{})\label{group__osmux_ga8f69252f3c59628d2defa68cb95ed3b5}
+
+\item 
+static uint32\+\_\+t {\bfseries osmux\+\_\+get\+\_\+payload\+\_\+len} (struct {\bf osmux\+\_\+hdr} $\ast$osmuxh)\label{group__osmux_ga7173385a73a58d9e591c89c9ce6f2162}
+
+\item 
+static uint32\+\_\+t {\bfseries osmux\+\_\+ft\+\_\+dummy\+\_\+size} (uint8\+\_\+t amr\+\_\+ft, uint8\+\_\+t batch\+\_\+factor)\label{group__osmux_gaf756352e90aa8ab0e96c0f43f23c36d3}
+
+\item 
+static struct msgb $\ast$ {\bfseries osmux\+\_\+rebuild\+\_\+rtp} (struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$h, struct {\bf osmux\+\_\+hdr} $\ast$osmuxh, void $\ast$payload, int payload\+\_\+len, bool first\+\_\+pkt)\label{group__osmux_ga21f39732f8635545f2171af97297b639}
+
+\item 
+static void {\bfseries osmux\+\_\+xfrm\+\_\+output\+\_\+trigger} (void $\ast$data)\label{group__osmux_gafad4414de98f24dcce1c5a7878e652c6}
+
+\item 
+static int {\bfseries osmux\+\_\+batch\+\_\+enqueue} (struct msgb $\ast$msg, struct {\bf osmux\+\_\+circuit} $\ast$circuit, uint8\+\_\+t batch\+\_\+factor)\label{group__osmux_ga53dca1ab2d87a84411f7821471268ccd}
+
+\item 
+static void {\bfseries osmux\+\_\+batch\+\_\+dequeue} (struct msgb $\ast$msg, struct {\bf osmux\+\_\+circuit} $\ast$circuit)\label{group__osmux_ga8f2ed1b95fb3b0b053a2affdef55af0c}
+
+\item 
+static void {\bfseries osmux\+\_\+circuit\+\_\+del\+\_\+msgs} (struct {\bf osmux\+\_\+batch} $\ast$batch, struct {\bf osmux\+\_\+circuit} $\ast$circuit)\label{group__osmux_gae8885fa2c6a40cf4cee4377dc46aeb94}
+
+\item 
+static int {\bfseries osmux\+\_\+batch\+\_\+put} (struct {\bf osmux\+\_\+batch} $\ast$batch, struct {\bf osmux\+\_\+input\+\_\+state} $\ast$state)\label{group__osmux_ga817c50f0b3f136dc138e286325b85398}
+
+\item 
+static int {\bfseries osmux\+\_\+xfrm\+\_\+encode\+\_\+amr} (struct {\bf osmux\+\_\+batch} $\ast$batch, struct {\bf osmux\+\_\+input\+\_\+state} $\ast$state)\label{group__osmux_ga45da5daf2d31a73d3cd189dfc5e3e26f}
+
+\item 
+static void {\bfseries osmux\+\_\+encode\+\_\+dummy} (struct {\bf osmux\+\_\+batch} $\ast$batch, uint8\+\_\+t batch\+\_\+factor, struct {\bf osmux\+\_\+input\+\_\+state} $\ast$state)\label{group__osmux_ga323417cc06a5ed2e805264d462cd1a0b}
+
+\item 
+static struct msgb $\ast$ {\bfseries osmux\+\_\+build\+\_\+batch} (struct {\bf osmux\+\_\+batch} $\ast$batch, uint32\+\_\+t batch\+\_\+size, uint8\+\_\+t batch\+\_\+factor)\label{group__osmux_ga63b5729acea7a10988b59c7980ab0fea}
+
+\item 
+static void {\bfseries osmux\+\_\+batch\+\_\+timer\+\_\+expired} (void $\ast$data)\label{group__osmux_ga0338c55965aa1658a42b7acf1d2e5d34}
+
+\item 
+static int {\bfseries osmux\+\_\+rtp\+\_\+amr\+\_\+payload\+\_\+len} (struct msgb $\ast$msg, struct {\bf rtp\+\_\+hdr} $\ast$rtph)\label{group__osmux_ga00417a6b7d7d35195ef7d4756545d22d}
+
+\item 
+static void {\bfseries osmux\+\_\+replay\+\_\+lost\+\_\+packets} (struct {\bf osmux\+\_\+circuit} $\ast$circuit, struct {\bf rtp\+\_\+hdr} $\ast$cur\+\_\+rtph, int batch\+\_\+factor)\label{group__osmux_gae4e6054eeda8f39a2d764fa08179bb3a}
+
+\item 
+static struct {\bf osmux\+\_\+circuit} $\ast$ {\bfseries osmux\+\_\+batch\+\_\+find\+\_\+circuit} (struct {\bf osmux\+\_\+batch} $\ast$batch, int ccid)\label{group__osmux_ga9becda4685cfea6a8ee501fb93803092}
+
+\item 
+static struct {\bf osmux\+\_\+circuit} $\ast$ {\bfseries osmux\+\_\+batch\+\_\+add\+\_\+circuit} (struct {\bf osmux\+\_\+batch} $\ast$batch, int ccid, int dummy, uint8\+\_\+t batch\+\_\+factor)\label{group__osmux_gaccfb7e95e0b54ed8a3c2a4185a96a9cc}
+
+\item 
+static void {\bfseries osmux\+\_\+batch\+\_\+del\+\_\+circuit} (struct {\bf osmux\+\_\+batch} $\ast$batch, struct {\bf osmux\+\_\+circuit} $\ast$circuit)\label{group__osmux_ga4e06c9952928c96f893002794c24f7f1}
+
+\item 
+static int {\bfseries osmux\+\_\+batch\+\_\+add} (struct {\bf osmux\+\_\+batch} $\ast$batch, uint32\+\_\+t batch\+\_\+factor, struct msgb $\ast$msg, struct {\bf rtp\+\_\+hdr} $\ast$rtph, int ccid)\label{group__osmux_gaf11c2b30f84dcc858c4da254d2e6f3f9}
+
+\item 
+static void {\bfseries osmux\+\_\+tx\+\_\+cb} (void $\ast$data)\label{group__osmux_ga5fdcde262e8c6d7827eaddfcdd4cdd97}
+
+\item 
+static void {\bfseries osmux\+\_\+tx} (struct msgb $\ast$msg, struct timeval $\ast$when, void($\ast$tx\+\_\+cb)(struct msgb $\ast$msg, void $\ast$data), void $\ast$data)\label{group__osmux_ga0be6ad86f9e1a5a8fe78abadfd937804}
+
+\item 
+static int {\bfseries osmux\+\_\+snprintf\+\_\+header} (char $\ast$buf, size\+\_\+t size, struct {\bf osmux\+\_\+hdr} $\ast$osmuxh)\label{group__osmux_gad22fb7955b289918b8b16be80b07e957}
+
+\item 
+static int {\bfseries osmux\+\_\+snprintf\+\_\+payload} (char $\ast$buf, size\+\_\+t size, const uint8\+\_\+t $\ast$payload, int payload\+\_\+len)\label{group__osmux_ga7e0da74da38893a8823b9247ba66e187}
+
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmux\+\_\+in\+\_\+handle} {\bfseries \+\_\+\+\_\+attribute\+\_\+\+\_\+}\label{group__osmux_ga9dd31e4f6a9ad599afbb4600bec665f2}
+
+\item 
+static void $\ast$ {\bfseries osmux\+\_\+ctx}\label{group__osmux_ga408d4648bd8b85223d46124c5157006d}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This code implements a variety of utility functions related to the O\+S\+M\+UX user-\/plane multiplexing protocol, an efficient alternative to plain U\+D\+P/\+R\+TP streams for voice transport in back-\/haul of cellular networks.
+
+For information about the O\+S\+M\+UX protocol design, please see the O\+S\+M\+UX reference manual at {\tt http\+://ftp.\+osmocom.\+org/docs/latest/osmux-\/reference.\+pdf} 
+
+\subsection{Macro Definition Documentation}
+\index{Osmocom Multiplex Protocol@{Osmocom Multiplex Protocol}!S\+N\+P\+R\+I\+N\+T\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE@{S\+N\+P\+R\+I\+N\+T\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{S\+N\+P\+R\+I\+N\+T\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE@{S\+N\+P\+R\+I\+N\+T\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}!Osmocom Multiplex Protocol@{Osmocom Multiplex Protocol}}
+\subsubsection[{S\+N\+P\+R\+I\+N\+T\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+N\+P\+R\+I\+N\+T\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE(
+\begin{DoxyParamCaption}
+\item[{}]{ret, }
+\item[{}]{remain, }
+\item[{}]{offset}
+\end{DoxyParamCaption}
+)}\label{group__osmux_ga6aef25db0cf5336a997cae7c402e55be}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{if} (ret < 0)                                    \(\backslash\)
+                ret = 0;                                \(\backslash\)
+        offset += ret;                                  \(\backslash\)
+        if (ret > remain)                               \(\backslash\)
+                ret = remain;                           \(\backslash\)
+        remain -= ret;
+\end{DoxyCode}
+
+
+\subsection{Function Documentation}
+\index{Osmocom Multiplex Protocol@{Osmocom Multiplex Protocol}!osmux\+\_\+snprintf@{osmux\+\_\+snprintf}}
+\index{osmux\+\_\+snprintf@{osmux\+\_\+snprintf}!Osmocom Multiplex Protocol@{Osmocom Multiplex Protocol}}
+\subsubsection[{osmux\+\_\+snprintf(char $\ast$buf, size\+\_\+t size, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int osmux\+\_\+snprintf (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buf, }
+\item[{size\+\_\+t}]{size, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{group__osmux_gaf654e092ca97dd764f59905a2ed21650}
+Print osmux header fields and payload from msg into buffer buf. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em buf} & buffer to store the output into \\
+\hline
+\mbox{\tt in}  & {\em len} & length of buf in bytes \\
+\hline
+\mbox{\tt in}  & {\em msgb} & message buffer containing one or more osmux frames \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of characters printed (excluding the null byte used to end output to strings).
+\end{DoxyReturn}
+If the output was truncated due to this limit, then the return value is the number of characters (excluding the terminating null byte) which would have been written to the final string if enough space had been available. \index{Osmocom Multiplex Protocol@{Osmocom Multiplex Protocol}!osmux\+\_\+xfrm\+\_\+input@{osmux\+\_\+xfrm\+\_\+input}}
+\index{osmux\+\_\+xfrm\+\_\+input@{osmux\+\_\+xfrm\+\_\+input}!Osmocom Multiplex Protocol@{Osmocom Multiplex Protocol}}
+\subsubsection[{osmux\+\_\+xfrm\+\_\+input(struct osmux\+\_\+in\+\_\+handle $\ast$h, struct msgb $\ast$msg, int ccid)}]{\setlength{\rightskip}{0pt plus 5cm}int osmux\+\_\+xfrm\+\_\+input (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$}]{h, }
+\item[{struct msgb $\ast$}]{msg, }
+\item[{int}]{ccid}
+\end{DoxyParamCaption}
+)}\label{group__osmux_ga9c7d30c0d7d9bc0caf744799d629d4cc}
+osmux\+\_\+xfrm\+\_\+input -\/ add R\+TP message to O\+Smux batch 
+\begin{DoxyParams}{Parameters}
+{\em msg} & R\+TP message that you want to batch into one O\+Smux message\\
+\hline
+\end{DoxyParams}
+If 0 is returned, this indicates that the message has been batched or that an error occured and we have skipped the message. If 1 is returned, you have to invoke osmux\+\_\+xfrm\+\_\+input\+\_\+deliver and try again.
+
+The function takes care of releasing the messages in case of error and when building the batch. \index{Osmocom Multiplex Protocol@{Osmocom Multiplex Protocol}!osmux\+\_\+xfrm\+\_\+output\+\_\+flush@{osmux\+\_\+xfrm\+\_\+output\+\_\+flush}}
+\index{osmux\+\_\+xfrm\+\_\+output\+\_\+flush@{osmux\+\_\+xfrm\+\_\+output\+\_\+flush}!Osmocom Multiplex Protocol@{Osmocom Multiplex Protocol}}
+\subsubsection[{osmux\+\_\+xfrm\+\_\+output\+\_\+flush(struct osmux\+\_\+out\+\_\+handle $\ast$h)}]{\setlength{\rightskip}{0pt plus 5cm}void osmux\+\_\+xfrm\+\_\+output\+\_\+flush (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$}]{h}
+\end{DoxyParamCaption}
+)}\label{group__osmux_gaaac410425f6470396ae9db53ebb8dc44}
+
+
+Flush all scheduled R\+TP packets still pending to be transmitted. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em h} & the osmux out handle to flush\\
+\hline
+\end{DoxyParams}
+This function will immediately call the transmit callback for all queued R\+TP packets, making sure the list ends up empty. It will also stop all internal timers to make sure the \doxyref{osmux\+\_\+out\+\_\+handle}{p.}{structosmux__out__handle} can be dropped or re-\/used by calling osmux\+\_\+xfrm\+\_\+output on it. \index{Osmocom Multiplex Protocol@{Osmocom Multiplex Protocol}!osmux\+\_\+xfrm\+\_\+output\+\_\+sched@{osmux\+\_\+xfrm\+\_\+output\+\_\+sched}}
+\index{osmux\+\_\+xfrm\+\_\+output\+\_\+sched@{osmux\+\_\+xfrm\+\_\+output\+\_\+sched}!Osmocom Multiplex Protocol@{Osmocom Multiplex Protocol}}
+\subsubsection[{osmux\+\_\+xfrm\+\_\+output\+\_\+sched(struct osmux\+\_\+out\+\_\+handle $\ast$h, struct osmux\+\_\+hdr $\ast$osmuxh)}]{\setlength{\rightskip}{0pt plus 5cm}int osmux\+\_\+xfrm\+\_\+output\+\_\+sched (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$}]{h, }
+\item[{struct {\bf osmux\+\_\+hdr} $\ast$}]{osmuxh}
+\end{DoxyParamCaption}
+)}\label{group__osmux_gafee78ee4522a9caa238301d7b913dfd6}
+
+
+Generate R\+TP packets from osmux frame A\+MR payload set and schedule them for transmission at appropiate time. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em h} & the osmux out handle handling a specific C\+ID \\
+\hline
+\mbox{\tt in}  & {\em osmuxh} & Buffer pointing to osmux frame header structure and A\+MR payload \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of generated R\+TP packets
+\end{DoxyReturn}
+The osmux frame passed to this function must be of the type O\+S\+M\+U\+X\+\_\+\+F\+T\+\_\+\+V\+O\+I\+C\+E\+\_\+\+A\+MR. The generated R\+TP packets are kept into h\textquotesingle{}s internal list and sent to the callback configured through osmux\+\_\+xfrm\+\_\+output\+\_\+set\+\_\+tx\+\_\+cb when are ready to be transmitted according to schedule. \index{Osmocom Multiplex Protocol@{Osmocom Multiplex Protocol}!osmux\+\_\+xfrm\+\_\+output\+\_\+set\+\_\+tx\+\_\+cb@{osmux\+\_\+xfrm\+\_\+output\+\_\+set\+\_\+tx\+\_\+cb}}
+\index{osmux\+\_\+xfrm\+\_\+output\+\_\+set\+\_\+tx\+\_\+cb@{osmux\+\_\+xfrm\+\_\+output\+\_\+set\+\_\+tx\+\_\+cb}!Osmocom Multiplex Protocol@{Osmocom Multiplex Protocol}}
+\subsubsection[{osmux\+\_\+xfrm\+\_\+output\+\_\+set\+\_\+tx\+\_\+cb(struct osmux\+\_\+out\+\_\+handle $\ast$h, void($\ast$tx\+\_\+cb)(struct msgb $\ast$msg, void $\ast$data), void $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}void osmux\+\_\+xfrm\+\_\+output\+\_\+set\+\_\+tx\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$}]{h, }
+\item[{void($\ast$)(struct msgb $\ast$msg, void $\ast$data)}]{tx\+\_\+cb, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\label{group__osmux_ga3936e43e881d0992648937417969ead1}
+
+
+Set transmission callback to call when a generated R\+TP packet is to be transmitted. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em h} & the osmux out handle handling a specific C\+ID \\
+\hline
+\mbox{\tt in}  & {\em osmuxh} & Buffer pointing to osmux frame header structure and A\+MR payload \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of generated R\+TP packets
+\end{DoxyReturn}
+This Function sets the callback called by the interal timer set by osmux\+\_\+xfrm\+\_\+out\+\_\+sched function. 

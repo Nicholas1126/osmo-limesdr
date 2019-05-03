@@ -1,0 +1,804 @@
+\section{Osmocom Datagram Socket}
+\label{group__datagram}\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file {\bf datagram.\+c}
+\begin{DoxyCompactList}\small\item\em Osmocom datagram socket helpers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+dgram\+\_\+tx}
+\item 
+struct {\bf osmo\+\_\+dgram\+\_\+rx}
+\item 
+struct {\bf osmo\+\_\+dgram}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries O\+S\+M\+O\+\_\+\+D\+G\+R\+A\+M\+\_\+\+C\+L\+I\+\_\+\+F\+\_\+\+R\+E\+C\+O\+NF}~(1 $<$$<$ 0)\label{group__datagram_gaf41754fb826e8b8c65fb2e8f662feb69}
+
+\item 
+\#define {\bfseries O\+S\+M\+O\+\_\+\+D\+G\+R\+A\+M\+\_\+\+R\+X\+\_\+\+F\+\_\+\+R\+E\+C\+O\+NF}~(1 $<$$<$ 0)\label{group__datagram_ga961607798deb93315134b1ed744a2503}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+close} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Close an Osmocom Datagram Transmitter. \end{DoxyCompactList}\item 
+static int {\bfseries osmo\+\_\+dgram\+\_\+tx\+\_\+write} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn)\label{group__datagram_ga5abe182a0d60ed2b5f67b83c17b62d6e}
+
+\item 
+static int {\bfseries osmo\+\_\+dgram\+\_\+tx\+\_\+fd\+\_\+cb} (struct osmo\+\_\+fd $\ast$ofd, unsigned int what)\label{group__datagram_ga58efd0adf6c0eae97595743d569e7c13}
+
+\item 
+struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$ {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+create} (void $\ast$ctx)
+\begin{DoxyCompactList}\small\item\em Create an Osmocom datagram transmitter. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+addr} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn, const char $\ast$addr)
+\begin{DoxyCompactList}\small\item\em Set the remote address to which we transmit. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+port} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn, uint16\+\_\+t port)
+\begin{DoxyCompactList}\small\item\em Set the remote port to which we transmit. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+local\+\_\+addr} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn, const char $\ast$addr)
+\begin{DoxyCompactList}\small\item\em Set the local address from which we transmit. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+local\+\_\+port} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn, uint16\+\_\+t port)
+\begin{DoxyCompactList}\small\item\em Set the local port from which we transmit. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+data} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn, void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Set application private data of the datagram transmitter. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+destroy} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Destroy a Osmocom datagram transmitter. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+open} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Open connection of an Osmocom datagram transmitter. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+tx\+\_\+send} (struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$conn, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Enqueue data to be sent via an Osmocom datagram transmitter. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+dgram\+\_\+rx\+\_\+recv} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Receive data via Osmocom datagram receiver. \end{DoxyCompactList}\item 
+static void {\bfseries osmo\+\_\+dgram\+\_\+rx\+\_\+read} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn)\label{group__datagram_gaac9fa74b028b815d91b0766d2899b590}
+
+\item 
+static int {\bfseries osmo\+\_\+dgram\+\_\+rx\+\_\+cb} (struct osmo\+\_\+fd $\ast$ofd, unsigned int what)\label{group__datagram_ga1c129b264a6585d4457a70312c69d09d}
+
+\item 
+struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$ {\bf osmo\+\_\+dgram\+\_\+rx\+\_\+create} (void $\ast$ctx)
+\begin{DoxyCompactList}\small\item\em Create an Osmocom datagram receiver. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+addr} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn, const char $\ast$addr)
+\begin{DoxyCompactList}\small\item\em Set the local address to which we bind. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+port} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn, uint16\+\_\+t port)
+\begin{DoxyCompactList}\small\item\em Set the local port to which we bind. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+read\+\_\+cb} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn, int($\ast$read\+\_\+cb)(struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn))
+\begin{DoxyCompactList}\small\item\em Set the read() call-\/back of the datagram receiver. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+rx\+\_\+destroy} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Destroy the datagram receiver. Releases Memory. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+dgram\+\_\+rx\+\_\+open} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Open the datagram receiver. This actually initializes the underlying socket and binds it to the configured ip/port. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+rx\+\_\+close} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Close the datagram receiver and unregister from select loop Does not destroy the datagram receiver, merely closes it! \end{DoxyCompactList}\item 
+static int {\bfseries dgram\+\_\+rx\+\_\+cb} (struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$rx)\label{group__datagram_ga6dbf864fe918da49f28808db59c747e9}
+
+\item 
+struct {\bf osmo\+\_\+dgram} $\ast$ {\bf osmo\+\_\+dgram\+\_\+create} (void $\ast$ctx)
+\begin{DoxyCompactList}\small\item\em Create an Osmocom datagram transceiver (bidirectional) \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+destroy} (struct {\bf osmo\+\_\+dgram} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Destroy a Osmocom datagram transceiver. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+addr} (struct {\bf osmo\+\_\+dgram} $\ast$conn, const char $\ast$addr)
+\begin{DoxyCompactList}\small\item\em Set the local address to which we bind. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+addr} (struct {\bf osmo\+\_\+dgram} $\ast$conn, const char $\ast$addr)
+\begin{DoxyCompactList}\small\item\em Set the remote address to which we transmit/connect. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+port} (struct {\bf osmo\+\_\+dgram} $\ast$conn, uint16\+\_\+t port)
+\begin{DoxyCompactList}\small\item\em Set the local port to which we bind. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+port} (struct {\bf osmo\+\_\+dgram} $\ast$conn, uint16\+\_\+t port)
+\begin{DoxyCompactList}\small\item\em Set the remote port to which we transmit. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+set\+\_\+read\+\_\+cb} (struct {\bf osmo\+\_\+dgram} $\ast$conn, int($\ast$read\+\_\+cb)(struct {\bf osmo\+\_\+dgram} $\ast$conn))
+\begin{DoxyCompactList}\small\item\em Set the read() call-\/back of the datagram receiver. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+set\+\_\+data} (struct {\bf osmo\+\_\+dgram} $\ast$conn, void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Set application private data of the datagram transmitter. \end{DoxyCompactList}\item 
+void $\ast$ {\bf osmo\+\_\+dgram\+\_\+get\+\_\+data} (struct {\bf osmo\+\_\+dgram} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Get application private data of the datagram transceiver. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+dgram\+\_\+open} (struct {\bf osmo\+\_\+dgram} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Open the datagram transceiver. This actually initializes the underlying sockets and binds/connects them to the configured ips/ports. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+close} (struct {\bf osmo\+\_\+dgram} $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Close an Osmocom Datagram Transceiver. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+dgram\+\_\+send} (struct {\bf osmo\+\_\+dgram} $\ast$conn, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Enqueue data to be sent via an Osmocom datagram transceiver. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+dgram\+\_\+recv} (struct {\bf osmo\+\_\+dgram} $\ast$conn, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Receive data via Osmocom datagram transceiver. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+dgram\+\_\+tx} {\bfseries \+\_\+\+\_\+attribute\+\_\+\+\_\+}\label{group__datagram_ga9fc5525f579ef035792e3e0e2595d691}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This code is intended to abstract any use of datagram type sockets, such as U\+DP. It offers both transmitter and receiver side implementations, fully integrated with the libosmocore select loop abstraction. 
+
+\subsection{Function Documentation}
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+close@{osmo\+\_\+dgram\+\_\+close}}
+\index{osmo\+\_\+dgram\+\_\+close@{osmo\+\_\+dgram\+\_\+close}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+close(struct osmo\+\_\+dgram $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+close (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram} $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga46db4acbfc35668e35601338d64364ed}
+
+
+Close an Osmocom Datagram Transceiver. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Osmocom Datagram Transceiver to be closed We unregister the socket fds from the osmocom select() loop and close them. \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+dgram\+\_\+rx\+\_\+close(), and osmo\+\_\+dgram\+\_\+tx\+\_\+close().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+create@{osmo\+\_\+dgram\+\_\+create}}
+\index{osmo\+\_\+dgram\+\_\+create@{osmo\+\_\+dgram\+\_\+create}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+create(void $\ast$ctx)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+dgram}$\ast$ osmo\+\_\+dgram\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga4efd892e0ddb3551d9330e091b65056b}
+
+
+Create an Osmocom datagram transceiver (bidirectional) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ctx} & talloc context from which to allocate memory This function allocates a new \doxyref{osmo\+\_\+dgram}{p.}{structosmo__dgram} and initializes it with default values. Internally, the Transceiver is based on a tuple of transmitter (\doxyref{osmo\+\_\+dgram\+\_\+tx}{p.}{structosmo__dgram__tx}) and receiver (\doxyref{osmo\+\_\+dgram\+\_\+rx}{p.}{structosmo__dgram__rx}) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Osmocom Datagram Transceiver; N\+U\+LL on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+dgram\+\_\+rx\+\_\+create(), osmo\+\_\+dgram\+\_\+rx\+\_\+destroy(), osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+read\+\_\+cb(), and osmo\+\_\+dgram\+\_\+tx\+\_\+create().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+destroy@{osmo\+\_\+dgram\+\_\+destroy}}
+\index{osmo\+\_\+dgram\+\_\+destroy@{osmo\+\_\+dgram\+\_\+destroy}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+destroy(struct osmo\+\_\+dgram $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram} $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga01fb36f8c19b2b64705d8263f7f53f59}
+
+
+Destroy a Osmocom datagram transceiver. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Transceiver to destroy \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+dgram\+\_\+rx\+\_\+destroy(), and osmo\+\_\+dgram\+\_\+tx\+\_\+destroy().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+get\+\_\+data@{osmo\+\_\+dgram\+\_\+get\+\_\+data}}
+\index{osmo\+\_\+dgram\+\_\+get\+\_\+data@{osmo\+\_\+dgram\+\_\+get\+\_\+data}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+get\+\_\+data(struct osmo\+\_\+dgram $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ osmo\+\_\+dgram\+\_\+get\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram} $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}\label{group__datagram_gad2cbf018a7fce486b2cd5cc174b24974}
+
+
+Get application private data of the datagram transceiver. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Transceiver \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Application private data, as set by \doxyref{osmo\+\_\+dgram\+\_\+set\+\_\+data()}{p.}{group__datagram_gaa6a5fbd5f227d15cefe6b234fefb3b4d} 
+\end{DoxyReturn}
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+open@{osmo\+\_\+dgram\+\_\+open}}
+\index{osmo\+\_\+dgram\+\_\+open@{osmo\+\_\+dgram\+\_\+open}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+open(struct osmo\+\_\+dgram $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+dgram\+\_\+open (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram} $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}\label{group__datagram_gac65de108c52dba83b178d6453e9fb545}
+
+
+Open the datagram transceiver. This actually initializes the underlying sockets and binds/connects them to the configured ips/ports. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Transceiver to open \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+dgram\+\_\+rx\+\_\+close(), osmo\+\_\+dgram\+\_\+rx\+\_\+open(), and osmo\+\_\+dgram\+\_\+tx\+\_\+open().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+recv@{osmo\+\_\+dgram\+\_\+recv}}
+\index{osmo\+\_\+dgram\+\_\+recv@{osmo\+\_\+dgram\+\_\+recv}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+recv(struct osmo\+\_\+dgram $\ast$conn, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+dgram\+\_\+recv (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram} $\ast$}]{conn, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{group__datagram_gaae58d13a6fd634ebfddd486d0d428c5e}
+
+
+Receive data via Osmocom datagram transceiver. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Transceiver from which to receive \\
+\hline
+ & {\em msg} & pre-\/allocate message buffer to which received data is appended \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of bytes read, negative on error. 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+dgram\+\_\+rx\+\_\+recv().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+rx\+\_\+close@{osmo\+\_\+dgram\+\_\+rx\+\_\+close}}
+\index{osmo\+\_\+dgram\+\_\+rx\+\_\+close@{osmo\+\_\+dgram\+\_\+rx\+\_\+close}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+rx\+\_\+close(struct osmo\+\_\+dgram\+\_\+rx $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+rx\+\_\+close (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga01efa7269834a745d80910a64c6f61c0}
+
+
+Close the datagram receiver and unregister from select loop Does not destroy the datagram receiver, merely closes it! 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Stream Server Link to close \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by osmo\+\_\+dgram\+\_\+close(), osmo\+\_\+dgram\+\_\+open(), osmo\+\_\+dgram\+\_\+rx\+\_\+destroy(), and osmo\+\_\+dgram\+\_\+rx\+\_\+open().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+rx\+\_\+create@{osmo\+\_\+dgram\+\_\+rx\+\_\+create}}
+\index{osmo\+\_\+dgram\+\_\+rx\+\_\+create@{osmo\+\_\+dgram\+\_\+rx\+\_\+create}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+rx\+\_\+create(void $\ast$ctx)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+dgram\+\_\+rx}$\ast$ osmo\+\_\+dgram\+\_\+rx\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga3e9ef6bd02ce0b9bc42ae57ca2e5fb71}
+
+
+Create an Osmocom datagram receiver. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ctx} & talloc context from which to allocate memory This function allocates a new \doxyref{osmo\+\_\+dgram\+\_\+rx}{p.}{structosmo__dgram__rx} and initializes it with default values \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Datagram Receiver; N\+U\+LL on error 
+\end{DoxyReturn}
+
+
+Referenced by osmo\+\_\+dgram\+\_\+create().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+rx\+\_\+destroy@{osmo\+\_\+dgram\+\_\+rx\+\_\+destroy}}
+\index{osmo\+\_\+dgram\+\_\+rx\+\_\+destroy@{osmo\+\_\+dgram\+\_\+rx\+\_\+destroy}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+rx\+\_\+destroy(struct osmo\+\_\+dgram\+\_\+rx $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+rx\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga6e4b92b9c7f210d1cb3782425d0bdac0}
+
+
+Destroy the datagram receiver. Releases Memory. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Receiver \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+dgram\+\_\+rx\+\_\+close().
+
+
+
+Referenced by osmo\+\_\+dgram\+\_\+create(), and osmo\+\_\+dgram\+\_\+destroy().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+rx\+\_\+open@{osmo\+\_\+dgram\+\_\+rx\+\_\+open}}
+\index{osmo\+\_\+dgram\+\_\+rx\+\_\+open@{osmo\+\_\+dgram\+\_\+rx\+\_\+open}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+rx\+\_\+open(struct osmo\+\_\+dgram\+\_\+rx $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+dgram\+\_\+rx\+\_\+open (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}\label{group__datagram_gaf558e9c2f02216ed95db039ddaf31050}
+
+
+Open the datagram receiver. This actually initializes the underlying socket and binds it to the configured ip/port. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Receiver to open \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+dgram\+\_\+rx\+\_\+close().
+
+
+
+Referenced by osmo\+\_\+dgram\+\_\+open().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+rx\+\_\+recv@{osmo\+\_\+dgram\+\_\+rx\+\_\+recv}}
+\index{osmo\+\_\+dgram\+\_\+rx\+\_\+recv@{osmo\+\_\+dgram\+\_\+rx\+\_\+recv}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+rx\+\_\+recv(struct osmo\+\_\+dgram\+\_\+rx $\ast$conn, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+dgram\+\_\+rx\+\_\+recv (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$}]{conn, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga16d69e998c663cdec0b76560a2d8cfb9}
+
+
+Receive data via Osmocom datagram receiver. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Receiver from which to receive \\
+\hline
+ & {\em msg} & pre-\/allocate message buffer to which received data is appended \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of bytes read (might be 0 for empty U\+DP packet), negative on error. 
+\end{DoxyReturn}
+
+
+Referenced by osmo\+\_\+dgram\+\_\+recv().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+addr@{osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+addr}}
+\index{osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+addr@{osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+addr}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+addr(struct osmo\+\_\+dgram\+\_\+rx $\ast$conn, const char $\ast$addr)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$}]{conn, }
+\item[{const char $\ast$}]{addr}
+\end{DoxyParamCaption}
+)}\label{group__datagram_gad378ba5cc66ee0c27a277906d8434e31}
+
+
+Set the local address to which we bind. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Receiver to modify \\
+\hline
+\mbox{\tt in}  & {\em addr} & Local IP address \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+addr().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+port@{osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+port}}
+\index{osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+port@{osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+port}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+port(struct osmo\+\_\+dgram\+\_\+rx $\ast$conn, uint16\+\_\+t port)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+port (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$}]{conn, }
+\item[{uint16\+\_\+t}]{port}
+\end{DoxyParamCaption}
+)}\label{group__datagram_gafbd947def18d8e34062876433ac05e91}
+
+
+Set the local port to which we bind. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Receiver to modify \\
+\hline
+\mbox{\tt in}  & {\em port} & Local port number \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+port().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+read\+\_\+cb@{osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+read\+\_\+cb}}
+\index{osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+read\+\_\+cb@{osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+read\+\_\+cb}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+read\+\_\+cb(struct osmo\+\_\+dgram\+\_\+rx $\ast$conn, int($\ast$read\+\_\+cb)(struct osmo\+\_\+dgram\+\_\+rx $\ast$conn))}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+read\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$}]{conn, }
+\item[{int($\ast$)(struct {\bf osmo\+\_\+dgram\+\_\+rx} $\ast$conn)}]{read\+\_\+cb}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga5a0f7221b8583aac5153f167c4e2177d}
+
+
+Set the read() call-\/back of the datagram receiver. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Receiver to modify \\
+\hline
+\mbox{\tt in}  & {\em read\+\_\+cb} & Call-\/back function executed after read() \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by osmo\+\_\+dgram\+\_\+create().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+send@{osmo\+\_\+dgram\+\_\+send}}
+\index{osmo\+\_\+dgram\+\_\+send@{osmo\+\_\+dgram\+\_\+send}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+send(struct osmo\+\_\+dgram $\ast$conn, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+send (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram} $\ast$}]{conn, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga66d6c9d5f0243a4f7ed458c62d8e20dd}
+
+
+Enqueue data to be sent via an Osmocom datagram transceiver. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Transceiver through which we want to send \\
+\hline
+\mbox{\tt in}  & {\em msg} & Message buffer to enqueue in transmit queue \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+dgram\+\_\+tx\+\_\+send().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+set\+\_\+data@{osmo\+\_\+dgram\+\_\+set\+\_\+data}}
+\index{osmo\+\_\+dgram\+\_\+set\+\_\+data@{osmo\+\_\+dgram\+\_\+set\+\_\+data}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+set\+\_\+data(struct osmo\+\_\+dgram $\ast$conn, void $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+set\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram} $\ast$}]{conn, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\label{group__datagram_gaa6a5fbd5f227d15cefe6b234fefb3b4d}
+
+
+Set application private data of the datagram transmitter. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Transmitter to modify \\
+\hline
+\mbox{\tt in}  & {\em data} & User-\/specific data (available in call-\/back functions) \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+addr@{osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+addr}}
+\index{osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+addr@{osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+addr}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+addr(struct osmo\+\_\+dgram $\ast$conn, const char $\ast$addr)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram} $\ast$}]{conn, }
+\item[{const char $\ast$}]{addr}
+\end{DoxyParamCaption}
+)}\label{group__datagram_gaf21d974e14fa22f910313b240d31d40f}
+
+
+Set the local address to which we bind. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Transceiver to modify \\
+\hline
+\mbox{\tt in}  & {\em addr} & Local IP address \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+addr().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+port@{osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+port}}
+\index{osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+port@{osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+port}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+port(struct osmo\+\_\+dgram $\ast$conn, uint16\+\_\+t port)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+set\+\_\+local\+\_\+port (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram} $\ast$}]{conn, }
+\item[{uint16\+\_\+t}]{port}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga9180ae9a36a9927d4bdb49cdc5708b1f}
+
+
+Set the local port to which we bind. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Transceiver to modify \\
+\hline
+\mbox{\tt in}  & {\em port} & Local Port Number \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+dgram\+\_\+rx\+\_\+set\+\_\+port().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+set\+\_\+read\+\_\+cb@{osmo\+\_\+dgram\+\_\+set\+\_\+read\+\_\+cb}}
+\index{osmo\+\_\+dgram\+\_\+set\+\_\+read\+\_\+cb@{osmo\+\_\+dgram\+\_\+set\+\_\+read\+\_\+cb}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+set\+\_\+read\+\_\+cb(struct osmo\+\_\+dgram $\ast$conn, int($\ast$read\+\_\+cb)(struct osmo\+\_\+dgram $\ast$conn))}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+set\+\_\+read\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram} $\ast$}]{conn, }
+\item[{int($\ast$)(struct {\bf osmo\+\_\+dgram} $\ast$conn)}]{read\+\_\+cb}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga6b6ef2f02e3d260f1e84a2ecf8c67b5a}
+
+
+Set the read() call-\/back of the datagram receiver. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Receiver to modify \\
+\hline
+\mbox{\tt in}  & {\em read\+\_\+cb} & Call-\/back function executed after read() \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+addr@{osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+addr}}
+\index{osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+addr@{osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+addr}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+addr(struct osmo\+\_\+dgram $\ast$conn, const char $\ast$addr)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram} $\ast$}]{conn, }
+\item[{const char $\ast$}]{addr}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga6677ee8d976d2e1bed8e0c01e103c18f}
+
+
+Set the remote address to which we transmit/connect. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Transceiver to modify \\
+\hline
+\mbox{\tt in}  & {\em addr} & Remote IP address \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+addr().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+port@{osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+port}}
+\index{osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+port@{osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+port}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+port(struct osmo\+\_\+dgram $\ast$conn, uint16\+\_\+t port)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+port (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram} $\ast$}]{conn, }
+\item[{uint16\+\_\+t}]{port}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga27bf4c1d8e4c30ef7b4ec49665d6fc90}
+
+
+Set the remote port to which we transmit. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Transceiver to modify \\
+\hline
+\mbox{\tt in}  & {\em port} & Remote Port Number \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+port().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+tx\+\_\+close@{osmo\+\_\+dgram\+\_\+tx\+\_\+close}}
+\index{osmo\+\_\+dgram\+\_\+tx\+\_\+close@{osmo\+\_\+dgram\+\_\+tx\+\_\+close}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+tx\+\_\+close(struct osmo\+\_\+dgram\+\_\+tx $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+tx\+\_\+close (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga0eb580467681e8fa91be35a83a74f132}
+
+
+Close an Osmocom Datagram Transmitter. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Osmocom Datagram Transmitter to be closed We unregister the socket fd from the osmocom select() loop abstraction and close the socket \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by osmo\+\_\+dgram\+\_\+close(), osmo\+\_\+dgram\+\_\+tx\+\_\+destroy(), and osmo\+\_\+dgram\+\_\+tx\+\_\+open().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+tx\+\_\+create@{osmo\+\_\+dgram\+\_\+tx\+\_\+create}}
+\index{osmo\+\_\+dgram\+\_\+tx\+\_\+create@{osmo\+\_\+dgram\+\_\+tx\+\_\+create}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+tx\+\_\+create(void $\ast$ctx)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+dgram\+\_\+tx}$\ast$ osmo\+\_\+dgram\+\_\+tx\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga946c84a9ab38f90c3589ddccf9df676e}
+
+
+Create an Osmocom datagram transmitter. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ctx} & talloc context from which to allocate memory This function allocates a new \doxyref{osmo\+\_\+dgram\+\_\+tx}{p.}{structosmo__dgram__tx} and initializes it with default values \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Osmocom Datagram Transmitter; N\+U\+LL on error 
+\end{DoxyReturn}
+
+
+Referenced by osmo\+\_\+dgram\+\_\+create().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+tx\+\_\+destroy@{osmo\+\_\+dgram\+\_\+tx\+\_\+destroy}}
+\index{osmo\+\_\+dgram\+\_\+tx\+\_\+destroy@{osmo\+\_\+dgram\+\_\+tx\+\_\+destroy}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+tx\+\_\+destroy(struct osmo\+\_\+dgram\+\_\+tx $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+tx\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}\label{group__datagram_gaad6f9ca0688cd4a8a95ec6002f52ded5}
+
+
+Destroy a Osmocom datagram transmitter. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Transmitter to destroy \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+dgram\+\_\+tx\+\_\+close().
+
+
+
+Referenced by osmo\+\_\+dgram\+\_\+destroy().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+tx\+\_\+open@{osmo\+\_\+dgram\+\_\+tx\+\_\+open}}
+\index{osmo\+\_\+dgram\+\_\+tx\+\_\+open@{osmo\+\_\+dgram\+\_\+tx\+\_\+open}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+tx\+\_\+open(struct osmo\+\_\+dgram\+\_\+tx $\ast$conn)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+dgram\+\_\+tx\+\_\+open (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga8d712623df3862e55ad248dc5ecd626c}
+
+
+Open connection of an Osmocom datagram transmitter. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Stream Client to connect \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative in case of error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+dgram\+\_\+tx\+\_\+close().
+
+
+
+Referenced by osmo\+\_\+dgram\+\_\+open().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+tx\+\_\+send@{osmo\+\_\+dgram\+\_\+tx\+\_\+send}}
+\index{osmo\+\_\+dgram\+\_\+tx\+\_\+send@{osmo\+\_\+dgram\+\_\+tx\+\_\+send}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+tx\+\_\+send(struct osmo\+\_\+dgram\+\_\+tx $\ast$conn, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+tx\+\_\+send (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$}]{conn, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{group__datagram_gad4638b9943090f5bf1a7b75fa8efde46}
+
+
+Enqueue data to be sent via an Osmocom datagram transmitter. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Transmitter through which we want to send \\
+\hline
+\mbox{\tt in}  & {\em msg} & Message buffer to enqueue in transmit queue \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by osmo\+\_\+dgram\+\_\+send().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+addr@{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+addr}}
+\index{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+addr@{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+addr}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+addr(struct osmo\+\_\+dgram\+\_\+tx $\ast$conn, const char $\ast$addr)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$}]{conn, }
+\item[{const char $\ast$}]{addr}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga94fe94f64f1285715db36eb1f2e9deaa}
+
+
+Set the remote address to which we transmit. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Transmitter to modify \\
+\hline
+\mbox{\tt in}  & {\em addr} & Remote IP address \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+addr().
+
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+data@{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+data}}
+\index{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+data@{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+data}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+data(struct osmo\+\_\+dgram\+\_\+tx $\ast$conn, void $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$}]{conn, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga095ce94e65f1607026c37c12e6f5e9c0}
+
+
+Set application private data of the datagram transmitter. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Transmitter to modify \\
+\hline
+\mbox{\tt in}  & {\em data} & User-\/specific data (available in call-\/back functions) \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+local\+\_\+addr@{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+local\+\_\+addr}}
+\index{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+local\+\_\+addr@{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+local\+\_\+addr}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+local\+\_\+addr(struct osmo\+\_\+dgram\+\_\+tx $\ast$conn, const char $\ast$addr)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+local\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$}]{conn, }
+\item[{const char $\ast$}]{addr}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga6c843f43db5439f8f0ba38f72dbb1a20}
+
+
+Set the local address from which we transmit. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Transmitter to modify \\
+\hline
+\mbox{\tt in}  & {\em addr} & Local IP address \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+local\+\_\+port@{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+local\+\_\+port}}
+\index{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+local\+\_\+port@{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+local\+\_\+port}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+local\+\_\+port(struct osmo\+\_\+dgram\+\_\+tx $\ast$conn, uint16\+\_\+t port)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+local\+\_\+port (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$}]{conn, }
+\item[{uint16\+\_\+t}]{port}
+\end{DoxyParamCaption}
+)}\label{group__datagram_gae2962232548d41621520c6c71da423a5}
+
+
+Set the local port from which we transmit. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Transmitter to modify \\
+\hline
+\mbox{\tt in}  & {\em port} & Local Port Number \\
+\hline
+\end{DoxyParams}
+\index{Osmocom Datagram Socket@{Osmocom Datagram Socket}!osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+port@{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+port}}
+\index{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+port@{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+port}!Osmocom Datagram Socket@{Osmocom Datagram Socket}}
+\subsubsection[{osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+port(struct osmo\+\_\+dgram\+\_\+tx $\ast$conn, uint16\+\_\+t port)}]{\setlength{\rightskip}{0pt plus 5cm}void osmo\+\_\+dgram\+\_\+tx\+\_\+set\+\_\+port (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+dgram\+\_\+tx} $\ast$}]{conn, }
+\item[{uint16\+\_\+t}]{port}
+\end{DoxyParamCaption}
+)}\label{group__datagram_ga48d7e39656886b52aa176fc1b14c84cf}
+
+
+Set the remote port to which we transmit. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em conn} & Datagram Transmitter to modify \\
+\hline
+\mbox{\tt in}  & {\em port} & Remote Port Number \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by osmo\+\_\+dgram\+\_\+set\+\_\+remote\+\_\+port().
+

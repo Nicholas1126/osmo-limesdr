@@ -1,0 +1,862 @@
+\section{src/xua\+\_\+internal.h File Reference}
+\label{xua__internal_8h}\index{src/xua\+\_\+internal.\+h@{src/xua\+\_\+internal.\+h}}
+{\ttfamily \#include $<$osmocom/sigtran/osmo\+\_\+ss7.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/xua\+\_\+msg.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf C\+S7\+\_\+\+S\+TR}~\char`\"{}I\+TU-\/T Signaling System 7\textbackslash{}n\char`\"{}
+\item 
+\#define {\bf P\+C\+\_\+\+S\+TR}~\char`\"{}Point Code\textbackslash{}n\char`\"{}
+\item 
+\#define {\bf I\+N\+S\+T\+\_\+\+S\+TR}~\char`\"{}An instance of the S\+S7 stack\textbackslash{}n\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf sua\+\_\+addr\+\_\+parse\+\_\+part} (struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$out, const struct {\bf xua\+\_\+msg\+\_\+part} $\ast$param)
+\begin{DoxyCompactList}\small\item\em parse S\+C\+CP address from given x\+UA message part \end{DoxyCompactList}\item 
+int {\bf sua\+\_\+addr\+\_\+parse} (struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$out, struct {\bf xua\+\_\+msg} $\ast$xua, uint16\+\_\+t iei)
+\begin{DoxyCompactList}\small\item\em parse S\+C\+CP address from given x\+UA message IE \end{DoxyCompactList}\item 
+int {\bf sua\+\_\+parse\+\_\+gt} (struct {\bf osmo\+\_\+sccp\+\_\+gt} $\ast$gt, const uint8\+\_\+t $\ast${\bf data}, unsigned int datalen)
+\begin{DoxyCompactList}\small\item\em Decode S\+UA Global Title according to R\+F\+C3868 Section 3.\+10.\+2.\+3. \end{DoxyCompactList}\item 
+struct {\bf xua\+\_\+msg} $\ast$ {\bf osmo\+\_\+sccp\+\_\+to\+\_\+xua} (struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em convert S\+C\+CP message to a S\+UA message \end{DoxyCompactList}\item 
+struct msgb $\ast$ {\bf osmo\+\_\+sua\+\_\+to\+\_\+sccp} (struct {\bf xua\+\_\+msg} $\ast$xua)
+\begin{DoxyCompactList}\small\item\em convert parsed S\+UA message to S\+C\+CP message \end{DoxyCompactList}\item 
+int {\bf sua\+\_\+rx\+\_\+msg} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em process S\+UA message received from socket \end{DoxyCompactList}\item 
+int {\bf sua\+\_\+tx\+\_\+xua\+\_\+as} (struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$as, struct {\bf xua\+\_\+msg} $\ast$xua)
+\begin{DoxyCompactList}\small\item\em Send a given x\+UA message via a given S\+UA Application Server. \end{DoxyCompactList}\item 
+struct {\bf osmo\+\_\+mtp\+\_\+prim} $\ast$ {\bf m3ua\+\_\+to\+\_\+xfer\+\_\+ind} (struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+int {\bf m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2} (struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$inst, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+int {\bf m3ua\+\_\+tx\+\_\+xua\+\_\+as} (struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$as, struct {\bf xua\+\_\+msg} $\ast$xua)
+\begin{DoxyCompactList}\small\item\em Send a given x\+UA message via a given M3\+UA Application Server. \end{DoxyCompactList}\item 
+int {\bf m3ua\+\_\+rx\+\_\+msg} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em process M3\+UA message received from socket \end{DoxyCompactList}\item 
+struct msgb $\ast$ {\bf m3ua\+\_\+msgb\+\_\+alloc} (const char $\ast$name)
+\item 
+struct {\bf xua\+\_\+msg} $\ast$ {\bf m3ua\+\_\+xfer\+\_\+from\+\_\+data} (const struct {\bf m3ua\+\_\+data\+\_\+hdr} $\ast$data\+\_\+hdr, const uint8\+\_\+t $\ast${\bf data}, unsigned int data\+\_\+len)
+\item 
+struct {\bf m3ua\+\_\+data\+\_\+hdr} $\ast$ {\bf data\+\_\+hdr\+\_\+from\+\_\+m3ua} (struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+void {\bf m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param} (struct {\bf osmo\+\_\+mtp\+\_\+transfer\+\_\+param} $\ast$param, const struct {\bf m3ua\+\_\+data\+\_\+hdr} $\ast$mdh)
+\item 
+void {\bf mtp\+\_\+xfer\+\_\+param\+\_\+to\+\_\+m3ua\+\_\+dh} (struct {\bf m3ua\+\_\+data\+\_\+hdr} $\ast$mdh, const struct {\bf osmo\+\_\+mtp\+\_\+transfer\+\_\+param} $\ast$param)
+\item 
+struct {\bf xua\+\_\+msg} $\ast$ {\bf m3ua\+\_\+encode\+\_\+notify} (const struct {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+notify} $\ast$npar)
+\item 
+int {\bf m3ua\+\_\+decode\+\_\+notify} (struct {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+notify} $\ast$npar, void $\ast$ctx, const struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+int {\bf m3ua\+\_\+rx\+\_\+rkm} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+void {\bf xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp)
+\item 
+struct {\bf osmo\+\_\+xlm\+\_\+prim} $\ast$ {\bf xua\+\_\+xlm\+\_\+prim\+\_\+alloc} (enum {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+type} prim\+\_\+type, enum osmo\+\_\+prim\+\_\+operation op)
+\item 
+void {\bf xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct {\bf osmo\+\_\+xlm\+\_\+prim} $\ast$prim)
+\item 
+void {\bf xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim\+\_\+simple} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, enum {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+type} prim\+\_\+type, enum osmo\+\_\+prim\+\_\+operation op)
+\item 
+int {\bf xua\+\_\+as\+\_\+transmit\+\_\+msg} (struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$as, struct msgb $\ast$msg)
+\item 
+int {\bf ipa\+\_\+tx\+\_\+xua\+\_\+as} (struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$as, struct {\bf xua\+\_\+msg} $\ast$xua)
+\begin{DoxyCompactList}\small\item\em Send a given x\+UA message via a given I\+PA \char`\"{}\+Application Server\char`\"{}. \end{DoxyCompactList}\item 
+int {\bf ipa\+\_\+rx\+\_\+msg} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em process M3\+UA message received from socket \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+isup\+\_\+party\+\_\+parse} (char $\ast$out\+\_\+digits, const uint8\+\_\+t $\ast$in, unsigned int in\+\_\+num\+\_\+bytes, bool odd)
+\begin{DoxyCompactList}\small\item\em Parse I\+S\+UP style address of B\+CD digets. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+parse} (struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$out, const uint8\+\_\+t $\ast$addr, unsigned int addrlen)
+\begin{DoxyCompactList}\small\item\em Parse wire-\/encoded S\+C\+CP address into omso\+\_\+sccp\+\_\+addr. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+encode} (struct msgb $\ast$msg, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$in)
+\begin{DoxyCompactList}\small\item\em encode a S\+C\+CP address from parsed format to wire format \end{DoxyCompactList}\item 
+int {\bf ss7\+\_\+asp\+\_\+rx\+\_\+unknown} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, int ppid\+\_\+mux, struct msgb $\ast$msg)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const struct {\bf xua\+\_\+msg\+\_\+class} {\bf m3ua\+\_\+msg\+\_\+class\+\_\+mgmt}
+\item 
+const struct {\bf xua\+\_\+msg\+\_\+class} {\bf m3ua\+\_\+msg\+\_\+class\+\_\+snm}
+\item 
+const struct {\bf xua\+\_\+msg\+\_\+class} {\bf m3ua\+\_\+msg\+\_\+class\+\_\+rkm}
+\item 
+const struct {\bf xua\+\_\+msg\+\_\+class} {\bf m3ua\+\_\+msg\+\_\+class\+\_\+aspsm}
+\item 
+const struct {\bf xua\+\_\+msg\+\_\+class} {\bf m3ua\+\_\+msg\+\_\+class\+\_\+asptm}
+\item 
+const struct value\+\_\+string {\bf m3ua\+\_\+err\+\_\+names} [$\,$]
+\item 
+const struct value\+\_\+string {\bf m3ua\+\_\+ntfy\+\_\+type\+\_\+names} [$\,$]
+\item 
+const struct value\+\_\+string {\bf m3ua\+\_\+ntfy\+\_\+stchg\+\_\+names} [$\,$]
+\item 
+const struct value\+\_\+string {\bf m3ua\+\_\+ntfy\+\_\+other\+\_\+names} [$\,$]
+\item 
+struct osmo\+\_\+fsm {\bf xua\+\_\+default\+\_\+lm\+\_\+fsm}
+\item 
+const struct value\+\_\+string {\bf m3ua\+\_\+rkm\+\_\+reg\+\_\+status\+\_\+vals} [$\,$]
+\item 
+const struct value\+\_\+string {\bf m3ua\+\_\+rkm\+\_\+dereg\+\_\+status\+\_\+vals} [$\,$]
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!C\+S7\+\_\+\+S\+TR@{C\+S7\+\_\+\+S\+TR}}
+\index{C\+S7\+\_\+\+S\+TR@{C\+S7\+\_\+\+S\+TR}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{C\+S7\+\_\+\+S\+TR}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+S7\+\_\+\+S\+TR~\char`\"{}I\+TU-\/T Signaling System 7\textbackslash{}n\char`\"{}}\label{xua__internal_8h_ad788266d373ac76d807afcb62fbbe19d}
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!I\+N\+S\+T\+\_\+\+S\+TR@{I\+N\+S\+T\+\_\+\+S\+TR}}
+\index{I\+N\+S\+T\+\_\+\+S\+TR@{I\+N\+S\+T\+\_\+\+S\+TR}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{I\+N\+S\+T\+\_\+\+S\+TR}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+S\+T\+\_\+\+S\+TR~\char`\"{}An instance of the S\+S7 stack\textbackslash{}n\char`\"{}}\label{xua__internal_8h_a38728b918d70320ea5e7c07687f584c4}
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!P\+C\+\_\+\+S\+TR@{P\+C\+\_\+\+S\+TR}}
+\index{P\+C\+\_\+\+S\+TR@{P\+C\+\_\+\+S\+TR}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{P\+C\+\_\+\+S\+TR}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+C\+\_\+\+S\+TR~\char`\"{}Point Code\textbackslash{}n\char`\"{}}\label{xua__internal_8h_ae1a8027d8962d120ef6c12ab6979bbc9}
+
+
+\subsection{Function Documentation}
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!data\+\_\+hdr\+\_\+from\+\_\+m3ua@{data\+\_\+hdr\+\_\+from\+\_\+m3ua}}
+\index{data\+\_\+hdr\+\_\+from\+\_\+m3ua@{data\+\_\+hdr\+\_\+from\+\_\+m3ua}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{data\+\_\+hdr\+\_\+from\+\_\+m3ua(struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf m3ua\+\_\+data\+\_\+hdr}$\ast$ data\+\_\+hdr\+\_\+from\+\_\+m3ua (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_aed43760964d48ed2ae9e15b1e63e7611}
+
+
+References xua\+\_\+msg\+\_\+part\+::dat, xua\+\_\+msg\+::hdr, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+\_\+\+D\+A\+TA, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+X\+F\+ER, M3\+U\+A\+\_\+\+X\+F\+E\+R\+\_\+\+D\+A\+TA, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type, and xua\+\_\+msg\+\_\+find\+\_\+tag().
+
+
+
+Referenced by hmdt\+\_\+message\+\_\+for\+\_\+distribution(), and m3ua\+\_\+rx\+\_\+xfer().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!ipa\+\_\+rx\+\_\+msg@{ipa\+\_\+rx\+\_\+msg}}
+\index{ipa\+\_\+rx\+\_\+msg@{ipa\+\_\+rx\+\_\+msg}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{ipa\+\_\+rx\+\_\+msg(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int ipa\+\_\+rx\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_a6ad6f7f3cd8e3e21d09faa49c5919075}
+
+
+process M3\+UA message received from socket 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em asp} & Application Server Process receiving {\itshape msg} \\
+\hline
+\mbox{\tt in}  & {\em msg} & received message buffer. Callee takes ownership! \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, ipa\+\_\+rx\+\_\+msg\+\_\+ccm(), ipa\+\_\+rx\+\_\+msg\+\_\+sccp(), O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+I\+PA, osmo\+\_\+ss7\+\_\+asp\+::proto, and ss7\+\_\+asp\+\_\+rx\+\_\+unknown().
+
+
+
+Referenced by ipa\+\_\+cli\+\_\+read\+\_\+cb(), and ipa\+\_\+srv\+\_\+conn\+\_\+cb().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!ipa\+\_\+tx\+\_\+xua\+\_\+as@{ipa\+\_\+tx\+\_\+xua\+\_\+as}}
+\index{ipa\+\_\+tx\+\_\+xua\+\_\+as@{ipa\+\_\+tx\+\_\+xua\+\_\+as}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{ipa\+\_\+tx\+\_\+xua\+\_\+as(struct osmo\+\_\+ss7\+\_\+as $\ast$as, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}int ipa\+\_\+tx\+\_\+xua\+\_\+as (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$}]{as, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_a4473443b022e57cc48e07677c14650ae}
+
+
+Send a given x\+UA message via a given I\+PA \char`\"{}\+Application Server\char`\"{}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em as} & Application Server through which to send {\itshape xua} \\
+\hline
+\mbox{\tt in}  & {\em xua} & x\+UA message to be sent \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::cfg, xua\+\_\+msg\+\_\+part\+::dat, xua\+\_\+msg\+\_\+part\+::len, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+\_\+\+D\+A\+TA, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+I\+PA, osmo\+\_\+ss7\+\_\+as\+::proto, xua\+\_\+as\+\_\+transmit\+\_\+msg(), and xua\+\_\+msg\+\_\+find\+\_\+tag().
+
+
+
+Referenced by hmrt\+\_\+message\+\_\+for\+\_\+routing().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+decode\+\_\+notify@{m3ua\+\_\+decode\+\_\+notify}}
+\index{m3ua\+\_\+decode\+\_\+notify@{m3ua\+\_\+decode\+\_\+notify}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+decode\+\_\+notify(struct osmo\+\_\+xlm\+\_\+prim\+\_\+notify $\ast$npar, void $\ast$ctx, const struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}int m3ua\+\_\+decode\+\_\+notify (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+notify} $\ast$}]{npar, }
+\item[{void $\ast$}]{ctx, }
+\item[{const struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_a446729f54e5da95d3eefc9ae04248cdf}
+
+
+References osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::asp\+\_\+id, xua\+\_\+msg\+\_\+part\+::dat, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::info\+\_\+string, xua\+\_\+msg\+\_\+part\+::len, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+A\+S\+P\+\_\+\+ID, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+I\+N\+F\+O\+\_\+\+S\+T\+R\+I\+NG, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+T\+A\+T\+US, N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+A\+S\+P\+\_\+\+ID, N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::presence, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::route\+\_\+ctx, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::status\+\_\+info, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::status\+\_\+type, xua\+\_\+msg\+\_\+find\+\_\+tag(), and xua\+\_\+msg\+\_\+part\+\_\+get\+\_\+u32().
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy(), and sua\+\_\+rx\+\_\+mgmt\+\_\+ntfy().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param@{m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param}}
+\index{m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param@{m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param(struct osmo\+\_\+mtp\+\_\+transfer\+\_\+param $\ast$param, const struct m3ua\+\_\+data\+\_\+hdr $\ast$mdh)}]{\setlength{\rightskip}{0pt plus 5cm}void m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+mtp\+\_\+transfer\+\_\+param} $\ast$}]{param, }
+\item[{const struct {\bf m3ua\+\_\+data\+\_\+hdr} $\ast$}]{mdh}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_ac1a04dfbafd50c05516ed474fd6337f3}
+
+
+References osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::dpc, m3ua\+\_\+data\+\_\+hdr\+::dpc, m3ua\+\_\+data\+\_\+hdr\+::mp, m3ua\+\_\+data\+\_\+hdr\+::ni, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::opc, m3ua\+\_\+data\+\_\+hdr\+::opc, m3ua\+\_\+data\+\_\+hdr\+::si, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::sio, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::sls, and m3ua\+\_\+data\+\_\+hdr\+::sls.
+
+
+
+Referenced by ipa\+\_\+rx\+\_\+msg\+\_\+sccp(), m3ua\+\_\+rx\+\_\+xfer(), and m3ua\+\_\+to\+\_\+xfer\+\_\+ind().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+encode\+\_\+notify@{m3ua\+\_\+encode\+\_\+notify}}
+\index{m3ua\+\_\+encode\+\_\+notify@{m3ua\+\_\+encode\+\_\+notify}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+encode\+\_\+notify(const struct osmo\+\_\+xlm\+\_\+prim\+\_\+notify $\ast$npar)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf xua\+\_\+msg}$\ast$ m3ua\+\_\+encode\+\_\+notify (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+notify} $\ast$}]{npar}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_a7f3779c54a38b2e1f8c18a5ed541cb7f}
+
+
+References osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::asp\+\_\+id, xua\+\_\+msg\+::hdr, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::info\+\_\+string, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+A\+S\+P\+\_\+\+ID, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+I\+N\+F\+O\+\_\+\+S\+T\+R\+I\+NG, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+T\+A\+T\+US, M3\+U\+A\+\_\+\+M\+G\+M\+T\+\_\+\+N\+T\+FY, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+M\+G\+MT, M3\+U\+A\+\_\+\+N\+O\+T\+I\+FY, N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+A\+S\+P\+\_\+\+ID, N\+O\+T\+I\+F\+Y\+\_\+\+P\+A\+R\+\_\+\+P\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::presence, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::route\+\_\+ctx, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::status\+\_\+info, osmo\+\_\+xlm\+\_\+prim\+\_\+notify\+::status\+\_\+type, X\+U\+A\+\_\+\+H\+DR, xua\+\_\+msg\+\_\+add\+\_\+data(), xua\+\_\+msg\+\_\+add\+\_\+u32(), and xua\+\_\+msg\+\_\+alloc().
+
+
+
+Referenced by encode\+\_\+notify().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2@{m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2}}
+\index{m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2@{m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2(struct osmo\+\_\+ss7\+\_\+instance $\ast$inst, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}int m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+instance} $\ast$}]{inst, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_a8bc0dfc719354cd380bb206d25c33c6a}
+
+
+References osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::dpc, dpc, hmdt\+\_\+message\+\_\+for\+\_\+distribution(), hmrt\+\_\+message\+\_\+for\+\_\+routing(), xua\+\_\+msg\+::mtp, osmo\+\_\+ss7\+\_\+pc\+\_\+is\+\_\+local(), and osmo\+\_\+ss7\+\_\+pointcode\+\_\+print().
+
+
+
+Referenced by ipa\+\_\+rx\+\_\+msg\+\_\+sccp(), m3ua\+\_\+rx\+\_\+xfer(), and osmo\+\_\+ss7\+\_\+user\+\_\+mtp\+\_\+xfer\+\_\+req().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+msgb\+\_\+alloc@{m3ua\+\_\+msgb\+\_\+alloc}}
+\index{m3ua\+\_\+msgb\+\_\+alloc@{m3ua\+\_\+msgb\+\_\+alloc}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+msgb\+\_\+alloc(const char $\ast$name)}]{\setlength{\rightskip}{0pt plus 5cm}struct msgb$\ast$ m3ua\+\_\+msgb\+\_\+alloc (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_a27c054af9499c82ee64945a48f16abf7}
+
+
+References M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+H\+E\+A\+D\+R\+O\+OM, and M3\+U\+A\+\_\+\+M\+S\+G\+\_\+\+S\+I\+ZE.
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+req(), m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req(), m3ua\+\_\+to\+\_\+xfer\+\_\+ind(), xua\+\_\+cli\+\_\+read\+\_\+cb(), xua\+\_\+rkm\+\_\+send\+\_\+dereg\+\_\+req(), xua\+\_\+rkm\+\_\+send\+\_\+reg\+\_\+req(), and xua\+\_\+srv\+\_\+conn\+\_\+cb().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+rx\+\_\+msg@{m3ua\+\_\+rx\+\_\+msg}}
+\index{m3ua\+\_\+rx\+\_\+msg@{m3ua\+\_\+rx\+\_\+msg}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+rx\+\_\+msg(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int m3ua\+\_\+rx\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_a3dd5abc2f138a16910f323c9e52427e6}
+
+
+process M3\+UA message received from socket 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em asp} & Application Server Process receiving msg \\
+\hline
+\mbox{\tt in}  & {\em msg} & received message buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, xua\+\_\+common\+\_\+hdr\+::data, xua\+\_\+msg\+::hdr, L\+O\+G\+P\+A\+SP, M3\+U\+A\+\_\+\+E\+R\+R\+\_\+\+I\+N\+V\+A\+L\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+ID, M3\+U\+A\+\_\+\+E\+R\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+V\+E\+R\+S\+I\+ON, M3\+U\+A\+\_\+\+E\+R\+R\+\_\+\+M\+I\+S\+S\+I\+N\+G\+\_\+\+P\+A\+R\+AM, M3\+U\+A\+\_\+\+E\+R\+R\+\_\+\+P\+A\+R\+A\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+E\+RR, M3\+U\+A\+\_\+\+E\+R\+R\+\_\+\+U\+N\+S\+U\+P\+P\+\_\+\+M\+S\+G\+\_\+\+C\+L\+A\+SS, m3ua\+\_\+gen\+\_\+error\+\_\+msg(), M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+A\+S\+P\+SM, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+A\+S\+P\+TM, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+M\+G\+MT, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+R\+KM, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+S\+NM, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+X\+F\+ER, m3ua\+\_\+rx\+\_\+asp(), m3ua\+\_\+rx\+\_\+mgmt(), m3ua\+\_\+rx\+\_\+rkm(), m3ua\+\_\+rx\+\_\+xfer(), m3ua\+\_\+tx\+\_\+xua\+\_\+asp(), M3\+U\+A\+\_\+\+V\+E\+R\+S\+I\+ON, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+M3\+UA, osmo\+\_\+ss7\+\_\+asp\+::proto, xua\+\_\+common\+\_\+hdr\+::version, xua\+\_\+dialect\+\_\+check\+\_\+all\+\_\+mand\+\_\+ies(), xua\+\_\+from\+\_\+msg(), xua\+\_\+hdr\+\_\+dump(), and xua\+\_\+msg\+\_\+free().
+
+
+
+Referenced by xua\+\_\+cli\+\_\+read\+\_\+cb(), and xua\+\_\+srv\+\_\+conn\+\_\+cb().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+rx\+\_\+rkm@{m3ua\+\_\+rx\+\_\+rkm}}
+\index{m3ua\+\_\+rx\+\_\+rkm@{m3ua\+\_\+rx\+\_\+rkm}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+rx\+\_\+rkm(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}int m3ua\+\_\+rx\+\_\+rkm (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_ab1e4c28a5dd577eb9d4ce2d32edf76d2}
+
+
+References xua\+\_\+msg\+::hdr, L\+O\+G\+P\+A\+SP, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+D\+E\+R\+E\+G\+\_\+\+R\+EQ, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+D\+E\+R\+E\+G\+\_\+\+R\+SP, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+R\+EQ, M3\+U\+A\+\_\+\+R\+K\+M\+\_\+\+R\+E\+G\+\_\+\+R\+SP, m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+req(), m3ua\+\_\+rx\+\_\+rkm\+\_\+dereg\+\_\+rsp(), m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+req(), m3ua\+\_\+rx\+\_\+rkm\+\_\+reg\+\_\+rsp(), and xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type.
+
+
+
+Referenced by m3ua\+\_\+rx\+\_\+msg().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+to\+\_\+xfer\+\_\+ind@{m3ua\+\_\+to\+\_\+xfer\+\_\+ind}}
+\index{m3ua\+\_\+to\+\_\+xfer\+\_\+ind@{m3ua\+\_\+to\+\_\+xfer\+\_\+ind}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+to\+\_\+xfer\+\_\+ind(struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+mtp\+\_\+prim}$\ast$ m3ua\+\_\+to\+\_\+xfer\+\_\+ind (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_af932d2ab56e706ac86fe0bd6f2c3a4d7}
+
+
+References xua\+\_\+msg\+\_\+part\+::dat, xua\+\_\+msg\+\_\+part\+::len, m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param(), M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+\_\+\+D\+A\+TA, m3ua\+\_\+msgb\+\_\+alloc(), M\+T\+P\+\_\+\+S\+A\+P\+\_\+\+U\+S\+ER, osmo\+\_\+mtp\+\_\+prim\+::oph, O\+S\+M\+O\+\_\+\+M\+T\+P\+\_\+\+P\+R\+I\+M\+\_\+\+T\+R\+A\+N\+S\+F\+ER, osmo\+\_\+mtp\+\_\+prim\+::transfer, osmo\+\_\+mtp\+\_\+prim\+::u, and xua\+\_\+msg\+\_\+find\+\_\+tag().
+
+
+
+Referenced by deliver\+\_\+to\+\_\+mtp\+\_\+user().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+tx\+\_\+xua\+\_\+as@{m3ua\+\_\+tx\+\_\+xua\+\_\+as}}
+\index{m3ua\+\_\+tx\+\_\+xua\+\_\+as@{m3ua\+\_\+tx\+\_\+xua\+\_\+as}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+tx\+\_\+xua\+\_\+as(struct osmo\+\_\+ss7\+\_\+as $\ast$as, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}int m3ua\+\_\+tx\+\_\+xua\+\_\+as (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$}]{as, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_a2d947fe12b0e169755b8b4f2951b721e}
+
+
+Send a given x\+UA message via a given M3\+UA Application Server. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em as} & Application Server through which to send xua \\
+\hline
+\mbox{\tt in}  & {\em xua} & x\+UA message to be sent \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::context, osmo\+\_\+ss7\+\_\+as\+::fi, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, m3ua\+\_\+to\+\_\+msg(), O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+M3\+UA, osmo\+\_\+ss7\+\_\+as\+::proto, osmo\+\_\+ss7\+\_\+as\+::routing\+\_\+key, X\+U\+A\+\_\+\+A\+S\+\_\+\+E\+\_\+\+T\+R\+A\+N\+S\+F\+E\+R\+\_\+\+R\+EQ, and xua\+\_\+msg\+\_\+add\+\_\+u32().
+
+
+
+Referenced by hmrt\+\_\+message\+\_\+for\+\_\+routing().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+xfer\+\_\+from\+\_\+data@{m3ua\+\_\+xfer\+\_\+from\+\_\+data}}
+\index{m3ua\+\_\+xfer\+\_\+from\+\_\+data@{m3ua\+\_\+xfer\+\_\+from\+\_\+data}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+xfer\+\_\+from\+\_\+data(const struct m3ua\+\_\+data\+\_\+hdr $\ast$data\+\_\+hdr, const uint8\+\_\+t $\ast$data, unsigned int data\+\_\+len)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf xua\+\_\+msg}$\ast$ m3ua\+\_\+xfer\+\_\+from\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf m3ua\+\_\+data\+\_\+hdr} $\ast$}]{data\+\_\+hdr, }
+\item[{const uint8\+\_\+t $\ast$}]{data, }
+\item[{unsigned int}]{data\+\_\+len}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_aad969ffbe815ce0108698b2d874bb98a}
+
+
+References xua\+\_\+msg\+\_\+part\+::dat, xua\+\_\+msg\+\_\+part\+::entry, xua\+\_\+msg\+::hdr, xua\+\_\+msg\+::headers, xua\+\_\+msg\+\_\+part\+::len, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+\_\+\+D\+A\+TA, M3\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+X\+F\+ER, M3\+U\+A\+\_\+\+X\+F\+E\+R\+\_\+\+D\+A\+TA, xua\+\_\+msg\+\_\+part\+::tag, X\+U\+A\+\_\+\+H\+DR, and xua\+\_\+msg\+\_\+alloc().
+
+
+
+Referenced by ipa\+\_\+rx\+\_\+msg\+\_\+sccp(), and mtp\+\_\+prim\+\_\+to\+\_\+m3ua().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!mtp\+\_\+xfer\+\_\+param\+\_\+to\+\_\+m3ua\+\_\+dh@{mtp\+\_\+xfer\+\_\+param\+\_\+to\+\_\+m3ua\+\_\+dh}}
+\index{mtp\+\_\+xfer\+\_\+param\+\_\+to\+\_\+m3ua\+\_\+dh@{mtp\+\_\+xfer\+\_\+param\+\_\+to\+\_\+m3ua\+\_\+dh}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{mtp\+\_\+xfer\+\_\+param\+\_\+to\+\_\+m3ua\+\_\+dh(struct m3ua\+\_\+data\+\_\+hdr $\ast$mdh, const struct osmo\+\_\+mtp\+\_\+transfer\+\_\+param $\ast$param)}]{\setlength{\rightskip}{0pt plus 5cm}void mtp\+\_\+xfer\+\_\+param\+\_\+to\+\_\+m3ua\+\_\+dh (
+\begin{DoxyParamCaption}
+\item[{struct {\bf m3ua\+\_\+data\+\_\+hdr} $\ast$}]{mdh, }
+\item[{const struct {\bf osmo\+\_\+mtp\+\_\+transfer\+\_\+param} $\ast$}]{param}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_a62fec3de2da183f6a7d87e9e84eadbe8}
+
+
+References osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::dpc, m3ua\+\_\+data\+\_\+hdr\+::dpc, m3ua\+\_\+data\+\_\+hdr\+::mp, m3ua\+\_\+data\+\_\+hdr\+::ni, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::opc, m3ua\+\_\+data\+\_\+hdr\+::opc, m3ua\+\_\+data\+\_\+hdr\+::si, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::sio, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::sls, and m3ua\+\_\+data\+\_\+hdr\+::sls.
+
+
+
+Referenced by mtp\+\_\+prim\+\_\+to\+\_\+m3ua().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!osmo\+\_\+isup\+\_\+party\+\_\+parse@{osmo\+\_\+isup\+\_\+party\+\_\+parse}}
+\index{osmo\+\_\+isup\+\_\+party\+\_\+parse@{osmo\+\_\+isup\+\_\+party\+\_\+parse}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{osmo\+\_\+isup\+\_\+party\+\_\+parse(char $\ast$out\+\_\+digits, const uint8\+\_\+t $\ast$in, unsigned int in\+\_\+num\+\_\+bytes, bool odd)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+isup\+\_\+party\+\_\+parse (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{out\+\_\+digits, }
+\item[{const uint8\+\_\+t $\ast$}]{in, }
+\item[{unsigned int}]{in\+\_\+num\+\_\+bytes, }
+\item[{bool}]{odd}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_a3f5e0d75271a5a2fda1821e9c9a720d9}
+
+
+Parse I\+S\+UP style address of B\+CD digets. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em out\+\_\+digits} & user-\/allocated buffer for A\+S\+C\+II digits \\
+\hline
+\mbox{\tt in}  & {\em in} & B\+C\+D-\/encoded digits \\
+\hline
+\mbox{\tt in}  & {\em in\+\_\+num\+\_\+bytes} & Size of in in bytes \\
+\hline
+\mbox{\tt in}  & {\em odd} & Odd (true) or even (false) number of digits \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of digits generated 
+\end{DoxyReturn}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+addr\+\_\+parse().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!osmo\+\_\+sccp\+\_\+addr\+\_\+encode@{osmo\+\_\+sccp\+\_\+addr\+\_\+encode}}
+\index{osmo\+\_\+sccp\+\_\+addr\+\_\+encode@{osmo\+\_\+sccp\+\_\+addr\+\_\+encode}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+addr\+\_\+encode(struct msgb $\ast$msg, const struct osmo\+\_\+sccp\+\_\+addr $\ast$in)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+addr\+\_\+encode (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{in}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_ad9945ae60f1cdc481da3b70e15a50adf}
+
+
+encode a S\+C\+CP address from parsed format to wire format 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em msg} & message buffer to which address is to be appended \\
+\hline
+\mbox{\tt in}  & {\em in} & data structure describing S\+C\+CP address \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of bytes written to msg 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+gt\+::digits, osmo\+\_\+sccp\+\_\+addr\+::gt, osmo\+\_\+sccp\+\_\+gt\+::gti, msgb\+\_\+put\+\_\+u16le(), osmo\+\_\+sccp\+\_\+gt\+::nai, osmo\+\_\+sccp\+\_\+gt\+::npi, osmo\+\_\+isup\+\_\+party\+\_\+encode(), O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+A\+I\+\_\+\+O\+N\+LY, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+O\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+NC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+N\+C\+\_\+\+N\+AI, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+O\+N\+LY, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, osmo\+\_\+sccp\+\_\+addr\+::ri, osmo\+\_\+sccp\+\_\+addr\+::ssn, and osmo\+\_\+sccp\+\_\+gt\+::tt.
+
+
+
+Referenced by sua\+\_\+addr\+\_\+to\+\_\+sccp().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!osmo\+\_\+sccp\+\_\+addr\+\_\+parse@{osmo\+\_\+sccp\+\_\+addr\+\_\+parse}}
+\index{osmo\+\_\+sccp\+\_\+addr\+\_\+parse@{osmo\+\_\+sccp\+\_\+addr\+\_\+parse}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+addr\+\_\+parse(struct osmo\+\_\+sccp\+\_\+addr $\ast$out, const uint8\+\_\+t $\ast$addr, unsigned int addrlen)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+addr\+\_\+parse (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{out, }
+\item[{const uint8\+\_\+t $\ast$}]{addr, }
+\item[{unsigned int}]{addrlen}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_ade18fb9db8c9b52bc2ffc22af64d1d08}
+
+
+Parse wire-\/encoded S\+C\+CP address into omso\+\_\+sccp\+\_\+addr. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em out} & user-\/allocated output data structure \\
+\hline
+\mbox{\tt in}  & {\em addr} & wire-\/encoded S\+C\+CP address \\
+\hline
+\mbox{\tt in}  & {\em addrlen} & Size of addr in bytes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 in case of success, negative on error According to Q.\+713/3.4 and R\+F\+C3868/3.\+10.\+2 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+gt\+::digits, osmo\+\_\+sccp\+\_\+addr\+::gt, osmo\+\_\+sccp\+\_\+gt\+::gti, osmo\+\_\+sccp\+\_\+gt\+::nai, osmo\+\_\+sccp\+\_\+gt\+::npi, osmo\+\_\+isup\+\_\+party\+\_\+parse(), O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+A\+I\+\_\+\+O\+N\+LY, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+O\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+NC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+N\+C\+\_\+\+N\+AI, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+O\+N\+LY, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, osmo\+\_\+sccp\+\_\+addr\+::ri, osmo\+\_\+sccp\+\_\+addr\+::ssn, and osmo\+\_\+sccp\+\_\+gt\+::tt.
+
+
+
+Referenced by sccp\+\_\+addr\+\_\+to\+\_\+sua().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!osmo\+\_\+sccp\+\_\+to\+\_\+xua@{osmo\+\_\+sccp\+\_\+to\+\_\+xua}}
+\index{osmo\+\_\+sccp\+\_\+to\+\_\+xua@{osmo\+\_\+sccp\+\_\+to\+\_\+xua}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+to\+\_\+xua(struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf xua\+\_\+msg}$\ast$ osmo\+\_\+sccp\+\_\+to\+\_\+xua (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_ad72796caefb85b769c83c5237cdb4308}
+
+
+convert S\+C\+CP message to a S\+UA message 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em msg} & message buffer holding S\+C\+CP message at l2h \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+callee-\/allocated x\+UA message on success; N\+U\+LL on error 
+\end{DoxyReturn}
+
+
+References xua\+\_\+msg\+::hdr, sccp\+\_\+to\+\_\+xua\+\_\+cc(), sccp\+\_\+to\+\_\+xua\+\_\+cr(), sccp\+\_\+to\+\_\+xua\+\_\+cref(), sccp\+\_\+to\+\_\+xua\+\_\+dt1(), sccp\+\_\+to\+\_\+xua\+\_\+err(), sccp\+\_\+to\+\_\+xua\+\_\+it(), sccp\+\_\+to\+\_\+xua\+\_\+rlc(), sccp\+\_\+to\+\_\+xua\+\_\+rlsd(), sccp\+\_\+to\+\_\+xua\+\_\+udt(), sccp\+\_\+to\+\_\+xua\+\_\+udts(), S\+U\+A\+\_\+\+C\+L\+\_\+\+C\+L\+DR, S\+U\+A\+\_\+\+C\+L\+\_\+\+C\+L\+DT, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+AK, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+DT, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+E\+RR, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+IT, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+RE, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+R\+EF, S\+U\+A\+\_\+\+C\+O\+\_\+\+R\+E\+L\+CO, S\+U\+A\+\_\+\+C\+O\+\_\+\+R\+E\+L\+RE, S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+CL, S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+CO, X\+U\+A\+\_\+\+H\+DR, xua\+\_\+msg\+\_\+alloc(), and xua\+\_\+msg\+\_\+free().
+
+
+
+Referenced by mtp\+\_\+user\+\_\+prim\+\_\+cb(), and patch\+\_\+sccp\+\_\+with\+\_\+pc().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!osmo\+\_\+sua\+\_\+to\+\_\+sccp@{osmo\+\_\+sua\+\_\+to\+\_\+sccp}}
+\index{osmo\+\_\+sua\+\_\+to\+\_\+sccp@{osmo\+\_\+sua\+\_\+to\+\_\+sccp}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{osmo\+\_\+sua\+\_\+to\+\_\+sccp(struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}struct msgb$\ast$ osmo\+\_\+sua\+\_\+to\+\_\+sccp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_ade23801a343758da5c4cc25e96c47931}
+
+
+convert parsed S\+UA message to S\+C\+CP message 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em xua} & parsed S\+UA message to be converted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+callee-\/allocated msgb containing encoded S\+C\+CP message 
+\end{DoxyReturn}
+
+
+References xua\+\_\+msg\+::hdr, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type, sccp\+\_\+msgb\+\_\+alloc(), S\+U\+A\+\_\+\+C\+L\+\_\+\+C\+L\+DR, S\+U\+A\+\_\+\+C\+L\+\_\+\+C\+L\+DT, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+AK, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+DT, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+E\+RR, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+IT, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+RE, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+R\+EF, S\+U\+A\+\_\+\+C\+O\+\_\+\+R\+E\+L\+CO, S\+U\+A\+\_\+\+C\+O\+\_\+\+R\+E\+L\+RE, S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+CL, S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+CO, sua\+\_\+to\+\_\+sccp\+\_\+cc(), sua\+\_\+to\+\_\+sccp\+\_\+cr(), sua\+\_\+to\+\_\+sccp\+\_\+cref(), sua\+\_\+to\+\_\+sccp\+\_\+dt1(), sua\+\_\+to\+\_\+sccp\+\_\+err(), sua\+\_\+to\+\_\+sccp\+\_\+it(), sua\+\_\+to\+\_\+sccp\+\_\+rlc(), sua\+\_\+to\+\_\+sccp\+\_\+rlsd(), sua\+\_\+to\+\_\+sccp\+\_\+udt(), sua\+\_\+to\+\_\+sccp\+\_\+udts(), xua\+\_\+dialect\+\_\+sua, and xua\+\_\+hdr\+\_\+dump().
+
+
+
+Referenced by patch\+\_\+sccp\+\_\+with\+\_\+pc(), and sua2sccp\+\_\+tx\+\_\+m3ua().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!ss7\+\_\+asp\+\_\+rx\+\_\+unknown@{ss7\+\_\+asp\+\_\+rx\+\_\+unknown}}
+\index{ss7\+\_\+asp\+\_\+rx\+\_\+unknown@{ss7\+\_\+asp\+\_\+rx\+\_\+unknown}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{ss7\+\_\+asp\+\_\+rx\+\_\+unknown(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, int ppid\+\_\+mux, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int ss7\+\_\+asp\+\_\+rx\+\_\+unknown (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{int}]{ppid\+\_\+mux, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_a5985c0ec7dc547dd06de3f9be8b8be9b}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, g\+\_\+osmo\+\_\+ss7\+\_\+asp\+\_\+rx\+\_\+unknown\+\_\+cb, L\+O\+G\+P\+A\+SP, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+I\+PA, and osmo\+\_\+ss7\+\_\+asp\+::proto.
+
+
+
+Referenced by ipa\+\_\+rx\+\_\+msg(), xua\+\_\+cli\+\_\+read\+\_\+cb(), and xua\+\_\+srv\+\_\+conn\+\_\+cb().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!sua\+\_\+addr\+\_\+parse@{sua\+\_\+addr\+\_\+parse}}
+\index{sua\+\_\+addr\+\_\+parse@{sua\+\_\+addr\+\_\+parse}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{sua\+\_\+addr\+\_\+parse(struct osmo\+\_\+sccp\+\_\+addr $\ast$out, struct xua\+\_\+msg $\ast$xua, uint16\+\_\+t iei)}]{\setlength{\rightskip}{0pt plus 5cm}int sua\+\_\+addr\+\_\+parse (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{out, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{uint16\+\_\+t}]{iei}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_a18968e95f6331dc53432486aafea2908}
+
+
+parse S\+C\+CP address from given x\+UA message IE 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em out} & caller-\/allocated decoded S\+C\+CP address struct \\
+\hline
+\mbox{\tt in}  & {\em xua} & x\+UA message \\
+\hline
+\mbox{\tt in}  & {\em iei} & Information Element Identifier inside xua \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative on error 
+\end{DoxyReturn}
+
+
+References sua\+\_\+addr\+\_\+parse\+\_\+part(), and xua\+\_\+msg\+\_\+find\+\_\+tag().
+
+
+
+Referenced by gen\+\_\+ret\+\_\+msg(), patch\+\_\+sccp\+\_\+with\+\_\+pc(), sccp\+\_\+find\+\_\+user(), sccp\+\_\+scrc\+\_\+rx\+\_\+sclc\+\_\+msg(), sccp\+\_\+scrc\+\_\+rx\+\_\+scoc\+\_\+conn\+\_\+msg(), sclc\+\_\+rx\+\_\+cldr(), sclc\+\_\+rx\+\_\+cldt(), scoc\+\_\+fsm\+\_\+idle(), scrc\+\_\+rx\+\_\+mtp\+\_\+xfer\+\_\+ind\+\_\+xua(), and scu\+\_\+gen\+\_\+encode\+\_\+and\+\_\+send().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!sua\+\_\+addr\+\_\+parse\+\_\+part@{sua\+\_\+addr\+\_\+parse\+\_\+part}}
+\index{sua\+\_\+addr\+\_\+parse\+\_\+part@{sua\+\_\+addr\+\_\+parse\+\_\+part}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{sua\+\_\+addr\+\_\+parse\+\_\+part(struct osmo\+\_\+sccp\+\_\+addr $\ast$out, const struct xua\+\_\+msg\+\_\+part $\ast$param)}]{\setlength{\rightskip}{0pt plus 5cm}int sua\+\_\+addr\+\_\+parse\+\_\+part (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{out, }
+\item[{const struct {\bf xua\+\_\+msg\+\_\+part} $\ast$}]{param}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_a7de76938697dd304626a142441ed079d}
+
+
+parse S\+C\+CP address from given x\+UA message part 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em out} & caller-\/allocated decoded S\+C\+CP address struct \\
+\hline
+\mbox{\tt in}  & {\em param} & x\+UA message part containing address \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative on error 
+\end{DoxyReturn}
+
+
+References xua\+\_\+msg\+\_\+part\+::dat, osmo\+\_\+sccp\+\_\+addr\+::gt, osmo\+\_\+sccp\+\_\+addr\+::ip, xua\+\_\+msg\+\_\+part\+::len, xua\+\_\+parameter\+\_\+hdr\+::len, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+I\+Pv4, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, osmo\+\_\+sccp\+\_\+addr\+::ri, osmo\+\_\+sccp\+\_\+addr\+::ssn, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+GT, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+I\+Pv4, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+PC, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+SN, sua\+\_\+parse\+\_\+gt(), S\+U\+A\+\_\+\+R\+I\+\_\+\+GT, S\+U\+A\+\_\+\+R\+I\+\_\+\+H\+O\+ST, S\+U\+A\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+IP, S\+U\+A\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, xua\+\_\+msg\+\_\+part\+::tag, xua\+\_\+parameter\+\_\+hdr\+::tag, and osmo\+\_\+sccp\+\_\+addr\+::v4.
+
+
+
+Referenced by sua\+\_\+addr\+\_\+parse(), and sua\+\_\+addr\+\_\+to\+\_\+sccp().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!sua\+\_\+parse\+\_\+gt@{sua\+\_\+parse\+\_\+gt}}
+\index{sua\+\_\+parse\+\_\+gt@{sua\+\_\+parse\+\_\+gt}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{sua\+\_\+parse\+\_\+gt(struct osmo\+\_\+sccp\+\_\+gt $\ast$gt, const uint8\+\_\+t $\ast$data, unsigned int datalen)}]{\setlength{\rightskip}{0pt plus 5cm}int sua\+\_\+parse\+\_\+gt (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+gt} $\ast$}]{gt, }
+\item[{const uint8\+\_\+t $\ast$}]{data, }
+\item[{unsigned int}]{datalen}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_add0364dcfc7833a3662d0accfcf4aff6}
+
+
+Decode S\+UA Global Title according to R\+F\+C3868 Section 3.\+10.\+2.\+3. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em gt} & User-\/allocated structure for decoded output \\
+\hline
+\mbox{\tt in}  & {\em data} & binary-\/encoded data \\
+\hline
+\mbox{\tt in}  & {\em datalen} & length of \doxyref{data}{p.}{xua__types_8h_ab0c873a3738c31ba573548faa50188bc} in octets \\
+\hline
+\end{DoxyParams}
+
+
+References osmo\+\_\+sccp\+\_\+gt\+::digits, osmo\+\_\+sccp\+\_\+gt\+::gti, osmo\+\_\+sccp\+\_\+gt\+::nai, osmo\+\_\+sccp\+\_\+gt\+::npi, and osmo\+\_\+sccp\+\_\+gt\+::tt.
+
+
+
+Referenced by sua\+\_\+addr\+\_\+parse\+\_\+part().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!sua\+\_\+rx\+\_\+msg@{sua\+\_\+rx\+\_\+msg}}
+\index{sua\+\_\+rx\+\_\+msg@{sua\+\_\+rx\+\_\+msg}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{sua\+\_\+rx\+\_\+msg(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int sua\+\_\+rx\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_a5aaa70aafac5abbc003a1a27dc05ea56}
+
+
+process S\+UA message received from socket 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em asp} & Application Server Process receiving msg \\
+\hline
+\mbox{\tt in}  & {\em msg} & received message buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, xua\+\_\+common\+\_\+hdr\+::data, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::dpc, xua\+\_\+msg\+::hdr, osmo\+\_\+ss7\+\_\+asp\+::inst, L\+O\+G\+P\+A\+SP, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class, xua\+\_\+msg\+::mtp, M\+T\+P\+\_\+\+S\+I\+\_\+\+S\+C\+CP, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::opc, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+S\+UA, osmo\+\_\+ss7\+\_\+asp\+::proto, osmo\+\_\+ss7\+\_\+instance\+::sccp, osmo\+\_\+mtp\+\_\+transfer\+\_\+param\+::sio, S\+U\+A\+\_\+\+E\+R\+R\+\_\+\+I\+N\+V\+A\+L\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+ID, S\+U\+A\+\_\+\+E\+R\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+V\+E\+R\+S\+I\+ON, S\+U\+A\+\_\+\+E\+R\+R\+\_\+\+M\+I\+S\+S\+I\+N\+G\+\_\+\+P\+A\+R\+AM, S\+U\+A\+\_\+\+E\+R\+R\+\_\+\+P\+A\+R\+A\+M\+\_\+\+F\+I\+E\+L\+D\+\_\+\+E\+RR, S\+U\+A\+\_\+\+E\+R\+R\+\_\+\+U\+N\+S\+U\+P\+P\+\_\+\+M\+S\+G\+\_\+\+C\+L\+A\+SS, sua\+\_\+gen\+\_\+error\+\_\+msg(), S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+A\+S\+P\+SM, S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+A\+S\+P\+TM, S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+CL, S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+CO, S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+M\+G\+MT, S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+R\+KM, S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+S\+NM, sua\+\_\+rx\+\_\+asp(), sua\+\_\+rx\+\_\+cl(), sua\+\_\+rx\+\_\+co(), sua\+\_\+rx\+\_\+mgmt(), sua\+\_\+tx\+\_\+xua\+\_\+asp(), S\+U\+A\+\_\+\+V\+E\+R\+S\+I\+ON, xua\+\_\+common\+\_\+hdr\+::version, xua\+\_\+dialect\+\_\+check\+\_\+all\+\_\+mand\+\_\+ies(), xua\+\_\+from\+\_\+msg(), xua\+\_\+hdr\+\_\+dump(), and xua\+\_\+msg\+\_\+free().
+
+
+
+Referenced by xua\+\_\+cli\+\_\+read\+\_\+cb(), and xua\+\_\+srv\+\_\+conn\+\_\+cb().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!sua\+\_\+tx\+\_\+xua\+\_\+as@{sua\+\_\+tx\+\_\+xua\+\_\+as}}
+\index{sua\+\_\+tx\+\_\+xua\+\_\+as@{sua\+\_\+tx\+\_\+xua\+\_\+as}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{sua\+\_\+tx\+\_\+xua\+\_\+as(struct osmo\+\_\+ss7\+\_\+as $\ast$as, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}int sua\+\_\+tx\+\_\+xua\+\_\+as (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$}]{as, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_a67d65e0238a6e2d679e6c72fab31b395}
+
+
+Send a given x\+UA message via a given S\+UA Application Server. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em as} & Application Server through which to send xua \\
+\hline
+\mbox{\tt in}  & {\em xua} & x\+UA message to be sent \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::context, osmo\+\_\+ss7\+\_\+as\+::fi, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+S\+UA, osmo\+\_\+ss7\+\_\+as\+::proto, osmo\+\_\+ss7\+\_\+as\+::routing\+\_\+key, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, sua\+\_\+to\+\_\+msg(), X\+U\+A\+\_\+\+A\+S\+\_\+\+E\+\_\+\+T\+R\+A\+N\+S\+F\+E\+R\+\_\+\+R\+EQ, and xua\+\_\+msg\+\_\+add\+\_\+u32().
+
+
+
+Referenced by gen\+\_\+mtp\+\_\+transfer\+\_\+req\+\_\+xua().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!xua\+\_\+as\+\_\+transmit\+\_\+msg@{xua\+\_\+as\+\_\+transmit\+\_\+msg}}
+\index{xua\+\_\+as\+\_\+transmit\+\_\+msg@{xua\+\_\+as\+\_\+transmit\+\_\+msg}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{xua\+\_\+as\+\_\+transmit\+\_\+msg(struct osmo\+\_\+ss7\+\_\+as $\ast$as, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int xua\+\_\+as\+\_\+transmit\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$}]{as, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_af79f59cb9478eaa7ef5b9801c5be2ef9}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::asps, osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+as\+::fi, and osmo\+\_\+ss7\+\_\+asp\+\_\+send().
+
+
+
+Referenced by ipa\+\_\+tx\+\_\+xua\+\_\+as(), xua\+\_\+as\+\_\+fsm\+\_\+active(), and xua\+\_\+as\+\_\+fsm\+\_\+pending().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim@{xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim}}
+\index{xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim@{xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct osmo\+\_\+xlm\+\_\+prim $\ast$prim)}]{\setlength{\rightskip}{0pt plus 5cm}void xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct {\bf osmo\+\_\+xlm\+\_\+prim} $\ast$}]{prim}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_a65ed2433ab5f6146c201c56823b96509}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::lm, L\+O\+G\+P\+A\+SP, osmo\+\_\+xlm\+\_\+prim\+::oph, osmo\+\_\+xlm\+\_\+prim\+\_\+name(), and osmo\+\_\+xua\+\_\+layer\+\_\+manager\+::prim\+\_\+cb.
+
+
+
+Referenced by handle\+\_\+rkey\+\_\+dereg\+\_\+resp(), handle\+\_\+rkey\+\_\+reg\+\_\+resp(), m3ua\+\_\+rx\+\_\+mgmt\+\_\+err(), m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy(), and xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim\+\_\+simple().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim\+\_\+simple@{xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim\+\_\+simple}}
+\index{xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim\+\_\+simple@{xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim\+\_\+simple}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim\+\_\+simple(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, enum osmo\+\_\+xlm\+\_\+prim\+\_\+type prim\+\_\+type, enum osmo\+\_\+prim\+\_\+operation op)}]{\setlength{\rightskip}{0pt plus 5cm}void xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim\+\_\+simple (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{enum {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+type}}]{prim\+\_\+type, }
+\item[{enum osmo\+\_\+prim\+\_\+operation}]{op}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_ae2c4024524aae252f01907024a2560c0}
+
+
+References xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim(), and xua\+\_\+xlm\+\_\+prim\+\_\+alloc().
+
+
+
+Referenced by send\+\_\+xlm\+\_\+prim\+\_\+simple(), xua\+\_\+accept\+\_\+cb(), xua\+\_\+cli\+\_\+close(), xua\+\_\+cli\+\_\+connect\+\_\+cb(), xua\+\_\+cli\+\_\+read\+\_\+cb(), xua\+\_\+srv\+\_\+conn\+\_\+cb(), and xua\+\_\+srv\+\_\+conn\+\_\+closed\+\_\+cb().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp@{xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp}}
+\index{xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp@{xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp)}]{\setlength{\rightskip}{0pt plus 5cm}void xua\+\_\+rkm\+\_\+cleanup\+\_\+dyn\+\_\+as\+\_\+for\+\_\+asp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_a4f931cf9215d8295d2f7fdc86328ceb9}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::as\+\_\+list, osmo\+\_\+ss7\+\_\+asp\+::inst, osmo\+\_\+ss7\+\_\+as\+::list, osmo\+\_\+ss7\+\_\+as\+\_\+destroy(), osmo\+\_\+ss7\+\_\+as\+\_\+has\+\_\+asp(), and osmo\+\_\+ss7\+\_\+as\+::rkm\+\_\+dyn\+\_\+allocated.
+
+
+
+Referenced by xua\+\_\+srv\+\_\+conn\+\_\+closed\+\_\+cb().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!xua\+\_\+xlm\+\_\+prim\+\_\+alloc@{xua\+\_\+xlm\+\_\+prim\+\_\+alloc}}
+\index{xua\+\_\+xlm\+\_\+prim\+\_\+alloc@{xua\+\_\+xlm\+\_\+prim\+\_\+alloc}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{xua\+\_\+xlm\+\_\+prim\+\_\+alloc(enum osmo\+\_\+xlm\+\_\+prim\+\_\+type prim\+\_\+type, enum osmo\+\_\+prim\+\_\+operation op)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+xlm\+\_\+prim}$\ast$ xua\+\_\+xlm\+\_\+prim\+\_\+alloc (
+\begin{DoxyParamCaption}
+\item[{enum {\bf osmo\+\_\+xlm\+\_\+prim\+\_\+type}}]{prim\+\_\+type, }
+\item[{enum osmo\+\_\+prim\+\_\+operation}]{op}
+\end{DoxyParamCaption}
+)}\label{xua__internal_8h_ace6e25728de8614e14ce258e2dfe8bc4}
+
+
+References osmo\+\_\+xlm\+\_\+prim\+::oph, and X\+U\+A\+\_\+\+S\+A\+P\+\_\+\+LM.
+
+
+
+Referenced by handle\+\_\+rkey\+\_\+dereg\+\_\+resp(), handle\+\_\+rkey\+\_\+reg\+\_\+resp(), lm\+\_\+timer\+\_\+cb(), m3ua\+\_\+rx\+\_\+mgmt\+\_\+err(), m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy(), and xua\+\_\+asp\+\_\+send\+\_\+xlm\+\_\+prim\+\_\+simple().
+
+
+
+\subsection{Variable Documentation}
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+err\+\_\+names@{m3ua\+\_\+err\+\_\+names}}
+\index{m3ua\+\_\+err\+\_\+names@{m3ua\+\_\+err\+\_\+names}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+err\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+err\+\_\+names[$\,$]}\label{xua__internal_8h_a11c55fb5f6f56682c1754819b5a80eba}
+
+
+Referenced by m3ua\+\_\+rx\+\_\+mgmt\+\_\+err(), and sua\+\_\+rx\+\_\+mgmt\+\_\+err().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+msg\+\_\+class\+\_\+aspsm@{m3ua\+\_\+msg\+\_\+class\+\_\+aspsm}}
+\index{m3ua\+\_\+msg\+\_\+class\+\_\+aspsm@{m3ua\+\_\+msg\+\_\+class\+\_\+aspsm}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+msg\+\_\+class\+\_\+aspsm}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf xua\+\_\+msg\+\_\+class} m3ua\+\_\+msg\+\_\+class\+\_\+aspsm}\label{xua__internal_8h_aa105aa577d0ecdda428b9352405069ae}
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+msg\+\_\+class\+\_\+asptm@{m3ua\+\_\+msg\+\_\+class\+\_\+asptm}}
+\index{m3ua\+\_\+msg\+\_\+class\+\_\+asptm@{m3ua\+\_\+msg\+\_\+class\+\_\+asptm}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+msg\+\_\+class\+\_\+asptm}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf xua\+\_\+msg\+\_\+class} m3ua\+\_\+msg\+\_\+class\+\_\+asptm}\label{xua__internal_8h_aa223b2feb9001b4e618842ba7f9fe530}
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+msg\+\_\+class\+\_\+mgmt@{m3ua\+\_\+msg\+\_\+class\+\_\+mgmt}}
+\index{m3ua\+\_\+msg\+\_\+class\+\_\+mgmt@{m3ua\+\_\+msg\+\_\+class\+\_\+mgmt}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+msg\+\_\+class\+\_\+mgmt}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf xua\+\_\+msg\+\_\+class} m3ua\+\_\+msg\+\_\+class\+\_\+mgmt}\label{xua__internal_8h_ac6878c5b045b1e7267b1a0b3afa364db}
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+msg\+\_\+class\+\_\+rkm@{m3ua\+\_\+msg\+\_\+class\+\_\+rkm}}
+\index{m3ua\+\_\+msg\+\_\+class\+\_\+rkm@{m3ua\+\_\+msg\+\_\+class\+\_\+rkm}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+msg\+\_\+class\+\_\+rkm}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf xua\+\_\+msg\+\_\+class} m3ua\+\_\+msg\+\_\+class\+\_\+rkm}\label{xua__internal_8h_a7cb679c8ca9d252dfa766ec7f2fba44c}
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+msg\+\_\+class\+\_\+snm@{m3ua\+\_\+msg\+\_\+class\+\_\+snm}}
+\index{m3ua\+\_\+msg\+\_\+class\+\_\+snm@{m3ua\+\_\+msg\+\_\+class\+\_\+snm}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+msg\+\_\+class\+\_\+snm}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf xua\+\_\+msg\+\_\+class} m3ua\+\_\+msg\+\_\+class\+\_\+snm}\label{xua__internal_8h_a35e9ebf716b800839c00351acc2af5df}
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+ntfy\+\_\+other\+\_\+names@{m3ua\+\_\+ntfy\+\_\+other\+\_\+names}}
+\index{m3ua\+\_\+ntfy\+\_\+other\+\_\+names@{m3ua\+\_\+ntfy\+\_\+other\+\_\+names}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+ntfy\+\_\+other\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+ntfy\+\_\+other\+\_\+names[$\,$]}\label{xua__internal_8h_aa8ec421eaf92b35c2d0a1d70c9e69c6e}
+
+
+Referenced by m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy(), and sua\+\_\+rx\+\_\+mgmt\+\_\+ntfy().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+ntfy\+\_\+stchg\+\_\+names@{m3ua\+\_\+ntfy\+\_\+stchg\+\_\+names}}
+\index{m3ua\+\_\+ntfy\+\_\+stchg\+\_\+names@{m3ua\+\_\+ntfy\+\_\+stchg\+\_\+names}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+ntfy\+\_\+stchg\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+ntfy\+\_\+stchg\+\_\+names[$\,$]}\label{xua__internal_8h_a336c3d71f1928545474640e45077bc88}
+
+
+Referenced by m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy(), and sua\+\_\+rx\+\_\+mgmt\+\_\+ntfy().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+ntfy\+\_\+type\+\_\+names@{m3ua\+\_\+ntfy\+\_\+type\+\_\+names}}
+\index{m3ua\+\_\+ntfy\+\_\+type\+\_\+names@{m3ua\+\_\+ntfy\+\_\+type\+\_\+names}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+ntfy\+\_\+type\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+ntfy\+\_\+type\+\_\+names[$\,$]}\label{xua__internal_8h_a0ce1a526587558d83d657b761f3c62c4}
+
+
+Referenced by m3ua\+\_\+rx\+\_\+mgmt\+\_\+ntfy(), and sua\+\_\+rx\+\_\+mgmt\+\_\+ntfy().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+rkm\+\_\+dereg\+\_\+status\+\_\+vals@{m3ua\+\_\+rkm\+\_\+dereg\+\_\+status\+\_\+vals}}
+\index{m3ua\+\_\+rkm\+\_\+dereg\+\_\+status\+\_\+vals@{m3ua\+\_\+rkm\+\_\+dereg\+\_\+status\+\_\+vals}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+rkm\+\_\+dereg\+\_\+status\+\_\+vals}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+rkm\+\_\+dereg\+\_\+status\+\_\+vals[$\,$]}\label{xua__internal_8h_a517b691866d2bf1ab9a24ac08ee120fc}
+
+
+Referenced by handle\+\_\+rkey\+\_\+dereg\+\_\+resp().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!m3ua\+\_\+rkm\+\_\+reg\+\_\+status\+\_\+vals@{m3ua\+\_\+rkm\+\_\+reg\+\_\+status\+\_\+vals}}
+\index{m3ua\+\_\+rkm\+\_\+reg\+\_\+status\+\_\+vals@{m3ua\+\_\+rkm\+\_\+reg\+\_\+status\+\_\+vals}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{m3ua\+\_\+rkm\+\_\+reg\+\_\+status\+\_\+vals}]{\setlength{\rightskip}{0pt plus 5cm}const struct value\+\_\+string m3ua\+\_\+rkm\+\_\+reg\+\_\+status\+\_\+vals[$\,$]}\label{xua__internal_8h_a0992bf5538b7f033f634174b1f01dfdd}
+
+
+Referenced by handle\+\_\+rkey\+\_\+reg\+\_\+resp().
+
+\index{xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}!xua\+\_\+default\+\_\+lm\+\_\+fsm@{xua\+\_\+default\+\_\+lm\+\_\+fsm}}
+\index{xua\+\_\+default\+\_\+lm\+\_\+fsm@{xua\+\_\+default\+\_\+lm\+\_\+fsm}!xua\+\_\+internal.\+h@{xua\+\_\+internal.\+h}}
+\subsubsection[{xua\+\_\+default\+\_\+lm\+\_\+fsm}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+fsm xua\+\_\+default\+\_\+lm\+\_\+fsm}\label{xua__internal_8h_a6440967ba56751bd7b6913c0bc6402e9}
+
+
+Referenced by osmo\+\_\+ss7\+\_\+asp\+\_\+use\+\_\+default\+\_\+lm(), and osmo\+\_\+ss7\+\_\+init().
+

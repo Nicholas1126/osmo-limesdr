@@ -1,0 +1,362 @@
+Plain dump
+00 01 02 03 
+00010203
+Corner case
+00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f 20 21 22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f 30 31 32 33 34 35 36 37 38 39 3a 3b 3c 3d 3e 3f 40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 54 55 56 57 58 59 5a 5b 5c 5d 5e 5f 60 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 71 72 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f 80 81 82 83 84 85 86 87 88 89 8a 8b 8c 8d 8e 8f 90 91 92 93 94 95 96 97 98 99 9a 9b 9c 9d 9e 9f a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 aa ab ac ad ae af b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 ba bb bc bd be bf c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 ca cb cc cd ce cf d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 da db dc dd de df e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 ea eb ec ed ee ef f0 f1 f2 f3 f4 f5 f6 f7 f8 f9 fa fb fc fd fe ff 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f 20 21 22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f 30 31 32 33 34 35 36 37 38 39 3a 3b 3c 3d 3e 3f 40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 54 55 56 57 58 59 5a 5b 5c 5d 5e 5f 60 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 71 72 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f 80 81 82 83 84 85 86 87 88 89 8a 8b 8c 8d 8e 8f 90 91 92 93 94 95 96 97 98 99 9a 9b 9c 9d 9e 9f a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 aa ab ac ad ae af b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 ba bb bc bd be bf c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 ca cb cc cd ce cf d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 da db dc dd de df e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 ea eb ec ed ee ef f0 f1 f2 f3 f4 f5 f6 f7 f8 f9 fa fb fc fd fe ff 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f 20 21 22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f 30 31 32 33 34 35 36 37 38 39 3a 3b 3c 3d 3e 3f 40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 54 55 56 57 58 59 5a 5b 5c 5d 5e 5f 60 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 71 72 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f 80 81 82 83 84 85 86 87 88 89 8a 8b 8c 8d 8e 8f 90 91 92 93 94 95 96 97 98 99 9a 9b 9c 9d 9e 9f a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 aa ab ac ad ae af b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 ba bb bc bd be bf c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 ca cb cc cd ce cf d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 da db dc dd de df e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 ea eb ec ed ee ef f0 f1 f2 f3 f4 f5 f6 f7 f8 f9 fa fb fc fd fe ff 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f 20 21 22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f 30 31 32 33 34 35 36 37 38 39 3a 3b 3c 3d 3e 3f 40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 54 55 56 57 58 59 5a 5b 5c 5d 5e 5f 60 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 71 72 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f 80 81 82 83 84 85 86 87 88 89 8a 8b 8c 8d 8e 8f 90 91 92 93 94 95 96 97 98 99 9a 9b 9c 9d 9e 9f a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 aa ab ac ad ae af b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 ba bb bc bd be bf c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 ca cb cc cd ce cf d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 da db dc dd de df e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 ea eb ec ed ee ef f0 f1 f2 f3 f4 f5 f6 f7 f8 f9 fa fb fc fd fe ff 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f 20 21 22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f 30 31 32 33 34 35 36 37 38 39 3a 3b 3c 3d 3e 3f 40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 54 55 56 57 58 59 5a 5b 5c 5d 5e 5f 60 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 71 72 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f 80 81 82 83 84 85 86 87 88 89 8a 8b 8c 8d 8e 8f 90 91 92 93 94 95 96 97 98 99 9a 9b 9c 9d 9e 9f a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 aa ab ac ad ae af b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 ba bb bc bd be bf c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 ca cb cc cd ce cf d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 da db dc dd de df e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 ea eb ec ed ee ef f0 f1 f2 f3 f4 f5 f6 f7 f8 f9 fa fb fc fd fe ff 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f 20 21 22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f 30 31 32 33 34 35 36 37 38 39 3a 3b 3c 3d 3e 3f 40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 54 
+000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfe
+osmo_hexdump_buf(buf, sizeof(buf), data, 4, "[delim]", false)
+ = "00[delim]01[delim]02[delim]03"
+osmo_hexdump_buf(buf, sizeof(buf), data, 4, "[delim]", true)
+ = "00[delim]01[delim]02[delim]03[delim]"
+osmo_hexdump_buf(buf, 6, data, 4, "[delim]", false)
+ = ""
+osmo_hexdump_buf(buf, 7, data, 4, "[delim]", false)
+ = ""
+osmo_hexdump_buf(buf, 8, data, 4, "[delim]", false)
+ = ""
+osmo_hexdump_buf(buf, 6, data, 4, "[delim]", true)
+ = ""
+osmo_hexdump_buf(buf, 7, data, 4, "[delim]", true)
+ = ""
+osmo_hexdump_buf(buf, 8, data, 4, "[delim]", true)
+ = ""
+osmo_hexdump_buf(buf, sizeof(buf), data, 4, " ", false)
+ = "00 01 02 03"
+osmo_hexdump_buf(buf, sizeof(buf), data, 4, " ", true)
+ = "00 01 02 03 "
+osmo_hexdump_buf(buf, 6, data, 4, " ", false)
+ = "00 "
+osmo_hexdump_buf(buf, 7, data, 4, " ", false)
+ = "00 01 "
+osmo_hexdump_buf(buf, 8, data, 4, " ", false)
+ = "00 01 "
+osmo_hexdump_buf(buf, 6, data, 4, " ", true)
+ = "00 "
+osmo_hexdump_buf(buf, 7, data, 4, " ", true)
+ = "00 01 "
+osmo_hexdump_buf(buf, 8, data, 4, " ", true)
+ = "00 01 "
+osmo_hexdump_buf(buf, sizeof(buf), data, 4, ":", false)
+ = "00:01:02:03"
+osmo_hexdump_buf(buf, sizeof(buf), data, 4, ":", true)
+ = "00:01:02:03:"
+osmo_hexdump_buf(buf, 6, data, 4, ":", false)
+ = "00:"
+osmo_hexdump_buf(buf, 7, data, 4, ":", false)
+ = "00:01:"
+osmo_hexdump_buf(buf, 8, data, 4, ":", false)
+ = "00:01:"
+osmo_hexdump_buf(buf, 6, data, 4, ":", true)
+ = "00:"
+osmo_hexdump_buf(buf, 7, data, 4, ":", true)
+ = "00:01:"
+osmo_hexdump_buf(buf, 8, data, 4, ":", true)
+ = "00:01:"
+osmo_hexdump_buf(buf, sizeof(buf), data, 4, "::", false)
+ = "00::01::02::03"
+osmo_hexdump_buf(buf, sizeof(buf), data, 4, "::", true)
+ = "00::01::02::03::"
+osmo_hexdump_buf(buf, 6, data, 4, "::", false)
+ = "00::"
+osmo_hexdump_buf(buf, 7, data, 4, "::", false)
+ = "00::"
+osmo_hexdump_buf(buf, 8, data, 4, "::", false)
+ = "00::"
+osmo_hexdump_buf(buf, 6, data, 4, "::", true)
+ = "00::"
+osmo_hexdump_buf(buf, 7, data, 4, "::", true)
+ = "00::"
+osmo_hexdump_buf(buf, 8, data, 4, "::", true)
+ = "00::"
+osmo_hexdump_buf(buf, sizeof(buf), data, 4, "", false)
+ = "00010203"
+osmo_hexdump_buf(buf, sizeof(buf), data, 4, "", true)
+ = "00010203"
+osmo_hexdump_buf(buf, 6, data, 4, "", false)
+ = "0001"
+osmo_hexdump_buf(buf, 7, data, 4, "", false)
+ = "000102"
+osmo_hexdump_buf(buf, 8, data, 4, "", false)
+ = "000102"
+osmo_hexdump_buf(buf, 6, data, 4, "", true)
+ = "0001"
+osmo_hexdump_buf(buf, 7, data, 4, "", true)
+ = "000102"
+osmo_hexdump_buf(buf, 8, data, 4, "", true)
+ = "000102"
+osmo_hexdump_buf(buf, sizeof(buf), data, 4, NULL, false)
+ = "00010203"
+osmo_hexdump_buf(buf, sizeof(buf), data, 4, NULL, true)
+ = "00010203"
+osmo_hexdump_buf(buf, 6, data, 4, NULL, false)
+ = "0001"
+osmo_hexdump_buf(buf, 7, data, 4, NULL, false)
+ = "000102"
+osmo_hexdump_buf(buf, 8, data, 4, NULL, false)
+ = "000102"
+osmo_hexdump_buf(buf, 6, data, 4, NULL, true)
+ = "0001"
+osmo_hexdump_buf(buf, 7, data, 4, NULL, true)
+ = "000102"
+osmo_hexdump_buf(buf, 8, data, 4, NULL, true)
+ = "000102"
+
+Hexparse 0..255 in lower case
+rc = 256
+--> 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f 20 21 22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f 30 31 32 33 34 35 36 37 38 39 3a 3b 3c 3d 3e 3f 40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 54 55 56 57 58 59 5a 5b 5c 5d 5e 5f 60 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 71 72 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f 80 81 82 83 84 85 86 87 88 89 8a 8b 8c 8d 8e 8f 90 91 92 93 94 95 96 97 98 99 9a 9b 9c 9d 9e 9f a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 aa ab ac ad ae af b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 ba bb bc bd be bf c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 ca cb cc cd ce cf d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 da db dc dd de df e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 ea eb ec ed ee ef f0 f1 f2 f3 f4 f5 f6 f7 f8 f9 fa fb fc fd fe ff 
+
+Hexparse 0..255 in upper case
+rc = 256
+--> 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f 20 21 22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f 30 31 32 33 34 35 36 37 38 39 3a 3b 3c 3d 3e 3f 40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 54 55 56 57 58 59 5a 5b 5c 5d 5e 5f 60 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 71 72 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f 80 81 82 83 84 85 86 87 88 89 8a 8b 8c 8d 8e 8f 90 91 92 93 94 95 96 97 98 99 9a 9b 9c 9d 9e 9f a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 aa ab ac ad ae af b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 ba bb bc bd be bf c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 ca cb cc cd ce cf d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 da db dc dd de df e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 ea eb ec ed ee ef f0 f1 f2 f3 f4 f5 f6 f7 f8 f9 fa fb fc fd fe ff 
+
+Hexparse 0..255 in mixed case
+rc = 256
+--> 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f 20 21 22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f 30 31 32 33 34 35 36 37 38 39 3a 3b 3c 3d 3e 3f 40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 54 55 56 57 58 59 5a 5b 5c 5d 5e 5f 60 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 71 72 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f 80 81 82 83 84 85 86 87 88 89 8a 8b 8c 8d 8e 8f 90 91 92 93 94 95 96 97 98 99 9a 9b 9c 9d 9e 9f a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 aa ab ac ad ae af b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 ba bb bc bd be bf c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 ca cb cc cd ce cf d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 da db dc dd de df e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 ea eb ec ed ee ef f0 f1 f2 f3 f4 f5 f6 f7 f8 f9 fa fb fc fd fe ff 
+
+Hexparse 0..255 with whitespace
+rc = 256
+--> 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f 20 21 22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f 30 31 32 33 34 35 36 37 38 39 3a 3b 3c 3d 3e 3f 40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 54 55 56 57 58 59 5a 5b 5c 5d 5e 5f 60 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 71 72 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f 80 81 82 83 84 85 86 87 88 89 8a 8b 8c 8d 8e 8f 90 91 92 93 94 95 96 97 98 99 9a 9b 9c 9d 9e 9f a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 aa ab ac ad ae af b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 ba bb bc bd be bf c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 ca cb cc cd ce cf d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 da db dc dd de df e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 ea eb ec ed ee ef f0 f1 f2 f3 f4 f5 f6 f7 f8 f9 fa fb fc fd fe ff 
+
+Hexparse with buffer too short
+rc = -1
+Hexparse with uneven amount of digits
+rc = -1
+Hexparse with invalid char
+rc = -1
+
+Testing IPA CCM ID GET parsing
+
+Testing IPA CCM ID RESP parsing
+
+----- test_is_hexstr
+ 0: pass str='(null)' min=0 max=10 even=0 expect=valid
+ 1: pass str='(null)' min=1 max=10 even=0 expect=invalid
+ 2: pass str='' min=0 max=10 even=0 expect=valid
+ 3: pass str='' min=1 max=10 even=0 expect=invalid
+ 4: pass str=' ' min=0 max=10 even=0 expect=invalid
+ 5: pass str='1' min=0 max=10 even=0 expect=valid
+ 6: pass str='1' min=1 max=10 even=0 expect=valid
+ 7: pass str='1' min=1 max=10 even=1 expect=invalid
+ 8: pass str='1' min=2 max=10 even=0 expect=invalid
+ 9: pass str='123' min=1 max=10 even=0 expect=valid
+10: pass str='123' min=1 max=10 even=1 expect=invalid
+11: pass str='123' min=4 max=10 even=0 expect=invalid
+12: pass str='1234' min=4 max=10 even=1 expect=valid
+13: pass str='12345' min=4 max=10 even=1 expect=invalid
+14: pass str='123456' min=4 max=10 even=1 expect=valid
+15: pass str='1234567' min=4 max=10 even=1 expect=invalid
+16: pass str='12345678' min=4 max=10 even=1 expect=valid
+17: pass str='123456789' min=4 max=10 even=1 expect=invalid
+18: pass str='123456789a' min=4 max=10 even=1 expect=valid
+19: pass str='123456789ab' min=4 max=10 even=1 expect=invalid
+20: pass str='123456789abc' min=4 max=10 even=1 expect=invalid
+21: pass str='123456789ab' min=4 max=10 even=0 expect=invalid
+22: pass str='123456789abc' min=4 max=10 even=0 expect=invalid
+23: pass str='0123456789abcdefABCDEF' min=0 max=100 even=0 expect=valid
+24: pass str='0123456789 abcdef ABCDEF' min=0 max=100 even=0 expect=invalid
+25: pass str='foobar' min=0 max=100 even=0 expect=invalid
+26: pass str='BeadedBeeAced1EbbedDefacedFacade' min=32 max=32 even=1 expect=valid
+27: pass str='C01ffedC1cadaeAc1d1f1edAcac1aB0a' min=32 max=32 even=0 expect=valid
+28: pass str='DeafBeddedBabeAcceededFadedDecaff' min=32 max=32 even=0 expect=invalid
+
+Testing BCD conversion
+	val=0x0, expected=0, found=0
+	val=0x1, expected=1, found=1
+	val=0x2, expected=2, found=2
+	val=0x3, expected=3, found=3
+	val=0x4, expected=4, found=4
+	val=0x5, expected=5, found=5
+	val=0x6, expected=6, found=6
+	val=0x7, expected=7, found=7
+	val=0x8, expected=8, found=8
+	val=0x9, expected=9, found=9
+	val=0xa, expected=A, found=A
+	val=0xb, expected=B, found=B
+	val=0xc, expected=C, found=C
+	val=0xd, expected=D, found=D
+	val=0xe, expected=E, found=E
+	val=0xf, expected=F, found=F
+
+Testing bcd to string conversion
+- BCD-input='1a 32 54 76 98 f0' nibbles=[1..11[ str_size=64
+  rc=10
+  -> "1234567890"
+- BCD-input='1a 32 a4 cb 9d f0' nibbles=[1..11[ str_size=64
+  rc=-22
+  -> "1234ABCD90"
+- BCD-input='1a 32 a4 cb 9d f0' nibbles=[1..11[ str_size=64
+  rc=10
+  -> "1234ABCD90"
+- BCD-input='1a 32 54 76 98 f0' nibbles=[1..12[ str_size=64
+  rc=-22
+  -> "1234567890F"
+- BCD-input='1a 32 54 76 98 f0' nibbles=[1..12[ str_size=64
+  rc=11
+  -> "1234567890F"
+- BCD-input='1a 32 54 76 98 f0' nibbles=[0..12[ str_size=64
+  rc=12
+  -> "A1234567890F"
+- BCD-input='1a 32 54 76 98 f0' nibbles=[1..12[ str_size=5
+  rc=11
+  -> "1234"
+- BCD-input='' nibbles=[1..1[ str_size=64
+  rc=0
+  -> ""
+- zero output buffer
+  bcd2str(NULL, ...) -> -12
+  bcd2str(dst, 0, ...) -> -12
+
+Testing string escaping
+- all chars from 0 to 255 in batches of 16:
+"\0\1\2\3\4\5\6\a\b\t\n\v\f\r\14\15"
+"\16\17\18\19\20\21\22\23\24\25\26\27\28\29\30\31"
+" !\"#$%&'()*+,-./"
+"0123456789:;<=>?"
+"@ABCDEFGHIJKLMNO"
+"PQRSTUVWXYZ[\\]^_"
+"`abcdefghijklmno"
+"pqrstuvwxyz{|}~\127"
+"\128\129\130\131\132\133\134\135\136\137\138\139\140\141\142\143"
+"\144\145\146\147\148\149\150\151\152\153\154\155\156\157\158\159"
+"\160\161\162\163\164\165\166\167\168\169\170\171\172\173\174\175"
+"\176\177\178\179\180\181\182\183\184\185\186\187\188\189\190\191"
+"\192\193\194\195\196\197\198\199\200\201\202\203\204\205\206\207"
+"\208\209\210\211\212\213\214\215\216\217\218\219\220\221\222\223"
+"\224\225\226\227\228\229\230\231\232\233\234\235\236\237\238\239"
+"\240\241\242\243\244\245\246\247\248\249\250\251\252\253\254\255"
+- nul terminated:
+"termi\nated"
+- passthru:
+passed through unchanged "printable"
+- zero length:
+""
+- truncation when too long:
+"\axxxxxxE"
+
+Testing string quoting
+- all chars from 0 to 255 in batches of 16:
+'"\0\1\2\3\4\5\6\a\b\t\n\v\f\r\14\15"'
+'"\16\17\18\19\20\21\22\23\24\25\26\27\28\29\30\31"'
+'" !\"#$%&'()*+,-./"'
+'"0123456789:;<=>?"'
+'"@ABCDEFGHIJKLMNO"'
+'"PQRSTUVWXYZ[\\]^_"'
+'"`abcdefghijklmno"'
+'"pqrstuvwxyz{|}~\127"'
+'"\128\129\130\131\132\133\134\135\136\137\138\139\140\141\142\143"'
+'"\144\145\146\147\148\149\150\151\152\153\154\155\156\157\158\159"'
+'"\160\161\162\163\164\165\166\167\168\169\170\171\172\173\174\175"'
+'"\176\177\178\179\180\181\182\183\184\185\186\187\188\189\190\191"'
+'"\192\193\194\195\196\197\198\199\200\201\202\203\204\205\206\207"'
+'"\208\209\210\211\212\213\214\215\216\217\218\219\220\221\222\223"'
+'"\224\225\226\227\228\229\230\231\232\233\234\235\236\237\238\239"'
+'"\240\241\242\243\244\245\246\247\248\249\250\251\252\253\254\255"'
+- nul terminated:
+'"termi\nated"'
+- never passthru:
+NOT passed through. '"printable"'
+- zero length:
+'""'
+- truncation when too long:
+'"\axxxxxE'
+- always truncation, even when no escaping needed:
+'"xxxxxxxE'
+- try to feed too little buf for quoting:
+'"'
+- NULL string becomes a "NULL" literal:
+'NULL'
+
+Testing integer square-root
+
+osmo_sockaddr_to_str_and_uint_test
+[0] 0.0.0.0:0 addr_len=20 --> 0.0.0.0:0 rc=7
+[1] 255.255.255.255:65535 addr_len=20 --> 255.255.255.255:65535 rc=15
+[2] 234.23.42.123:1234 addr_len=20 --> 234.23.42.123:1234 rc=13
+[3] 234.23.42.123:1234 addr_len=10 --> 234.23.42:1234 rc=13
+[4] 234.23.42.123:1234 (omit port) addr_len=20 --> 234.23.42.123:0 rc=13
+[5] 234.23.42.123:1234 (omit addr) addr_len=0 --> :1234 rc=0
+[6] 234.23.42.123:1234 addr_len=0 --> :1234 rc=13
+[7] 234.23.42.123:1234 (omit addr) (omit port) addr_len=0 --> :0 rc=0
+
+osmo_str_tolowupper_test
+osmo_str_tolower("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()")
+               = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz!@#$%^&*()"
+osmo_str_toupper("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()")
+               = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()"
+osmo_str_tolower_buf(99, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()")
+                   = 62, "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz!@#$%^&*()"
+osmo_str_tolower_buf(99, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()", in-place)
+                   = 62, "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz!@#$%^&*()"
+osmo_str_toupper_buf(99, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()")
+                   = 62, "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()"
+osmo_str_toupper_buf(99, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()", in-place)
+                   = 62, "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()"
+osmo_str_tolower_buf(0, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()")
+                   = 62, "Unset"
+osmo_str_tolower_buf(0, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()", in-place)
+                   = 0, "Unset"
+osmo_str_toupper_buf(0, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()")
+                   = 62, "Unset"
+osmo_str_toupper_buf(0, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()", in-place)
+                   = 0, "Unset"
+osmo_str_tolower_buf(1, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()")
+                   = 62, ""
+osmo_str_tolower_buf(1, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()", in-place)
+                   = 0, ""
+osmo_str_toupper_buf(1, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()")
+                   = 62, ""
+osmo_str_toupper_buf(1, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()", in-place)
+                   = 0, ""
+osmo_str_tolower_buf(2, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()")
+                   = 62, "a"
+osmo_str_tolower_buf(2, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()", in-place)
+                   = 1, "a"
+osmo_str_toupper_buf(2, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()")
+                   = 62, "A"
+osmo_str_toupper_buf(2, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()", in-place)
+                   = 1, "A"
+osmo_str_tolower_buf(28, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()")
+                   = 62, "abcdefghijklmnopqrstuvwxyza"
+osmo_str_tolower_buf(28, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()", in-place)
+                   = 27, "abcdefghijklmnopqrstuvwxyza"
+osmo_str_toupper_buf(28, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()")
+                   = 62, "ABCDEFGHIJKLMNOPQRSTUVWXYZA"
+osmo_str_toupper_buf(28, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()", in-place)
+                   = 27, "ABCDEFGHIJKLMNOPQRSTUVWXYZA"
+
+strbuf_test
+OSMO_STRBUF_APPEND():
+     The answer is 42 
+would have needed 423470 bytes
+
+OSMO_STRBUF_PRINTF():
+1: (need 42 chars, had size=23) T minus 10 9 8 7 6 5 4
+2: (need 42 chars, had size=42) T minus 10 9 8 7 6 5 4 3 2 1 ... Lift off
+3: (need 42 chars, had size=42+1) T minus 10 9 8 7 6 5 4 3 2 1 ... Lift off!
+4: (need 42 chars, had size=0) 0x2b 0x2b 0x2b...
+5: (need 42 chars, had NULL buffer)
+
+cascade:
+(need 134 chars)
+T minus 10 9 8 7 6 5 4 3 2 1 ... Lift off! -- T minus 10 9 8 7 6 5 4 3 2 1 ... Lift off! -- T minus 10 9 8 7 6 5 4 3 2 1 ... Lift off!
+(need 134 chars, had size=63) T minus 10 9 8 7 6 5 4 3 2 1 ... Lift off! -- T minus 10 9 8 7
+
+strbuf_test_nolen
+20: 0001011100101010 (need=16)
+more: 0001011100101010000 (need=19)
+10: 000101110 (need=9)
+
+startswith_test()
+osmo_str_startswith(NULL, NULL) == true
+osmo_str_startswith("", NULL) == true
+osmo_str_startswith(NULL, "") == true
+osmo_str_startswith("", "") == true
+osmo_str_startswith("abc", NULL) == true
+osmo_str_startswith("abc", "") == true
+osmo_str_startswith(NULL, "abc") == false
+osmo_str_startswith("", "abc") == false
+osmo_str_startswith("abc", "a") == true
+osmo_str_startswith("abc", "ab") == true
+osmo_str_startswith("abc", "abc") == true
+osmo_str_startswith("abc", "abcd") == false
+osmo_str_startswith("abc", "xyz") == false

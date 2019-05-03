@@ -1,0 +1,82 @@
+# autotools
+Makefile
+Makefile.in
+aclocal.m4
+autom4te.cache
+compile
+config.guess
+config.h.in*
+config.h
+config.log
+config.status
+config.sub
+configure
+depcomp
+install-sh
+libtool
+ltmain.sh
+missing
+osmo-ggsn.spec
+stamp-h1
+INSTALL
+m4/
+Makefile
+osmo-ggsn-*.tar*
+.version
+.tarball-version
+
+# debian
+debian/osmo-ggsn/
+debian/*.debhelper
+debian/libgtp1
+debian/osmo-ggsn-dbg
+debian/*.log
+debian/autoreconf.*
+debian/*.substvars
+debian/tmp/
+debian/files
+debian/libgtp-dev/
+
+# programs / libraries
+sgsnemu/sgsnemu
+libgtp.pc
+ggsn/osmo-ggsn
+
+# compiler results
+*.o
+*.a
+*.la
+*.lo
+*.pyc
+.deps
+.libs
+
+# misc
+*.swp
+.dirstamp
+.deps
+*.orig
+*.new
+*.rej
+*~
+osmo-ggsn.cfg
+sgsnemu.pid
+gsn_restart
+
+# testsuite
+tests/atconfig
+tests/*/*_test
+tests/testsuite
+tests/testsuite.log
+tests/package.m4
+
+# manuals
+doc/manuals/*.html
+doc/manuals/*.svg
+doc/manuals/*.pdf
+doc/manuals/*__*.png
+doc/manuals/*.check
+doc/manuals/generated/
+doc/manuals/osmomsc-usermanual.xml
+doc/manuals/common
+doc/manuals/build

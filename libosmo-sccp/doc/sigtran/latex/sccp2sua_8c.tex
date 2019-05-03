@@ -1,0 +1,1124 @@
+\section{src/sccp2sua.c File Reference}
+\label{sccp2sua_8c}\index{src/sccp2sua.\+c@{src/sccp2sua.\+c}}
+{\ttfamily \#include $<$stdbool.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sccp/sccp.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/linuxlist.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/logging.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/sccp\+\_\+sap.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/sccp\+\_\+helpers.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/sua.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/xua\+\_\+msg.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+internal.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}sccp\+\_\+internal.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf M\+A\+X\+\_\+\+I\+ES}~6
+\item 
+\#define {\bf N\+U\+M\+\_\+\+S\+C\+C\+P\+\_\+\+M\+S\+GT}~(S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+L\+U\+D\+TS+1)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bf msgb\+\_\+put\+\_\+u24be} (struct msgb $\ast$msg, uint32\+\_\+t val)
+\item 
+static void {\bf msgb\+\_\+put\+\_\+u16le} (struct msgb $\ast$msg, uint16\+\_\+t val)
+\item 
+static uint32\+\_\+t {\bf load\+\_\+24be} (const void $\ast$ptr)
+\begin{DoxyCompactList}\small\item\em load a 24bit value as big-\/endian \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+isup\+\_\+party\+\_\+parse} (char $\ast$out\+\_\+digits, const uint8\+\_\+t $\ast$in, unsigned int in\+\_\+num\+\_\+bytes, bool odd)
+\begin{DoxyCompactList}\small\item\em Parse I\+S\+UP style address of B\+CD digets. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+isup\+\_\+party\+\_\+encode} (struct msgb $\ast$msg, const char $\ast$in\+\_\+digits)
+\begin{DoxyCompactList}\small\item\em Encode an I\+S\+UP style address of B\+CD digits. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+parse} (struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$out, const uint8\+\_\+t $\ast$addr, unsigned int addrlen)
+\begin{DoxyCompactList}\small\item\em Parse wire-\/encoded S\+C\+CP address into omso\+\_\+sccp\+\_\+addr. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+sccp\+\_\+addr\+\_\+encode} (struct msgb $\ast$msg, const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$in)
+\begin{DoxyCompactList}\small\item\em encode a S\+C\+CP address from parsed format to wire format \end{DoxyCompactList}\item 
+static int {\bf sccp\+\_\+addr\+\_\+to\+\_\+sua} (struct {\bf xua\+\_\+msg} $\ast$xua, uint16\+\_\+t iei, const uint8\+\_\+t $\ast$addr, unsigned int addrlen)
+\begin{DoxyCompactList}\small\item\em convert S\+C\+CP address to S\+UA address \end{DoxyCompactList}\item 
+static int {\bf sccp\+\_\+addr\+\_\+to\+\_\+sua\+\_\+ptr} (struct {\bf xua\+\_\+msg} $\ast$xua, uint16\+\_\+t iei, struct msgb $\ast$msg, uint8\+\_\+t $\ast$ptr\+\_\+addr)
+\begin{DoxyCompactList}\small\item\em convenience wrapper around \doxyref{sccp\+\_\+addr\+\_\+to\+\_\+sua()}{p.}{sccp2sua_8c_a3a2c083bc428a4ab007a482686f1d6e8} for variable mandatory addresses \end{DoxyCompactList}\item 
+static int {\bf sua\+\_\+addr\+\_\+to\+\_\+sccp} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg\+\_\+part} $\ast$part)
+\begin{DoxyCompactList}\small\item\em convert S\+UA address to S\+C\+CP address \end{DoxyCompactList}\item 
+static int {\bf sccp\+\_\+add\+\_\+var\+\_\+addr} (struct msgb $\ast$msg, uint8\+\_\+t $\ast$var\+\_\+ptr, struct {\bf xua\+\_\+msg} $\ast$xua, uint16\+\_\+t iei)
+\begin{DoxyCompactList}\small\item\em Add a \char`\"{}\+S\+C\+C\+P Variable Mandatory Part\char`\"{} (Address format) to the given msgb. \end{DoxyCompactList}\item 
+static int {\bf sccp\+\_\+add\+\_\+variable\+\_\+part} (struct msgb $\ast$msg, uint8\+\_\+t $\ast$var\+\_\+ptr, struct {\bf xua\+\_\+msg} $\ast$xua, uint16\+\_\+t iei)
+\begin{DoxyCompactList}\small\item\em Add a \char`\"{}\+S\+C\+C\+P Variable Mandatory Part\char`\"{} to the given msgb. \end{DoxyCompactList}\item 
+static bool {\bf sccp\+\_\+ptr\+\_\+part\+\_\+consistent} (struct msgb $\ast$msg, uint8\+\_\+t $\ast$ptr\+\_\+addr)
+\begin{DoxyCompactList}\small\item\em validate that S\+C\+CP part with pointer + length doesn\textquotesingle{}t exceed msg tail \end{DoxyCompactList}\item 
+static int {\bf sccp\+\_\+data\+\_\+to\+\_\+sua\+\_\+ptr} (struct {\bf xua\+\_\+msg} $\ast$xua, uint16\+\_\+t iei, struct msgb $\ast$msg, uint8\+\_\+t $\ast$ptr\+\_\+addr)
+\begin{DoxyCompactList}\small\item\em convenience wrapper around \doxyref{xua\+\_\+msg\+\_\+add\+\_\+data()}{p.}{xua__msg_8h_afced2d7d0ef436111f3559204b89c999} for variable mandatory data \end{DoxyCompactList}\item 
+static int {\bf xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+opt} (struct {\bf xua\+\_\+msg} $\ast$xua, uint8\+\_\+t sccp\+\_\+opt\+\_\+type, uint16\+\_\+t opt\+\_\+len, uint8\+\_\+t $\ast$opt)
+\begin{DoxyCompactList}\small\item\em Convert a given S\+C\+CP option to S\+UA and add it to given \doxyref{xua\+\_\+msg}{p.}{structxua__msg}. \end{DoxyCompactList}\item 
+static void {\bf msgb\+\_\+put\+\_\+sccp\+\_\+opt\+\_\+hdr} (struct msgb $\ast$msg, uint8\+\_\+t pnc, uint8\+\_\+t {\bf len})
+\begin{DoxyCompactList}\small\item\em append a S\+C\+CP option header to the given message \end{DoxyCompactList}\item 
+static void {\bf msgb\+\_\+put\+\_\+sccp\+\_\+opt} (struct msgb $\ast$msg, uint8\+\_\+t pnc, uint8\+\_\+t {\bf len}, const uint8\+\_\+t $\ast${\bf data})
+\begin{DoxyCompactList}\small\item\em append a S\+C\+CP option to the given message \end{DoxyCompactList}\item 
+static int {\bf sccp\+\_\+msg\+\_\+add\+\_\+sua\+\_\+opt} (enum sccp\+\_\+message\+\_\+types type, struct msgb $\ast$msg, struct {\bf xua\+\_\+msg\+\_\+part} $\ast$opt)
+\begin{DoxyCompactList}\small\item\em Convert a given S\+UA option/\+IE to S\+C\+CP and add it to given $\ast$ msgb. \end{DoxyCompactList}\item 
+static struct {\bf xua\+\_\+msg} $\ast$ {\bf sccp\+\_\+to\+\_\+xua\+\_\+opt} (struct msgb $\ast$msg, uint8\+\_\+t $\ast$ptr\+\_\+opt, struct {\bf xua\+\_\+msg} $\ast$xua)
+\begin{DoxyCompactList}\small\item\em convert S\+C\+CP optional part to list of S\+UA options \end{DoxyCompactList}\item 
+static bool {\bf sccp\+\_\+is\+\_\+mandatory} (enum sccp\+\_\+message\+\_\+types type, const struct {\bf xua\+\_\+msg\+\_\+part} $\ast$part)
+\item 
+static bool {\bf sccp\+\_\+option\+\_\+permitted} (enum sccp\+\_\+message\+\_\+types type, const struct {\bf xua\+\_\+msg\+\_\+part} $\ast$part)
+\item 
+static int {\bf xua\+\_\+ies\+\_\+to\+\_\+sccp\+\_\+opts} (struct msgb $\ast$msg, uint8\+\_\+t $\ast$ptr\+\_\+opt, enum sccp\+\_\+message\+\_\+types type, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static void {\bf store\+\_\+local\+\_\+ref} (struct sccp\+\_\+source\+\_\+reference $\ast$local\+\_\+ref, struct {\bf xua\+\_\+msg} $\ast$xua, uint16\+\_\+t iei)
+\item 
+static struct {\bf xua\+\_\+msg} $\ast$ {\bf sccp\+\_\+to\+\_\+xua\+\_\+cr} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf sua\+\_\+to\+\_\+sccp\+\_\+cr} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static struct {\bf xua\+\_\+msg} $\ast$ {\bf sccp\+\_\+to\+\_\+xua\+\_\+cc} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf sua\+\_\+to\+\_\+sccp\+\_\+cc} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static struct {\bf xua\+\_\+msg} $\ast$ {\bf sccp\+\_\+to\+\_\+xua\+\_\+cref} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf sua\+\_\+to\+\_\+sccp\+\_\+cref} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static struct {\bf xua\+\_\+msg} $\ast$ {\bf sccp\+\_\+to\+\_\+xua\+\_\+rlsd} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf sua\+\_\+to\+\_\+sccp\+\_\+rlsd} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static struct {\bf xua\+\_\+msg} $\ast$ {\bf sccp\+\_\+to\+\_\+xua\+\_\+rlc} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf sua\+\_\+to\+\_\+sccp\+\_\+rlc} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static struct {\bf xua\+\_\+msg} $\ast$ {\bf sccp\+\_\+to\+\_\+xua\+\_\+dt1} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf sua\+\_\+to\+\_\+sccp\+\_\+dt1} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static struct {\bf xua\+\_\+msg} $\ast$ {\bf sccp\+\_\+to\+\_\+xua\+\_\+udt} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf sua\+\_\+to\+\_\+sccp\+\_\+udt} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static struct {\bf xua\+\_\+msg} $\ast$ {\bf sccp\+\_\+to\+\_\+xua\+\_\+udts} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf sua\+\_\+to\+\_\+sccp\+\_\+udts} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static struct {\bf xua\+\_\+msg} $\ast$ {\bf sccp\+\_\+to\+\_\+xua\+\_\+it} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf sua\+\_\+to\+\_\+sccp\+\_\+it} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static struct {\bf xua\+\_\+msg} $\ast$ {\bf sccp\+\_\+to\+\_\+xua\+\_\+err} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+static int {\bf sua\+\_\+to\+\_\+sccp\+\_\+err} (struct msgb $\ast$msg, struct {\bf xua\+\_\+msg} $\ast$xua)
+\item 
+struct {\bf xua\+\_\+msg} $\ast$ {\bf osmo\+\_\+sccp\+\_\+to\+\_\+xua} (struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em convert S\+C\+CP message to a S\+UA message \end{DoxyCompactList}\item 
+struct msgb $\ast$ {\bf osmo\+\_\+sua\+\_\+to\+\_\+sccp} (struct {\bf xua\+\_\+msg} $\ast$xua)
+\begin{DoxyCompactList}\small\item\em convert parsed S\+UA message to S\+C\+CP message \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const uint16\+\_\+t {\bf sccp\+\_\+mandatory} [{\bf N\+U\+M\+\_\+\+S\+C\+C\+P\+\_\+\+M\+S\+GT}][{\bf M\+A\+X\+\_\+\+I\+ES}]
+\item 
+static const uint16\+\_\+t {\bf sccp\+\_\+optional} [{\bf N\+U\+M\+\_\+\+S\+C\+C\+P\+\_\+\+M\+S\+GT}][{\bf M\+A\+X\+\_\+\+I\+ES}]
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{sccp2sua.\+c@{sccp2sua.\+c}!M\+A\+X\+\_\+\+I\+ES@{M\+A\+X\+\_\+\+I\+ES}}
+\index{M\+A\+X\+\_\+\+I\+ES@{M\+A\+X\+\_\+\+I\+ES}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{M\+A\+X\+\_\+\+I\+ES}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+I\+ES~6}\label{sccp2sua_8c_ace91609f60d4d40f9c066f495724bf6f}
+
+
+Referenced by sccp\+\_\+is\+\_\+mandatory(), and sccp\+\_\+option\+\_\+permitted().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!N\+U\+M\+\_\+\+S\+C\+C\+P\+\_\+\+M\+S\+GT@{N\+U\+M\+\_\+\+S\+C\+C\+P\+\_\+\+M\+S\+GT}}
+\index{N\+U\+M\+\_\+\+S\+C\+C\+P\+\_\+\+M\+S\+GT@{N\+U\+M\+\_\+\+S\+C\+C\+P\+\_\+\+M\+S\+GT}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{N\+U\+M\+\_\+\+S\+C\+C\+P\+\_\+\+M\+S\+GT}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+\_\+\+S\+C\+C\+P\+\_\+\+M\+S\+GT~(S\+C\+C\+P\+\_\+\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+L\+U\+D\+TS+1)}\label{sccp2sua_8c_a5578a4d0611ff53d0c6d2652f3ec7424}
+
+
+\subsection{Function Documentation}
+\index{sccp2sua.\+c@{sccp2sua.\+c}!load\+\_\+24be@{load\+\_\+24be}}
+\index{load\+\_\+24be@{load\+\_\+24be}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{load\+\_\+24be(const void $\ast$ptr)}]{\setlength{\rightskip}{0pt plus 5cm}static uint32\+\_\+t load\+\_\+24be (
+\begin{DoxyParamCaption}
+\item[{const void $\ast$}]{ptr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a28f447684767599e5b7ecf2a30fffb3c}
+
+
+load a 24bit value as big-\/endian 
+
+
+
+References data.
+
+
+
+Referenced by sccp\+\_\+to\+\_\+xua\+\_\+cc(), sccp\+\_\+to\+\_\+xua\+\_\+cr(), sccp\+\_\+to\+\_\+xua\+\_\+cref(), sccp\+\_\+to\+\_\+xua\+\_\+dt1(), sccp\+\_\+to\+\_\+xua\+\_\+err(), sccp\+\_\+to\+\_\+xua\+\_\+it(), sccp\+\_\+to\+\_\+xua\+\_\+rlc(), sccp\+\_\+to\+\_\+xua\+\_\+rlsd(), and xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+opt().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!msgb\+\_\+put\+\_\+sccp\+\_\+opt@{msgb\+\_\+put\+\_\+sccp\+\_\+opt}}
+\index{msgb\+\_\+put\+\_\+sccp\+\_\+opt@{msgb\+\_\+put\+\_\+sccp\+\_\+opt}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{msgb\+\_\+put\+\_\+sccp\+\_\+opt(struct msgb $\ast$msg, uint8\+\_\+t pnc, uint8\+\_\+t len, const uint8\+\_\+t $\ast$data)}]{\setlength{\rightskip}{0pt plus 5cm}static void msgb\+\_\+put\+\_\+sccp\+\_\+opt (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{uint8\+\_\+t}]{pnc, }
+\item[{uint8\+\_\+t}]{len, }
+\item[{const uint8\+\_\+t $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a75f504850c4348db5a7c24951a71c718}
+
+
+append a S\+C\+CP option to the given message 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em msg} & Message to which option is to be appended \\
+\hline
+\mbox{\tt in}  & {\em pnc} & P\+NC of the option header \\
+\hline
+\mbox{\tt in}  & {\em len} & length of the option, excluding the header \\
+\hline
+\mbox{\tt in}  & {\em data} & actual data to be appended \\
+\hline
+\end{DoxyParams}
+
+
+References msgb\+\_\+put\+\_\+sccp\+\_\+opt\+\_\+hdr().
+
+
+
+Referenced by sccp\+\_\+msg\+\_\+add\+\_\+sua\+\_\+opt().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!msgb\+\_\+put\+\_\+sccp\+\_\+opt\+\_\+hdr@{msgb\+\_\+put\+\_\+sccp\+\_\+opt\+\_\+hdr}}
+\index{msgb\+\_\+put\+\_\+sccp\+\_\+opt\+\_\+hdr@{msgb\+\_\+put\+\_\+sccp\+\_\+opt\+\_\+hdr}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{msgb\+\_\+put\+\_\+sccp\+\_\+opt\+\_\+hdr(struct msgb $\ast$msg, uint8\+\_\+t pnc, uint8\+\_\+t len)}]{\setlength{\rightskip}{0pt plus 5cm}static void msgb\+\_\+put\+\_\+sccp\+\_\+opt\+\_\+hdr (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{uint8\+\_\+t}]{pnc, }
+\item[{uint8\+\_\+t}]{len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a55b358a2c384720a15c9f59a922c0915}
+
+
+append a S\+C\+CP option header to the given message 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em msg} & Message to which header is to be appended \\
+\hline
+\mbox{\tt in}  & {\em pnc} & P\+NC of the option header \\
+\hline
+\mbox{\tt in}  & {\em len} & length of the option, excluding the header \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by msgb\+\_\+put\+\_\+sccp\+\_\+opt(), and sccp\+\_\+msg\+\_\+add\+\_\+sua\+\_\+opt().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!msgb\+\_\+put\+\_\+u16le@{msgb\+\_\+put\+\_\+u16le}}
+\index{msgb\+\_\+put\+\_\+u16le@{msgb\+\_\+put\+\_\+u16le}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{msgb\+\_\+put\+\_\+u16le(struct msgb $\ast$msg, uint16\+\_\+t val)}]{\setlength{\rightskip}{0pt plus 5cm}static void msgb\+\_\+put\+\_\+u16le (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{uint16\+\_\+t}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a8c46fa65916535088ac6b766f0d46087}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+addr\+\_\+encode().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!msgb\+\_\+put\+\_\+u24be@{msgb\+\_\+put\+\_\+u24be}}
+\index{msgb\+\_\+put\+\_\+u24be@{msgb\+\_\+put\+\_\+u24be}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{msgb\+\_\+put\+\_\+u24be(struct msgb $\ast$msg, uint32\+\_\+t val)}]{\setlength{\rightskip}{0pt plus 5cm}static void msgb\+\_\+put\+\_\+u24be (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{uint32\+\_\+t}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_ac616af0d3d25d43151561038a02c798e}
+
+
+Referenced by sccp\+\_\+msg\+\_\+add\+\_\+sua\+\_\+opt().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!osmo\+\_\+isup\+\_\+party\+\_\+encode@{osmo\+\_\+isup\+\_\+party\+\_\+encode}}
+\index{osmo\+\_\+isup\+\_\+party\+\_\+encode@{osmo\+\_\+isup\+\_\+party\+\_\+encode}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{osmo\+\_\+isup\+\_\+party\+\_\+encode(struct msgb $\ast$msg, const char $\ast$in\+\_\+digits)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+isup\+\_\+party\+\_\+encode (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{const char $\ast$}]{in\+\_\+digits}
+\end{DoxyParamCaption}
+)}\label{sccp2sua_8c_aaed7c1eeef245f2c632987310cc49d2e}
+
+
+Encode an I\+S\+UP style address of B\+CD digits. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em msg} & Message to which the encoded address is appended \\
+\hline
+\mbox{\tt in}  & {\em in\+\_\+digits} & N\+U\+L-\/terminated A\+S\+C\+II string of digits \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of octets used for encoding in\+\_\+digits 
+\end{DoxyReturn}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+addr\+\_\+encode().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!osmo\+\_\+isup\+\_\+party\+\_\+parse@{osmo\+\_\+isup\+\_\+party\+\_\+parse}}
+\index{osmo\+\_\+isup\+\_\+party\+\_\+parse@{osmo\+\_\+isup\+\_\+party\+\_\+parse}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{osmo\+\_\+isup\+\_\+party\+\_\+parse(char $\ast$out\+\_\+digits, const uint8\+\_\+t $\ast$in, unsigned int in\+\_\+num\+\_\+bytes, bool odd)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+isup\+\_\+party\+\_\+parse (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{out\+\_\+digits, }
+\item[{const uint8\+\_\+t $\ast$}]{in, }
+\item[{unsigned int}]{in\+\_\+num\+\_\+bytes, }
+\item[{bool}]{odd}
+\end{DoxyParamCaption}
+)}\label{sccp2sua_8c_a3f5e0d75271a5a2fda1821e9c9a720d9}
+
+
+Parse I\+S\+UP style address of B\+CD digets. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em out\+\_\+digits} & user-\/allocated buffer for A\+S\+C\+II digits \\
+\hline
+\mbox{\tt in}  & {\em in} & B\+C\+D-\/encoded digits \\
+\hline
+\mbox{\tt in}  & {\em in\+\_\+num\+\_\+bytes} & Size of in in bytes \\
+\hline
+\mbox{\tt in}  & {\em odd} & Odd (true) or even (false) number of digits \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of digits generated 
+\end{DoxyReturn}
+
+
+Referenced by osmo\+\_\+sccp\+\_\+addr\+\_\+parse().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!osmo\+\_\+sccp\+\_\+addr\+\_\+encode@{osmo\+\_\+sccp\+\_\+addr\+\_\+encode}}
+\index{osmo\+\_\+sccp\+\_\+addr\+\_\+encode@{osmo\+\_\+sccp\+\_\+addr\+\_\+encode}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+addr\+\_\+encode(struct msgb $\ast$msg, const struct osmo\+\_\+sccp\+\_\+addr $\ast$in)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+addr\+\_\+encode (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{const struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{in}
+\end{DoxyParamCaption}
+)}\label{sccp2sua_8c_ad9945ae60f1cdc481da3b70e15a50adf}
+
+
+encode a S\+C\+CP address from parsed format to wire format 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em msg} & message buffer to which address is to be appended \\
+\hline
+\mbox{\tt in}  & {\em in} & data structure describing S\+C\+CP address \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of bytes written to msg 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+gt\+::digits, osmo\+\_\+sccp\+\_\+addr\+::gt, osmo\+\_\+sccp\+\_\+gt\+::gti, msgb\+\_\+put\+\_\+u16le(), osmo\+\_\+sccp\+\_\+gt\+::nai, osmo\+\_\+sccp\+\_\+gt\+::npi, osmo\+\_\+isup\+\_\+party\+\_\+encode(), O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+A\+I\+\_\+\+O\+N\+LY, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+O\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+NC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+N\+C\+\_\+\+N\+AI, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+O\+N\+LY, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, osmo\+\_\+sccp\+\_\+addr\+::ri, osmo\+\_\+sccp\+\_\+addr\+::ssn, and osmo\+\_\+sccp\+\_\+gt\+::tt.
+
+
+
+Referenced by sua\+\_\+addr\+\_\+to\+\_\+sccp().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!osmo\+\_\+sccp\+\_\+addr\+\_\+parse@{osmo\+\_\+sccp\+\_\+addr\+\_\+parse}}
+\index{osmo\+\_\+sccp\+\_\+addr\+\_\+parse@{osmo\+\_\+sccp\+\_\+addr\+\_\+parse}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+addr\+\_\+parse(struct osmo\+\_\+sccp\+\_\+addr $\ast$out, const uint8\+\_\+t $\ast$addr, unsigned int addrlen)}]{\setlength{\rightskip}{0pt plus 5cm}int osmo\+\_\+sccp\+\_\+addr\+\_\+parse (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+sccp\+\_\+addr} $\ast$}]{out, }
+\item[{const uint8\+\_\+t $\ast$}]{addr, }
+\item[{unsigned int}]{addrlen}
+\end{DoxyParamCaption}
+)}\label{sccp2sua_8c_ade18fb9db8c9b52bc2ffc22af64d1d08}
+
+
+Parse wire-\/encoded S\+C\+CP address into omso\+\_\+sccp\+\_\+addr. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em out} & user-\/allocated output data structure \\
+\hline
+\mbox{\tt in}  & {\em addr} & wire-\/encoded S\+C\+CP address \\
+\hline
+\mbox{\tt in}  & {\em addrlen} & Size of addr in bytes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 in case of success, negative on error According to Q.\+713/3.4 and R\+F\+C3868/3.\+10.\+2 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+gt\+::digits, osmo\+\_\+sccp\+\_\+addr\+::gt, osmo\+\_\+sccp\+\_\+gt\+::gti, osmo\+\_\+sccp\+\_\+gt\+::nai, osmo\+\_\+sccp\+\_\+gt\+::npi, osmo\+\_\+isup\+\_\+party\+\_\+parse(), O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+S\+SN, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+A\+I\+\_\+\+O\+N\+LY, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+N\+O\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+NC, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+N\+P\+L\+\_\+\+E\+N\+C\+\_\+\+N\+AI, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+G\+T\+I\+\_\+\+T\+T\+\_\+\+O\+N\+LY, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+GT, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+R\+I\+\_\+\+S\+S\+N\+\_\+\+PC, osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, osmo\+\_\+sccp\+\_\+addr\+::ri, osmo\+\_\+sccp\+\_\+addr\+::ssn, and osmo\+\_\+sccp\+\_\+gt\+::tt.
+
+
+
+Referenced by sccp\+\_\+addr\+\_\+to\+\_\+sua().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!osmo\+\_\+sccp\+\_\+to\+\_\+xua@{osmo\+\_\+sccp\+\_\+to\+\_\+xua}}
+\index{osmo\+\_\+sccp\+\_\+to\+\_\+xua@{osmo\+\_\+sccp\+\_\+to\+\_\+xua}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{osmo\+\_\+sccp\+\_\+to\+\_\+xua(struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf xua\+\_\+msg}$\ast$ osmo\+\_\+sccp\+\_\+to\+\_\+xua (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{sccp2sua_8c_ad72796caefb85b769c83c5237cdb4308}
+
+
+convert S\+C\+CP message to a S\+UA message 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em msg} & message buffer holding S\+C\+CP message at l2h \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+callee-\/allocated x\+UA message on success; N\+U\+LL on error 
+\end{DoxyReturn}
+
+
+References xua\+\_\+msg\+::hdr, sccp\+\_\+to\+\_\+xua\+\_\+cc(), sccp\+\_\+to\+\_\+xua\+\_\+cr(), sccp\+\_\+to\+\_\+xua\+\_\+cref(), sccp\+\_\+to\+\_\+xua\+\_\+dt1(), sccp\+\_\+to\+\_\+xua\+\_\+err(), sccp\+\_\+to\+\_\+xua\+\_\+it(), sccp\+\_\+to\+\_\+xua\+\_\+rlc(), sccp\+\_\+to\+\_\+xua\+\_\+rlsd(), sccp\+\_\+to\+\_\+xua\+\_\+udt(), sccp\+\_\+to\+\_\+xua\+\_\+udts(), S\+U\+A\+\_\+\+C\+L\+\_\+\+C\+L\+DR, S\+U\+A\+\_\+\+C\+L\+\_\+\+C\+L\+DT, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+AK, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+DT, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+E\+RR, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+IT, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+RE, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+R\+EF, S\+U\+A\+\_\+\+C\+O\+\_\+\+R\+E\+L\+CO, S\+U\+A\+\_\+\+C\+O\+\_\+\+R\+E\+L\+RE, S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+CL, S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+CO, X\+U\+A\+\_\+\+H\+DR, xua\+\_\+msg\+\_\+alloc(), and xua\+\_\+msg\+\_\+free().
+
+
+
+Referenced by mtp\+\_\+user\+\_\+prim\+\_\+cb(), and patch\+\_\+sccp\+\_\+with\+\_\+pc().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!osmo\+\_\+sua\+\_\+to\+\_\+sccp@{osmo\+\_\+sua\+\_\+to\+\_\+sccp}}
+\index{osmo\+\_\+sua\+\_\+to\+\_\+sccp@{osmo\+\_\+sua\+\_\+to\+\_\+sccp}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{osmo\+\_\+sua\+\_\+to\+\_\+sccp(struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}struct msgb$\ast$ osmo\+\_\+sua\+\_\+to\+\_\+sccp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{sccp2sua_8c_ade23801a343758da5c4cc25e96c47931}
+
+
+convert parsed S\+UA message to S\+C\+CP message 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em xua} & parsed S\+UA message to be converted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+callee-\/allocated msgb containing encoded S\+C\+CP message 
+\end{DoxyReturn}
+
+
+References xua\+\_\+msg\+::hdr, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+class, xua\+\_\+common\+\_\+hdr\+::msg\+\_\+type, sccp\+\_\+msgb\+\_\+alloc(), S\+U\+A\+\_\+\+C\+L\+\_\+\+C\+L\+DR, S\+U\+A\+\_\+\+C\+L\+\_\+\+C\+L\+DT, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+AK, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+DT, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+E\+RR, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+IT, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+RE, S\+U\+A\+\_\+\+C\+O\+\_\+\+C\+O\+R\+EF, S\+U\+A\+\_\+\+C\+O\+\_\+\+R\+E\+L\+CO, S\+U\+A\+\_\+\+C\+O\+\_\+\+R\+E\+L\+RE, S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+CL, S\+U\+A\+\_\+\+M\+S\+G\+C\+\_\+\+CO, sua\+\_\+to\+\_\+sccp\+\_\+cc(), sua\+\_\+to\+\_\+sccp\+\_\+cr(), sua\+\_\+to\+\_\+sccp\+\_\+cref(), sua\+\_\+to\+\_\+sccp\+\_\+dt1(), sua\+\_\+to\+\_\+sccp\+\_\+err(), sua\+\_\+to\+\_\+sccp\+\_\+it(), sua\+\_\+to\+\_\+sccp\+\_\+rlc(), sua\+\_\+to\+\_\+sccp\+\_\+rlsd(), sua\+\_\+to\+\_\+sccp\+\_\+udt(), sua\+\_\+to\+\_\+sccp\+\_\+udts(), xua\+\_\+dialect\+\_\+sua, and xua\+\_\+hdr\+\_\+dump().
+
+
+
+Referenced by patch\+\_\+sccp\+\_\+with\+\_\+pc(), and sua2sccp\+\_\+tx\+\_\+m3ua().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+add\+\_\+var\+\_\+addr@{sccp\+\_\+add\+\_\+var\+\_\+addr}}
+\index{sccp\+\_\+add\+\_\+var\+\_\+addr@{sccp\+\_\+add\+\_\+var\+\_\+addr}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+add\+\_\+var\+\_\+addr(struct msgb $\ast$msg, uint8\+\_\+t $\ast$var\+\_\+ptr, struct xua\+\_\+msg $\ast$xua, uint16\+\_\+t iei)}]{\setlength{\rightskip}{0pt plus 5cm}static int sccp\+\_\+add\+\_\+var\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{uint8\+\_\+t $\ast$}]{var\+\_\+ptr, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{uint16\+\_\+t}]{iei}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a400fc501a6ccbffc72688a110b726233}
+
+
+Add a \char`\"{}\+S\+C\+C\+P Variable Mandatory Part\char`\"{} (Address format) to the given msgb. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em msg} & Message buffer to which part shall be added \\
+\hline
+\mbox{\tt out}  & {\em var\+\_\+ptr} & pointer to relative pointer in S\+C\+CP header \\
+\hline
+\mbox{\tt in}  & {\em xua} & x\+UA message from which to use address \\
+\hline
+\mbox{\tt in}  & {\em iei} & x\+UA information element identifier of address \\
+\hline
+\end{DoxyParams}
+
+
+References sua\+\_\+addr\+\_\+to\+\_\+sccp(), and xua\+\_\+msg\+\_\+find\+\_\+tag().
+
+
+
+Referenced by sua\+\_\+to\+\_\+sccp\+\_\+cr(), sua\+\_\+to\+\_\+sccp\+\_\+udt(), and sua\+\_\+to\+\_\+sccp\+\_\+udts().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+add\+\_\+variable\+\_\+part@{sccp\+\_\+add\+\_\+variable\+\_\+part}}
+\index{sccp\+\_\+add\+\_\+variable\+\_\+part@{sccp\+\_\+add\+\_\+variable\+\_\+part}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+add\+\_\+variable\+\_\+part(struct msgb $\ast$msg, uint8\+\_\+t $\ast$var\+\_\+ptr, struct xua\+\_\+msg $\ast$xua, uint16\+\_\+t iei)}]{\setlength{\rightskip}{0pt plus 5cm}static int sccp\+\_\+add\+\_\+variable\+\_\+part (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{uint8\+\_\+t $\ast$}]{var\+\_\+ptr, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{uint16\+\_\+t}]{iei}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a9fd6d661149c36cef9ea3a9d132b39ac}
+
+
+Add a \char`\"{}\+S\+C\+C\+P Variable Mandatory Part\char`\"{} to the given msgb. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em msg} & Message buffer to which part shall be added \\
+\hline
+\mbox{\tt out}  & {\em var\+\_\+ptr} & pointer to relative pointer in S\+C\+CP header \\
+\hline
+\mbox{\tt in}  & {\em xua} & x\+UA message from which to use source data \\
+\hline
+\mbox{\tt in}  & {\em iei} & x\+UA information element identifier of source data \\
+\hline
+\end{DoxyParams}
+
+
+References xua\+\_\+msg\+\_\+part\+::dat, xua\+\_\+msg\+\_\+part\+::len, and xua\+\_\+msg\+\_\+find\+\_\+tag().
+
+
+
+Referenced by sua\+\_\+to\+\_\+sccp\+\_\+dt1(), sua\+\_\+to\+\_\+sccp\+\_\+udt(), and sua\+\_\+to\+\_\+sccp\+\_\+udts().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+addr\+\_\+to\+\_\+sua@{sccp\+\_\+addr\+\_\+to\+\_\+sua}}
+\index{sccp\+\_\+addr\+\_\+to\+\_\+sua@{sccp\+\_\+addr\+\_\+to\+\_\+sua}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+addr\+\_\+to\+\_\+sua(struct xua\+\_\+msg $\ast$xua, uint16\+\_\+t iei, const uint8\+\_\+t $\ast$addr, unsigned int addrlen)}]{\setlength{\rightskip}{0pt plus 5cm}static int sccp\+\_\+addr\+\_\+to\+\_\+sua (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{uint16\+\_\+t}]{iei, }
+\item[{const uint8\+\_\+t $\ast$}]{addr, }
+\item[{unsigned int}]{addrlen}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a3a2c083bc428a4ab007a482686f1d6e8}
+
+
+convert S\+C\+CP address to S\+UA address 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em xua} & user-\/provided x\+UA message to which address shall be added \\
+\hline
+\mbox{\tt in}  & {\em iei} & S\+UA Information Element Identifier for address \\
+\hline
+\mbox{\tt in}  & {\em addr} & S\+C\+CP wire format binary address \\
+\hline
+\mbox{\tt in}  & {\em addrlen} & Size of addr in bytes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 in case of success; negative on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+dump(), osmo\+\_\+sccp\+\_\+addr\+\_\+parse(), and xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr().
+
+
+
+Referenced by sccp\+\_\+addr\+\_\+to\+\_\+sua\+\_\+ptr(), and xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+opt().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+addr\+\_\+to\+\_\+sua\+\_\+ptr@{sccp\+\_\+addr\+\_\+to\+\_\+sua\+\_\+ptr}}
+\index{sccp\+\_\+addr\+\_\+to\+\_\+sua\+\_\+ptr@{sccp\+\_\+addr\+\_\+to\+\_\+sua\+\_\+ptr}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+addr\+\_\+to\+\_\+sua\+\_\+ptr(struct xua\+\_\+msg $\ast$xua, uint16\+\_\+t iei, struct msgb $\ast$msg, uint8\+\_\+t $\ast$ptr\+\_\+addr)}]{\setlength{\rightskip}{0pt plus 5cm}static int sccp\+\_\+addr\+\_\+to\+\_\+sua\+\_\+ptr (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{uint16\+\_\+t}]{iei, }
+\item[{struct msgb $\ast$}]{msg, }
+\item[{uint8\+\_\+t $\ast$}]{ptr\+\_\+addr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_acaeae80ed4d4b66b843a8e10cca5a1af}
+
+
+convenience wrapper around \doxyref{sccp\+\_\+addr\+\_\+to\+\_\+sua()}{p.}{sccp2sua_8c_a3a2c083bc428a4ab007a482686f1d6e8} for variable mandatory addresses 
+
+
+
+References sccp\+\_\+addr\+\_\+to\+\_\+sua().
+
+
+
+Referenced by sccp\+\_\+to\+\_\+xua\+\_\+cr(), sccp\+\_\+to\+\_\+xua\+\_\+udt(), and sccp\+\_\+to\+\_\+xua\+\_\+udts().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+data\+\_\+to\+\_\+sua\+\_\+ptr@{sccp\+\_\+data\+\_\+to\+\_\+sua\+\_\+ptr}}
+\index{sccp\+\_\+data\+\_\+to\+\_\+sua\+\_\+ptr@{sccp\+\_\+data\+\_\+to\+\_\+sua\+\_\+ptr}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+data\+\_\+to\+\_\+sua\+\_\+ptr(struct xua\+\_\+msg $\ast$xua, uint16\+\_\+t iei, struct msgb $\ast$msg, uint8\+\_\+t $\ast$ptr\+\_\+addr)}]{\setlength{\rightskip}{0pt plus 5cm}static int sccp\+\_\+data\+\_\+to\+\_\+sua\+\_\+ptr (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{uint16\+\_\+t}]{iei, }
+\item[{struct msgb $\ast$}]{msg, }
+\item[{uint8\+\_\+t $\ast$}]{ptr\+\_\+addr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_af04a1c9946cc4850db750c42b0f63735}
+
+
+convenience wrapper around \doxyref{xua\+\_\+msg\+\_\+add\+\_\+data()}{p.}{xua__msg_8h_afced2d7d0ef436111f3559204b89c999} for variable mandatory data 
+
+
+
+References xua\+\_\+msg\+\_\+add\+\_\+data().
+
+
+
+Referenced by sccp\+\_\+to\+\_\+xua\+\_\+dt1(), sccp\+\_\+to\+\_\+xua\+\_\+udt(), and sccp\+\_\+to\+\_\+xua\+\_\+udts().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+is\+\_\+mandatory@{sccp\+\_\+is\+\_\+mandatory}}
+\index{sccp\+\_\+is\+\_\+mandatory@{sccp\+\_\+is\+\_\+mandatory}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+is\+\_\+mandatory(enum sccp\+\_\+message\+\_\+types type, const struct xua\+\_\+msg\+\_\+part $\ast$part)}]{\setlength{\rightskip}{0pt plus 5cm}static bool sccp\+\_\+is\+\_\+mandatory (
+\begin{DoxyParamCaption}
+\item[{enum sccp\+\_\+message\+\_\+types}]{type, }
+\item[{const struct {\bf xua\+\_\+msg\+\_\+part} $\ast$}]{part}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_ac5302e03c17d5bbe207d52ba9eb64664}
+
+
+References M\+A\+X\+\_\+\+I\+ES, sccp\+\_\+mandatory, and xua\+\_\+msg\+\_\+part\+::tag.
+
+
+
+Referenced by xua\+\_\+ies\+\_\+to\+\_\+sccp\+\_\+opts().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+msg\+\_\+add\+\_\+sua\+\_\+opt@{sccp\+\_\+msg\+\_\+add\+\_\+sua\+\_\+opt}}
+\index{sccp\+\_\+msg\+\_\+add\+\_\+sua\+\_\+opt@{sccp\+\_\+msg\+\_\+add\+\_\+sua\+\_\+opt}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+msg\+\_\+add\+\_\+sua\+\_\+opt(enum sccp\+\_\+message\+\_\+types type, struct msgb $\ast$msg, struct xua\+\_\+msg\+\_\+part $\ast$opt)}]{\setlength{\rightskip}{0pt plus 5cm}static int sccp\+\_\+msg\+\_\+add\+\_\+sua\+\_\+opt (
+\begin{DoxyParamCaption}
+\item[{enum sccp\+\_\+message\+\_\+types}]{type, }
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg\+\_\+part} $\ast$}]{opt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_aee95c4ffe06663387f0289676e98f6c2}
+
+
+Convert a given S\+UA option/\+IE to S\+C\+CP and add it to given $\ast$ msgb. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em msg} & caller-\/provided message buffer to which option is to be appended \\
+\hline
+\mbox{\tt in}  & {\em opt} & x\+UA option/\+IE (messge part) to be converted+added \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 in case of success; negative on error 
+\end{DoxyReturn}
+
+
+References xua\+\_\+msg\+\_\+part\+::dat, xua\+\_\+msg\+\_\+part\+::len, msgb\+\_\+put\+\_\+sccp\+\_\+opt(), msgb\+\_\+put\+\_\+sccp\+\_\+opt\+\_\+hdr(), msgb\+\_\+put\+\_\+u24be(), sua\+\_\+addr\+\_\+to\+\_\+sccp(), S\+U\+A\+\_\+\+C\+A\+U\+S\+E\+\_\+\+T\+\_\+\+E\+R\+R\+OR, S\+U\+A\+\_\+\+C\+A\+U\+S\+E\+\_\+\+T\+\_\+\+M\+A\+SK, S\+U\+A\+\_\+\+C\+A\+U\+S\+E\+\_\+\+T\+\_\+\+R\+E\+F\+U\+S\+AL, S\+U\+A\+\_\+\+C\+A\+U\+S\+E\+\_\+\+T\+\_\+\+R\+E\+L\+E\+A\+SE, S\+U\+A\+\_\+\+C\+A\+U\+S\+E\+\_\+\+T\+\_\+\+R\+E\+S\+ET, S\+U\+A\+\_\+\+C\+A\+U\+S\+E\+\_\+\+T\+\_\+\+R\+E\+T\+U\+RN, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+C\+A\+U\+SE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+C\+R\+E\+D\+IT, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+A\+TA, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+R\+EF, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+I\+M\+P\+O\+R\+T\+A\+N\+CE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+O\+\_\+\+C\+L\+A\+SS, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+R\+O\+U\+T\+E\+\_\+\+C\+TX, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S7\+\_\+\+H\+O\+P\+\_\+\+C\+TR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+E\+Q\+\_\+\+C\+T\+RL, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+R\+EF, xua\+\_\+msg\+\_\+part\+::tag, and xua\+\_\+msg\+\_\+part\+\_\+get\+\_\+u32().
+
+
+
+Referenced by xua\+\_\+ies\+\_\+to\+\_\+sccp\+\_\+opts().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+option\+\_\+permitted@{sccp\+\_\+option\+\_\+permitted}}
+\index{sccp\+\_\+option\+\_\+permitted@{sccp\+\_\+option\+\_\+permitted}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+option\+\_\+permitted(enum sccp\+\_\+message\+\_\+types type, const struct xua\+\_\+msg\+\_\+part $\ast$part)}]{\setlength{\rightskip}{0pt plus 5cm}static bool sccp\+\_\+option\+\_\+permitted (
+\begin{DoxyParamCaption}
+\item[{enum sccp\+\_\+message\+\_\+types}]{type, }
+\item[{const struct {\bf xua\+\_\+msg\+\_\+part} $\ast$}]{part}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a45a2931f3b53f80e1bb58dcf7798134d}
+
+
+References M\+A\+X\+\_\+\+I\+ES, sccp\+\_\+optional, and xua\+\_\+msg\+\_\+part\+::tag.
+
+
+
+Referenced by xua\+\_\+ies\+\_\+to\+\_\+sccp\+\_\+opts().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+ptr\+\_\+part\+\_\+consistent@{sccp\+\_\+ptr\+\_\+part\+\_\+consistent}}
+\index{sccp\+\_\+ptr\+\_\+part\+\_\+consistent@{sccp\+\_\+ptr\+\_\+part\+\_\+consistent}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+ptr\+\_\+part\+\_\+consistent(struct msgb $\ast$msg, uint8\+\_\+t $\ast$ptr\+\_\+addr)}]{\setlength{\rightskip}{0pt plus 5cm}static bool sccp\+\_\+ptr\+\_\+part\+\_\+consistent (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{uint8\+\_\+t $\ast$}]{ptr\+\_\+addr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a78969ed40124bda2d1859ececc77aac1}
+
+
+validate that S\+C\+CP part with pointer + length doesn\textquotesingle{}t exceed msg tail 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em msg} & Message containing S\+C\+CP address \\
+\hline
+\mbox{\tt in}  & {\em ptr\+\_\+addr} & pointer to byte with relative S\+C\+CP pointer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if OK; false if message inconsistent 
+\end{DoxyReturn}
+
+
+References data.
+
+
+
+Referenced by sccp\+\_\+to\+\_\+xua\+\_\+cr(), sccp\+\_\+to\+\_\+xua\+\_\+dt1(), sccp\+\_\+to\+\_\+xua\+\_\+udt(), and sccp\+\_\+to\+\_\+xua\+\_\+udts().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+to\+\_\+xua\+\_\+cc@{sccp\+\_\+to\+\_\+xua\+\_\+cc}}
+\index{sccp\+\_\+to\+\_\+xua\+\_\+cc@{sccp\+\_\+to\+\_\+xua\+\_\+cc}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+to\+\_\+xua\+\_\+cc(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf xua\+\_\+msg}$\ast$ sccp\+\_\+to\+\_\+xua\+\_\+cc (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_ae5f040c2679dc3338a255236199ddeff}
+
+
+References load\+\_\+24be(), sccp\+\_\+to\+\_\+xua\+\_\+opt(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+R\+EF, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+O\+\_\+\+C\+L\+A\+SS, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+R\+EF, and xua\+\_\+msg\+\_\+add\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+to\+\_\+xua().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+to\+\_\+xua\+\_\+cr@{sccp\+\_\+to\+\_\+xua\+\_\+cr}}
+\index{sccp\+\_\+to\+\_\+xua\+\_\+cr@{sccp\+\_\+to\+\_\+xua\+\_\+cr}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+to\+\_\+xua\+\_\+cr(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf xua\+\_\+msg}$\ast$ sccp\+\_\+to\+\_\+xua\+\_\+cr (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_af69b2b18b2364ca25c2a3bbecf701ee9}
+
+
+References load\+\_\+24be(), sccp\+\_\+addr\+\_\+to\+\_\+sua\+\_\+ptr(), sccp\+\_\+ptr\+\_\+part\+\_\+consistent(), sccp\+\_\+to\+\_\+xua\+\_\+opt(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+O\+\_\+\+C\+L\+A\+SS, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+R\+EF, and xua\+\_\+msg\+\_\+add\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+to\+\_\+xua().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+to\+\_\+xua\+\_\+cref@{sccp\+\_\+to\+\_\+xua\+\_\+cref}}
+\index{sccp\+\_\+to\+\_\+xua\+\_\+cref@{sccp\+\_\+to\+\_\+xua\+\_\+cref}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+to\+\_\+xua\+\_\+cref(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf xua\+\_\+msg}$\ast$ sccp\+\_\+to\+\_\+xua\+\_\+cref (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a0e6c51266b8ba72ebfe244bd64e53d0e}
+
+
+References load\+\_\+24be(), sccp\+\_\+to\+\_\+xua\+\_\+opt(), S\+U\+A\+\_\+\+C\+A\+U\+S\+E\+\_\+\+T\+\_\+\+R\+E\+F\+U\+S\+AL, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+C\+A\+U\+SE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+R\+EF, and xua\+\_\+msg\+\_\+add\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+to\+\_\+xua().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+to\+\_\+xua\+\_\+dt1@{sccp\+\_\+to\+\_\+xua\+\_\+dt1}}
+\index{sccp\+\_\+to\+\_\+xua\+\_\+dt1@{sccp\+\_\+to\+\_\+xua\+\_\+dt1}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+to\+\_\+xua\+\_\+dt1(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf xua\+\_\+msg}$\ast$ sccp\+\_\+to\+\_\+xua\+\_\+dt1 (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a7e0d4eb26dae4b6a7ee2a31b2c4cef61}
+
+
+References load\+\_\+24be(), sccp\+\_\+data\+\_\+to\+\_\+sua\+\_\+ptr(), sccp\+\_\+ptr\+\_\+part\+\_\+consistent(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+A\+TA, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+R\+EF, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+E\+G\+M\+E\+N\+T\+A\+T\+I\+ON, and xua\+\_\+msg\+\_\+add\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+to\+\_\+xua().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+to\+\_\+xua\+\_\+err@{sccp\+\_\+to\+\_\+xua\+\_\+err}}
+\index{sccp\+\_\+to\+\_\+xua\+\_\+err@{sccp\+\_\+to\+\_\+xua\+\_\+err}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+to\+\_\+xua\+\_\+err(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf xua\+\_\+msg}$\ast$ sccp\+\_\+to\+\_\+xua\+\_\+err (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a7c1316011cf50bf171a57abafc918783}
+
+
+References load\+\_\+24be(), S\+U\+A\+\_\+\+C\+A\+U\+S\+E\+\_\+\+T\+\_\+\+E\+R\+R\+OR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+C\+A\+U\+SE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+R\+EF, and xua\+\_\+msg\+\_\+add\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+to\+\_\+xua().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+to\+\_\+xua\+\_\+it@{sccp\+\_\+to\+\_\+xua\+\_\+it}}
+\index{sccp\+\_\+to\+\_\+xua\+\_\+it@{sccp\+\_\+to\+\_\+xua\+\_\+it}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+to\+\_\+xua\+\_\+it(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf xua\+\_\+msg}$\ast$ sccp\+\_\+to\+\_\+xua\+\_\+it (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_ae02a71bd8b07a62720a30cd0ff1e8c83}
+
+
+References load\+\_\+24be(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+C\+R\+E\+D\+IT, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+R\+EF, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+O\+\_\+\+C\+L\+A\+SS, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+R\+EF, and xua\+\_\+msg\+\_\+add\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+to\+\_\+xua().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+to\+\_\+xua\+\_\+opt@{sccp\+\_\+to\+\_\+xua\+\_\+opt}}
+\index{sccp\+\_\+to\+\_\+xua\+\_\+opt@{sccp\+\_\+to\+\_\+xua\+\_\+opt}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+to\+\_\+xua\+\_\+opt(struct msgb $\ast$msg, uint8\+\_\+t $\ast$ptr\+\_\+opt, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf xua\+\_\+msg}$\ast$ sccp\+\_\+to\+\_\+xua\+\_\+opt (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{uint8\+\_\+t $\ast$}]{ptr\+\_\+opt, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a396329e1f95ce8e09f34463e3fc02509}
+
+
+convert S\+C\+CP optional part to list of S\+UA options 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em msg} & Message buffer holding S\+C\+CP message \\
+\hline
+\mbox{\tt in}  & {\em ptr\+\_\+opt} & address of relative pointer to optional part \\
+\hline
+ & {\em xua} & caller-\/provided x\+UA message to which options are added \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+xua in case of success, N\+U\+LL on error (xua not freed!) 
+\end{DoxyReturn}
+
+
+References data, and xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+opt().
+
+
+
+Referenced by sccp\+\_\+to\+\_\+xua\+\_\+cc(), sccp\+\_\+to\+\_\+xua\+\_\+cr(), sccp\+\_\+to\+\_\+xua\+\_\+cref(), and sccp\+\_\+to\+\_\+xua\+\_\+rlsd().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+to\+\_\+xua\+\_\+rlc@{sccp\+\_\+to\+\_\+xua\+\_\+rlc}}
+\index{sccp\+\_\+to\+\_\+xua\+\_\+rlc@{sccp\+\_\+to\+\_\+xua\+\_\+rlc}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+to\+\_\+xua\+\_\+rlc(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf xua\+\_\+msg}$\ast$ sccp\+\_\+to\+\_\+xua\+\_\+rlc (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a0e5a2b10062ec028129b5210f1b62c0b}
+
+
+References load\+\_\+24be(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+R\+EF, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+R\+EF, and xua\+\_\+msg\+\_\+add\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+to\+\_\+xua().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+to\+\_\+xua\+\_\+rlsd@{sccp\+\_\+to\+\_\+xua\+\_\+rlsd}}
+\index{sccp\+\_\+to\+\_\+xua\+\_\+rlsd@{sccp\+\_\+to\+\_\+xua\+\_\+rlsd}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+to\+\_\+xua\+\_\+rlsd(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf xua\+\_\+msg}$\ast$ sccp\+\_\+to\+\_\+xua\+\_\+rlsd (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a70dbd7fa56f374da6748c7a67188851f}
+
+
+References load\+\_\+24be(), sccp\+\_\+to\+\_\+xua\+\_\+opt(), S\+U\+A\+\_\+\+C\+A\+U\+S\+E\+\_\+\+T\+\_\+\+R\+E\+L\+E\+A\+SE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+C\+A\+U\+SE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+R\+EF, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+R\+EF, and xua\+\_\+msg\+\_\+add\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+to\+\_\+xua().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+to\+\_\+xua\+\_\+udt@{sccp\+\_\+to\+\_\+xua\+\_\+udt}}
+\index{sccp\+\_\+to\+\_\+xua\+\_\+udt@{sccp\+\_\+to\+\_\+xua\+\_\+udt}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+to\+\_\+xua\+\_\+udt(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf xua\+\_\+msg}$\ast$ sccp\+\_\+to\+\_\+xua\+\_\+udt (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a2e28479fcf7bb9c9088594dbd821bc39}
+
+
+References sccp\+\_\+addr\+\_\+to\+\_\+sua\+\_\+ptr(), sccp\+\_\+data\+\_\+to\+\_\+sua\+\_\+ptr(), sccp\+\_\+ptr\+\_\+part\+\_\+consistent(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+A\+TA, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+O\+\_\+\+C\+L\+A\+SS, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+A\+D\+DR, and xua\+\_\+msg\+\_\+add\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+to\+\_\+xua().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+to\+\_\+xua\+\_\+udts@{sccp\+\_\+to\+\_\+xua\+\_\+udts}}
+\index{sccp\+\_\+to\+\_\+xua\+\_\+udts@{sccp\+\_\+to\+\_\+xua\+\_\+udts}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+to\+\_\+xua\+\_\+udts(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf xua\+\_\+msg}$\ast$ sccp\+\_\+to\+\_\+xua\+\_\+udts (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a8d3ac513303afeec251ef74beb68bf64}
+
+
+References sccp\+\_\+addr\+\_\+to\+\_\+sua\+\_\+ptr(), sccp\+\_\+data\+\_\+to\+\_\+sua\+\_\+ptr(), sccp\+\_\+ptr\+\_\+part\+\_\+consistent(), S\+U\+A\+\_\+\+C\+A\+U\+S\+E\+\_\+\+T\+\_\+\+R\+E\+T\+U\+RN, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+C\+A\+U\+SE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+A\+TA, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+A\+D\+DR, and xua\+\_\+msg\+\_\+add\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sccp\+\_\+to\+\_\+xua().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!store\+\_\+local\+\_\+ref@{store\+\_\+local\+\_\+ref}}
+\index{store\+\_\+local\+\_\+ref@{store\+\_\+local\+\_\+ref}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{store\+\_\+local\+\_\+ref(struct sccp\+\_\+source\+\_\+reference $\ast$local\+\_\+ref, struct xua\+\_\+msg $\ast$xua, uint16\+\_\+t iei)}]{\setlength{\rightskip}{0pt plus 5cm}static void store\+\_\+local\+\_\+ref (
+\begin{DoxyParamCaption}
+\item[{struct sccp\+\_\+source\+\_\+reference $\ast$}]{local\+\_\+ref, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{uint16\+\_\+t}]{iei}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a90078e99d02d7f43ec0a52a026d4fc3f}
+
+
+References xua\+\_\+msg\+\_\+get\+\_\+u32().
+
+
+
+Referenced by sua\+\_\+to\+\_\+sccp\+\_\+cc(), sua\+\_\+to\+\_\+sccp\+\_\+cr(), sua\+\_\+to\+\_\+sccp\+\_\+cref(), sua\+\_\+to\+\_\+sccp\+\_\+dt1(), sua\+\_\+to\+\_\+sccp\+\_\+err(), sua\+\_\+to\+\_\+sccp\+\_\+it(), sua\+\_\+to\+\_\+sccp\+\_\+rlc(), and sua\+\_\+to\+\_\+sccp\+\_\+rlsd().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sua\+\_\+addr\+\_\+to\+\_\+sccp@{sua\+\_\+addr\+\_\+to\+\_\+sccp}}
+\index{sua\+\_\+addr\+\_\+to\+\_\+sccp@{sua\+\_\+addr\+\_\+to\+\_\+sccp}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sua\+\_\+addr\+\_\+to\+\_\+sccp(struct msgb $\ast$msg, struct xua\+\_\+msg\+\_\+part $\ast$part)}]{\setlength{\rightskip}{0pt plus 5cm}static int sua\+\_\+addr\+\_\+to\+\_\+sccp (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg\+\_\+part} $\ast$}]{part}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_ae9e4ab8798b09e4f73b9d60a772dc5af}
+
+
+convert S\+UA address to S\+C\+CP address 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em msg} & user-\/provided message buffer to which address shall be $\ast$ appended \\
+\hline
+\mbox{\tt in}  & {\em part} & S\+UA wire format binary address \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 in case of success; negative on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+sccp\+\_\+addr\+\_\+encode(), and sua\+\_\+addr\+\_\+parse\+\_\+part().
+
+
+
+Referenced by sccp\+\_\+add\+\_\+var\+\_\+addr(), and sccp\+\_\+msg\+\_\+add\+\_\+sua\+\_\+opt().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sua\+\_\+to\+\_\+sccp\+\_\+cc@{sua\+\_\+to\+\_\+sccp\+\_\+cc}}
+\index{sua\+\_\+to\+\_\+sccp\+\_\+cc@{sua\+\_\+to\+\_\+sccp\+\_\+cc}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sua\+\_\+to\+\_\+sccp\+\_\+cc(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int sua\+\_\+to\+\_\+sccp\+\_\+cc (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_aad62a8356f012792ad465dbe8a0d9961}
+
+
+References store\+\_\+local\+\_\+ref(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+R\+EF, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+O\+\_\+\+C\+L\+A\+SS, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+R\+EF, xua\+\_\+ies\+\_\+to\+\_\+sccp\+\_\+opts(), and xua\+\_\+msg\+\_\+get\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sua\+\_\+to\+\_\+sccp().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sua\+\_\+to\+\_\+sccp\+\_\+cr@{sua\+\_\+to\+\_\+sccp\+\_\+cr}}
+\index{sua\+\_\+to\+\_\+sccp\+\_\+cr@{sua\+\_\+to\+\_\+sccp\+\_\+cr}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sua\+\_\+to\+\_\+sccp\+\_\+cr(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int sua\+\_\+to\+\_\+sccp\+\_\+cr (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_aff6a5eb6e11aa9c885b5e7ddc80ad0e8}
+
+
+References sccp\+\_\+add\+\_\+var\+\_\+addr(), store\+\_\+local\+\_\+ref(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+O\+\_\+\+C\+L\+A\+SS, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+R\+EF, xua\+\_\+ies\+\_\+to\+\_\+sccp\+\_\+opts(), and xua\+\_\+msg\+\_\+get\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sua\+\_\+to\+\_\+sccp().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sua\+\_\+to\+\_\+sccp\+\_\+cref@{sua\+\_\+to\+\_\+sccp\+\_\+cref}}
+\index{sua\+\_\+to\+\_\+sccp\+\_\+cref@{sua\+\_\+to\+\_\+sccp\+\_\+cref}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sua\+\_\+to\+\_\+sccp\+\_\+cref(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int sua\+\_\+to\+\_\+sccp\+\_\+cref (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_ac3a7909bd4f97aab3aac8de12dd2a691}
+
+
+References store\+\_\+local\+\_\+ref(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+C\+A\+U\+SE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+R\+EF, xua\+\_\+ies\+\_\+to\+\_\+sccp\+\_\+opts(), and xua\+\_\+msg\+\_\+get\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sua\+\_\+to\+\_\+sccp().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sua\+\_\+to\+\_\+sccp\+\_\+dt1@{sua\+\_\+to\+\_\+sccp\+\_\+dt1}}
+\index{sua\+\_\+to\+\_\+sccp\+\_\+dt1@{sua\+\_\+to\+\_\+sccp\+\_\+dt1}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sua\+\_\+to\+\_\+sccp\+\_\+dt1(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int sua\+\_\+to\+\_\+sccp\+\_\+dt1 (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_ae5780dcc093d40011666b525302d786a}
+
+
+References sccp\+\_\+add\+\_\+variable\+\_\+part(), store\+\_\+local\+\_\+ref(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+A\+TA, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+R\+EF, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+E\+G\+M\+E\+N\+T\+A\+T\+I\+ON, and xua\+\_\+msg\+\_\+get\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sua\+\_\+to\+\_\+sccp().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sua\+\_\+to\+\_\+sccp\+\_\+err@{sua\+\_\+to\+\_\+sccp\+\_\+err}}
+\index{sua\+\_\+to\+\_\+sccp\+\_\+err@{sua\+\_\+to\+\_\+sccp\+\_\+err}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sua\+\_\+to\+\_\+sccp\+\_\+err(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int sua\+\_\+to\+\_\+sccp\+\_\+err (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a36c87a257019169029f4cea4ec76937f}
+
+
+References store\+\_\+local\+\_\+ref(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+C\+A\+U\+SE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+R\+EF, and xua\+\_\+msg\+\_\+get\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sua\+\_\+to\+\_\+sccp().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sua\+\_\+to\+\_\+sccp\+\_\+it@{sua\+\_\+to\+\_\+sccp\+\_\+it}}
+\index{sua\+\_\+to\+\_\+sccp\+\_\+it@{sua\+\_\+to\+\_\+sccp\+\_\+it}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sua\+\_\+to\+\_\+sccp\+\_\+it(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int sua\+\_\+to\+\_\+sccp\+\_\+it (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a597890c55e1d2e298e9a543d4ba25463}
+
+
+References store\+\_\+local\+\_\+ref(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+C\+R\+E\+D\+IT, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+R\+EF, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+O\+\_\+\+C\+L\+A\+SS, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+R\+EF, and xua\+\_\+msg\+\_\+get\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sua\+\_\+to\+\_\+sccp().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sua\+\_\+to\+\_\+sccp\+\_\+rlc@{sua\+\_\+to\+\_\+sccp\+\_\+rlc}}
+\index{sua\+\_\+to\+\_\+sccp\+\_\+rlc@{sua\+\_\+to\+\_\+sccp\+\_\+rlc}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sua\+\_\+to\+\_\+sccp\+\_\+rlc(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int sua\+\_\+to\+\_\+sccp\+\_\+rlc (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a05c3f885e20944484d96a1b36b3e0920}
+
+
+References store\+\_\+local\+\_\+ref(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+R\+EF, and S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+R\+EF.
+
+
+
+Referenced by osmo\+\_\+sua\+\_\+to\+\_\+sccp().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sua\+\_\+to\+\_\+sccp\+\_\+rlsd@{sua\+\_\+to\+\_\+sccp\+\_\+rlsd}}
+\index{sua\+\_\+to\+\_\+sccp\+\_\+rlsd@{sua\+\_\+to\+\_\+sccp\+\_\+rlsd}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sua\+\_\+to\+\_\+sccp\+\_\+rlsd(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int sua\+\_\+to\+\_\+sccp\+\_\+rlsd (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a5f8156ccefd3a2539d86d30af5bbcd62}
+
+
+References store\+\_\+local\+\_\+ref(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+C\+A\+U\+SE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+R\+EF, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+R\+EF, xua\+\_\+ies\+\_\+to\+\_\+sccp\+\_\+opts(), and xua\+\_\+msg\+\_\+get\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sua\+\_\+to\+\_\+sccp().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sua\+\_\+to\+\_\+sccp\+\_\+udt@{sua\+\_\+to\+\_\+sccp\+\_\+udt}}
+\index{sua\+\_\+to\+\_\+sccp\+\_\+udt@{sua\+\_\+to\+\_\+sccp\+\_\+udt}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sua\+\_\+to\+\_\+sccp\+\_\+udt(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int sua\+\_\+to\+\_\+sccp\+\_\+udt (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a4c6dafb4baa0ffee5d7a58d7520c70c2}
+
+
+References sccp\+\_\+add\+\_\+var\+\_\+addr(), sccp\+\_\+add\+\_\+variable\+\_\+part(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+A\+TA, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+O\+\_\+\+C\+L\+A\+SS, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+A\+D\+DR, and xua\+\_\+msg\+\_\+get\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sua\+\_\+to\+\_\+sccp().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sua\+\_\+to\+\_\+sccp\+\_\+udts@{sua\+\_\+to\+\_\+sccp\+\_\+udts}}
+\index{sua\+\_\+to\+\_\+sccp\+\_\+udts@{sua\+\_\+to\+\_\+sccp\+\_\+udts}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sua\+\_\+to\+\_\+sccp\+\_\+udts(struct msgb $\ast$msg, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int sua\+\_\+to\+\_\+sccp\+\_\+udts (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a075bcc42df9d35bd858efef5aac8c508}
+
+
+References sccp\+\_\+add\+\_\+var\+\_\+addr(), sccp\+\_\+add\+\_\+variable\+\_\+part(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+C\+A\+U\+SE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+A\+TA, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+A\+D\+DR, and xua\+\_\+msg\+\_\+get\+\_\+u32().
+
+
+
+Referenced by osmo\+\_\+sua\+\_\+to\+\_\+sccp().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!xua\+\_\+ies\+\_\+to\+\_\+sccp\+\_\+opts@{xua\+\_\+ies\+\_\+to\+\_\+sccp\+\_\+opts}}
+\index{xua\+\_\+ies\+\_\+to\+\_\+sccp\+\_\+opts@{xua\+\_\+ies\+\_\+to\+\_\+sccp\+\_\+opts}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{xua\+\_\+ies\+\_\+to\+\_\+sccp\+\_\+opts(struct msgb $\ast$msg, uint8\+\_\+t $\ast$ptr\+\_\+opt, enum sccp\+\_\+message\+\_\+types type, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}static int xua\+\_\+ies\+\_\+to\+\_\+sccp\+\_\+opts (
+\begin{DoxyParamCaption}
+\item[{struct msgb $\ast$}]{msg, }
+\item[{uint8\+\_\+t $\ast$}]{ptr\+\_\+opt, }
+\item[{enum sccp\+\_\+message\+\_\+types}]{type, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_ac447ac3fc139cdc99cc1571fb80fa9e9}
+
+
+References xua\+\_\+msg\+\_\+part\+::entry, xua\+\_\+msg\+::headers, sccp\+\_\+is\+\_\+mandatory(), sccp\+\_\+msg\+\_\+add\+\_\+sua\+\_\+opt(), and sccp\+\_\+option\+\_\+permitted().
+
+
+
+Referenced by sua\+\_\+to\+\_\+sccp\+\_\+cc(), sua\+\_\+to\+\_\+sccp\+\_\+cr(), sua\+\_\+to\+\_\+sccp\+\_\+cref(), and sua\+\_\+to\+\_\+sccp\+\_\+rlsd().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+opt@{xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+opt}}
+\index{xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+opt@{xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+opt}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+opt(struct xua\+\_\+msg $\ast$xua, uint8\+\_\+t sccp\+\_\+opt\+\_\+type, uint16\+\_\+t opt\+\_\+len, uint8\+\_\+t $\ast$opt)}]{\setlength{\rightskip}{0pt plus 5cm}static int xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+opt (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua, }
+\item[{uint8\+\_\+t}]{sccp\+\_\+opt\+\_\+type, }
+\item[{uint16\+\_\+t}]{opt\+\_\+len, }
+\item[{uint8\+\_\+t $\ast$}]{opt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a38c038e5d4e1704224cc046f5981d6de}
+
+
+Convert a given S\+C\+CP option to S\+UA and add it to given \doxyref{xua\+\_\+msg}{p.}{structxua__msg}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em xua} & caller-\/provided x\+UA message to which option is to be added \\
+\hline
+\mbox{\tt in}  & {\em sccp\+\_\+opt\+\_\+type} & S\+C\+CP option type (P\+NC) \\
+\hline
+\mbox{\tt in}  & {\em opt\+\_\+len} & size of opt in bytes \\
+\hline
+\mbox{\tt in}  & {\em opt} & pointer to wire-\/format encoded S\+C\+CP option data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 in case of success; negative on error 
+\end{DoxyReturn}
+
+
+References load\+\_\+24be(), sccp\+\_\+addr\+\_\+to\+\_\+sua(), S\+U\+A\+\_\+\+C\+A\+U\+S\+E\+\_\+\+T\+\_\+\+E\+R\+R\+OR, S\+U\+A\+\_\+\+C\+A\+U\+S\+E\+\_\+\+T\+\_\+\+R\+E\+F\+U\+S\+AL, S\+U\+A\+\_\+\+C\+A\+U\+S\+E\+\_\+\+T\+\_\+\+R\+E\+L\+E\+A\+SE, S\+U\+A\+\_\+\+C\+A\+U\+S\+E\+\_\+\+T\+\_\+\+R\+E\+S\+ET, S\+U\+A\+\_\+\+C\+A\+U\+S\+E\+\_\+\+T\+\_\+\+R\+E\+T\+U\+RN, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+C\+A\+U\+SE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+A\+TA, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+R\+EF, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+I\+M\+P\+O\+R\+T\+A\+N\+CE, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+O\+\_\+\+C\+L\+A\+SS, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S7\+\_\+\+H\+O\+P\+\_\+\+C\+TR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+R\+EF, xua\+\_\+msg\+\_\+add\+\_\+data(), and xua\+\_\+msg\+\_\+add\+\_\+u32().
+
+
+
+Referenced by sccp\+\_\+to\+\_\+xua\+\_\+opt().
+
+
+
+\subsection{Variable Documentation}
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+mandatory@{sccp\+\_\+mandatory}}
+\index{sccp\+\_\+mandatory@{sccp\+\_\+mandatory}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+mandatory}]{\setlength{\rightskip}{0pt plus 5cm}const uint16\+\_\+t sccp\+\_\+mandatory[{\bf N\+U\+M\+\_\+\+S\+C\+C\+P\+\_\+\+M\+S\+GT}][{\bf M\+A\+X\+\_\+\+I\+ES}]\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_a710caabefe9d58a9fab6acbe5801674b}
+
+
+Referenced by sccp\+\_\+is\+\_\+mandatory().
+
+\index{sccp2sua.\+c@{sccp2sua.\+c}!sccp\+\_\+optional@{sccp\+\_\+optional}}
+\index{sccp\+\_\+optional@{sccp\+\_\+optional}!sccp2sua.\+c@{sccp2sua.\+c}}
+\subsubsection[{sccp\+\_\+optional}]{\setlength{\rightskip}{0pt plus 5cm}const uint16\+\_\+t sccp\+\_\+optional[{\bf N\+U\+M\+\_\+\+S\+C\+C\+P\+\_\+\+M\+S\+GT}][{\bf M\+A\+X\+\_\+\+I\+ES}]\hspace{0.3cm}{\ttfamily [static]}}\label{sccp2sua_8c_ae8b6026f55de02444613f6b9fb91884c}
+
+
+Referenced by sccp\+\_\+option\+\_\+permitted().
+

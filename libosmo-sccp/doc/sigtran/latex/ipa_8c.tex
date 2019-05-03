@@ -1,0 +1,168 @@
+\section{src/ipa.c File Reference}
+\label{ipa_8c}\index{src/ipa.\+c@{src/ipa.\+c}}
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/utils.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/linuxlist.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/write\+\_\+queue.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/logging.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/timer.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/socket.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/byteswap.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/gsm/ipa.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/gsm/protocol/ipaccess.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/netif/ipa.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/xua\+\_\+msg.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/mtp\+\_\+sap.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/sccp\+\_\+sap.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/osmo\+\_\+ss7.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/m3ua.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/sua.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/sigtran/protocol/mtp.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+internal.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}xua\+\_\+asp\+\_\+fsm.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf ipa\+\_\+tx\+\_\+xua\+\_\+as} (struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$as, struct {\bf xua\+\_\+msg} $\ast$xua)
+\begin{DoxyCompactList}\small\item\em Send a given x\+UA message via a given I\+PA \char`\"{}\+Application Server\char`\"{}. \end{DoxyCompactList}\item 
+static int {\bf ipa\+\_\+rx\+\_\+msg\+\_\+ccm} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct msgb $\ast$msg)
+\item 
+static struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$ {\bf find\+\_\+as\+\_\+for\+\_\+asp} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp)
+\item 
+static struct msgb $\ast$ {\bf patch\+\_\+sccp\+\_\+with\+\_\+pc} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct msgb $\ast$sccp\+\_\+msg\+\_\+in, uint32\+\_\+t {\bf opc}, uint32\+\_\+t {\bf dpc})
+\item 
+static int {\bf ipa\+\_\+rx\+\_\+msg\+\_\+sccp} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct msgb $\ast$msg)
+\item 
+int {\bf ipa\+\_\+rx\+\_\+msg} (struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$asp, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em process M3\+UA message received from socket \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{ipa.\+c@{ipa.\+c}!find\+\_\+as\+\_\+for\+\_\+asp@{find\+\_\+as\+\_\+for\+\_\+asp}}
+\index{find\+\_\+as\+\_\+for\+\_\+asp@{find\+\_\+as\+\_\+for\+\_\+asp}!ipa.\+c@{ipa.\+c}}
+\subsubsection[{find\+\_\+as\+\_\+for\+\_\+asp(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp)}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf osmo\+\_\+ss7\+\_\+as}$\ast$ find\+\_\+as\+\_\+for\+\_\+asp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{ipa_8c_a313408c2c16b0bf50e1fb8add49a24bb}
+
+
+References osmo\+\_\+ss7\+\_\+instance\+::as\+\_\+list, osmo\+\_\+ss7\+\_\+asp\+::inst, osmo\+\_\+ss7\+\_\+as\+::list, and osmo\+\_\+ss7\+\_\+as\+\_\+has\+\_\+asp().
+
+
+
+Referenced by ipa\+\_\+rx\+\_\+msg\+\_\+sccp().
+
+\index{ipa.\+c@{ipa.\+c}!ipa\+\_\+rx\+\_\+msg@{ipa\+\_\+rx\+\_\+msg}}
+\index{ipa\+\_\+rx\+\_\+msg@{ipa\+\_\+rx\+\_\+msg}!ipa.\+c@{ipa.\+c}}
+\subsubsection[{ipa\+\_\+rx\+\_\+msg(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}int ipa\+\_\+rx\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{ipa_8c_a6ad6f7f3cd8e3e21d09faa49c5919075}
+
+
+process M3\+UA message received from socket 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em asp} & Application Server Process receiving {\itshape msg} \\
+\hline
+\mbox{\tt in}  & {\em msg} & received message buffer. Callee takes ownership! \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::cfg, ipa\+\_\+rx\+\_\+msg\+\_\+ccm(), ipa\+\_\+rx\+\_\+msg\+\_\+sccp(), O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+I\+PA, osmo\+\_\+ss7\+\_\+asp\+::proto, and ss7\+\_\+asp\+\_\+rx\+\_\+unknown().
+
+
+
+Referenced by ipa\+\_\+cli\+\_\+read\+\_\+cb(), and ipa\+\_\+srv\+\_\+conn\+\_\+cb().
+
+\index{ipa.\+c@{ipa.\+c}!ipa\+\_\+rx\+\_\+msg\+\_\+ccm@{ipa\+\_\+rx\+\_\+msg\+\_\+ccm}}
+\index{ipa\+\_\+rx\+\_\+msg\+\_\+ccm@{ipa\+\_\+rx\+\_\+msg\+\_\+ccm}!ipa.\+c@{ipa.\+c}}
+\subsubsection[{ipa\+\_\+rx\+\_\+msg\+\_\+ccm(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}static int ipa\+\_\+rx\+\_\+msg\+\_\+ccm (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{ipa_8c_aaa9c94e32279253d3bcd5fedc14851b1}
+
+
+References osmo\+\_\+ss7\+\_\+asp\+::fi, I\+P\+A\+\_\+\+A\+S\+P\+\_\+\+E\+\_\+\+I\+D\+\_\+\+A\+CK, I\+P\+A\+\_\+\+A\+S\+P\+\_\+\+E\+\_\+\+I\+D\+\_\+\+G\+ET, I\+P\+A\+\_\+\+A\+S\+P\+\_\+\+E\+\_\+\+I\+D\+\_\+\+R\+E\+SP, L\+O\+G\+P\+A\+SP, msg\+\_\+type, X\+U\+A\+\_\+\+A\+S\+P\+\_\+\+E\+\_\+\+A\+S\+P\+S\+M\+\_\+\+B\+E\+AT, and X\+U\+A\+\_\+\+A\+S\+P\+\_\+\+E\+\_\+\+A\+S\+P\+S\+M\+\_\+\+B\+E\+A\+T\+\_\+\+A\+CK.
+
+
+
+Referenced by ipa\+\_\+rx\+\_\+msg().
+
+\index{ipa.\+c@{ipa.\+c}!ipa\+\_\+rx\+\_\+msg\+\_\+sccp@{ipa\+\_\+rx\+\_\+msg\+\_\+sccp}}
+\index{ipa\+\_\+rx\+\_\+msg\+\_\+sccp@{ipa\+\_\+rx\+\_\+msg\+\_\+sccp}!ipa.\+c@{ipa.\+c}}
+\subsubsection[{ipa\+\_\+rx\+\_\+msg\+\_\+sccp(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct msgb $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}static int ipa\+\_\+rx\+\_\+msg\+\_\+sccp (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct msgb $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{ipa_8c_ac611d72041c966a27a498c44b52b2d6a}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::cfg, osmo\+\_\+ss7\+\_\+asp\+::cfg, m3ua\+\_\+data\+\_\+hdr\+::dpc, dpc, find\+\_\+as\+\_\+for\+\_\+asp(), osmo\+\_\+ss7\+\_\+asp\+::inst, osmo\+\_\+ss7\+\_\+asp\+::is\+\_\+server, L\+O\+G\+P\+A\+SP, m3ua\+\_\+dh\+\_\+to\+\_\+xfer\+\_\+param(), m3ua\+\_\+hmdc\+\_\+rx\+\_\+from\+\_\+l2(), m3ua\+\_\+xfer\+\_\+from\+\_\+data(), xua\+\_\+msg\+::mtp, M\+T\+P\+\_\+\+S\+I\+\_\+\+S\+C\+CP, m3ua\+\_\+data\+\_\+hdr\+::opc, opc, patch\+\_\+sccp\+\_\+with\+\_\+pc(), osmo\+\_\+ss7\+\_\+routing\+\_\+key\+::pc, osmo\+\_\+ss7\+\_\+as\+::pc\+\_\+override, osmo\+\_\+ss7\+\_\+as\+::routing\+\_\+key, m3ua\+\_\+data\+\_\+hdr\+::si, and xua\+\_\+msg\+\_\+free().
+
+
+
+Referenced by ipa\+\_\+rx\+\_\+msg().
+
+\index{ipa.\+c@{ipa.\+c}!ipa\+\_\+tx\+\_\+xua\+\_\+as@{ipa\+\_\+tx\+\_\+xua\+\_\+as}}
+\index{ipa\+\_\+tx\+\_\+xua\+\_\+as@{ipa\+\_\+tx\+\_\+xua\+\_\+as}!ipa.\+c@{ipa.\+c}}
+\subsubsection[{ipa\+\_\+tx\+\_\+xua\+\_\+as(struct osmo\+\_\+ss7\+\_\+as $\ast$as, struct xua\+\_\+msg $\ast$xua)}]{\setlength{\rightskip}{0pt plus 5cm}int ipa\+\_\+tx\+\_\+xua\+\_\+as (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+as} $\ast$}]{as, }
+\item[{struct {\bf xua\+\_\+msg} $\ast$}]{xua}
+\end{DoxyParamCaption}
+)}\label{ipa_8c_a4473443b022e57cc48e07677c14650ae}
+
+
+Send a given x\+UA message via a given I\+PA \char`\"{}\+Application Server\char`\"{}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em as} & Application Server through which to send {\itshape xua} \\
+\hline
+\mbox{\tt in}  & {\em xua} & x\+UA message to be sent \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success; negative on error 
+\end{DoxyReturn}
+
+
+References osmo\+\_\+ss7\+\_\+as\+::cfg, xua\+\_\+msg\+\_\+part\+::dat, xua\+\_\+msg\+\_\+part\+::len, M3\+U\+A\+\_\+\+I\+E\+I\+\_\+\+P\+R\+O\+T\+\_\+\+D\+A\+TA, O\+S\+M\+O\+\_\+\+S\+S7\+\_\+\+A\+S\+P\+\_\+\+P\+R\+O\+T\+\_\+\+I\+PA, osmo\+\_\+ss7\+\_\+as\+::proto, xua\+\_\+as\+\_\+transmit\+\_\+msg(), and xua\+\_\+msg\+\_\+find\+\_\+tag().
+
+
+
+Referenced by hmrt\+\_\+message\+\_\+for\+\_\+routing().
+
+\index{ipa.\+c@{ipa.\+c}!patch\+\_\+sccp\+\_\+with\+\_\+pc@{patch\+\_\+sccp\+\_\+with\+\_\+pc}}
+\index{patch\+\_\+sccp\+\_\+with\+\_\+pc@{patch\+\_\+sccp\+\_\+with\+\_\+pc}!ipa.\+c@{ipa.\+c}}
+\subsubsection[{patch\+\_\+sccp\+\_\+with\+\_\+pc(struct osmo\+\_\+ss7\+\_\+asp $\ast$asp, struct msgb $\ast$sccp\+\_\+msg\+\_\+in, uint32\+\_\+t opc, uint32\+\_\+t dpc)}]{\setlength{\rightskip}{0pt plus 5cm}static struct msgb$\ast$ patch\+\_\+sccp\+\_\+with\+\_\+pc (
+\begin{DoxyParamCaption}
+\item[{struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$}]{asp, }
+\item[{struct msgb $\ast$}]{sccp\+\_\+msg\+\_\+in, }
+\item[{uint32\+\_\+t}]{opc, }
+\item[{uint32\+\_\+t}]{dpc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{ipa_8c_aedfece2960b57bc5f262f31b42caf866}
+
+
+References dpc, L\+O\+G\+P\+A\+SP, opc, O\+S\+M\+O\+\_\+\+S\+C\+C\+P\+\_\+\+A\+D\+D\+R\+\_\+\+T\+\_\+\+PC, osmo\+\_\+sccp\+\_\+to\+\_\+xua(), osmo\+\_\+sua\+\_\+to\+\_\+sccp(), osmo\+\_\+sccp\+\_\+addr\+::pc, osmo\+\_\+sccp\+\_\+addr\+::presence, sua\+\_\+addr\+\_\+parse(), S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+D\+E\+S\+T\+\_\+\+A\+D\+DR, S\+U\+A\+\_\+\+I\+E\+I\+\_\+\+S\+R\+C\+\_\+\+A\+D\+DR, xua\+\_\+msg\+\_\+add\+\_\+sccp\+\_\+addr(), xua\+\_\+msg\+\_\+free(), and xua\+\_\+msg\+\_\+free\+\_\+tag().
+
+
+
+Referenced by ipa\+\_\+rx\+\_\+msg\+\_\+sccp().
+

@@ -1,0 +1,65 @@
+# build results
+*.o
+*.lo
+*.la
+Transceiver52M/osmo-trx-uhd
+Transceiver52M/osmo-trx-usrp1
+Transceiver52M/osmo-trx-lms
+
+# tests
+tests/CommonLibs/BitVectorTest
+tests/CommonLibs/F16Test
+tests/CommonLibs/InterthreadTest
+tests/CommonLibs/LogTest
+tests/CommonLibs/RegexpTest
+tests/CommonLibs/SocketsTest
+tests/CommonLibs/TimevalTest
+tests/CommonLibs/URLEncodeTest
+tests/CommonLibs/VectorTest
+tests/CommonLibs/PRBSTest
+tests/Transceiver52M/convolve_test
+tests/Transceiver52M/LMSDeviceTest
+
+# automake/autoconf
+*.in
+.deps
+.libs
+.dirstamp
+*~
+Makefile
+config.log
+config.status
+config.h
+config.guess
+config.sub
+config/*
+configure
+compile
+aclocal.m4
+autom4te.cache
+depcomp
+install-sh
+libtool
+ltmain.sh
+missing
+stamp-h1
+INSTALL
+tests/package.m4
+tests/testsuite
+tests/atconfig
+tests/testsuite.dir
+tests/testsuite.log
+
+# vim
+*.sw?
+
+# manuals
+doc/manuals/*.html
+doc/manuals/*.svg
+doc/manuals/*.pdf
+doc/manuals/*__*.png
+doc/manuals/*.check
+doc/manuals/generated/
+doc/manuals/osmomsc-usermanual.xml
+doc/manuals/common
+doc/manuals/build

@@ -1,0 +1,50 @@
+\section{include/osmocom/netif/jibuf.h File Reference}
+\label{jibuf_8h}\index{include/osmocom/netif/jibuf.\+h@{include/osmocom/netif/jibuf.\+h}}
+
+
+Osmocom Jitter Buffer helpers.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+{\ttfamily \#include $<$stdbool.\+h$>$}\\*
+{\ttfamily \#include $<$time.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/timer.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+jibuf}
+\begin{DoxyCompactList}\small\item\em A structure representing a single instance of a jitter buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void($\ast$ {\bfseries osmo\+\_\+jibuf\+\_\+dequeue\+\_\+cb}) (struct msgb $\ast$msg, void $\ast$data)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+jibuf} $\ast$ {\bf osmo\+\_\+jibuf\+\_\+alloc} (void $\ast$talloc\+\_\+ctx)
+\begin{DoxyCompactList}\small\item\em Allocate a new jitter buffer instance. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+jibuf\+\_\+delete} (struct {\bf osmo\+\_\+jibuf} $\ast$jb)
+\begin{DoxyCompactList}\small\item\em Destroy a previously allocated jitter buffer instance. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+jibuf\+\_\+enqueue} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Try to enqueue a packet into the jitter buffer. \end{DoxyCompactList}\item 
+bool {\bf osmo\+\_\+jibuf\+\_\+empty} (struct {\bf osmo\+\_\+jibuf} $\ast$jb)
+\begin{DoxyCompactList}\small\item\em Check whether the jitter buffer instance has packets queued or not. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+jibuf\+\_\+set\+\_\+min\+\_\+delay} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, uint32\+\_\+t min\+\_\+delay)
+\begin{DoxyCompactList}\small\item\em Set minimum buffer size for the jitter buffer. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+jibuf\+\_\+set\+\_\+max\+\_\+delay} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, uint32\+\_\+t max\+\_\+delay)
+\begin{DoxyCompactList}\small\item\em Set maximum buffer size for the jitter buffer. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+jibuf\+\_\+enable\+\_\+skew\+\_\+compensation} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, bool enable)
+\begin{DoxyCompactList}\small\item\em Toggle use of skew detection and compensation mechanism. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+jibuf\+\_\+set\+\_\+dequeue\+\_\+cb} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, osmo\+\_\+jibuf\+\_\+dequeue\+\_\+cb dequeue\+\_\+cb, void $\ast$cb\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Set dequeue callback for the jitter buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+jibuf} {\bfseries \+\_\+\+\_\+attribute\+\_\+\+\_\+}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Osmocom Jitter Buffer helpers. 
+

@@ -1,0 +1,446 @@
+osmo-trx (1.0.0) unstable; urgency=medium
+
+  [ Pau Espin Pedrol ]
+  * doc: examples: Add umtrx sample config
+  * UHDDevice: Fix setup failure with LimeSuite > 18.04.1
+  * examples: Set rt-prio 18 and print file basename
+  * lms: Several improvements and compilation/runtime fixes
+  * build: Add support for LimeSuite device backend
+  * LMSDevice: Set correct values for Max{Tx,Rx}Gain
+  * LMSDevice: Fix setup failure with LimeSuite > 18.04.1
+  * lms: Makefile.am: Reorder params to fix link issue
+  * lms: Check LPBFW to set is within supported range
+  * debian: Add package osmo-trx-lms
+  * contrib: Add systemd services for all backends
+  * debian: Add cfg file examples for osmo-trx-{lms,uhd}
+  * Add -V param to print version
+  * lms: Allow values diff than 34dB to be set by setRxGain()
+  * Use correct paths when installing example files
+  * debian: Enable build of osmo-trx-lms
+  * debian: Explicitly enable osmo-trx-uhd build
+  * configure.ac: Fix typo in with-lms help string
+  * vty: Fix typo in gpsdo clock reference type
+  * configure.ac: Add --enable-werror option
+  * Logger: Disable pthread cancel point inside Logger destructor
+  * cosmetic: Fix trailing whitespace
+  * radioInterface: forward errors from RadioDevice to Transceiver in recv path
+  * lms: Return error on device read timeout
+  * osmo-trx: Add osmo_signal to stop whole transceiver chain correctly on error
+  * radioInterface: Fix variable storing integer return value
+  * configure.ac: Specify default language as C++
+  * UHHDDevice: Replace deprecated header uhd/utils/thread_priority.hpp
+  * SigProcLib: Use available copyTo Vector API instead of memcopy
+  * cosmetic: Fix trailing whitespace in several files
+  * radioInterfaceMulti:pullBuffer: Sanely convert float array to complex array
+  * Vector: Copy arrays in a sane way for non-trivially copyable types
+  * jenkins.sh: Add --enable-werror flag to osmo-trx configure step
+  * Install systemd services with autotools
+  * Install sample cfg file to /etc/osmocom
+  * cosmetic: Use proper whitespace in several for loops
+  * Use pthread_setname_np to name threads
+  * CommonLibs/Makefile.am: Specify libcommon_la_LIBADD
+  * Transciever: Log values causing Tx underrun
+  * examples: Use logging level 'set-all' instead of 'all'
+  * jenkins.sh: Enable build of osmo-trx-lms
+  * ChannelizerBase: Fix ASan alloc-dealloc-mismatch
+  * UHDDevice: setRxGain on chan 0 when using multi-arfcn
+  * lms: Use LimeSuite.h log level defines instead of hardcoded values
+  * lms: Apply LMS->OSMO log level conversion
+  * Introduce OsmoTRX manual
+  * Introduce chapter trx_if.adoc and add it to OsmoTRX and OsmoBTS
+  * trx: Add reference to project wiki page in overfiew section
+  * trx: Add Hardware architecture support section
+  * trx: Add Hardware device support section
+  * osmotrx: Split Device specific section from backend one
+  * osmotrx: Write initial documentation for several supported devices
+  * osmotrx: configuration: Add section to document multi-arfcn feature
+  * osmotrx: Create a common chapter for section documenting backends
+  * osmotrx: Introduce code architecture chapter
+  * lms: Fix start after stop of device
+  * lms: Destroy streams on device stop
+  * radioInterface: Fix memleak during close()
+  * PointerFIFO: Fix memleak of ListNode
+  * lms: Make sure LMS_Close is called when Device is torn down
+  * osmo-trx: Change some lines to use libosmocore logging instead of cout
+  * lms: Close device on LMS_Init failure
+  * SigProcLib: Improve Vector buffer allocation mess
+  * lms: Allow setting Tx/RxGain for chan!=0
+  * lms: Allow setting Tx/RxFreq for lchan!=0
+  * lms: Improve Set{Rx,Tx}{Gain,Freq} logging
+  * transceiver: log chan on CTRL command received
+  * Add TRXCTRL log category
+  * transceiver: Log TRXCTRL iface responses towards osmo-bts-trx
+  * lms: Move {under,over}run checks into separate method
+  * lms: Do {under,over}run checks even if LMS_RecvStream fails
+  * Timeval: passed() returns true if time is equal
+  * Timeval: Move implementation to use clock_gettime and timespec
+  * Timeval: Move to osmo_clock_gettime
+  * TimevalTest: Make test deterministic with fake time
+  * lms: Fix build against LimeSuite > 18.10
+  * configure.ac: check boost only if USRP1 support is enabled
+
+  [ Vadim Yanitskiy ]
+  * trx_vty.c: fix: use CONFIG_NODE as parent by default
+  * device/lms/LMSDevice.cpp: fix compilation warning
+  * sigProcLib: introduce both TS1 and TS2 RACH synch. sequences
+  * sigProcLib: add a CorrType for extended (11-bit) RACH
+
+  [ Harald Welte ]
+  * Initial work towards direct LimeSuite support in OsmoTRX
+  * update .gitignore to include osmo-trx-lms
+  * LMSDevice: Call LMS_Init() before setting sample rate
+  * LMSDevice: Print sample rate range + actual sample rate after setting it
+  * LMSDevice: Typo fix: s/Internal/External
+  * LMSDevice: Set low-pass filters to smallest possible option
+  * LMSDevice: Fix initial timestamp offset of 2500
+  * LMS_Device: Set ts_offset to 0.
+  * LMSDevice: Reduce Rx logging verbosity: Only log unexpected timestamps
+  * move set_antennas() from UHD to generic radioDevice base class
+  * lms: Fix support for rx_paths / tx_paths
+  * lms: Call set_antennas() during open() method
+  * radioDevice: Move tx_sps from derived into base class
+  * radioDevice: better encapsulation in base class
+  * lms: Fix coding style
+  * lms: Fail in case of unsupported configuration
+  * usrp1: Fail in case of unsupported configuration
+  * Fix config file saving of {tx,rx}-path VTY config strings
+  * logging: Introduce new "DDEV" category for device-specific code
+  * update git-version-gen to generate proper version numbers
+  * ensure well-formed example config files
+  * SocketsTest.testReaderIP(): Zero terminate received buffer
+  * trx_validate_config(): Fix validation of rx_sps
+  * vty-ref: Update URI of docbook 5.0 schema
+  * lms: User correct scale factor for transmit samples
+  * lms: Set Rx gain to midpoint, as comment suggests.
+  * usrp1: Remove uninitialized skipRx logic
+  * usrp1: Fix formatting of log message (missing space)
+  * cosmetic: Don't call the SDR "USRP" in error message
+
+  [ Zydrunas Tamosevicius ]
+  * lms: Use same timestamp offset like when using LimeSDR via UHD
+  * lms: Reduce log level of "send buffer of len ..."
+  * lms: fix LMS_StartStream() handling for multiple channels
+  * lms: Reduce Rx gain from 47 to 34 dB
+
+  [ Alexander Couzens ]
+  * debian: add patches for debian8
+
+  [ Oliver Smith ]
+  * Add long parameters (--help, --version, ...)
+  * build manuals moved here from osmo-gsm-manuals.git
+  * Fix DISTCHECK_CONFIGURE_FLAGS override
+  * contrib/jenkins.sh: build and publish manuals
+  * jenkins.sh: run "make distcheck"
+  * contrib: fix makedistcheck with disabled systemd
+  * osmo-trx.cpp: move comma_delimited_to_vector() to Utils.cpp
+  * LMSDevice: make use of dev-args in osmo-trx.cfg
+  * LMSDeviceTest: fix link errors on OBS
+
+  [ Neels Hofmeyr ]
+  * Importing history from osmo-gsm-manuals.git
+
+  [ d0gtail ]
+  * UHDDevice: log exception information on device open failure
+
+ -- Harald Welte <laforge@gnumonks.org>  Sun, 20 Jan 2019 19:35:04 +0100
+
+osmo-trx (0.4.0) unstable; urgency=medium
+
+  [ Neels Hofmeyr ]
+  * jenkins: use osmo-clean-workspace.sh before and after build
+
+  [ Harald Welte ]
+  * SocketsTest: Fix printing of non-nul-terminated string
+  * Revert "debian: Remove osmo-trx-usrp1 until we can build libusrp1.deb"
+  * debian/control: Remove "Maintainer" from binary package section
+  * debian/rules: Make sure we always require libusrp
+  * debian: Ensure USRP1 firmware is part of osmo-trx-usrp1
+  * debian/control: Add build dependency to libusrp-dev
+  * update .gitignore for new executable names
+  * osmo-trx: s/GSM Core Address/GSM BTS Address/
+
+  [ Piotr Krysik ]
+  * UHDDevice.cpp: add USRP B205mini support
+
+  [ Max ]
+  * Mark release target as virtual
+  * Remove outdated references to OpenBTS
+  * Remove unused headers
+  * Update installation instructions
+  * Update legal disclaimer
+  * Update license notes
+  * tests: null-terminate buffer
+
+  [ Pau Espin Pedrol ]
+  * cosmetic: Remove trailing whitespace
+  * Logger: Stop using Log.Alarms.Max from config
+  * Logger: Stop using Log.File and Log.Level from config
+  * Drop use of ConfigurationTable gConfig
+  * Remove Configuration module and libsqlite dependency
+  * cosmetic: AUTHORS: fix trailing whitespace
+  * Set up GNU Autotest infrastructure
+  * tests: InterThread: adapt to have reproducible output and enable autotest
+  * tests: Timeval: adapt to have reproducible output and enable autotest
+  * tests: Log: adapt to have reproducible output and enable autotest
+  * Sockets.cpp: Fix initialization of UDD socket
+  * tests: Sockets: adapt to have reproducible output and enable autotest
+  * utils/convolvtest: Remove uneeded libosmocore dependency
+  * Move ARCH_LA to Makefile.common
+  * tests: Migrate convtest util to autotest infrastructure
+  * arm/convert.c: Fix compilation error
+  * arm/convert.c: Add missing convert_init implementation
+  * .gitignore: Add missing test related files
+  * Remove UDDSocket class
+  * tests: SocketTests: Pick OS-assigned instead of setting one manually
+  * tests: SocketsTest: Avoid hang forever if test fails
+  * tests: SocketsTest: Fail test on write fail
+  * tests: TimevalTest: refactor and avoid double comparison
+  * contrib/jenkins.sh: Use qemu+proot+debootstrap to run tests with ARM instruction set
+  * tests: convolve: Disable due to difference in output in different archs
+  * Remove unneeded libdl dependency
+  * Fix whitespace
+  * Add support to set Rx/TxAntenna
+  * UHDDevice: Initialize async_event_thrd in constructor
+  * Logger: Drop unused gLogEarly
+  * Logger: Remove unused logging macros
+  * Logger: get rid of alarm APIs
+  * Logger: Drop syslog support
+  * Logger: Drop support to log into file
+  * Logger: Remove unused includes
+  * Logger: Remove gLogToConsole flag
+  * configure.ac: Check for pkg-config
+  * Depend on libosmocore
+  * osmo-trx: set up signals using libosmocore helpers
+  * osmo-trx: Set up talloc ctx
+  * debian: Depend on libtalloc and libosmocore
+  * Add initial support for logging, vty, ctrl
+  * Logger: Use libosmocore logging system
+  * osmo-trx.cpp: Move trx start and stop to helper functions
+  * Move enums required by VTY to a separate header
+  * vty: Implement VTY cfg parsing for current parameters
+  * doc: Add sample cfg file for LimeSDR
+  * osmo-trx: Use VTY cfg structures while still allowing cmd line options
+  * osmo-trx: Re-introduce -l cmd line parameter
+  * Makefile.am: Avoid using subdir if arch is not required
+  * Build Transceiver52M/common as an .la lib
+  * use osmo_init_logging2()
+  * tests: Makefile.am: Fix typo in include path
+  * configure.ac: Add --enable-sanitize option
+  * Move arch specific fiels to arch subdir
+  * Move device specific files to device subdir
+  * Change configure define USRP1 to DEVICE_USRP1
+  * Move device specific code out of radioInterface
+  * Transceiver: Move device specific code to radioDevice class
+  * Build one osmo-trx binary for each device support enabled
+  * Logger: Print correct source file and line number
+  * Transceiver: log timing info of stale bursts
+  * build: Fix make distcheck
+  * build: More OBS build failure fixes
+  * jenkins.sh: Enable build of osmo-trx-usrp1
+  * debian: Remove osmo-trx-usrp1 until we can build libusrp1.deb
+  * debian: Fix OBS build
+  * build: Fix OBS build for ARM
+  * git-version-gen: Take into account tags not in master
+
+  [ Alexander Huemer ]
+  * Unbreak `./configure --with-usrp1` build
+  * Fix USRP1 build with support for setting Rx/TxAntenna
+
+  [ Alexander Couzens ]
+  * jenkins.sh: fix the download url if the qemu image wasn't setup
+  * jenkins.sh: cleanup always the workspace
+  * jenkins.sh: change qemu-img default location to $HOME/qemu-img instead of /opt/qemu-img
+
+  [ Vadim Yanitskiy ]
+  * Transceiver.cpp: use a define for the MAX_PACKET_LENGTH
+  * Transceiver.cpp: properly zero-terminate received commands
+  * Transceiver.cpp: use pointer arithmetics for CMD parsing
+  * Transceiver.cpp: fix incorrect format string for SETTSC
+  * Transceiver.cpp: prevent out-of-range array access
+
+  [ Martin Hauke ]
+  * configure.ac: Fix typo
+
+  [ Philipp Maier ]
+  * doc: add example config for usrp B200 series
+
+ -- Pau Espin Pedrol <pespin@sysmocom.de>  Thu, 03 May 2018 16:23:29 +0200
+
+osmo-trx (0.2.0) unstable; urgency=medium
+
+  [ Alexander Chemeris ]
+  * EDGE: Add support for UmTRX.
+  * Common: Get rid of a compilation warning.
+  * Common: Make sure gLogEarly() log to the same facilities as the normal log.
+  * transceiver: Properly handle MAXDLY.
+  * transceiver: Add an option to generate random Access Bursts.
+  * osmo-trx: Output Rx SPS as a part of configuration output.
+  * transceiver: Do not pass transceiver state struct to function where it's not used.
+  * makefile: Fix build from an external path.
+  * radioDevice: GSMRATE macro must have parentheses around its definition.
+  * uhd: Fix comment.
+  * radioInterface: Initialize power scale with a meaningful default.
+  * transceiver: Log channel number in DEBUG output of demoded bursts.
+  * transceiver: Add an option to emulate a RACH delay in random filler mode.
+  * UHD: Initial LimeSDR support.
+  * CommonLibs: Remove unused files.
+  * sigProcLib: Typo sybols -> symbols
+  * radioBuffer: Remove extra ; at the end of inline function definitions.
+  * sigProcLib: Fix documentation, sync argument names in .cpp and .h files.
+  * sigProcLib: make energyDetect() simpler by returning actual energy.
+  * sigProcLib: Rename demodulateBurst() to demodGmskBurst() for clarity.
+  * sigProcLib: Slice SoftVector instead of signalVector for GMSK demod.
+  * Call vectorSlicer() right before packing bits for transmission to osmo-bts.
+  * CommonLibs: Print soft bits with less confidence to console when printing a soft vector.
+  * BitVector: Remove convolutional codec - we don't use it in osmo-trx.
+  * BitVector: Convert SoftVector from 0..1 to -1..+1 soft bits.
+  * signalVector: Implement segment().
+  * vector: Introduce segmentMove() method to move data inside of a vector.
+  * vector: Introduce shrink() function to shrink vector size without loosing data.
+  * Move CorrType type from Transceiver to sigProcLib.
+  * sigProcLib: rename signalError type to SignalError.
+  * Move Transceiver::detectBurst() to sigProcLib to make it reusable.
+  * Move BURST_THRESH from Transceiver.cpp to sigProcLib.h to make it reusable.
+  * sigProcLib: Add operator<< to print CorrType to a string.
+  * sigProcLib.h: Fix whitespaces. No non-whitespace changes.
+  * Move Transceiver::demodulate() to sigProcLib to make it reusable.
+  * sigProcLib: constify signalVector arguments for detectBurst() functions.
+  * sigProcLib: Constify demodulation functions burst argument.
+  * sigProcLib: Fix number of tail bits in random Normal Bursts and zero Stealing Bits.
+  * Configuration: Variables allocated with 'new' must be freed with 'delete'.
+  * BitVector: Remove Generator class.
+  * PRBS: a Pseudo-random binary sequence (PRBS) generator class.
+
+  [ Tom Tsou ]
+  * EDGE: Fix USRP B210 device support
+  * uhd: Correct timing alignment in 8-PSK and GMSK downlink bursts
+  * EDGE: Fix demodulation slicer input
+  * common: Restrict UDP binding to localhost only
+  * common: Add mandatory length field to UDP receive calls
+  * uhd: Update default E3XX settings
+  * uhd: Set default Tx sampling to 4 sps
+  * uhd: Make device offset check a private method
+  * uhd: Set minimum UHD version requirement for E3XX
+  * sigproc: Expand RACH, TSC, and EDGE correlation windows
+  * transceiver: Do not report error on SETTSC when radio is on
+  * transceiver: Add Rx samples-per-symbol option
+  * radioInterface: Convert diversity argument to general type
+  * iface: Add inner ring-buffer implementation
+  * mcbts: Add multi-ARFCN channelizing filters
+  * mcbts: Add multi-ARFCN radio support
+  * sigproc: Adjust burst detection threshold criteria
+  * egprs: Enable 8-PSK length vectors on the Tx interface
+  * egprs: Enable 8-PSK burst detection when EDGE is enabled
+  * transceiver: Remove HANDOVER warnings
+  * mcbts: Allow out of order channel setup
+  * radioInterface: Fix multi-channel buffer index bug
+  * uhd: Add command line option for GPS reference
+  * transceiver: Fix mixed GSMK / 8-PSK transmission
+  * transceiver: Fix 4 SPS receive TOA value
+  * sigproc: Fix missing 8-PSK tail symbols
+  * uhd: Update USRP2/N200/N210 for 4 SPS Rx
+  * sigproc: Match differential GMSK start/end bits to tail bits
+  * uhd: Add missing B200 sample timing for 4 SPS receive
+  * transceiver: Fix command build warning
+  * uhd: Set minimum supported version to 3.9.0
+  * uhd: Add X300 sample timing for 4 SPS
+  * Revert "uhd: Set minimum supported version to 3.9.0"
+  * uhd: Add support for UHD-3.11 logging control
+  * uhd: Increase MC-BTS FPGA clock rate to 51.2 MHz
+  * Resampler: Fix initialization return checking
+  * sigProcLib: Remove unreachable code and no-effect checks
+  * sigProcLib: Check return status on downsampling
+  * sigProcLib: Fix negative value check on unsigned value
+  * Resampler: Fix non-array delete for filter taps
+  * Transceiver: Remove unsigned negative compares
+  * Configuration: Fix const and signedness compile warnings
+  * config: Remove OpenBTS style sqlite configuration
+  * radioInterface: Remove UmTRX 'diversity' option
+  * build: Require and check for gcc C++11 support
+  * uhd: Use map container for for device parameter access
+  * sigProcLib: Remove unused functions from public interface
+  * uhd: Add non-UmTRX channel swap support
+  * uhd: Fix Tx-RX timing offset setting
+  * uhd: Fix USRP2/N200/N210 device detection
+  * transceiver: Fix POWEROFF crash on USRP2/N200/X300 devices
+  * sigProcLib: Fix complex/real vector flag in Laurent modulator
+  * sigProcLib: Remove heap based signal vector allocations
+  * common: Declare explicit Vector move constructor
+  * sigProcLib: Remove trigonometric tables
+  * sigProcLib: Use explicit NaN check in sinc table generation
+  * sigProcLib: Replace dynamically allocated resampling buffers
+  * sigProcLib: Specify standard namespace for isnan()
+  * uhd: Always specify samples-per-symbol for device lookup
+  * LimeSDR: set approximate tx offset value to make GSM work
+
+  [ Neels Hofmeyr ]
+  * add basic .gitignore
+  * configure.ac: check for boost/config.hpp header
+  * The INSTALL file is being overwritten by autoreconf, but it is committed as empty file. As a result, the INSTALL file always shows as modified. Instead, remove INSTALL from git and ignore it.
+  * add contrib/jenkins.sh, for gerrit build bot
+
+  [ pierre.baudry ]
+  * transceiver: Fix mismatched allocations and deallocations
+
+  [ Holger Hans Peter Freyther ]
+  * debian: Require fftw3 header files for osmo-trx
+
+  [ Max ]
+  * Add gerrit settings
+  * Integrate Debian packaging changes
+  * Remove embedded sqlite3
+  * Fix building against sqlite3
+  * Add autoconf-archive to dependencies
+  * debian: remove obsolete dependency
+  * deb: remove unused dependency
+  * Remove redundant explicit dependency
+  * Use release helper from libosmocore
+
+  [ Ruben Undheim ]
+  * Do not embed sqlite3 when building
+
+  [ Philipp Maier ]
+  * buildenv: Turn off native architecture builds
+  * cosmetic: Make parameter lists uniform
+  * Add test program to verify convolution implementation
+  * ssedetect: Add runtime CPU detection
+  * cosmetic: remove code duplication
+  * buildenv: Make build CPU invariant
+  * buildenv: Split up SSE3 and SSE4.1 code
+  * cosmetic: Add info about SSE support
+
+  [ Vadim Yanitskiy ]
+  * buildenv: correct the ax_sse macro description
+  * buildenv: actually strip unused cpuid functionality
+  * buildenv: fix build on systems without SIMD support
+  * buildenv: cosmetic changes
+  * buildenv: check for __builtin_cpu_supports call support
+  * ssedetect: call __builtin_cpu_supports() only if supported
+
+  [ Pau Espin Pedrol ]
+  * cosmetic: transciever: Remove trailing whitespaces
+  * transceiver: Avoid sending clock indications when trx is not powered on
+  * Add -j option to bind to specific address
+
+  [ ignasj ]
+  * LimeSDR: Change device detection to work with USB and PCIe versions
+  * LimeSDR: change tx window type to TX_WINDOW_FIXED
+  * LimeSDR: Fix sample value range
+
+  [ Harald Welte ]
+  * Add '-t' command line option to enable SCHED_RR
+  * Import git-version-gen and update AC_INIT()
+
+ -- Harald Welte <laforge@gnumonks.org>  Sat, 28 Oct 2017 17:52:32 +0200
+
+osmo-trx (0.1.9) trusty; urgency=medium
+
+  * Ask Ivan, really
+
+ -- Kirill Zakharenko <earwin@gmail.com>  Thu, 16 Jul 2015 12:13:46 +0000
+
+osmo-trx (0.1.8) precise; urgency=low
+
+     * Initial release (Closes: #nnnn) <nnnn is the bug number of your ITP
+
+ -- Ivan Klyuchnikov <Ivan.Kluchnikov@fairwaves.ru>  Sun, 9 Mar 2014 14:10:10 +0400

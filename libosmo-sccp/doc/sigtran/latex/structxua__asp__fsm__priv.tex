@@ -1,0 +1,60 @@
+\section{xua\+\_\+asp\+\_\+fsm\+\_\+priv Struct Reference}
+\label{structxua__asp__fsm__priv}\index{xua\+\_\+asp\+\_\+fsm\+\_\+priv@{xua\+\_\+asp\+\_\+fsm\+\_\+priv}}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+ss7\+\_\+asp} $\ast$ {\bf asp}
+\item 
+enum {\bf xua\+\_\+asp\+\_\+role} {\bf role}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>struct osmo\_timer\_list {\bf timer}\\
+\>int {\bf out\_event}\\
+\} {\bf t\_ack}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{xua\+\_\+asp\+\_\+fsm\+\_\+priv@{xua\+\_\+asp\+\_\+fsm\+\_\+priv}!asp@{asp}}
+\index{asp@{asp}!xua\+\_\+asp\+\_\+fsm\+\_\+priv@{xua\+\_\+asp\+\_\+fsm\+\_\+priv}}
+\subsubsection[{asp}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf osmo\+\_\+ss7\+\_\+asp}$\ast$ xua\+\_\+asp\+\_\+fsm\+\_\+priv\+::asp}\label{structxua__asp__fsm__priv_acb09d4b6fbae3d17166650d6b4b50d59}
+
+
+Referenced by dispatch\+\_\+to\+\_\+all\+\_\+as(), ipa\+\_\+asp\+\_\+fsm\+\_\+start(), peer\+\_\+send(), peer\+\_\+send\+\_\+error(), send\+\_\+xlm\+\_\+prim\+\_\+simple(), xua\+\_\+asp\+\_\+fsm\+\_\+down(), xua\+\_\+asp\+\_\+fsm\+\_\+inactive(), and xua\+\_\+asp\+\_\+fsm\+\_\+start().
+
+\index{xua\+\_\+asp\+\_\+fsm\+\_\+priv@{xua\+\_\+asp\+\_\+fsm\+\_\+priv}!out\+\_\+event@{out\+\_\+event}}
+\index{out\+\_\+event@{out\+\_\+event}!xua\+\_\+asp\+\_\+fsm\+\_\+priv@{xua\+\_\+asp\+\_\+fsm\+\_\+priv}}
+\subsubsection[{out\+\_\+event}]{\setlength{\rightskip}{0pt plus 5cm}int xua\+\_\+asp\+\_\+fsm\+\_\+priv\+::out\+\_\+event}\label{structxua__asp__fsm__priv_a400fbc9c2375538b92f8fcd84caf9aa2}
+
+
+Referenced by check\+\_\+stop\+\_\+t\+\_\+ack(), peer\+\_\+send\+\_\+and\+\_\+start\+\_\+t\+\_\+ack(), and xua\+\_\+t\+\_\+ack\+\_\+cb().
+
+\index{xua\+\_\+asp\+\_\+fsm\+\_\+priv@{xua\+\_\+asp\+\_\+fsm\+\_\+priv}!role@{role}}
+\index{role@{role}!xua\+\_\+asp\+\_\+fsm\+\_\+priv@{xua\+\_\+asp\+\_\+fsm\+\_\+priv}}
+\subsubsection[{role}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf xua\+\_\+asp\+\_\+role} xua\+\_\+asp\+\_\+fsm\+\_\+priv\+::role}\label{structxua__asp__fsm__priv_af0c42a1f36f66d71416b16d1d948f2dd}
+
+
+Referenced by ipa\+\_\+asp\+\_\+fsm\+\_\+start(), and xua\+\_\+asp\+\_\+fsm\+\_\+start().
+
+\index{xua\+\_\+asp\+\_\+fsm\+\_\+priv@{xua\+\_\+asp\+\_\+fsm\+\_\+priv}!t\+\_\+ack@{t\+\_\+ack}}
+\index{t\+\_\+ack@{t\+\_\+ack}!xua\+\_\+asp\+\_\+fsm\+\_\+priv@{xua\+\_\+asp\+\_\+fsm\+\_\+priv}}
+\subsubsection[{t\+\_\+ack}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   xua\+\_\+asp\+\_\+fsm\+\_\+priv\+::t\+\_\+ack}\label{structxua__asp__fsm__priv_a8e4a67d348c50596b5e1528f4267d4b5}
+
+
+Referenced by check\+\_\+stop\+\_\+t\+\_\+ack(), peer\+\_\+send\+\_\+and\+\_\+start\+\_\+t\+\_\+ack(), xua\+\_\+asp\+\_\+fsm\+\_\+cleanup(), and xua\+\_\+t\+\_\+ack\+\_\+cb().
+
+\index{xua\+\_\+asp\+\_\+fsm\+\_\+priv@{xua\+\_\+asp\+\_\+fsm\+\_\+priv}!timer@{timer}}
+\index{timer@{timer}!xua\+\_\+asp\+\_\+fsm\+\_\+priv@{xua\+\_\+asp\+\_\+fsm\+\_\+priv}}
+\subsubsection[{timer}]{\setlength{\rightskip}{0pt plus 5cm}struct osmo\+\_\+timer\+\_\+list xua\+\_\+asp\+\_\+fsm\+\_\+priv\+::timer}\label{structxua__asp__fsm__priv_ac40da83243a67914fbd2a326d126a813}
+
+
+Referenced by check\+\_\+stop\+\_\+t\+\_\+ack(), peer\+\_\+send\+\_\+and\+\_\+start\+\_\+t\+\_\+ack(), xua\+\_\+asp\+\_\+fsm\+\_\+cleanup(), and xua\+\_\+t\+\_\+ack\+\_\+cb().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/{\bf xua\+\_\+asp\+\_\+fsm.\+c}\end{DoxyCompactItemize}

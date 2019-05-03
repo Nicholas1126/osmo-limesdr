@@ -1,0 +1,67 @@
+\section{sccp\+\_\+data\+\_\+callback Struct Reference}
+\label{structsccp__data__callback}\index{sccp\+\_\+data\+\_\+callback@{sccp\+\_\+data\+\_\+callback}}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int($\ast$ {\bf accept\+\_\+cb} )(struct {\bf sccp\+\_\+connection} $\ast$, void $\ast$)
+\item 
+void $\ast$ {\bf accept\+\_\+context}
+\item 
+int($\ast$ {\bf read\+\_\+cb} )(struct msgb $\ast$, unsigned int, void $\ast$)
+\item 
+void $\ast$ {\bf read\+\_\+context}
+\item 
+uint8\+\_\+t {\bf ssn}
+\item 
+struct llist\+\_\+head {\bf callback}
+\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{sccp\+\_\+data\+\_\+callback@{sccp\+\_\+data\+\_\+callback}!accept\+\_\+cb@{accept\+\_\+cb}}
+\index{accept\+\_\+cb@{accept\+\_\+cb}!sccp\+\_\+data\+\_\+callback@{sccp\+\_\+data\+\_\+callback}}
+\subsubsection[{accept\+\_\+cb}]{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ sccp\+\_\+data\+\_\+callback\+::accept\+\_\+cb) (struct {\bf sccp\+\_\+connection} $\ast$, void $\ast$)}\label{structsccp__data__callback_af1f7c2710544a491439b3b153162bd15}
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request(), and sccp\+\_\+connection\+\_\+set\+\_\+incoming().
+
+\index{sccp\+\_\+data\+\_\+callback@{sccp\+\_\+data\+\_\+callback}!accept\+\_\+context@{accept\+\_\+context}}
+\index{accept\+\_\+context@{accept\+\_\+context}!sccp\+\_\+data\+\_\+callback@{sccp\+\_\+data\+\_\+callback}}
+\subsubsection[{accept\+\_\+context}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ sccp\+\_\+data\+\_\+callback\+::accept\+\_\+context}\label{structsccp__data__callback_a50ccab9dfc5044fe70fc9effb5d94c61}
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+connection\+\_\+request(), and sccp\+\_\+connection\+\_\+set\+\_\+incoming().
+
+\index{sccp\+\_\+data\+\_\+callback@{sccp\+\_\+data\+\_\+callback}!callback@{callback}}
+\index{callback@{callback}!sccp\+\_\+data\+\_\+callback@{sccp\+\_\+data\+\_\+callback}}
+\subsubsection[{callback}]{\setlength{\rightskip}{0pt plus 5cm}struct llist\+\_\+head sccp\+\_\+data\+\_\+callback\+::callback}\label{structsccp__data__callback_a70811e93d7109436d8a521a36912b1ff}
+
+
+Referenced by \+\_\+find\+\_\+ssn().
+
+\index{sccp\+\_\+data\+\_\+callback@{sccp\+\_\+data\+\_\+callback}!read\+\_\+cb@{read\+\_\+cb}}
+\index{read\+\_\+cb@{read\+\_\+cb}!sccp\+\_\+data\+\_\+callback@{sccp\+\_\+data\+\_\+callback}}
+\subsubsection[{read\+\_\+cb}]{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ sccp\+\_\+data\+\_\+callback\+::read\+\_\+cb) (struct msgb $\ast$, unsigned int, void $\ast$)}\label{structsccp__data__callback_a1c9df9c12e6ae9015aa5a94ec91af3c8}
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+read(), and sccp\+\_\+set\+\_\+read().
+
+\index{sccp\+\_\+data\+\_\+callback@{sccp\+\_\+data\+\_\+callback}!read\+\_\+context@{read\+\_\+context}}
+\index{read\+\_\+context@{read\+\_\+context}!sccp\+\_\+data\+\_\+callback@{sccp\+\_\+data\+\_\+callback}}
+\subsubsection[{read\+\_\+context}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ sccp\+\_\+data\+\_\+callback\+::read\+\_\+context}\label{structsccp__data__callback_ab5b0d2e210c8379566ebd6c9605d80d7}
+
+
+Referenced by \+\_\+sccp\+\_\+handle\+\_\+read(), and sccp\+\_\+set\+\_\+read().
+
+\index{sccp\+\_\+data\+\_\+callback@{sccp\+\_\+data\+\_\+callback}!ssn@{ssn}}
+\index{ssn@{ssn}!sccp\+\_\+data\+\_\+callback@{sccp\+\_\+data\+\_\+callback}}
+\subsubsection[{ssn}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t sccp\+\_\+data\+\_\+callback\+::ssn}\label{structsccp__data__callback_a0e8dc2904ffe3b886c682a8a1bd2374a}
+
+
+Referenced by \+\_\+find\+\_\+ssn().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/{\bf sccp.\+c}\end{DoxyCompactItemize}

@@ -1,0 +1,79 @@
+\section{include/osmocom/netif/osmux.h File Reference}
+\label{osmux_8h}\index{include/osmocom/netif/osmux.\+h@{include/osmocom/netif/osmux.\+h}}
+{\ttfamily \#include $<$osmocom/core/endian.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/timer.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmux\+\_\+hdr}
+\item 
+struct {\bf osmux\+\_\+in\+\_\+handle}
+\item 
+struct {\bf osmux\+\_\+out\+\_\+handle}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries O\+S\+M\+U\+X\+\_\+\+F\+T\+\_\+\+S\+I\+G\+N\+AL}~0
+\item 
+\#define {\bfseries O\+S\+M\+U\+X\+\_\+\+F\+T\+\_\+\+V\+O\+I\+C\+E\+\_\+\+A\+MR}~1
+\item 
+\#define {\bfseries O\+S\+M\+U\+X\+\_\+\+F\+T\+\_\+\+D\+U\+M\+MY}~2
+\item 
+\#define {\bfseries O\+S\+M\+U\+X\+\_\+\+C\+I\+D\+\_\+\+M\+AX}~255	/$\ast$ determined by circuit\+\_\+id $\ast$/\label{osmux_8h_aa2b0cfe6dad6635ea3313fd5009332cd}
+
+\item 
+\#define {\bfseries O\+S\+M\+U\+X\+\_\+\+M\+A\+X\+\_\+\+C\+O\+N\+C\+U\+R\+R\+E\+N\+T\+\_\+\+C\+A\+L\+LS}~8
+\item 
+\#define {\bfseries O\+S\+M\+U\+X\+\_\+\+B\+A\+T\+C\+H\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+AX}~1472
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmux\+\_\+hdr} {\bfseries \+\_\+\+\_\+attribute\+\_\+\+\_\+} ((packed))
+\item 
+static uint8\+\_\+t $\ast$ {\bfseries osmux\+\_\+get\+\_\+payload} (struct {\bf osmux\+\_\+hdr} $\ast$osmuxh)
+\item 
+int {\bf osmux\+\_\+snprintf} (char $\ast$buf, size\+\_\+t size, struct msgb $\ast$msg)
+\item 
+void {\bfseries osmux\+\_\+xfrm\+\_\+input\+\_\+init} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h)
+\item 
+void {\bfseries osmux\+\_\+xfrm\+\_\+input\+\_\+fini} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h)
+\item 
+int {\bfseries osmux\+\_\+xfrm\+\_\+input\+\_\+open\+\_\+circuit} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h, int ccid, int dummy)
+\item 
+void {\bfseries osmux\+\_\+xfrm\+\_\+input\+\_\+close\+\_\+circuit} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h, int ccid)
+\item 
+int {\bf osmux\+\_\+xfrm\+\_\+input} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h, struct msgb $\ast$msg, int ccid)
+\item 
+void {\bfseries osmux\+\_\+xfrm\+\_\+input\+\_\+deliver} (struct {\bf osmux\+\_\+in\+\_\+handle} $\ast$h)
+\item 
+void {\bfseries osmux\+\_\+xfrm\+\_\+output\+\_\+init} (struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$h, uint32\+\_\+t rtp\+\_\+ssrc)
+\item 
+void {\bf osmux\+\_\+xfrm\+\_\+output\+\_\+set\+\_\+tx\+\_\+cb} (struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$h, void($\ast$tx\+\_\+cb)(struct msgb $\ast$msg, void $\ast$data), void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Set transmission callback to call when a generated R\+TP packet is to be transmitted. \end{DoxyCompactList}\item 
+int {\bfseries osmux\+\_\+xfrm\+\_\+output} (struct {\bf osmux\+\_\+hdr} $\ast$osmuxh, struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$h, struct llist\+\_\+head $\ast$list) O\+S\+M\+O\+\_\+\+D\+E\+P\+R\+E\+C\+A\+T\+ED(\char`\"{}Use {\bf osmux\+\_\+xfrm\+\_\+output\+\_\+sched}() instead\char`\"{})
+\item 
+int {\bf osmux\+\_\+xfrm\+\_\+output\+\_\+sched} (struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$h, struct {\bf osmux\+\_\+hdr} $\ast$osmuxh)
+\begin{DoxyCompactList}\small\item\em Generate R\+TP packets from osmux frame A\+MR payload set and schedule them for transmission at appropiate time. \end{DoxyCompactList}\item 
+void {\bf osmux\+\_\+xfrm\+\_\+output\+\_\+flush} (struct {\bf osmux\+\_\+out\+\_\+handle} $\ast$h)
+\begin{DoxyCompactList}\small\item\em Flush all scheduled R\+TP packets still pending to be transmitted. \end{DoxyCompactList}\item 
+struct {\bf osmux\+\_\+hdr} $\ast$ {\bfseries osmux\+\_\+xfrm\+\_\+output\+\_\+pull} (struct msgb $\ast$msg)
+\item 
+void {\bfseries osmux\+\_\+tx\+\_\+sched} (struct llist\+\_\+head $\ast$list, void($\ast$tx\+\_\+cb)(struct msgb $\ast$msg, void $\ast$data), void $\ast$data) O\+S\+M\+O\+\_\+\+D\+E\+P\+R\+E\+C\+A\+T\+ED(\char`\"{}Use {\bf osmux\+\_\+xfrm\+\_\+output\+\_\+set\+\_\+tx\+\_\+cb}() instead\char`\"{})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t {\bfseries seq}\label{osmux_8h_a3f47451edd2274525a52e40f4e26c399}
+
+\item 
+uint8\+\_\+t {\bfseries circuit\+\_\+id}\label{osmux_8h_a1bb0153eecb7f155fd9a8052df877a60}
+
+\item 
+struct {\bf osmux\+\_\+in\+\_\+handle} {\bfseries \+\_\+\+\_\+attribute\+\_\+\+\_\+}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Osmocom multiplex protocol helpers 

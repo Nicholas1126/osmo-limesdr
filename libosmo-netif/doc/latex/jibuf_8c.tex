@@ -1,0 +1,111 @@
+\section{src/jibuf.c File Reference}
+\label{jibuf_8c}\index{src/jibuf.\+c@{src/jibuf.\+c}}
+
+
+Osmocom Jitter Buffer helpers.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$inttypes.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/msgb.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/timer.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/talloc.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/logging.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/core/utils.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/netif/amr.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/netif/rtp.\+h$>$}\\*
+{\ttfamily \#include $<$osmocom/netif/jibuf.\+h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf osmo\+\_\+jibuf\+\_\+msgb\+\_\+cb}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+P\+KT}~160
+\item 
+\#define {\bfseries S\+A\+M\+P\+L\+E\+\_\+\+R\+A\+TE}~8000
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+I\+N\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+MS}~60
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+A\+X\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+MS}~200
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+R\+E\+F\+E\+R\+E\+N\+C\+E\+\_\+\+T\+S\+\_\+\+F\+R\+EQ}~60
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+R\+E\+C\+A\+L\+C\+\_\+\+F\+R\+EQ}~40
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+A\+L\+L\+O\+W\+E\+D\+\_\+\+P\+K\+T\+\_\+\+D\+R\+OP}~3
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+A\+L\+L\+O\+W\+E\+D\+\_\+\+P\+K\+T\+\_\+\+C\+O\+N\+S\+E\+C\+U\+T\+I\+V\+E\+\_\+\+D\+R\+OP}~1
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+I\+N\+C\+\_\+\+S\+T\+EP}~20
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+D\+E\+C\+\_\+\+S\+T\+EP}~5
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+S\+K\+E\+W\+\_\+\+W\+E\+I\+G\+HT}~((double)1/32)
+\item 
+\#define {\bfseries J\+I\+B\+U\+F\+\_\+\+M\+S\+G\+B\+\_\+\+CB}(\+\_\+\+\_\+msgb)~((struct {\bf osmo\+\_\+jibuf\+\_\+msgb\+\_\+cb} $\ast$)\&((\+\_\+\+\_\+msgb)-\/$>$cb[0]))
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bfseries ms2timeval} (struct timeval $\ast$ts, uint32\+\_\+t ms)
+\item 
+static uint32\+\_\+t {\bfseries timeval2ms} (const struct timeval $\ast$ts)
+\item 
+static int {\bfseries clock\+\_\+gettime\+\_\+timeval} (clockid\+\_\+t clk\+\_\+id, struct timeval $\ast$tp)
+\item 
+static struct timeval $\ast$ {\bfseries msgb\+\_\+scheduled\+\_\+ts} (const struct msgb $\ast$msg)
+\item 
+static void {\bfseries llist\+\_\+add\+\_\+sorted} (struct msgb $\ast$msg, struct llist\+\_\+head $\ast$msg\+\_\+list)
+\item 
+static void {\bfseries enqueue\+\_\+pkt} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, struct msgb $\ast$msg, bool is\+\_\+syncpoint)
+\item 
+static bool {\bfseries msg\+\_\+get\+\_\+marker} (struct msgb $\ast$msg)
+\item 
+static uint16\+\_\+t {\bfseries msg\+\_\+get\+\_\+sequence} (struct msgb $\ast$msg)
+\item 
+static uint32\+\_\+t {\bfseries msg\+\_\+get\+\_\+timestamp} (struct msgb $\ast$msg)
+\item 
+static int32\+\_\+t {\bfseries samples2ms} (int32\+\_\+t samples)
+\item 
+static int {\bfseries calc\+\_\+pkt\+\_\+rel\+\_\+delay} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, struct msgb $\ast$msg)
+\item 
+static bool {\bfseries msg\+\_\+is\+\_\+in\+\_\+sequence} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, struct msgb $\ast$msg)
+\item 
+static bool {\bfseries msg\+\_\+is\+\_\+syncpoint} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, struct msgb $\ast$msg)
+\item 
+static void {\bfseries msg\+\_\+set\+\_\+as\+\_\+reference} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, struct msgb $\ast$msg)
+\item 
+static void {\bfseries dequeue\+\_\+msg} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, struct msgb $\ast$msg)
+\item 
+static void {\bfseries timer\+\_\+expired} (void $\ast$data)
+\item 
+static void {\bfseries recalc\+\_\+clock\+\_\+skew} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, int32\+\_\+t rel\+\_\+delay)
+\item 
+static void {\bfseries recalc\+\_\+threshold\+\_\+delay} (struct {\bf osmo\+\_\+jibuf} $\ast$jb)
+\item 
+struct {\bf osmo\+\_\+jibuf} $\ast$ {\bf osmo\+\_\+jibuf\+\_\+alloc} (void $\ast$talloc\+\_\+ctx)
+\begin{DoxyCompactList}\small\item\em Allocate a new jitter buffer instance. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+jibuf\+\_\+delete} (struct {\bf osmo\+\_\+jibuf} $\ast$jb)
+\begin{DoxyCompactList}\small\item\em Destroy a previously allocated jitter buffer instance. \end{DoxyCompactList}\item 
+int {\bf osmo\+\_\+jibuf\+\_\+enqueue} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, struct msgb $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Try to enqueue a packet into the jitter buffer. \end{DoxyCompactList}\item 
+bool {\bf osmo\+\_\+jibuf\+\_\+empty} (struct {\bf osmo\+\_\+jibuf} $\ast$jb)
+\begin{DoxyCompactList}\small\item\em Check whether the jitter buffer instance has packets queued or not. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+jibuf\+\_\+set\+\_\+min\+\_\+delay} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, uint32\+\_\+t min\+\_\+delay)
+\begin{DoxyCompactList}\small\item\em Set minimum buffer size for the jitter buffer. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+jibuf\+\_\+set\+\_\+max\+\_\+delay} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, uint32\+\_\+t max\+\_\+delay)
+\begin{DoxyCompactList}\small\item\em Set maximum buffer size for the jitter buffer. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+jibuf\+\_\+enable\+\_\+skew\+\_\+compensation} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, bool enable)
+\begin{DoxyCompactList}\small\item\em Toggle use of skew detection and compensation mechanism. \end{DoxyCompactList}\item 
+void {\bf osmo\+\_\+jibuf\+\_\+set\+\_\+dequeue\+\_\+cb} (struct {\bf osmo\+\_\+jibuf} $\ast$jb, osmo\+\_\+jibuf\+\_\+dequeue\+\_\+cb dequeue\+\_\+cb, void $\ast$cb\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Set dequeue callback for the jitter buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Osmocom Jitter Buffer helpers. 
+
